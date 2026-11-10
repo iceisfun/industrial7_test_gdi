@@ -3,3 +3,5 @@ results/
 # raw / large dumps stay local (see data/README.md): keep a manifest + hashes in git instead
 data/raw/
 *.rec.bad
+__pycache__/
+*.pyc

@@ -1,3 +1,5 @@
+> SUPERSEDED 2026-11-10: see ../STATE.md. The text below is the original suspension note and is stale (probes, tooling and Win10 data now exist on master).
+
 # Resuming the GDI font/text-metrics suite (industrial7_test_gdi) workflow(s)
 
 Suspended on 2026-11-10 when the weekly Claude usage budget ran out. This branch (`workflow`) holds the repo **as-is at suspension** plus
