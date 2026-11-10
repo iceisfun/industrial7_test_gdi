@@ -148,3 +148,12 @@ acquisitions. Use the default logoff mode, which section 5.1 shows works for eve
 unset, throw-away prefix) into `build/wine/<probe>.rec` and validates the trailer. It proves the probe compiles, runs,
 emits a well-formed recording and does not crash. Its numbers are Wine's (FreeType, Wine/Liberation fonts) and must
 never go into `data/` (docs/research/04).
+
+## Running on lanec: local oracle from bb depot m2
+
+`~/w10lab` is a symlink to `/storage/lanec/w10lab`, which holds `win10base.qcow2` (`bb depot get m2`, sha256 991856e1...c4e, read-only),
+`oracle.lock` and `runs/`. `~/w10lab/tools/win10_run.sh` (copy in the repo: `tools/win10_run_local.sh`) implements the contract above:
+flock on `oracle.lock`, qcow2 overlay per boot (deleted unless `W10_KEEPDISK=1`/`W10_OVERLAY`), payload ISO with `i7run/` (+ empty `shutdown`,
+CRLF run.cmd), qemu/KVM q35, 2 vCPU, 4 GiB, IDE disk + IDE CD, std VGA, no NIC, `-rtc base=localtime`, `-no-reboot`, serial to
+`OUTDIR/serial.log`, QMP at `OUTDIR/qmp.sock`, pid in `OUTDIR/qemu.pid`. Exit 0 ok, 65 no `I7VMRUN END`, 124 timeout.
+Measured 2026-11-10: `vm_run.sh hello` 59 s, `--dpi 96,144` sweep 72 s; hello recordings equal the committed ones (diffs=0).
