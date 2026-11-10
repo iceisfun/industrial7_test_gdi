@@ -31,7 +31,7 @@
 #include <string.h>
 #include <wchar.h>
 
-#define PROBE_VER "1"
+#define PROBE_VER "2"
 static int g_full = 1;
 
 /* ------------------------------------------------------------------ bounded big-endian reads */
@@ -46,6 +46,15 @@ static uint32_t L32(size_t o){ if(o+4>G_N||o+4<o){ g_oob=1; return 0; } return G
 
 static void sha16(char out[17], const void *p, size_t n){ uint8_t h[32]; rec_sha256(p,n,h); rec_hex(out,h,8); out[16]=0; }
 static void tagstr(char t[5], uint32_t tag){ for(int i=0;i<4;i++){ unsigned c=(tag>>(24-8*i))&0xff; t[i]=(c>=0x21&&c<0x7f)?(char)c:'_'; } t[4]=0; }
+
+/* ------------------------------------------------------------------ schemas + absent rows */
+static struct { const char *t; int n; } g_sch[64]; static int g_nsch;
+static void schema(const char *t, const char *ids, const char *cols){
+  rec_schema(t,ids,cols); int n=0, in=0; for(const char *c=cols;*c;c++){ if(*c!=' '){ if(!in) n++; in=1; } else in=0; }
+  if(g_nsch<64){ g_sch[g_nsch].t=t; g_sch[g_nsch].n=n; g_nsch++; } }
+/* a row of `!` for a table the face does not have (absence is recorded, never silent) */
+static void na_row(const char *t, const rk *k){ int n=0; for(int i=0;i<g_nsch;i++) if(!strcmp(g_sch[i].t,t)) n=g_sch[i].n;
+  rv v; rv_reset(&v); for(int i=0;i<n;i++) rv_na(&v); rec_row(t,k,&v); }
 
 /* ------------------------------------------------------------------ file list */
 typedef struct {
@@ -141,8 +150,11 @@ static int find_table(size_t fo, uint32_t tag, size_t *off, size_t *len){
 #define TAG(a,b,c,d) (((uint32_t)(a)<<24)|((uint32_t)(b)<<16)|((uint32_t)(c)<<8)|(uint32_t)(d))
 
 /* decode a name record into UTF-16 (platform 0/3: UTF-16BE; 1/0 MacRoman as Latin-1 approximation; else hex) */
+/* NAME_CAP: decoded strings are cut to this many UTF-16 units so that the UTF-8 + %XX escaped token always fits the
+ * rv builder (rec.c w2u() turns an over-long string into "" silently). The `len` column records the full length. */
+#define NAME_CAP 200
 static void name_decode(WCHAR *out, int cap, unsigned plat, unsigned enc, size_t o, unsigned len){
-  int n=0;
+  int n=0; if(cap>NAME_CAP+1) cap=NAME_CAP+1;
   if(plat==0||plat==3){ for(unsigned i=0;i+1<len && n<cap-1;i+=2) out[n++]=(WCHAR)U16(o+i); }
   else if(plat==1 && enc==0){ for(unsigned i=0;i<len && n<cap-1;i++) out[n++]=(WCHAR)U8(o+i); }
   else { static const char hx[]="0123456789abcdef"; for(unsigned i=0;i<len && n<cap-3;i++){ unsigned c=U8(o+i); out[n++]=hx[c>>4]; out[n++]=hx[c&15]; } }
@@ -190,16 +202,20 @@ static int cmap_fill(size_t so, size_t slen, unsigned fmt){
   if(fmt==0){ for(unsigned c=0;c<256;c++) cov_set(c,U8(so+6+c)); return 1; }
   if(fmt==6){ unsigned first=U16(so+6), cnt=U16(so+8); for(unsigned i=0;i<cnt;i++) cov_set(first+i,U16(so+10+2*i)); return 1; }
   if(fmt==4){ unsigned segx2=U16(so+6), seg=segx2/2; size_t eo=so+14, sto=eo+segx2+2, dlo=sto+segx2, ro=dlo+segx2;
+    unsigned long budget=4ul*0x10000;
     for(unsigned s=0;s<seg;s++){ unsigned e=U16(eo+2*s), st=U16(sto+2*s); int d=S16(dlo+2*s); unsigned r=U16(ro+2*s);
       if(st>e) continue;
+      if((unsigned long)(e-st)+1>budget){ g_oob=1; break; } budget-=(unsigned long)(e-st)+1;
       for(unsigned c=st;c<=e;c++){ if(c==0xffff) break; unsigned g;
         if(!r) g=(c+d)&0xffff; else { size_t go=ro+2*s+r+2*(c-st); if(go+2>end) { g=0; } else { g=U16(go); if(g) g=(g+d)&0xffff; } }
         cov_set(c,g); } }
     return 1; }
-  if(fmt==12||fmt==13){ uint32_t n=U32(so+12); if((size_t)n*12>slen) n=(uint32_t)(slen/12);
+  if(fmt==12||fmt==13){ uint32_t n=U32(so+12); if(slen<16) n=0; else if((size_t)n>(slen-16)/12) n=(uint32_t)((slen-16)/12);
+    unsigned long long budget=4ull*0x110000; /* total code points visited: a corrupt font cannot make this loop unbounded */
     for(uint32_t i=0;i<n;i++){ size_t go=so+16+12*(size_t)i; uint32_t a=U32(go), b=U32(go+4), g=U32(go+8);
       if(b>=0x110000) b=0x10ffff;
       if(a>b) continue;
+      if((unsigned long long)(b-a)+1>budget){ g_oob=1; break; } budget-=(unsigned long long)(b-a)+1;
       for(uint32_t c=a;c<=b;c++) cov_set(c, fmt==12 ? (unsigned)(g+(c-a)) : (unsigned)g); }
     return 1; }
   return 0;
@@ -218,8 +234,8 @@ static void do_cmap(const char *fname, int fi, size_t fo, rk *kf){
     if(s>bscore){ bscore=s; best=so; bfmt=f; snprintf(btag,sizeof btag,"%u.%u.%u",p,e,f); } }
   memset(g_cov,0,sizeof g_cov); memset(g_gid,0,0x110000*sizeof *g_gid);
   size_t blen=0;
-  if(best){ if(bfmt==12||bfmt==13) blen=U32(best+4); else blen=U16(best+2); if(best+blen>G_N) blen=G_N-best; cmap_fill(best,blen,bfmt); }
-  rv_s(&v,subs[0]?subs:"~"); rv_s(&v,btag);
+  if(best && best<G_N){ if(bfmt==12||bfmt==13) blen=U32(best+4); else blen=U16(best+2); if(blen>G_N-best) blen=G_N-best; cmap_fill(best,blen,bfmt); }
+  rv_s(&v,subs[0]?subs:""); rv_s(&v,btag);
   unsigned long tot=0, supp=0;
   for(uint32_t c=0;c<0x110000;c++) if(g_cov[c>>3]&(1u<<(c&7))){ tot++; if(c>=0x10000) supp++; }
   rv_u(&v,tot); rv_u(&v,supp);
@@ -263,13 +279,13 @@ static void do_face(const char *fname, int fi, size_t fo, int detail){
   if(find_table(fo,TAG('E','B','L','C'),&eo,&el)||find_table(fo,TAG('b','l','o','c'),&eo,&el)){
     uint32_t ns=U32(eo+4); for(uint32_t i=0;i<ns && i<256;i++){ size_t b=eo+8+48*(size_t)i;
       sn+=snprintf(sl+sn,sizeof sl-sn,"%s%ux%ub%u",sn?",":"",U8(b+44),U8(b+45),U8(b+46)); if(sn>=(int)sizeof sl){ sn=sizeof sl-1; break; } } }
-  rv_s(&v,sn?sl:"~");
+  rv_s(&v,sn?sl:"");
   char gs[1024]=""; int gn=0; size_t go,gl;
   if(find_table(fo,TAG('g','a','s','p'),&go,&gl)){ unsigned nr=U16(go+2); for(unsigned i=0;i<nr && i<128;i++){
       gn+=snprintf(gs+gn,sizeof gs-gn,"%s%u:0x%x",gn?",":"",U16(go+4+4*i),U16(go+6+4*i)); if(gn>=(int)sizeof gs){ gn=sizeof gs-1; break; } } }
-  rv_s(&v,gn?gs:"~");
+  rv_s(&v,gn?gs:"");
   char tl[1024]=""; int tn=0; for(unsigned i=0;i<nt && i<128;i++){ char t[5]; tagstr(t,U32(fo+12+16*(size_t)i)); tn+=snprintf(tl+tn,sizeof tl-tn,"%s%s",tn?",":"",t); if(tn>=(int)sizeof tl){ tn=sizeof tl-1; break; } }
-  rv_s(&v,tn?tl:"~");
+  rv_s(&v,tn?tl:"");
   rec_row("face",&kf,&v);
 
   /* ---- name */
@@ -277,49 +293,58 @@ static void do_face(const char *fname, int fi, size_t fo, int detail){
     static const unsigned IDS[]={0,1,2,3,4,5,6,16,17,21,22};
     for(unsigned i=0;i<sizeof IDS/sizeof*IDS;i++){ size_t r=name_pick(no,IDS[i]); if(!r) continue;
       rk k=kf; rk_i(&k,"id",IDS[i]); rv_reset(&v); WCHAR w[512]; size_t so=no+U16(no+4);
-      name_decode(w,IDS[i]==0?160:512,U16(r),U16(r+2),so+U16(r+10),U16(r+8)); /* copyright truncated to 159 chars */
-      rv_w(&v,w); rv_i(&v,U16(r)); rv_i(&v,U16(r+2)); rv_x(&v,U16(r+4)); rec_row("name",&k,&v); }
+      name_decode(w,512,U16(r),U16(r+2),so+U16(r+10),U16(r+8)); /* cut to NAME_CAP UTF-16 units; full length in `units` */
+      unsigned pl=U16(r); rv_w(&v,w); rv_i(&v,pl); rv_i(&v,U16(r+2)); rv_x(&v,U16(r+4));
+      rv_i(&v,(pl==0||pl==3)?U16(r+8)/2:U16(r+8)); rec_row("name",&k,&v); }
     /* every Windows-platform family / full name in a non-0x409 language (localized names) */
     unsigned cnt=U16(no+2); size_t so=no+U16(no+4);
     for(unsigned i=0;i<cnt;i++){ size_t r=no+6+12*(size_t)i; unsigned p=U16(r), id=U16(r+6), lang=U16(r+4);
       if(p!=3 || lang==0x409 || (id!=1&&id!=4&&id!=16)) continue;
       rk k=kf; rk_i(&k,"id",id); rk_i(&k,"enc",U16(r+2)); rk_x(&k,"lang",lang); rv_reset(&v); WCHAR w[512];
-      name_decode(w,512,p,U16(r+2),so+U16(r+10),U16(r+8)); rv_w(&v,w); rec_row("name_loc",&k,&v); }
+      name_decode(w,512,p,U16(r+2),so+U16(r+10),U16(r+8)); rv_w(&v,w); rv_i(&v,U16(r+8)/2); rec_row("name_loc",&k,&v); }
     rk k=kf; rv_reset(&v); rv_i(&v,U16(no)); rv_i(&v,cnt); rec_row("name_n",&k,&v);
-  }
+  } else na_row("name_n",&kf);
   /* ---- head */
   if(find_table(fo,TAG('h','e','a','d'),&o,&l)){ rv_reset(&v);
     rv_x(&v,U32(o)); rv_x(&v,U32(o+4)); rv_x(&v,U32(o+12)); rv_x(&v,U16(o+16)); rv_i(&v,U16(o+18));
     rv_i(&v,S16(o+36)); rv_i(&v,S16(o+38)); rv_i(&v,S16(o+40)); rv_i(&v,S16(o+42)); rv_x(&v,U16(o+44)); rv_i(&v,U16(o+46));
-    rv_i(&v,S16(o+48)); rv_i(&v,S16(o+50)); rec_row("head",&kf,&v); }
+    rv_i(&v,S16(o+48)); rv_i(&v,S16(o+50)); rec_row("head",&kf,&v); } else na_row("head",&kf);
   /* ---- hhea */
   if(find_table(fo,TAG('h','h','e','a'),&o,&l)){ rv_reset(&v);
     rv_i(&v,S16(o+4)); rv_i(&v,S16(o+6)); rv_i(&v,S16(o+8)); rv_i(&v,U16(o+10)); rv_i(&v,S16(o+12)); rv_i(&v,S16(o+14)); rv_i(&v,S16(o+16));
-    rv_i(&v,S16(o+18)); rv_i(&v,S16(o+20)); rv_i(&v,S16(o+22)); rv_i(&v,U16(o+34)); rec_row("hhea",&kf,&v); }
+    rv_i(&v,S16(o+18)); rv_i(&v,S16(o+20)); rv_i(&v,S16(o+22)); rv_i(&v,U16(o+34)); rec_row("hhea",&kf,&v); } else na_row("hhea",&kf);
   /* ---- OS/2 */
   if(find_table(fo,TAG('O','S','/','2'),&o,&l)){ rv_reset(&v); unsigned ver=U16(o);
-    rv_i(&v,ver); rv_i(&v,S16(o+2)); rv_i(&v,U16(o+4)); rv_i(&v,U16(o+6)); rv_x(&v,U16(o+8)); rv_x(&v,U16(o+62));
-    rv_i(&v,S16(o+68)); rv_i(&v,S16(o+70)); rv_i(&v,S16(o+72)); rv_i(&v,U16(o+74)); rv_i(&v,U16(o+76));
-    char pan[21]; rec_hex(pan,G_P+(o+42<=G_N?o+32:0),(o+42<=G_N)?10:0); rv_s(&v,(o+42<=G_N)?pan:"!");
-    char vend[5]; for(int i=0;i<4;i++){ unsigned c=U8(o+58+i); vend[i]=(c>=0x20&&c<0x7f)?(char)c:'?'; } vend[4]=0; rv_s(&v,vend);
-    rv_x(&v,U32(o+42)); rv_x(&v,U32(o+46)); rv_x(&v,U32(o+50)); rv_x(&v,U32(o+54));
-    if(ver>=1 && l>=86){ rv_x(&v,U32(o+78)); rv_x(&v,U32(o+82)); } else { rv_na(&v); rv_na(&v); }
-    if(ver>=2 && l>=96){ rv_i(&v,S16(o+86)); rv_i(&v,S16(o+88)); rv_x(&v,U16(o+90)); rv_x(&v,U16(o+92)); rv_i(&v,U16(o+94)); }
-    else { for(int i=0;i<5;i++) rv_na(&v); }
-    rv_x(&v,U16(o+64)); rv_x(&v,U16(o+66)); rv_x(&v,(unsigned)S16(o+30)&0xffff);
-    rv_i(&v,S16(o+26)); rv_i(&v,S16(o+28));
-    rv_i(&v,S16(o+10)); rv_i(&v,S16(o+12)); rv_i(&v,S16(o+14)); rv_i(&v,S16(o+16));
-    rv_i(&v,S16(o+18)); rv_i(&v,S16(o+20)); rv_i(&v,S16(o+22)); rv_i(&v,S16(o+24));
-    rv_i(&v,(int)l);
-    rec_row("os2",&kf,&v); }
+    /* table-local bounds: a field past the stored table length (short v0 tables) is `!`, never a neighbour's bytes */
+#define TS(off) do{ if((size_t)(off)+2<=l) rv_i(&v,S16(o+(off))); else rv_na(&v); }while(0)
+#define TU(off) do{ if((size_t)(off)+2<=l) rv_i(&v,U16(o+(off))); else rv_na(&v); }while(0)
+#define TX(off) do{ if((size_t)(off)+2<=l) rv_x(&v,U16(o+(off))); else rv_na(&v); }while(0)
+#define TX4(off) do{ if((size_t)(off)+4<=l) rv_x(&v,U32(o+(off))); else rv_na(&v); }while(0)
+    TU(0); TS(2); TU(4); TU(6); TX(8); TX(62);
+    TS(68); TS(70); TS(72); TU(74); TU(76);
+    if(l>=42){ char pan[21]; rec_hex(pan,G_P+o+32,10); rv_s(&v,pan); } else rv_na(&v);
+    if(l>=62){ char vend[5]; for(int i=0;i<4;i++){ unsigned c=U8(o+58+i); vend[i]=(c>=0x20&&c<0x7f)?(char)c:'?'; } vend[4]=0; rv_s(&v,vend); } else rv_na(&v);
+    TX4(42); TX4(46); TX4(50); TX4(54);
+    if(ver>=1){ TX4(78); TX4(82); } else { rv_na(&v); rv_na(&v); }
+    if(ver>=2){ TS(86); TS(88); TX(90); TX(92); TU(94); } else { for(int i=0;i<5;i++) rv_na(&v); }
+    TX(64); TX(66); TX(30);
+    TS(26); TS(28);
+    TS(10); TS(12); TS(14); TS(16);
+    TS(18); TS(20); TS(22); TS(24);
+    rv_i(&v,(long long)l);
+#undef TS
+#undef TU
+#undef TX
+#undef TX4
+    rec_row("os2",&kf,&v); } else na_row("os2",&kf);
   /* ---- post */
   if(find_table(fo,TAG('p','o','s','t'),&o,&l)){ rv_reset(&v);
-    rv_x(&v,U32(o)); rv_x(&v,U32(o+4)); rv_i(&v,S16(o+8)); rv_i(&v,S16(o+10)); rv_i(&v,U32(o+12)); rec_row("post",&kf,&v); }
+    rv_x(&v,U32(o)); rv_x(&v,U32(o+4)); rv_i(&v,S16(o+8)); rv_i(&v,S16(o+10)); rv_i(&v,U32(o+12)); rec_row("post",&kf,&v); } else na_row("post",&kf);
   /* ---- maxp */
   if(find_table(fo,TAG('m','a','x','p'),&o,&l)){ rv_reset(&v); uint32_t mv=U32(o);
     rv_x(&v,mv); rv_i(&v,U16(o+4));
     if(mv==0x00010000 && l>=32){ for(int i=6;i<=30;i+=2) rv_i(&v,U16(o+i)); } else for(int i=6;i<=30;i+=2) rv_na(&v);
-    rec_row("maxp",&kf,&v); }
+    rec_row("maxp",&kf,&v); } else na_row("maxp",&kf);
   /* ---- cmap */
   do_cmap(fname,fi,fo,&kf);
   /* ---- hmtx advance hash */
@@ -339,7 +364,7 @@ static void do_face(const char *fname, int fi, size_t fo, int detail){
     if(ver==0){ unsigned n=U16(o+2); size_t p=o+4; unsigned long pairs=0; char fm[128]=""; int fn=0;
       for(unsigned i=0;i<n && i<64 && p+6<=o+l;i++){ unsigned len=U16(p+2), cov=U16(p+4), f=cov>>8; if(f==0) pairs+=U16(p+6);
         fn+=snprintf(fm+fn,sizeof fm-fn,"%s%u/0x%x",fn?",":"",f,cov&0xff); if(fn>=(int)sizeof fm) fn=sizeof fm-1; if(!len) break; p+=len; }
-      rv_i(&v,ver); rv_i(&v,n); rv_u(&v,pairs); rv_s(&v,fn?fm:"~"); }
+      rv_i(&v,ver); rv_i(&v,n); rv_u(&v,pairs); rv_s(&v,fn?fm:""); }
     else { rv_i(&v,ver); rv_na(&v); rv_na(&v); rv_na(&v); }
     char h[17]; sha16(h,G_P+o,l); rv_s(&v,h); rec_row("kern",&kf,&v); }
 
@@ -352,7 +377,9 @@ static void do_face(const char *fname, int fi, size_t fo, int detail){
       if(gi<0 && ns<64){ seen[ns]=go2; gi=ns++; }
       rk k=kf; rk_i(&k,"r",r); rv_reset(&v); rv_i(&v,ver); rv_i(&v,U8(o+6+4*r)); rv_i(&v,U8(o+7+4*r)); rv_i(&v,U8(o+8+4*r)); rv_i(&v,U8(o+9+4*r)); rv_i(&v,gi);
       rec_row("vdmx_ratio",&k,&v); }
-    for(int g=0;g<ns;g++){ size_t gp=o+seen[g]; unsigned recs=U16(gp); for(unsigned i=0;i<recs && i<512;i++){ size_t e=gp+4+6*(size_t)i;
+    for(int g=0;g<ns;g++){ size_t gp=o+seen[g]; unsigned recs=U16(gp);
+      { rk k=kf; rk_i(&k,"group",g); rv_reset(&v); rv_i(&v,recs); rv_i(&v,U8(gp+2)); rv_i(&v,U8(gp+3)); rv_x(&v,seen[g]); rec_row("vdmx_group",&k,&v); }
+      for(unsigned i=0;i<recs && i<512;i++){ size_t e=gp+4+6*(size_t)i;
         rk k=kf; rk_i(&k,"group",g); rk_i(&k,"ypel",U16(e)); rv_reset(&v); rv_i(&v,S16(e+2)); rv_i(&v,S16(e+4)); rec_row("vdmx",&k,&v); } }
     (void)nrec;
   }
@@ -373,6 +400,7 @@ static void do_face(const char *fname, int fi, size_t fo, int detail){
 }
 
 /* ------------------------------------------------------------------ .fon (FNT resources) */
+static char g_fonsz[1024]; static int g_fonszn; /* per .fon: "pix_height:points:charset" of every resource, in resource order */
 static void fnt_row(const char *fname, const char *rid, size_t ro, size_t rl){
   rk k; rk_reset(&k); rk_s(&k,"file",fname); rk_s(&k,"res",rid); rv v; rv_reset(&v);
   /* bounded LE reads relative to the resource */
@@ -382,12 +410,15 @@ static void fnt_row(const char *fname, const char *rid, size_t ro, size_t rl){
   rv_i(&v,U8(80)); rv_i(&v,U8(81)); rv_i(&v,U8(82)); rv_i(&v,L16(83)); rv_i(&v,U8(85)); rv_i(&v,L16(86)); rv_i(&v,L16(88)); rv_x(&v,U8(90));
   rv_i(&v,L16(91)); rv_i(&v,L16(93)); rv_i(&v,U8(95)); rv_i(&v,U8(96)); rv_i(&v,U8(97)); rv_i(&v,U8(98));
   uint32_t fo=L32(105); char face[64]=""; if(fo && fo<rl){ int i=0; while(i<63 && fo+i<rl && G_P[fo+i]){ face[i]=(char)G_P[fo+i]; i++; } face[i]=0; }
-  rv_s(&v,face[0]?face:"~");
-  char cr[61]; int i=0; for(;i<60 && 6+i<(int)rl && G_P[6+i];i++) cr[i]=(char)G_P[6+i]; cr[i]=0; while(i>0&&cr[i-1]==' ') cr[--i]=0; rv_s(&v,cr[0]?cr:"~");
+  rv_s(&v,face[0]?face:"");
+  char cr[61]; int i=0; for(;i<60 && 6+i<(int)rl && G_P[6+i];i++) cr[i]=(char)G_P[6+i]; cr[i]=0; while(i>0&&cr[i-1]==' ') cr[--i]=0; rv_s(&v,cr[0]?cr:"");
   char h[17]; sha16(h,G_P,rl); rv_s(&v,h); rv_u(&v,rl);
   /* character width table (v2: 4 bytes/char, v3: 6 bytes/char) for first..last+1 */
   unsigned first=U8(95), last=U8(96); size_t ct=(ver>=0x300)?148:118, es=(ver>=0x300)?6:4; unsigned nch=(last>=first)?last-first+2:0;
-  if(ct+es*nch<=rl){ uint8_t w[257]; for(unsigned c=0;c<nch && c<257;c++) w[c]=(uint8_t)L16(ct+es*c); char hw[17]; sha16(hw,w,nch<257?nch:257); rv_s(&v,hw); } else rv_na(&v);
+  /* hash of the dfCharTable widths as u16 LE, first..last+1 (the +1 is the sentinel/absolute-space entry) */
+  if(ct+es*nch<=rl){ uint8_t w[2*257]; unsigned m=nch<257?nch:257; for(unsigned c=0;c<m;c++){ unsigned x=L16(ct+es*c); w[2*c]=(uint8_t)x; w[2*c+1]=(uint8_t)(x>>8); }
+    char hw[17]; sha16(hw,w,2*m); rv_s(&v,hw); } else rv_na(&v);
+  if(g_fonszn<(int)sizeof g_fonsz-24) g_fonszn+=snprintf(g_fonsz+g_fonszn,sizeof g_fonsz-g_fonszn,"%s%u:%u:%u",g_fonszn?",":"",L16(88),L16(68),U8(85));
   G_P=sp; G_N=sn;
   rec_row("fon",&k,&v);
 }
@@ -401,7 +432,7 @@ static void do_ne(const char *fname, size_t ne){
     p+=12*(size_t)cnt; }
   /* module description = first entry of the non-resident name table */
   uint32_t nro=L32(ne+0x2c); char desc[256]=""; if(nro<G_N){ unsigned n=U8(nro); unsigned i=0; for(;i<n && i<255 && nro+1+i<G_N;i++) desc[i]=(char)G_P[nro+1+i]; desc[i]=0; }
-  rk k; rk_reset(&k); rk_s(&k,"file",fname); rv v; rv_reset(&v); rv_s(&v,"ne"); rv_i(&v,nres); rv_s(&v,desc[0]?desc:"~"); rec_row("fon_file",&k,&v);
+  rk k; rk_reset(&k); rk_s(&k,"file",fname); rv v; rv_reset(&v); rv_s(&v,"ne"); rv_i(&v,nres); rv_s(&v,desc[0]?desc:""); rv_s(&v,g_fonszn?g_fonsz:""); rec_row("fon_file",&k,&v);
 }
 typedef struct { const char *fname; int n; } pe_ctx;
 static BOOL CALLBACK pe_res_cb(HMODULE m, LPCWSTR type, LPWSTR name, LONG_PTR lp){
@@ -415,7 +446,7 @@ static void do_pe_fon(const char *fname, const WCHAR *path){
   HMODULE m=LoadLibraryExW(path,NULL,LOAD_LIBRARY_AS_DATAFILE|LOAD_LIBRARY_AS_IMAGE_RESOURCE);
   pe_ctx c={fname,0};
   if(m){ EnumResourceNamesW(m,MAKEINTRESOURCEW(8),pe_res_cb,(LONG_PTR)&c); FreeLibrary(m); }
-  rk k; rk_reset(&k); rk_s(&k,"file",fname); rv v; rv_reset(&v); rv_s(&v,"pe"); if(m) rv_i(&v,c.n); else rv_na(&v); rv_s(&v,"~"); rec_row("fon_file",&k,&v);
+  rk k; rk_reset(&k); rk_s(&k,"file",fname); rv v; rv_reset(&v); rv_s(&v,"pe"); if(m) rv_i(&v,c.n); else rv_na(&v); rv_s(&v,""); rv_s(&v,g_fonszn?g_fonsz:""); rec_row("fon_file",&k,&v);
 }
 
 /* ------------------------------------------------------------------ per file */
@@ -446,7 +477,8 @@ static void do_file(fent *e){
   if(b){
     if(kind==1){ for(int i=0;i<nfaces;i++){ size_t fo=U32(12+4*(size_t)i); if(fo+12<=n) do_face(e->name,i,fo,1); } }
     else if(kind==0||kind==2) do_face(e->name,0,0,1);
-    else if(kind==3) do_ne(e->name,L32(0x3c));
+    g_fonszn=0; g_fonsz[0]=0;
+    if(kind==3) do_ne(e->name,L32(0x3c));
     else if(kind==4) do_pe_fon(e->name,path);
     if(g_oob) rec_note("out-of-bounds read while parsing %s (fields shown as 0)",e->name);
     free(b);
@@ -459,15 +491,16 @@ typedef struct { WCHAR name[400]; DWORD type; BYTE *data; DWORD len; } regv;
 static int regv_cmp(const void *a, const void *b){ return _wcsicmp(((const regv*)a)->name,((const regv*)b)->name); }
 static void dump_key(const char *shortname, HKEY root, const WCHAR *path, int collect_files){
   HKEY h; rk k; rk_reset(&k); rk_s(&k,"key",shortname); rv v; rv_reset(&v);
-  LONG r=RegOpenKeyExW(root,path,0,KEY_READ,&h);
+  LONG r=RegOpenKeyExW(root,path,0,KEY_READ|KEY_WOW64_64KEY,&h); /* the native view also from the x86 build */
   char up[600]; WideCharToMultiByte(CP_UTF8,0,path,-1,up,sizeof up,NULL,NULL); up[sizeof up-1]=0;
   rv_s(&v,root==HKEY_CURRENT_USER?"HKCU":"HKLM"); rv_s(&v,up);
   if(r!=ERROR_SUCCESS){ rv_i(&v,0); rv_na(&v); rv_na(&v); rec_row("regkey",&k,&v); return; }
   DWORD nv=0,ns=0,mvn=0,mvd=0; RegQueryInfoKeyW(h,NULL,NULL,NULL,&ns,NULL,NULL,&nv,&mvn,&mvd,NULL,NULL);
   rv_i(&v,1); rv_i(&v,nv); rv_i(&v,ns); rec_row("regkey",&k,&v);
-  regv *a=(regv*)calloc(nv+1,sizeof *a); int na=0;
+  regv *a=(regv*)calloc(nv+1,sizeof *a); int na=0, nfail=0;
   for(DWORD i=0;i<nv;i++){ regv *x=&a[na]; DWORD nl=400, dl=mvd+4; x->data=(BYTE*)calloc(1,dl+4);
-    if(RegEnumValueW(h,i,x->name,&nl,NULL,&x->type,x->data,&dl)==ERROR_SUCCESS){ x->len=dl; na++; } else free(x->data); }
+    LONG er=RegEnumValueW(h,i,x->name,&nl,NULL,&x->type,x->data,&dl);
+    if(er==ERROR_SUCCESS){ x->len=dl; na++; } else { free(x->data); nfail++; if(nfail<=4) rec_note("RegEnumValue %s #%lu failed %ld (value not recorded)",shortname,(unsigned long)i,er); } }
   qsort(a,na,sizeof *a,regv_cmp);
   for(int i=0;i<na;i++){ regv *x=&a[i];
     rk kk=k; rk_w(&kk,"name",x->name);
@@ -475,14 +508,18 @@ static void dump_key(const char *shortname, HKEY root, const WCHAR *path, int co
       while(p<e && *p){ rk k2=kk; rk_i(&k2,"i",j++); rv_reset(&v); rv_s(&v,"multi_sz"); rv_w(&v,p); rec_row("reg",&k2,&v);
         if(collect_files){ const WCHAR *c=wcschr(p,L','); WCHAR f[MAX_PATH]; size_t l=c?(size_t)(c-p):wcslen(p); if(l<MAX_PATH){ wcsncpy(f,p,l); f[l]=0; add_extra_key(f); } }
         p+=wcslen(p)+1; }
-      if(!j){ rk k2=kk; rk_i(&k2,"i",0); rv_reset(&v); rv_s(&v,"multi_sz"); rv_s(&v,"~"); rec_row("reg",&k2,&v); }
+      if(!j){ rk k2=kk; rk_i(&k2,"i",0); rv_reset(&v); rv_s(&v,"multi_sz"); rv_s(&v,""); rec_row("reg",&k2,&v); }
       continue; }
     rk_i(&kk,"i",0); rv_reset(&v);
-    if(x->type==REG_SZ||x->type==REG_EXPAND_SZ){ rv_s(&v,x->type==REG_SZ?"sz":"expand_sz"); rv_w(&v,(const WCHAR*)x->data); if(collect_files==2) add_extra_key((const WCHAR*)x->data); }
+    if(x->type==REG_SZ||x->type==REG_EXPAND_SZ){ rv_s(&v,x->type==REG_SZ?"sz":"expand_sz");
+      size_t wl=wcslen((const WCHAR*)x->data);
+      if(wl<=300) rv_w(&v,(const WCHAR*)x->data); /* longer strings would not fit the token builder: hashed instead */
+      else { char h[17]; sha16(h,x->data,wl*2); char t2[64]; snprintf(t2,sizeof t2,"sha256/16=%s,utf16_units=%lu",h,(unsigned long)wl); rv_s(&v,t2); }
+      if(collect_files==2) add_extra_key((const WCHAR*)x->data); }
     else if(x->type==REG_DWORD && x->len>=4){ DWORD d; memcpy(&d,x->data,4); rv_s(&v,"dword"); rv_x(&v,d); }
     else if(x->type==REG_QWORD && x->len>=8){ unsigned long long q; memcpy(&q,x->data,8); rv_s(&v,"qword"); rv_x(&v,q); }
     else { char t[24]; snprintf(t,sizeof t,"type%lu",x->type); rv_s(&v,x->type==REG_BINARY?"binary":t);
-      if(x->len<=256){ char hx[520]; rec_hex(hx,x->data,x->len); rv_s(&v,x->len?hx:"~"); }
+      if(x->len<=256){ char hx[520]; rec_hex(hx,x->data,x->len); rv_s(&v,x->len?hx:""); }
       else { char h[17]; sha16(h,x->data,x->len); char t2[64]; snprintf(t2,sizeof t2,"sha256/16=%s,len=%lu",h,x->len); rv_s(&v,t2); } }
     rec_row("reg",&kk,&v); }
   for(int i=0;i<na;i++) free(a[i].data);
@@ -495,9 +532,9 @@ static void dump_key(const char *shortname, HKEY root, const WCHAR *path, int co
   RegCloseKey(h);
 }
 static void do_registry(void){
-  rec_schema("regkey","key","root path exists values subkeys");
-  rec_schema("reg","key name i","type value");
-  rec_schema("regsub","key subkey","exists");
+  schema("regkey","key","root path exists values subkeys");
+  schema("reg","key name i","type value");
+  schema("regsub","key subkey","exists");
   const WCHAR *NT=L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\";
   struct { const char *s; HKEY r; const WCHAR *p; int abs; int collect; } K[]={
     {"Fonts",HKEY_LOCAL_MACHINE,L"Fonts",0,0},
@@ -540,7 +577,7 @@ static void gdi_file(HDC dc, const char *face, int weight, int charset){
     uint8_t *b=(uint8_t*)malloc(use);
     if(b && GetFontData(dc,tag,0,b,use)==use){ uint8_t h[32]; rec_sha256(b,use,h); char hx[65]; rec_hex(hx,h,32); rv_s(&v,hx);
       char mf[1024]=""; int ml=0; for(int i=0;i<NF;i++) if(F[i].hashed && !memcmp(F[i].sha,h,32)){ ml+=snprintf(mf+ml,sizeof mf-ml,"%s%s",ml?",":"",F[i].name); matched++; if(ml>=(int)sizeof mf){ ml=sizeof mf-1; break; } }
-      rv_s(&v,ml?mf:"~"); }
+      rv_s(&v,ml?mf:""); }
     else { rv_na(&v); rv_na(&v); }
     free(b);
   } else { rv_na(&v); rv_na(&v); }
@@ -559,28 +596,29 @@ int main(int argc, char **argv){
 
   do_registry();   /* first: GRE_Initialize / SystemLink files join the key-file set */
 
-  rec_schema("dir","file","size:B sha256 kind faces filever prodver");
-  rec_schema("face","file face","sfnt_ver tables family subfamily full postscript upem:fu glyphs has_flags eblc_strikes gasp_ranges table_tags");
-  rec_schema("name","file face id","value platform encoding lang");
-  rec_schema("name_loc","file face id enc lang","value");
-  rec_schema("name_n","file face","format count");
-  rec_schema("head","file face","version revision magic flags upem:fu xmin:fu ymin:fu xmax:fu ymax:fu macstyle lowest_rec_ppem:px direction_hint index_to_loc");
-  rec_schema("hhea","file face","ascender:fu descender:fu linegap:fu adv_max:fu min_lsb:fu min_rsb:fu xmax_extent:fu caret_rise caret_run caret_offset n_hmetrics");
-  rec_schema("os2","file face","version xavg:fu weight width fstype fsselection typo_asc:fu typo_desc:fu typo_gap:fu win_asc:fu win_desc:fu panose vendor ur1 ur2 ur3 ur4 cp1 cp2 xheight:fu capheight:fu default_char break_char max_context first_char last_char family_class strikeout_size:fu strikeout_pos:fu sub_xsize:fu sub_ysize:fu sub_xoff:fu sub_yoff:fu sup_xsize:fu sup_ysize:fu sup_xoff:fu sup_yoff:fu table_len:B");
-  rec_schema("post","file face","version italic_angle_fixed underline_pos:fu underline_thick:fu is_fixed_pitch");
-  rec_schema("maxp","file face","version glyphs points contours comp_points comp_contours zones twilight storage fdefs idefs stack instr_size comp_elems comp_depth");
+  schema("dir","file","size:B sha256 kind faces filever prodver");
+  schema("face","file face","sfnt_ver tables family subfamily full postscript upem:fu glyphs has_flags eblc_strikes gasp_ranges table_tags");
+  schema("name","file face id","value platform encoding lang units");
+  schema("name_loc","file face id enc lang","value units");
+  schema("name_n","file face","format count");
+  schema("head","file face","version revision magic flags upem:fu xmin:fu ymin:fu xmax:fu ymax:fu macstyle lowest_rec_ppem:px direction_hint index_to_loc");
+  schema("hhea","file face","ascender:fu descender:fu linegap:fu adv_max:fu min_lsb:fu min_rsb:fu xmax_extent:fu caret_rise caret_run caret_offset n_hmetrics");
+  schema("os2","file face","version xavg:fu weight width fstype fsselection typo_asc:fu typo_desc:fu typo_gap:fu win_asc:fu win_desc:fu panose vendor ur1 ur2 ur3 ur4 cp1 cp2 xheight:fu capheight:fu default_char break_char max_context first_char last_char family_class strikeout_size:fu strikeout_pos:fu sub_xsize:fu sub_ysize:fu sub_xoff:fu sub_yoff:fu sup_xsize:fu sup_ysize:fu sup_xoff:fu sup_yoff:fu table_len:B");
+  schema("post","file face","version italic_angle_fixed underline_pos:fu underline_thick:fu is_fixed_pitch");
+  schema("maxp","file face","version glyphs points contours comp_points comp_contours zones twilight storage fdefs idefs stack instr_size comp_elems comp_depth");
   { char cols[2048]; int n=snprintf(cols,sizeof cols,"subtables chosen mapped mapped_supp"); for(int b=0;b<NBLK;b++) n+=snprintf(cols+n,sizeof cols-n," %s",BLK[b].n);
-    rec_schema("cmap","file face",cols); }
-  rec_schema("eblc","file face strike","ppem_x:px ppem_y:px bitdepth flags start_glyph end_glyph n_index_sub hori_asc:px hori_desc:px hori_wmax:px vert_asc:px vert_desc:px");
-  rec_schema("gasp","file face i","version max_ppem:px behavior");
-  rec_schema("kern","file face","version ntables pairs_f0 formats sha256_16");
-  rec_schema("vdmx_ratio","file face r","version charset xratio ystart yend group");
-  rec_schema("vdmx","file face group ypel","ymax:px ymin:px");
-  rec_schema("hdmx","file face ppem","max_width:px record_size:B widths_sha256_16");
-  rec_schema("ltsh","file face","version glyphs linear_count max_ypel:px sha256_16");
-  rec_schema("tabdir","file face tag","checksum length:B offset:B sha256_16");
-  rec_schema("fon","file res","version size:B type points:pt vres hres ascent:px int_lead:px ext_lead:px italic underline strikeout weight charset pix_width:px pix_height:px pitch_family avg_width:px max_width:px first_char last_char default_char break_char face copyright res_sha256_16 res_len:B widths_sha256_16");
-  rec_schema("fon_file","file","format font_res description");
+    schema("cmap","file face",cols); }
+  schema("eblc","file face strike","ppem_x:px ppem_y:px bitdepth flags start_glyph end_glyph n_index_sub hori_asc:px hori_desc:px hori_wmax:px vert_asc:px vert_desc:px");
+  schema("gasp","file face i","version max_ppem:px behavior");
+  schema("kern","file face","version ntables pairs_f0 formats sha256_16");
+  schema("vdmx_ratio","file face r","version charset xratio ystart yend group");
+  schema("vdmx_group","file face group","recs startsz:px endsz:px offset:B");
+  schema("vdmx","file face group ypel","ymax:px ymin:px");
+  schema("hdmx","file face ppem","max_width:px record_size:B widths_sha256_16");
+  schema("ltsh","file face","version glyphs linear_count max_ypel:px sha256_16");
+  schema("tabdir","file face tag","checksum length:B offset:B sha256_16");
+  schema("fon","file res","version size:B type points:pt vres hres ascent:px int_lead:px ext_lead:px italic underline strikeout weight charset pix_width:px pix_height:px pitch_family avg_width:px max_width:px first_char last_char default_char break_char face copyright res_sha256_16 res_len:B widths_sha256_16");
+  schema("fon_file","file","format font_res description sizes");
 
   rec_note("face.has_flags = one 0/1 digit per table, in order: hdmx VDMX LTSH EBLC EBDT EBSC gasp kern GPOS GSUB GDEF CFF glyf DSIG vhea fpgm prep cvt CBLC COLR SVG fvar morx PCLT BASE JSTF MATH bloc");
   list_dir();
@@ -588,7 +626,7 @@ int main(int argc, char **argv){
   unsigned long long tot=0; for(int i=0;i<NF;i++){ tot+=F[i].size; do_file(&F[i]); }
 
   /* key files: existence even when absent */
-  rec_schema("keyfile","file","exists size:B sha256 filever");
+  schema("keyfile","file","exists size:B sha256 filever");
   int nk=0; const char *klist[160]; for(int i=0;KEYFILES[i];i++){ int dup=0; for(int j=0;j<nk;j++) if(!strcmp(klist[j],KEYFILES[i])) dup=1; if(!dup && nk<160) klist[nk++]=KEYFILES[i]; }
   for(int i=0;i<g_nextra;i++){ int dup=0; for(int j=0;j<nk;j++) if(!strcmp(klist[j],g_extra_key[i])) dup=1; if(!dup && nk<160) klist[nk++]=g_extra_key[i]; }
   for(int i=0;i<nk;i++){ rk k; rk_reset(&k); rk_s(&k,"file",klist[i]); rv v; rv_reset(&v); fent *e=NULL;
@@ -600,7 +638,7 @@ int main(int argc, char **argv){
     rec_row("keyfile",&k,&v); }
 
   /* which file GDI maps each face to */
-  rec_schema("gdi_file","face weight cs","got_face pitch_family charset weight size_ttcf:B size_table0:B sha256 matched_files n_matched");
+  schema("gdi_file","face weight cs","got_face pitch_family charset weight size_ttcf:B size_table0:B sha256 matched_files n_matched");
   HDC dc=GetDC(NULL);
   static const char *GF[]={"Segoe UI","MS Shell Dlg","MS Shell Dlg 2","Microsoft Sans Serif","Tahoma","Arial","Courier New","Courier","MS Sans Serif",
     "MS Serif","System","Terminal","Fixedsys","Small Fonts","Marlett","Segoe UI Symbol","Segoe UI Emoji","Times New Roman","Lucida Console","Consolas","Calibri","Verdana",
@@ -614,7 +652,7 @@ int main(int argc, char **argv){
   for(unsigned i=0;i<sizeof GC/sizeof*GC;i++) for(unsigned j=0;j<sizeof CS/sizeof*CS;j++) gdi_file(dc,GC[i],FW_NORMAL,CS[j]);
   ReleaseDC(NULL,dc);
 
-  rec_schema("summary","~","files bytes:B ttf ttc otf fon_ne fon_pe dirs other unread sfnt_faces fon_resources hashed");
+  schema("summary","~","files bytes:B ttf ttc otf fon_ne fon_pe dirs other unread sfnt_faces fon_resources hashed");
   { rv v; rv_reset(&v); rv_i(&v,NF); rv_u(&v,tot); for(int i=0;i<8;i++) rv_u(&v,g_kind_n[i]); rv_i(&v,g_nfaces); rv_i(&v,g_fonres);
     int hs=0; for(int i=0;i<NF;i++) hs+=F[i].hashed; rv_i(&v,hs); rec_rowf("summary","~","%s",v.b); }
   rec_note("elapsed_ms %lu",(unsigned long)(GetTickCount()-t0)); /* N line: timing is not data */

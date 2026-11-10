@@ -143,6 +143,11 @@ def markdown(args, r, w7, link, files10, rows, w10_id):
     A("- Win7 catalog: `%s` (%d files)." % (args.win7, len(w7)))
     A("- Font-link set: `%s` (%d files)." % (args.fontlink, len(link)))
     A("")
+    warn = [n for n in r.notes if n.startswith("font directory override") or n == "mode quick"]
+    if r.tag == "wine" or warn:
+        A("**WARNING: this recording is not a full Win10 inventory** (tag `%s`; %s). Do not use it as Win10 data." % (
+            r.tag, "; ".join(warn) or "Wine plumbing run"))
+        A("")
     A("Every number below is copied from those files. FACT = the recording / manifest says so; nothing here is inferred")
     A("except where a line says *inference*.")
     A("")

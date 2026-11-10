@@ -21,27 +21,33 @@ Font binaries are never written (no `X` blobs). Files are identified by their fu
 
 Keys are always `file=<lowercase name>;face=<index in the collection>` (+ the extra key column named in the S line).
 Units: `:B` bytes, `:fu` font design units (divide by `face.upem`), `:px` pixels (ppem values, EBLC, VDMX, hdmx).
+Signs are the font file's own (no normalisation): `hhea.descender`, `os2.typo_desc`, `vdmx.ymin`, `eblc.hori_desc` are
+negative below the baseline; `os2.win_desc` is positive (unsigned, distance below the baseline). An empty string is `~`,
+a value that does not exist (field past a short table, absent table, failed call) is `!`.
+Absent core tables still get a row: a face without `head`/`hhea`/`OS/2`/`post`/`maxp`/`name`/`cmap` has an all-`!` row
+in that table, so a missing row always means "not parsed", never "absent". Probe version `v=2` (v1 was never run on
+Windows: it wrote the literal `~` as `%7E`, hashed only the low byte of FNT widths, and could silently empty long names).
 
 | table | key | content |
 |---|---|---|
 | `dir` | file | size, full SHA-256, kind (`ttf` `ttc` `otf` `fon_ne` `fon_pe` `dir` `other`, by magic), faces in the file, VS_FIXEDFILEINFO file/product version (`!` for TrueType files, which carry no version resource) |
 | `face` | file face | sfnt version, table count, name IDs 1/2/4/6, upem, glyph count, `has_flags` (28 digits, order in the N line), EBLC strikes `XxYbDepth`, gasp ranges `maxppem:behavior`, table tag list |
-| `name` | + id | name IDs 0..6,16,17,21,22, en-US Windows record preferred; platform/encoding/language of the record used (ID 0 truncated to 159 chars) |
-| `name_loc` | + id enc lang | every Windows-platform family/full/typographic-family name in a language other than 0x409 (the localized names GDI matches too) |
+| `name` | + id | name IDs 0..6,16,17,21,22, en-US Windows record preferred; platform/encoding/language of the record used; `units` = full length of the record (UTF-16 units for platforms 0/3, bytes otherwise). The value is cut to 200 UTF-16 units (so it always fits one token); `units` > 200 shows the cut |
+| `name_loc` | + id enc lang | every Windows-platform family/full/typographic-family name in a language other than 0x409 (the localized names GDI matches too); value (cut to 200) + `units` |
 | `head` `hhea` `os2` `post` `maxp` | file face | the design metrics (all OS/2 fields incl. typo/win ascent/descent, fsSelection, panose hex, Unicode/codepage ranges, x/cap height, sub/superscript, strikeout) |
 | `cmap` | file face | subtables `plat.enc.format`, the chosen one, mapped code points total / supplementary, per block (48 columns, named in the S line). H lines `cmap_cov` (coverage bitset 0..10FFFF) and `cmap_map` (cp u32 LE + gid u16 LE per mapped cp) |
 | `hmtx` (H) | file face | hash of the longHorMetric array |
 | `eblc` | + strike | ppemX/Y, bit depth, flags, glyph range, index subtables, hori/vert sbitLineMetrics ascender/descender/widthMax |
 | `gasp` | + i | rangeMaxPPEM, behavior |
 | `kern` | file face | version, subtables, format-0 pair count, formats, SHA-256/16 of the table |
-| `vdmx_ratio`, `vdmx` | + r / + group ypel | VDMX ratios and every yPelHeight -> yMax/yMin record (what GDI uses for TrueType ascent/descent at a given pixel height) |
+| `vdmx_ratio`, `vdmx_group`, `vdmx` | + r / + group / + group ypel | VDMX ratios (charset, x ratio, y start/end, group index), each group's record count, startsz/endsz (px) and offset, and every yPelHeight -> yMax/yMin record (what GDI uses for TrueType ascent/descent at a given pixel height) |
 | `hdmx` | + ppem | max width, record size, SHA-256/16 of the per-glyph widths at that ppem |
 | `ltsh` | file face | glyphs, how many are linear (yPel 1), max yPel, hash |
 | `tabdir` | + tag | `--full` only: stored checksum, length, offset, SHA-256/16 of the table bytes |
-| `fon_file`, `fon` | file / file res | `.fon` format (NE/PE), FONTRES description, and per RT_FONT resource every FNT header field (points, resolutions, ascent, leading, weight, charset, pixel width/height, avg/max width, char range), face name, copyright, resource hash, width-table hash |
-| `regkey`, `reg`, `regsub` | key [name i] | value type + data of Fonts, FontSubstitutes, FontLink\SystemLink (one row per REG_MULTI_SZ element), FontLink, FontMapper, FontMapperFamilyFallback, FontDPI, GRE_Initialize, Font Drivers, FontIntensityCorrection, FontCache, FontAssoc (Associated Charset / DefaultFonts), hardware-profile Fonts, LanguagePack\SurrogateFallback, Windows NT\CurrentVersion\Windows, HKCU Fonts, HKCU WindowMetrics, HKCU Control Panel\Desktop. Binary data hex up to 256 bytes, else hash |
+| `fon_file`, `fon` | file / file res | `.fon` format (NE/PE), FONTRES description, `sizes` = the resource size list `pix_height:points:charset` in resource order; per RT_FONT resource every FNT header field (points, resolutions, ascent, leading, weight, charset, pixel width/height, avg/max width, char range), face name, copyright, resource hash, hash of the dfCharTable widths (u16 LE, first..last+1) |
+| `regkey`, `reg`, `regsub` | key [name i] | 64-bit registry view (`KEY_WOW64_64KEY`, also from an x86 build); a value that cannot be enumerated gets an `N` line. Value type + data of Fonts, FontSubstitutes, FontLink\SystemLink (one row per REG_MULTI_SZ element), FontLink, FontMapper, FontMapperFamilyFallback, FontDPI, GRE_Initialize, Font Drivers, FontIntensityCorrection, FontCache, FontAssoc (Associated Charset / DefaultFonts), hardware-profile Fonts, LanguagePack\SurrogateFallback, Windows NT\CurrentVersion\Windows, HKCU Fonts, HKCU WindowMetrics, HKCU Control Panel\Desktop. Binary data hex up to 256 bytes, else hash; strings over 300 UTF-16 units are recorded as `sha256/16=...,utf16_units=N` |
 | `keyfile` | file | exists / size / SHA-256 / file version of the files the D12 question names (micross, tahoma(bd), segoeui*, arial*, cour*, marlett, the CJK link fonts, every common `.fon`), plus the files GRE_Initialize and SystemLink name; absent files get `exists=0` |
-| `gdi_file` | face weight cs | `CreateFontIndirectA` (lfHeight -11) + screen DC: GetTextFace, tmPitchAndFamily, tmCharSet, tmWeight, `GetFontData('ttcf')` and `GetFontData(0)` sizes, SHA-256 of the font data, the `dir` files with identical bytes (so `MS Shell Dlg -> micross.ttf` is a measured fact, not a registry reading). 45 faces normal, 7 bold, 5 faces x 12 charsets |
+| `gdi_file` | face weight cs | `CreateFontIndirectA` (lfHeight -11) + screen DC: GetTextFace, tmPitchAndFamily, tmCharSet, tmWeight, `GetFontData('ttcf')` and `GetFontData(0)` sizes, SHA-256 of the font data, the `dir` files with identical bytes (so `MS Shell Dlg -> micross.ttf` is a measured fact, not a registry reading). 45 faces normal, 7 bold, 5 faces x 12 charsets. In `--quick` only key files are hashed, so a face backed by another file shows `n_matched 0` |
 | `summary` | ~ | totals per kind, faces, FNT resources, files hashed |
 
 ## Size and runtime
