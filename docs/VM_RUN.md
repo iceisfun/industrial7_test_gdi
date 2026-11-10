@@ -137,7 +137,10 @@ mode 1024x768x32 at 64 Hz, `HORZSIZE x VERTSIZE` 325x203 mm, 1 monitor.
 - hello's rows at 144 DPI are identical at 1024x768 and 800x600 (`rec.py diff`, 0 diffs).
 - Not shown by this run: whether a non-persisted mode survives the logoff (vm_run.sh repeats `setres` in every stage).
 
-(`--dpi-mode boot`: see below)
+**`--dpi-mode boot` is NOT verified.** A run (`--dpi 120 --dpi-mode boot --res 1600x1200`) waited 50 min for the
+oracle lock (about 45 other runs were queued) before its first stage and was cancelled; boot mode needs two lock
+acquisitions. Use the default logoff mode, which section 5.1 shows works for every DPI. Boot mode stays as a fallback
+(for example if a setting turns out to need a full reboot) until someone runs it.
 
 ## 6. Wine (plumbing only)
 
