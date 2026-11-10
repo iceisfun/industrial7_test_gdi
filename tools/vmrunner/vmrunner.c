@@ -7,6 +7,7 @@
  *   cmd <timeout_s> <name> <cmd.exe /c command line>
  *   setres <W>x<H> [persist]                 ChangeDisplaySettings (persist = CDS_UPDATEREGISTRY)
  *   shot <name> [wait_ms]                    print "I7P SHOT name=<name>" and sleep (host takes a QMP screendump)
+ *   modes                                    list EnumDisplaySettings modes (I7P MODE lines)
  *   sleep <ms>
  *   echo <text>
  * Markers written (one line each, LF):
@@ -91,6 +92,10 @@ int main(int argc, char **argv){
       Sleep(1500);
     } else if(!strcmp(verb,"shot")){
       char *n=tok(&p), *w=tok(&p); putf("I7P SHOT name=%s\n",n?n:"shot"); Sleep(w?atoi(w):3000);
+    } else if(!strcmp(verb,"modes")){   /* every mode the display driver offers: I7P MODE WxHxBPP@Hz */
+      DEVMODEA dm; memset(&dm,0,sizeof dm); dm.dmSize=sizeof dm; int n=0;
+      for(DWORD i=0; EnumDisplaySettingsA(NULL,i,&dm); i++){ putf("I7P MODE %lux%lux%lu@%lu\n",dm.dmPelsWidth,dm.dmPelsHeight,dm.dmBitsPerPel,dm.dmDisplayFrequency); n++; }
+      putf("I7P MODES n=%d\n",n);
     } else if(!strcmp(verb,"sleep")){ char *w=tok(&p); Sleep(w?atoi(w):1000); }
     else if(!strcmp(verb,"echo")){ while(*p==' ')p++; putf("I7P ECHO %s\n",p); }
     else putf("I7P ERR name=vmrunner | unknown%%20verb%%20%s\n",verb);

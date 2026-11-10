@@ -5,7 +5,7 @@ Stdlib only. Inputs may be .rec, .rec.gz, a raw serial.log (several recordings m
 or a directory (all *.rec / *.rec.gz below it).
 
   rec.py validate FILE...                      check every recording (rows/crc32/status); exit 1 if any is bad
-  rec.py split SERIAL --outdir DIR [--tag T]   write each valid recording to DIR/<probe>/<tag>[.<variant>].rec
+  rec.py split SERIAL --outdir DIR [--tag T]   write each valid recording to DIR/<probe>/<tag>[.<variant>].rec (tag default: REC tag=)
   rec.py show FILE [--table GLOB] [--env]      human-readable dump (schema-labelled values)
   rec.py csv FILE [--table GLOB] [-o OUT]      CSV of R rows (one header per table) / H rows
   rec.py diff A B [--tol N] [--tol COL=N] [--tol TABLE.COL=N] [--rel-tol R] [--ignore GLOB] [--table GLOB]
@@ -386,11 +386,11 @@ def i7p_lines(text):
 def cmd_split(a):
     text = _read_text(a.serial)
     recs, foreign = parse_text(text, a.serial)
-    tag = a.tag or "run"
     os.makedirs(a.outdir, exist_ok=True)
     bad, written = 0, []
     for r in recs:
         name = re.sub(r"[^A-Za-z0-9_.+-]", "_", r.probe)
+        tag = a.tag or re.sub(r"[^A-Za-z0-9_.+-]", "_", r.tag or "") or "run"   # default: the tag in the REC line
         fn = tag + ("" if r.variant in ("base", "") else "." + re.sub(r"[^A-Za-z0-9_.+-]", "_", r.variant)) + ".rec"
         d = os.path.join(a.outdir, name)
         os.makedirs(d, exist_ok=True)

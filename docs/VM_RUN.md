@@ -17,29 +17,46 @@
    `I7P ERR name=... | <escaped line>`. Each step is bracketed by `I7P BEGIN name= seq= timeout=` /
    `I7P END name= seq= rc= ms= timeout=0|1`; a step that exceeds its timeout is killed with its whole process tree
    (job object) and its recording has no `END` trailer. Verbs: `run <s> <name> <exe> [args]`, `cmd <s> <name> <cmdline>`,
-   `setres WxH [persist]`, `shot <name> [ms]`, `sleep <ms>`, `echo <text>`; `I7P DONE n= failed=` at the end.
+   `setres WxH [persist]`, `modes` (lists EnumDisplaySettings modes as `I7P MODE WxHxBPP@Hz`), `shot <name> [ms]`,
+   `sleep <ms>`, `echo <text>`; `I7P DONE n= failed=` at the end.
 4. **Boot**: `~/w10lab/tools/win10_run.sh PAYLOAD OUTDIR` (never qemu directly; it holds `~/w10lab/oracle.lock`, one guest
    per host; it blocks while other workflows hold it - the lock is not FIFO, so waits of tens of minutes happen when
    many lanes are busy). OUTDIR = `~/w10lab/runs/gdi-<tag>-<stamp>-<pid>/stage2` (and `stage1`). `ORACLE_TIMEOUT`
    defaults to 840 s per boot in vm_run.sh.
-5. **Split**: `tools/rec.py split serial.log --outdir data/win10 --tag <tag>` writes each recording whose END
+5. **Split**: `tools/rec.py split serial.log --outdir data/win10` (file tag = the `tag=` of each REC line, which
+   vm_run.sh passes to every probe as `--tag`) writes each recording whose END
    trailer validates (row count + CRC-32 + `status=ok`) to `data/win10/<probe>/<tag>[.<variant>].rec`; invalid ones are
    reported and not written (`--keep-bad` writes `*.rec.bad`, gitignored). `data/win10/_runs/<tag>.<probes>.log` keeps
    the serial.log SHA-256 and the runner markers. vm_run.sh exits 1 if any requested probe produced no valid recording.
 
-Options: `--args "..."` (all probes), `--timeout S` (per probe, default 300), `--tag T` (default `dpi<N>[-WxH]`),
-`--data DIR`, `--no-split`, `--keep-bad`, `--dry-run` (print the payloads), `--shot NAME`, `--screendump`.
+Options: `--args "..."` (all probes), `--timeout S` (per probe, default 300), `--tag T` (default `dpi<N>[-WxH]`; with a DPI list a prefix: `T-dpi<N>`),
+`--data DIR`, `--no-split`, `--keep-bad`, `--dry-run` (print the payloads), `--shot NAME`, `--screendump`,
+`--plan-extra FILE` (vmrunner plan lines appended to the last stage, e.g. `setres` + extra `run` lines with their own
+`--tag`). Every plan starts with `modes`.
 
-## 2. DPI (two-stage boot)
+## 2. DPI
 
-`--dpi N` with N != 96:
-- **stage 1** payload (`s1`): `reg add "HKCU\Control Panel\Desktop" /v LogPixels /t REG_DWORD /d N` and
-  `Win8DpiScaling=1` (the "custom scaling" pair; Administrator's hive, the auto-logon user), optional
-  `setres WxH persist`; boots with `W10_KEEPDISK=1` so the overlay survives.
-- **stage 2** payload (`s2`): boots the same overlay (`W10_OVERLAY=<stage1>/disk.qcow2`), so the new value is read at
-  logon; runs the probes; vm_run.sh deletes the overlay afterwards.
-- Verification is in every recording: `ENV dpi.system`, `dpi.logpixels`, `dpi.reg_logpixels`, `dpi.reg_applieddpi`,
-  `sm.*`, `ncm.*` (and the stage-2 serial has `reg query` output). Results of trying it: section 5.
+How the guest runs payloads (FACT, read from the base image `C:\i7\boot.cmd`, extracted read-only with
+`qemu-img convert -U` + `7z`): *"runs at every logon (HKLM Run key)"*; it scans D..K for `\i7run\run.cmd`, `call`s it,
+then `shutdown /s /t 0` if `\i7run\shutdown` exists. The SOFTWARE hive has `AutoAdminLogon`, `DefaultUserName`,
+`DefaultPassword` and no `ForceAutoLogon`/`AutoLogonCount` value (`strings` over the hive; value names, not values).
+
+**`--dpi 96,120,144,...` (default mode `logoff`, ONE boot, one lock acquisition)**: run.cmd is a state machine keyed by
+`C:\i7gdi\stage.txt` on the throw-away overlay. Logon stage k: query the HKCU DPI values to COM1, run the probes of
+DPI k (`plan<k>.txt`, tag `dpi<N>`), write the next DPI (`reg add "HKCU\Control Panel\Desktop" /v LogPixels /d N` +
+`Win8DpiScaling=1`; for 96: delete LogPixels, `Win8DpiScaling=0`), write k+1 to stage.txt, `shutdown /l` (log off) and
+wait. Auto-logon logs Administrator back on, the Run hook calls run.cmd again, which jumps to stage k+1. The last stage
+returns normally, so the hook powers the VM off. If the first DPI is not 96 there is an extra set-and-logoff stage first.
+Serial markers: `I7VMRUN BEGIN logon=<k>`, `I7VMRUN STAGE dpi=<N>`, `I7DPI set LogPixels=<N>`, `I7VMRUN LOGOFF next=<k>`.
+Rationale: the oracle lock is shared by every workflow on the host and is not FIFO (49 waiters were queued at one point
+on 2026-11-09), so a sweep costs one wait instead of 2 x N.
+
+**`--dpi N --dpi-mode boot`** (fallback, two boots): stage 1 sets the values (and `setres WxH persist`) and powers off
+with `W10_KEEPDISK=1`; stage 2 boots the same overlay (`W10_OVERLAY=<stage1>/disk.qcow2`) and runs the probes; the
+overlay is deleted afterwards.
+
+Verification is in every recording: `ENV dpi.system`, `dpi.logpixels`, `dpi.reg_logpixels`, `dpi.reg_applieddpi`,
+`sm.*`, `ncm.*`. Results of trying it: section 5.
 
 ## 3. Display mode
 
