@@ -135,7 +135,7 @@ mode 1024x768x32 at 64 Hz, `HORZSIZE x VERTSIZE` 325x203 mm, 1 monitor.
 - The DPI does not follow the mode: at LogPixels 144, `hello.sys` reports `dpi.system` 144 at 800x600, 1280x1024 and
   1920x1080 alike; the unaware exe at 144 sees the virtualized 853x683 (= 1280x1024 / 1.5).
 - hello's rows at 144 DPI are identical at 1024x768 and 800x600 (`rec.py diff`, 0 diffs).
-- The mode persists across the logoff between stages (stage 1 set it again anyway; `I7P SETRES ... now=1280x1024x32`).
+- Not shown by this run: whether a non-persisted mode survives the logoff (vm_run.sh repeats `setres` in every stage).
 
 (`--dpi-mode boot`: see below)
 
