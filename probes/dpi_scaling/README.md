@@ -41,27 +41,34 @@ Within one process, measurements are taken in every thread DPI context (`SetThre
 
 | table | key | content |
 |---|---|---|
-| `api` | mode | the API variant's call: avail, ret, GetLastError |
+| `api` | mode | the API variant's call: avail, ret (32-bit hex: BOOL for SetProcessDPIAware/SetProcessDpiAwarenessContext, HRESULT for shcore SetProcessDpiAwareness), GetLastError |
+| `face` | face | presence of the 12 faces (once per recording): `present` = EnumFontFamiliesExW(DEFAULT_CHARSET) returned at least one entry; `n_enum`, `n_tt` (TrueType entries), `type` (FontType of the first entry, hex), `full` (its elfFullName). Absent faces still get `tm` rows: `got` shows what GDI substituted |
 | `ctx` | ctx | thread ctx (packed value, awareness, DPI), GetDpiForSystem, GetSystemDpiForProcess, IsProcessDPIAware, GetProcessDpiAwareness, screen-DC LOGPIXELS/HORZRES/DESKTOPHORZRES, GetDialogBaseUnits, GetDpiForMonitor (effective/angular/raw), monitor/work rects, desktop window DPI |
 | `sm` | ctx;name | 58 GetSystemMetrics values |
 | `smdpi` | name;dpi | GetSystemMetricsForDpi at 72..384 (manifest exes only) |
 | `ncm` / `ncmf` | ctx;src;dpi[;font] | NONCLIENTMETRICS numbers / LOGFONTs (caption, smcaption, menu, status, message, icon, icontitle); `src=spi` in each ctx, `src=fordpi` (SystemParametersInfoForDpi) at 72..384 |
 | `stock` | ctx;obj | 7 stock fonts: GetObject LOGFONT, realised face, TEXTMETRIC, extents |
-| `ptconv` | ctx | LOGPIXELSY, MulDiv(8/9, dpi, 72), the DEFAULT_GUI_FONT rule -((8*dpi+36)/72), and the lfHeight that DEFAULT_GUI_FONT, NCM message/caption and the icon title font actually hold |
+| `ptconv` | ctx | LOGPIXELSY; `muldiv8/9` = MulDiv(8/9, LOGPIXELSY, 72) (positive: em height in px); `dlgrule8/9` = -((pt*LOGPIXELSY+36)/72), the lfHeight user32!CreateDlgFont @0x3ca4 computes for a DS_SETFONT dialog (negative, like an lfHeight); and the lfHeight that DEFAULT_GUI_FONT, NCM message/caption and the icon title font actually hold (negative = em height) |
 | `muldiv` | pt;dpi | kernel32 MulDiv grid (5..16 pt x 96..192) |
 | `tm` / `cw` / H `cw_ascii`, `abc_ascii` | ctx;face;pt | lfHeight = -MulDiv(pt, LOGPIXELSY, 72): realised face, TEXTMETRIC, extent of a 43-char sentence and of the 52-letter alphabet; `cw` = the 95 GetCharWidth32 widths (ctx=proc); hashes of widths/ABC. 12 faces x 7..14 pt in ctx=proc, 4 faces x 8/9 pt elsewhere |
-| `dlg` | ctx;font;pt;style | DS_SETFONT / DS_SHELLFONT dialog (100x50 DLU): WM_GETFONT LOGFONT + TEXTMETRIC, MapDialogRect(4,8) and (100,50), client/window size, GetDpiForWindow |
-| `ctl` | ctx;font;cls;m | control heights with font none/dgf/ncm: listview row/item/label/header/spacing, header HDM_LAYOUT, treeview item height/indent, button/checkbox BCM_GETIDEALSIZE, edit EM_GETRECT/margins, combo closed height/item heights, listbox item, status bar, tab item, and the TEXTMETRIC height of each control's font |
+| `dlg` | ctx;font;pt;style | 100x50 DLU dialog: `style=setfont` (DLGTEMPLATE + DS_SETFONT), `setfont_ex` (DLGTEMPLATEEX + DS_SETFONT, weight 400, charset 1), `shellfont` (DLGTEMPLATEEX + DS_SHELLFONT). user32!CreateDlgFont maps MS Shell Dlg to MS Shell Dlg 2 only for `shellfont`, and a plain DLGTEMPLATE gets weight 700 from FixupDlgLogFont unless the style has DS_3DLOOK (decomp, not yet observed). `pt=32767` (0x7fff) = the message-box font (GetMessageBoxFontForDpi). `font=nofont` = no DS_SETFONT. Values: WM_GETFONT LOGFONT + TEXTMETRIC, MapDialogRect(4,8) and (100,50), client/window size, GetDpiForWindow |
+| `ctl` | ctx;font;cls;m | (`m=create` with `!` when a control or the parent could not be created) control heights with font none/dgf/ncm: listview row/item/label/header/spacing, header HDM_LAYOUT, treeview item height/indent, button/checkbox BCM_GETIDEALSIZE, edit EM_GETRECT/margins, combo closed height/item heights, listbox item, status bar, tab item, and the TEXTMETRIC height of each control's font |
 | `awr` | ctx;style;dpi | AdjustWindowRectEx (dpi=ctx) and AdjustWindowRectExForDpi (dpi=N, manifest exes) for 7 styles |
 | `win` | ctx | a 300x200 window at (100,100): logical rect, then the same rect read from a PMv2 thread (physical), Logical/PhysicalToLogicalPointForPerMonitorDPI |
-| `cap` / B `cap_img` | ctx | `--full`: a 48x18 topmost popup drawing "Ag Hx" in DEFAULT_GUI_FONT, captured from the screen in physical pixels (4 bpp grey). Shows DWM bitmap stretching (unaware) against GDI scaling (gdis) against native rendering (pm2) |
+| `cap` / B `cap_img` | ctx | (an all-`!` row when the window cannot be created) `--full`: a 48x18 topmost popup drawing "Ag Hx" in DEFAULT_GUI_FONT, captured from the screen in physical pixels (4 bpp grey). Shows DWM bitmap stretching (unaware) against GDI scaling (gdis) against native rendering (pm2) |
 
 Units: `:px` columns are in the coordinate space of the measuring context. For a virtualized (unaware) context that is
 logical pixels. The `win` and `cap` tables also give the physical values.
 
+Probe version history: v=1 (21b8dee) built the `shellfont` dialogs on a plain DLGTEMPLATE, where DS_SHELLFONT has
+no effect, and `ptconv` had a positive `dgf_rule` column. v=2: EX templates, the `setfont_ex` and `pt=32767` rows,
+`dlgrule8/9`, the `face` table, the 32-bit `api.ret`, and `!` rows for absent faces, controls and windows. API children
+are killed after 30 s each (the vmrunner job object also kills the whole tree at the per-probe timeout).
+
 ## Size and time (estimates; replace with measured values once the sweep has run)
 
-- Rows: manifest exe `--full` about 1.9k lines (about 1.6k R rows, 250 H lines, 4 B lines); API child about 300 lines (100 R rows).
+- Rows: manifest exe `--full` about 2.1k lines under Wine (157 KB; about 1.6k R rows, 250 H lines) before the window tables Wine
+  cannot produce (ctl, dlg values, win, cap: about 0.8k more rows, about 60 KB); API child about 325 lines (20 KB). gzip -9: about 10x.
   Sweep: 5 x (6 x 1.9k + 9 x 0.3k) is about 70k lines, about 8 MB of text uncompressed. Git deltas compress it well,
   because DPI stages differ only in the DPI-dependent rows.
 - Runtime under Wine (no windows; plumbing only): under 3 s for exe plus children. On Windows the window/control/dialog

@@ -1,4 +1,5 @@
 #include "t.h"
+#include <stdlib.h>
 /* DPI-scaling conformance tests: only invariants that hold at ANY system DPI, in any DPI-awareness context.
  * Each hard CHECK cites the Win10 22H2 (19041.2965) decomp it was verified against (corpus explorer API,
  * /api/function/<module>/<name>/decomp). Recorded Win10 numbers (per DPI) live in probes/dpi_scaling and are turned
@@ -328,4 +329,54 @@ TEST(getobject_font_size_protocol) {
     LOGFONTW g; HDC d2 = GetDC(NULL); int y = GetDeviceCaps(d2, LOGPIXELSY); ReleaseDC(NULL, d2);
     if (GetObjectW(GetStockObject(DEFAULT_GUI_FONT), sizeof g, &g) && g.lfHeight != -((8 * y + 36) / 72))
         t_note("DEFAULT_GUI_FONT lfHeight %ld, rule -((8*%d+36)/72) = %d", g.lfHeight, y, -((8 * y + 36) / 72));
+}
+
+/* ---------------------------------------------------------------- dialog font: template kind x DS_SHELLFONT
+ * [DLGF] user32!InternalCreateDialog @0x6100 -> user32!CreateDlgFont @0x3ca4: lfHeight = -((pt*dpi+36)/72) with dpi =
+ *        GetDpiForSystem() in the creating thread (or the monitor DPI for a per-monitor thread; one monitor here, so it
+ *        equals GetDpiForWindow of the dialog); "MS Shell Dlg" becomes "MS Shell Dlg 2" only when the template is a
+ *        DLGTEMPLATEEX (signature 0xFFFF) and style & (DS_SETFONT|DS_FIXEDSYS) == both (DS_SHELLFONT);
+ *        user32!FixupDlgFaceName @0x3f58 otherwise copies the template face. user32!FixupDlgLogFont @0x4000: a DLGTEMPLATEEX
+ *        (dlgVer 1) keeps the template weight. */
+static INT_PTR CALLBACK t_dlgproc(HWND h, UINT m, WPARAM w, LPARAM l) { (void)h; (void)w; (void)l; return m == WM_INITDIALOG; }
+static HWND t_dialog(int ex, DWORD extra, int pt, const WCHAR *face) {
+    static DWORD buf[128]; memset(buf, 0, sizeof buf);
+    DWORD st = WS_POPUP | WS_CAPTION | DS_SETFONT | extra; WORD *p = (WORD *)buf;
+    if (!ex) { DLGTEMPLATE *t = (DLGTEMPLATE *)buf; t->style = st; t->cx = 100; t->cy = 50; p = (WORD *)(t + 1); }
+    else { *p++ = 1; *p++ = 0xFFFF; p += 4; *p++ = LOWORD(st); *p++ = HIWORD(st); p++; p += 2; *p++ = 100; *p++ = 50; }
+    *p++ = 0; *p++ = 0; *p++ = 0;
+    *p++ = (WORD)pt; if (ex) { *p++ = FW_NORMAL; *p++ = 0x0100; }
+    while (*face) *p++ = *face++;
+    *p++ = 0;
+    return U(CreateDialogIndirectParamW)(GetModuleHandleW(NULL), (LPCDLGTEMPLATEW)buf, NULL, t_dlgproc, 0);
+}
+static int g_dlg_made;
+static void dlgfont_ctx(const char *ctx) {
+    static const struct { int ex; DWORD extra; int pt; const WCHAR *face, *want; } D[] = {
+        { 1, DS_FIXEDSYS, 8, L"MS Shell Dlg", L"MS Shell Dlg 2" },      /* DIALOGEX + DS_SHELLFONT */
+        { 1, 0,           8, L"MS Shell Dlg", L"MS Shell Dlg" },        /* DIALOGEX, DS_SETFONT only */
+        { 0, DS_FIXEDSYS, 8, L"MS Shell Dlg", L"MS Shell Dlg" },        /* DIALOG: no shell-font mapping */
+        { 1, DS_FIXEDSYS, 9, L"Segoe UI",     L"Segoe UI" },
+        { 1, 0,           8, L"Tahoma",       L"Tahoma" } };
+    for (unsigned i = 0; i < sizeof D / sizeof *D; i++) {
+        HWND h = t_dialog(D[i].ex, D[i].extra, D[i].pt, D[i].face);
+        if (!h) { t_note("ctx %s: dialog %u not created (gle %lu)", ctx, i, GetLastError()); continue; }
+        g_dlg_made++;
+        HFONT f = (HFONT)U(SendMessageW)(h, WM_GETFONT, 0, 0); LOGFONTW lf;
+        UINT wdpi = U(GetDpiForWindow) ? U(GetDpiForWindow)(h) : 96;
+        int okf = f && GetObjectW(f, sizeof lf, &lf) == sizeof lf;
+        CHECKF(okf, "ctx %s dialog %u font", ctx, i);
+        if (okf) {
+            CHECKF(!lstrcmpW(lf.lfFaceName, D[i].want), "ctx %s dialog %u: face %ls want %ls", ctx, i, lf.lfFaceName, D[i].want);
+            int want = -((D[i].pt * (int)wdpi + 36) / 72);
+            CHECKF(lf.lfHeight == want, "ctx %s dialog %u: lfHeight %ld want -((%d*%u+36)/72) = %d", ctx, i, lf.lfHeight, D[i].pt, wdpi, want);
+            if (D[i].ex) CHECKF(lf.lfWeight == FW_NORMAL, "ctx %s dialog %u: weight %ld", ctx, i, lf.lfWeight);
+        }
+        U(DestroyWindow)(h);
+    }
+}
+TEST(dlgfont_template_kind_and_dpi_rule) {
+    REQUIRE(U(CreateDialogIndirectParamW));
+    g_dlg_made = 0; each_ctx(dlgfont_ctx);
+    if (!g_dlg_made) t_skip("no dialog could be created (no usable desktop)");
 }

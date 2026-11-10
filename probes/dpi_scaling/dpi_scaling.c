@@ -237,7 +237,7 @@ static void t_ptconv(void){
   rk k; rv v; kctx(&k); rv_reset(&v);
   int y=logpixy(); rv_i(&v,y);
   for(int pt=8;pt<=9;pt++){ rv_i(&v,MulDiv(pt,y,72)); }
-  rv_i(&v,(8*y+36)/72);
+  rv_i(&v,-((8*y+36)/72)); rv_i(&v,-((9*y+36)/72));   /* user32!CreateDlgFont @0x3ca4 lfHeight rule */
   LOGFONTW lf; HFONT f=(HFONT)GetStockObject(DEFAULT_GUI_FONT);
   if(f && GetObjectW(f,sizeof lf,&lf)) rv_i(&v,lf.lfHeight); else rv_na(&v);
   NONCLIENTMETRICSW n; memset(&n,0,sizeof n); n.cbSize=sizeof n;
@@ -266,9 +266,10 @@ static void t_tm(int detail){
   for(int fi=0;fi<nf;fi++) for(int pi=0;pi<np;pi++){
     LOGFONTW lf; memset(&lf,0,sizeof lf); lf.lfHeight=-MulDiv(pts[pi],y,72); lf.lfWeight=FW_NORMAL; lf.lfCharSet=DEFAULT_CHARSET;
     MultiByteToWideChar(CP_ACP,0,faces[fi],-1,lf.lfFaceName,LF_FACESIZE);
-    HFONT f=CreateFontIndirectW(&lf), o=(HFONT)SelectObject(dc,f);
+    HFONT f=CreateFontIndirectW(&lf), o=f?(HFONT)SelectObject(dc,f):NULL;
     rk k; rv v; kctx(&k); rk_s(&k,"face",faces[fi]); rk_i(&k,"pt",pts[pi]); rv_reset(&v);
     rv_i(&v,y); rv_i(&v,lf.lfHeight);
+    if(!o){ for(int j=0;j<17;j++) rv_na(&v); rec_row("tm",&k,&v); if(f) DeleteObject(f); continue; }  /* never measure the DC's old font */
     WCHAR got[LF_FACESIZE]=L""; if(GetTextFaceW(dc,LF_FACESIZE,got)) rv_w(&v,got); else rv_na(&v);
     rv_tm(&v,dc);
     rec_row("tm",&k,&v);
@@ -284,27 +285,55 @@ static void t_tm(int detail){
   ReleaseDC(NULL,dc);
 }
 
+/* ------------------------------------------------------------------ table: face (presence; absent faces still get tm rows) */
+typedef struct { int n, type, tt; WCHAR full[LF_FULLFACESIZE]; } enum_res;
+static int CALLBACK face_enum(const LOGFONTW *lf, const TEXTMETRICW *tm, DWORD type, LPARAM l){
+  enum_res *r=(enum_res*)l; (void)tm;
+  if(!r->n){ r->type=(int)type; lstrcpynW(r->full,((const ENUMLOGFONTEXW*)lf)->elfFullName,LF_FULLFACESIZE); }
+  r->n++; if(type&TRUETYPE_FONTTYPE) r->tt++; return 1; }
+static void t_face(void){
+  HDC dc=GetDC(NULL);
+  for(int fi=0;fi<12;fi++){
+    LOGFONTW lf; memset(&lf,0,sizeof lf); lf.lfCharSet=DEFAULT_CHARSET;
+    MultiByteToWideChar(CP_ACP,0,FACES_FULL[fi],-1,lf.lfFaceName,LF_FACESIZE);
+    enum_res r; memset(&r,0,sizeof r); EnumFontFamiliesExW(dc,&lf,face_enum,(LPARAM)&r,0);
+    rk k; rv v; rk_reset(&k); rk_s(&k,"face",FACES_FULL[fi]); rv_reset(&v);
+    rv_i(&v,r.n>0); rv_i(&v,r.n); rv_i(&v,r.tt); if(r.n){ rv_x(&v,(unsigned)r.type); rv_w(&v,r.full); } else { rv_na(&v); rv_na(&v); }
+    rec_row("face",&k,&v);
+  }
+  ReleaseDC(NULL,dc);
+}
+
 /* ------------------------------------------------------------------ table: dlg */
 static INT_PTR CALLBACK dlgproc(HWND h, UINT m, WPARAM w, LPARAM l){ (void)h;(void)w;(void)l; return m==WM_INITDIALOG; }
-static HWND make_dialog(const WCHAR *face, int pt, DWORD extra_style){
+/* style 0: DLGTEMPLATE + DS_SETFONT; 1: DLGTEMPLATEEX + DS_SETFONT; 2: DLGTEMPLATEEX + DS_SHELLFONT (= DS_SETFONT|DS_FIXEDSYS).
+ * user32!CreateDlgFont @0x3ca4 maps "MS Shell Dlg" to the shell font only for an EX template (signature != 0) with
+ * style & 0x48 == 0x48 and expected version >= 0x400; pt 0x7fff selects GetMessageBoxFontForDpi; otherwise
+ * lfHeight = -((pt*dpi+36)/72). EX templates carry weight 400, italic 0, charset 1 (what rc.exe writes for DIALOGEX). */
+static HWND make_dialog(const WCHAR *face, int pt, int style){
   static DWORD buf[256]; memset(buf,0,sizeof buf);
-  DLGTEMPLATE *t=(DLGTEMPLATE*)buf;
-  t->style=WS_POPUP|WS_CAPTION|WS_SYSMENU|DS_MODALFRAME|extra_style|(face?DS_SETFONT:0);
-  t->cdit=0; t->x=10; t->y=10; t->cx=100; t->cy=50;
-  WORD *p=(WORD*)(t+1); *p++=0; *p++=0; *p++=0;           /* menu, class, title "" */
-  if(face){ *p++=(WORD)pt; while(*face) *p++=*face++; *p++=0; }
-  return CreateDialogIndirectParamW(GetModuleHandleW(NULL),t,NULL,dlgproc,0);
+  DWORD st=WS_POPUP|WS_CAPTION|WS_SYSMENU|DS_MODALFRAME|(face?DS_SETFONT:0)|(style==2?DS_FIXEDSYS:0);
+  WORD *p=(WORD*)buf;
+  if(style==0){ DLGTEMPLATE *t=(DLGTEMPLATE*)buf; t->style=st; t->cdit=0; t->x=10; t->y=10; t->cx=100; t->cy=50; p=(WORD*)(t+1); }
+  else { *p++=1; *p++=0xFFFF; *p++=0; *p++=0; /* helpID */ *p++=0; *p++=0; /* exStyle */ *p++=LOWORD(st); *p++=HIWORD(st);
+         *p++=0; /* cDlgItems */ *p++=10; *p++=10; *p++=100; *p++=50; }
+  *p++=0; *p++=0; *p++=0;                                   /* menu, class, title "" */
+  if(face){ *p++=(WORD)pt; if(style){ *p++=FW_NORMAL; *p++=0x0100; /* italic 0, charset 1 */ } while(*face) *p++=*face++; *p++=0; }
+  return CreateDialogIndirectParamW(GetModuleHandleW(NULL),(LPCDLGTEMPLATEW)buf,NULL,dlgproc,0);
 }
 static void t_dlg(void){
   static const struct { const WCHAR *f; int pt; } D[]={{L"MS Shell Dlg",8},{L"MS Shell Dlg 2",8},{L"Segoe UI",9},
-    {L"Tahoma",8},{L"Microsoft Sans Serif",8},{NULL,0}};
-  static const char *DN[]={"MS Shell Dlg","MS Shell Dlg 2","Segoe UI","Tahoma","Microsoft Sans Serif","nofont"};
-  int nd=g_full?6:3;
-  for(int i=0;i<nd;i++) for(int s=0;s<2;s++){
+    {L"Tahoma",8},{L"Microsoft Sans Serif",8},{L"MS Shell Dlg",0x7fff},{NULL,0}};
+  static const char *DN[]={"MS Shell Dlg","MS Shell Dlg 2","Segoe UI","Tahoma","Microsoft Sans Serif","MS Shell Dlg","nofont"};
+  static const char *SN[]={"setfont","setfont_ex","shellfont"};
+  static const int QI[]={0,1,6};                                /* quick: MS Shell Dlg, MS Shell Dlg 2, nofont */
+  int nd=g_full?7:3;
+  for(int ii=0;ii<nd;ii++) for(int s=0;s<3;s++){
+    int i=g_full?ii:QI[ii];
     if(!D[i].f && s) continue;
-    HWND h=make_dialog(D[i].f,D[i].pt,s?DS_FIXEDSYS:0);
+    HWND h=make_dialog(D[i].f,D[i].pt,s);
     rk k; rv v; kctx(&k); rk_s(&k,"font",DN[i]); if(D[i].f) rk_i(&k,"pt",D[i].pt); else rk_s(&k,"pt","~");
-    rk_s(&k,"style",s?"shellfont":"setfont"); rv_reset(&v);
+    rk_s(&k,"style",SN[s]); rv_reset(&v);
     if(!h){ rv_i(&v,0); rv_i(&v,GetLastError()); for(int j=0;j<28;j++) rv_na(&v); rec_row("dlg",&k,&v); continue; }
     rv_i(&v,1); rv_i(&v,0);
     HFONT f=(HFONT)SendMessageW(h,WM_GETFONT,0,0); LOGFONTW lf;
@@ -338,7 +367,7 @@ static HWND mk(HWND par, const WCHAR *cls, const WCHAR *txt, DWORD st, DWORD ex,
   return c; }
 static void t_ctl(void){
   HWND par=CreateWindowExW(0,L"dpiscal_parent",L"p",WS_OVERLAPPEDWINDOW,0,0,640,480,NULL,NULL,GetModuleHandleW(NULL),NULL);
-  if(!par){ rec_note("ctl: parent window failed gle=%lu ctx=%s",GetLastError(),g_ctx); return; }
+  if(!par){ DWORD e=GetLastError(); ctl_row("~","parent","create",0,0); rec_note("ctl: parent window failed gle=%lu ctx=%s",e,g_ctx); return; }
   if(A.GetDpiForWindow){ ctl_row("~","parent","dpi",1,A.GetDpiForWindow(par)); }
   NONCLIENTMETRICSW n; memset(&n,0,sizeof n); n.cbSize=sizeof n; SystemParametersInfoW(SPI_GETNONCLIENTMETRICS,sizeof n,&n,0);
   HFONT ncmf=CreateFontIndirectW(&n.lfMessageFont);
@@ -367,26 +396,26 @@ static void t_ctl(void){
     if(hd){ HDITEMW hi; memset(&hi,0,sizeof hi); hi.mask=HDI_TEXT|HDI_WIDTH; hi.cxy=100; hi.pszText=L"Name"; SendMessageW(hd,HDM_INSERTITEMW,0,(LPARAM)&hi);
       RECT rc={0,0,300,300}; WINDOWPOS wp; memset(&wp,0,sizeof wp); HDLAYOUT hl={&rc,&wp};
       int ok=(int)SendMessageW(hd,HDM_LAYOUT,0,(LPARAM)&hl); ctl_row(fn,"header","layout_cy",ok,wp.cy);
-      ctl_fonth(fn,"header",hd); DestroyWindow(hd); }
+      ctl_fonth(fn,"header",hd); DestroyWindow(hd); } else ctl_row(fn,"header","create",0,0);
     /* tree view */
     HWND tv=mk(par,WC_TREEVIEWW,L"",TVS_HASLINES,WS_EX_CLIENTEDGE,0,0,200,200,f);
     if(tv){ TVINSERTSTRUCTW is; memset(&is,0,sizeof is); is.hInsertAfter=TVI_LAST; is.item.mask=TVIF_TEXT; is.item.pszText=L"Node";
       SendMessageW(tv,TVM_INSERTITEMW,0,(LPARAM)&is);
       ctl_row(fn,"treeview","item_h",1,(int)SendMessageW(tv,TVM_GETITEMHEIGHT,0,0));
       ctl_row(fn,"treeview","indent",1,(int)SendMessageW(tv,TVM_GETINDENT,0,0));
-      ctl_fonth(fn,"treeview",tv); DestroyWindow(tv); }
+      ctl_fonth(fn,"treeview",tv); DestroyWindow(tv); } else ctl_row(fn,"treeview","create",0,0);
     /* button ideal size (comctl32 v6 only) */
     HWND bt=mk(par,L"BUTTON",L"Cancel",BS_PUSHBUTTON,0,0,0,75,23,f);
     if(bt){ SIZE s={0,0}; int ok=(int)SendMessageW(bt,BCM_GETIDEALSIZE,0,(LPARAM)&s);
-      ctl_row(fn,"button","ideal_cx",ok,s.cx); ctl_row(fn,"button","ideal_cy",ok,s.cy); ctl_fonth(fn,"button",bt); DestroyWindow(bt); }
+      ctl_row(fn,"button","ideal_cx",ok,s.cx); ctl_row(fn,"button","ideal_cy",ok,s.cy); ctl_fonth(fn,"button",bt); DestroyWindow(bt); } else ctl_row(fn,"button","create",0,0);
     HWND cb=mk(par,L"BUTTON",L"Check",BS_AUTOCHECKBOX,0,0,0,75,23,f);
     if(cb){ SIZE s={0,0}; int ok=(int)SendMessageW(cb,BCM_GETIDEALSIZE,0,(LPARAM)&s);
-      ctl_row(fn,"checkbox","ideal_cx",ok,s.cx); ctl_row(fn,"checkbox","ideal_cy",ok,s.cy); DestroyWindow(cb); }
+      ctl_row(fn,"checkbox","ideal_cx",ok,s.cx); ctl_row(fn,"checkbox","ideal_cy",ok,s.cy); DestroyWindow(cb); } else ctl_row(fn,"checkbox","create",0,0);
     /* edit: formatting rect inside a 120x30 control, with and without WS_EX_CLIENTEDGE */
     for(int e=0;e<2;e++){
       HWND ed=mk(par,L"EDIT",L"Text",ES_AUTOHSCROLL|(e?0:WS_BORDER),e?WS_EX_CLIENTEDGE:0,0,0,120,30,f);
-      if(!ed) continue;
       const char *cn=e?"edit_ce":"edit_border";
+      if(!ed){ ctl_row(fn,cn,"create",0,0); continue; }
       RECT r; SendMessageW(ed,EM_GETRECT,0,(LPARAM)&r); DWORD mg=(DWORD)SendMessageW(ed,EM_GETMARGINS,0,0);
       RECT cr; GetClientRect(ed,&cr);
       ctl_row(fn,cn,"rect_top",1,r.top); ctl_row(fn,cn,"rect_left",1,r.left); ctl_row(fn,cn,"rect_h",1,r.bottom-r.top);
@@ -396,8 +425,8 @@ static void t_ctl(void){
     /* combo boxes: closed height and item heights */
     for(int c=0;c<2;c++){
       HWND co=mk(par,L"COMBOBOX",L"",(c?CBS_DROPDOWN:CBS_DROPDOWNLIST)|WS_VSCROLL,0,0,0,150,200,f);
-      if(!co) continue;
       const char *cn=c?"combo_dropdown":"combo_list";
+      if(!co){ ctl_row(fn,cn,"create",0,0); continue; }
       SendMessageW(co,CB_ADDSTRING,0,(LPARAM)L"Item");
       ctl_row(fn,cn,"win_h",1,wh(co));
       ctl_row(fn,cn,"sel_item_h",1,(int)SendMessageW(co,CB_GETITEMHEIGHT,(WPARAM)-1,0));
@@ -408,15 +437,15 @@ static void t_ctl(void){
       DestroyWindow(co); }
     /* list box */
     HWND lb=mk(par,L"LISTBOX",L"",WS_BORDER|LBS_NOTIFY,0,0,0,150,100,f);
-    if(lb){ SendMessageW(lb,LB_ADDSTRING,0,(LPARAM)L"Item"); ctl_row(fn,"listbox","item_h",1,(int)SendMessageW(lb,LB_GETITEMHEIGHT,0,0)); DestroyWindow(lb); }
+    if(lb){ SendMessageW(lb,LB_ADDSTRING,0,(LPARAM)L"Item"); ctl_row(fn,"listbox","item_h",1,(int)SendMessageW(lb,LB_GETITEMHEIGHT,0,0)); DestroyWindow(lb); } else ctl_row(fn,"listbox","create",0,0);
     /* status bar */
     HWND sb=mk(par,STATUSCLASSNAMEW,L"Ready",0,0,0,0,0,0,f);
-    if(sb){ SendMessageW(sb,WM_SIZE,0,0); ctl_row(fn,"status","win_h",1,wh(sb)); ctl_fonth(fn,"status",sb); DestroyWindow(sb); }
+    if(sb){ SendMessageW(sb,WM_SIZE,0,0); ctl_row(fn,"status","win_h",1,wh(sb)); ctl_fonth(fn,"status",sb); DestroyWindow(sb); } else ctl_row(fn,"status","create",0,0);
     /* tab */
     HWND tb=mk(par,WC_TABCONTROLW,L"",0,0,0,0,300,100,f);
     if(tb){ TCITEMW ti; memset(&ti,0,sizeof ti); ti.mask=TCIF_TEXT; ti.pszText=L"General"; SendMessageW(tb,TCM_INSERTITEMW,0,(LPARAM)&ti);
       RECT r; int ok=(int)SendMessageW(tb,TCM_GETITEMRECT,0,(LPARAM)&r); ctl_row(fn,"tab","item_h",ok,r.bottom-r.top); ctl_row(fn,"tab","item_w",ok,r.right-r.left);
-      DestroyWindow(tb); }
+      DestroyWindow(tb); } else ctl_row(fn,"tab","create",0,0);
   }
   DeleteObject(ncmf); DestroyWindow(par);
 }
@@ -445,7 +474,7 @@ static void t_awr(int fordpi){
 static void t_win(void){
   HWND h=CreateWindowExW(0,L"dpiscal_parent",L"w",WS_OVERLAPPEDWINDOW,100,100,300,200,NULL,NULL,GetModuleHandleW(NULL),NULL);
   rk k; rv v; kctx(&k); rv_reset(&v);
-  if(!h){ for(int j=0;j<19;j++) rv_na(&v); rec_row("win",&k,&v); return; }
+  if(!h){ rv_i(&v,0); for(int j=0;j<18;j++) rv_na(&v); rec_row("win",&k,&v); return; }
   rv_i(&v,1);
   if(A.GetDpiForWindow) rv_i(&v,A.GetDpiForWindow(h)); else rv_na(&v);
   if(A.GetWinCtx && A.AwFromCtx) rv_i(&v,A.AwFromCtx(A.GetWinCtx(h))); else rv_na(&v);
@@ -474,7 +503,8 @@ static void t_cap(void){
   const int LW=48, LH=18;  /* logical client size in the creating context */
   HWND h=CreateWindowExW(WS_EX_TOPMOST|WS_EX_TOOLWINDOW|WS_EX_NOACTIVATE,L"dpiscal_cap",L"",WS_POPUP,40,40,LW,LH,NULL,NULL,GetModuleHandleW(NULL),NULL);
   rk k; kctx(&k);
-  if(!h){ rec_note("cap: window failed ctx=%s gle=%lu",g_ctx,GetLastError()); return; }
+  if(!h){ DWORD e=GetLastError(); rv v; rv_reset(&v); for(int j=0;j<6;j++) rv_na(&v); rec_row("cap",&k,&v);
+    rec_note("cap: window failed ctx=%s gle=%lu",g_ctx,e); return; }
   ShowWindow(h,SW_SHOWNOACTIVATE); SetWindowPos(h,HWND_TOPMOST,0,0,0,0,SWP_NOMOVE|SWP_NOSIZE|SWP_NOACTIVATE|SWP_SHOWWINDOW);
   UpdateWindow(h); pump(250); if(A.DwmFlush) A.DwmFlush(); Sleep(120); pump(30);
   DCTX sv=A.SetThreadCtx?A.SetThreadCtx(CTX(-4)):NULL;   /* read the screen in physical pixels */
@@ -519,7 +549,7 @@ static void run_children(const char *tag, const char *out){
     if(CreateProcessA(NULL,cl,NULL,NULL,TRUE,0,NULL,NULL,&si,&pi)){
       /* pump while waiting: the child's USER calls may send messages to this process's windows/queue */
       DWORD t0=GetTickCount(), r; MSG m;
-      while((r=MsgWaitForMultipleObjects(1,&pi.hProcess,FALSE,500,QS_ALLINPUT))!=WAIT_OBJECT_0 && GetTickCount()-t0<120000)
+      while((r=MsgWaitForMultipleObjects(1,&pi.hProcess,FALSE,500,QS_ALLINPUT))!=WAIT_OBJECT_0 && GetTickCount()-t0<30000)
         while(PeekMessageW(&m,NULL,0,0,PM_REMOVE)){ TranslateMessage(&m); DispatchMessageW(&m); }
       if(r!=WAIT_OBJECT_0){ TerminateProcess(pi.hProcess,9); fprintf(stderr,"child %s timeout\n",API_MODES[i]); }
       CloseHandle(pi.hThread); CloseHandle(pi.hProcess);
@@ -540,7 +570,7 @@ int main(int argc, char **argv){
     if(!strcmp(argv[i],"--api") && i+1<argc) apply_api(argv[i+1]);
     else if(!strcmp(argv[i],"--tag") && i+1<argc) tag=argv[i+1];
     else if(!strcmp(argv[i],"--out") && i+1<argc) out=argv[i+1]; }
-  rec_init(&argc,argv,"dpi_scaling","1");
+  rec_init(&argc,argv,"dpi_scaling","2");
   for(int i=1;i<argc;i++){
     if(!strcmp(argv[i],"--quick")) g_full=0; else if(!strcmp(argv[i],"--full")) g_full=1;
     else if(!strcmp(argv[i],"--no-children")) g_children=0; else if(!strcmp(argv[i],"--no-cap")) g_cap=0;
@@ -553,7 +583,8 @@ int main(int argc, char **argv){
   InitCommonControlsEx(&icc);
 
   rec_schema("api","mode","avail ret err");
-  { rk k; rv v; rk_reset(&k); rk_s(&k,"mode",g_api?g_api:"none"); rv_reset(&v); rv_i(&v,g_api_avail); rv_x(&v,(unsigned long long)g_api_ret); rv_i(&v,g_api_err); rec_row("api",&k,&v); }
+  { rk k; rv v; rk_reset(&k); rk_s(&k,"mode",g_api?g_api:"none"); rv_reset(&v); rv_i(&v,g_api_avail); rv_x(&v,(unsigned long long)(uint32_t)g_api_ret); rv_i(&v,g_api_err); rec_row("api",&k,&v); }
+  rec_schema("face","face","present n_enum n_tt type full");
   rec_schema("ctx","ctx","set_ok cur aw ctxdpi sysdpi procsysdpi proc_aware shc_aw logpx logpy horzres:px vertres:px deskhorz:px deskvert:px "
                           "dlgbu_x:px dlgbu_y:px mon_eff_x mon_eff_y mon_ang_x mon_ang_y mon_raw_x mon_raw_y mon_w:px mon_h:px work_w:px work_h:px desktop_wdpi");
   rec_schema("sm","ctx name","val:px");
@@ -561,7 +592,7 @@ int main(int argc, char **argv){
   rec_schema("ncm","ctx src dpi","border:px scroll_w:px scroll_h:px caption_w:px caption_h:px smcaption_w:px smcaption_h:px menu_w:px menu_h:px padded:px icon_hspace:px icon_vspace:px icon_wrap");
   rec_schema("ncmf","ctx src dpi font",LF_COLS);
   rec_schema("stock","ctx obj",LF_COLS " got " TM_COLS);
-  rec_schema("ptconv","ctx","logpy muldiv8:px muldiv9:px dgf_rule:px dgf_lfh:px ncm_msg_lfh:px ncm_cap_lfh:px icontitle_lfh:px");
+  rec_schema("ptconv","ctx","logpy muldiv8:px muldiv9:px dlgrule8:px dlgrule9:px dgf_lfh:px ncm_msg_lfh:px ncm_cap_lfh:px icontitle_lfh:px");
   rec_schema("muldiv","pt dpi","pos neg negpos");
   rec_schema("tm","ctx face pt","logpy req_h:px got " TM_COLS);
   rec_schema("cw","ctx face pt","w32_20_7e:px");
@@ -571,6 +602,7 @@ int main(int argc, char **argv){
   rec_schema("win","ctx","ok wdpi waw x:px y:px w:px h:px cw:px ch:px phys_x:px phys_y:px phys_w:px phys_h:px phys_cw:px phys_ch:px l2p_x l2p_y p2l_x p2l_y");
   rec_schema("cap","ctx","phys_x:px phys_y:px phys_w:px phys_h:px pm2_ok ink_px");
 
+  t_face();
   int nctx=(g_full && !g_api)?NCTX:1;
   for(int i=0;i<nctx;i++){
     DCTX sv; int ok=ctx_enter(i,&sv);
