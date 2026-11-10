@@ -1,0 +1,208 @@
+REC 1 hello v=1 variant=base tag=resA-dpi96-1280x1024
+ENV hello probe.exe hello.exe
+ENV hello probe.exe_sha256 333cc111d05cd017
+ENV hello probe.exe_size 290224
+ENV hello probe.version 1
+ENV hello probe.format 1
+ENV hello probe.bits 64
+ENV hello probe.args ~
+ENV hello os.version 10.0.19045
+ENV hello os.sp 0.0
+ENV hello os.ubr 2965
+ENV hello os.display_version 22H2
+ENV hello os.product Windows%2010%20Home
+ENV hello os.edition Core
+ENV hello os.buildlab 19041.1.amd64fre.vb_release.191206-1406
+ENV hello host.computer I7-WIN10
+ENV hello host.user Administrator
+ENV hello host.session 1
+ENV hello host.elevated 1
+ENV hello time.local 2026-11-10T05:56:24.757
+ENV hello time.utc 2026-11-10T13:56:24.757Z
+ENV hello time.tz_bias_min 480
+ENV hello time.tz_name Pacific%20Standard%20Time
+ENV hello time.tz_state 1
+ENV hello time.uptime_ms 33359
+ENV hello locale.user en-US
+ENV hello locale.system en-US
+ENV hello locale.lcid_user 0x0409
+ENV hello locale.lcid_system 0x0409
+ENV hello locale.lcid_thread 0x0409
+ENV hello locale.ui_user 0x0409
+ENV hello locale.ui_system 0x0409
+ENV hello locale.acp 1252
+ENV hello locale.oemcp 437
+ENV hello locale.kbd 00000409
+ENV hello dpi.system 96
+ENV hello dpi.awareness 0
+ENV hello dpi.context 0x6010
+ENV hello dpi.process_aware 0
+ENV hello dpi.logpixels 96x96
+ENV hello display.res 1280x1024
+ENV hello display.desktopres 1280x1024
+ENV hello display.bpp 32
+ENV hello display.vrefresh 64
+ENV hello display.size_mm 325x203
+ENV hello display.mode 1280x1024x32@64
+ENV hello display.monitors 1
+ENV hello dpi.reg_logpixels %21
+ENV hello dpi.reg_win8dpiscaling 0
+ENV hello dpi.reg_applieddpi 96
+ENV hello dpi.reg_hw_logpixels 96
+ENV hello comctl32.version 5.82.10586
+ENV hello comctl32.path C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.1110_none_792d1c772443f647\comctl32.dll
+ENV hello theme.active 1
+ENV hello sm.CXSCREEN 1280
+ENV hello sm.CYSCREEN 1024
+ENV hello sm.CXVIRTUALSCREEN 1280
+ENV hello sm.CYVIRTUALSCREEN 1024
+ENV hello sm.CXFULLSCREEN 1280
+ENV hello sm.CYFULLSCREEN 961
+ENV hello sm.CXMAXIMIZED 1296
+ENV hello sm.CYMAXIMIZED 1000
+ENV hello sm.CYCAPTION 23
+ENV hello sm.CYSMCAPTION 23
+ENV hello sm.CYMENU 20
+ENV hello sm.CYMENUSIZE 19
+ENV hello sm.CXMENUSIZE 19
+ENV hello sm.CXSIZE 36
+ENV hello sm.CYSIZE 22
+ENV hello sm.CXSMSIZE 22
+ENV hello sm.CYSMSIZE 22
+ENV hello sm.CXBORDER 1
+ENV hello sm.CYBORDER 1
+ENV hello sm.CXEDGE 2
+ENV hello sm.CYEDGE 2
+ENV hello sm.CXFIXEDFRAME 3
+ENV hello sm.CYFIXEDFRAME 3
+ENV hello sm.CXSIZEFRAME 8
+ENV hello sm.CYSIZEFRAME 8
+ENV hello sm.CXPADDEDBORDER 0
+ENV hello sm.CXVSCROLL 17
+ENV hello sm.CYHSCROLL 17
+ENV hello sm.CYVSCROLL 17
+ENV hello sm.CXHSCROLL 17
+ENV hello sm.CXHTHUMB 17
+ENV hello sm.CYVTHUMB 17
+ENV hello sm.CXICON 32
+ENV hello sm.CYICON 32
+ENV hello sm.CXSMICON 16
+ENV hello sm.CYSMICON 16
+ENV hello sm.CXCURSOR 32
+ENV hello sm.CYCURSOR 32
+ENV hello sm.CXICONSPACING 75
+ENV hello sm.CYICONSPACING 75
+ENV hello sm.CXMENUCHECK 15
+ENV hello sm.CYMENUCHECK 15
+ENV hello sm.CXMIN 136
+ENV hello sm.CYMIN 39
+ENV hello sm.CXMINTRACK 136
+ENV hello sm.CYMINTRACK 39
+ENV hello sm.CXDLGFRAME 3
+ENV hello sm.CYDLGFRAME 3
+ENV hello sm.CXFOCUSBORDER 1
+ENV hello sm.CYFOCUSBORDER 1
+ENV hello sm.CXDRAG 4
+ENV hello sm.CYDRAG 4
+ENV hello sm.CXDOUBLECLK 4
+ENV hello sm.CYDOUBLECLK 4
+ENV hello sm.CYKANJIWINDOW 0
+ENV hello sm.DBCSENABLED 0
+ENV hello sm.IMMENABLED 1
+ENV hello sm.MIDEASTENABLED 0
+ENV hello sm.REMOTESESSION 0
+ENV hello sm.CMOUSEBUTTONS 5
+ENV hello ncm.metrics border=5,scrollw=17,scrollh=17,captionw=36,captionh=22,smcaptionw=22,smcaptionh=22,menuw=19,menuh=19,paddedborder=0
+ENV hello ncm.caption h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV hello ncm.smcaption h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV hello ncm.menu h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV hello ncm.status h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV hello ncm.message h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV hello icm.metrics hspacing=75,vspacing=75,wrap=1
+ENV hello icm.font h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV hello spi.fontsmoothing 1
+ENV hello spi.fontsmoothingtype 2
+ENV hello spi.fontsmoothingcontrast 1200
+ENV hello spi.fontsmoothingorientation 1
+ENV hello spi.cleartype 1
+ENV hello stock.SYSTEM_FONT h=16,w=7,wt=700,it=0,cs=0,q=2,pf=0x22,face=System
+ENV hello stock.SYSTEM_FIXED_FONT h=15,w=8,wt=400,it=0,cs=0,q=2,pf=0x31,face=Fixedsys
+ENV hello stock.OEM_FIXED_FONT h=12,w=8,wt=400,it=0,cs=255,q=2,pf=0x31,face=Terminal
+ENV hello stock.ANSI_FIXED_FONT h=12,w=9,wt=400,it=0,cs=0,q=2,pf=0x1,face=Courier
+ENV hello stock.ANSI_VAR_FONT h=12,w=9,wt=400,it=0,cs=0,q=2,pf=0x2,face=MS%20Sans%20Serif
+ENV hello stock.DEVICE_DEFAULT_FONT h=16,w=7,wt=700,it=0,cs=0,q=2,pf=0x22,face=System
+ENV hello stock.DEFAULT_GUI_FONT h=-11,w=0,wt=400,it=0,cs=0,q=0,pf=0x0,face=MS%20Shell%20Dlg
+ENV hello fonts.dir files=339,bytes=360823736,sha256=2a39731511ddfe7d
+ENV hello fonts.file.segoeui.ttf size=955804,sha256=ba32a222b23d7272
+ENV hello fonts.file.segoeuib.ttf size=951724,sha256=1b242874a2f57529
+ENV hello fonts.file.tahoma.ttf size=939280,sha256=b890858df485549d
+ENV hello fonts.file.tahomabd.ttf size=867988,sha256=68f92341975acc27
+ENV hello fonts.file.micross.ttf size=876256,sha256=3f557479a768a1d9
+ENV hello fonts.file.arial.ttf size=1036584,sha256=c9b76220a5be42ea
+ENV hello fonts.file.cour.ttf size=806504,sha256=93c3ff526c19d034
+ENV hello fonts.file.couree.fon size=23440,sha256=6c879f57850f0c0f
+ENV hello fonts.file.coure.fon size=23408,sha256=e81d15ef094f997d
+ENV hello fonts.file.sserife.fon size=64656,sha256=28877eee4ccda2a3
+ENV hello fonts.file.serife.fon size=57936,sha256=19bfe5865332ca1f
+ENV hello fonts.file.vgasys.fon size=7280,sha256=7baefa14ef8ef235
+ENV hello fonts.file.vgaoem.fon size=5168,sha256=011326f65e151d83
+ENV hello fonts.file.vgafix.fon size=5360,sha256=57402d1e89dc0d83
+ENV hello fonts.file.8514sys.fon size=9280,sha256=dc7e1c9bb168e22b
+ENV hello fonts.file.marlett.ttf size=27724,sha256=b7397adf2dcc24ca
+ENV hello fonts.file.smalle.fon size=26112,sha256=de416395301da32c
+ENV hello fonts.file.ssee0874.fon %21
+ENV hello reg.fontsubstitutes count=26,sha256=a11fda2b499b2235
+ENV hello reg.fontsubst.MS%20Shell%20Dlg Microsoft%20Sans%20Serif
+ENV hello reg.fontsubst.MS%20Shell%20Dlg%202 Tahoma
+ENV hello reg.fontsubst.Helv MS%20Sans%20Serif
+ENV hello reg.fontsubst.Helvetica Arial
+ENV hello reg.fontsubst.Tms%20Rmn MS%20Serif
+ENV hello reg.fontsubst.Times Times%20New%20Roman
+ENV hello reg.fontsubst.Courier %21
+ENV hello reg.fontsubst.MS%20Sans%20Serif %21
+ENV hello reg.fonts count=154,sha256=cd0aa256a5a10909
+ENV hello reg.systemlink count=67,sha256=c570685f364b9a70
+ENV hello reg.gre_init.DisableRemoteFontBootCache 0
+ENV hello reg.gre_init.ServicingStackModifiedFonts 2
+ENV hello reg.fontdpi.LogPixels 96
+S hello tm face;req_h | got h:px a:px d:px il:px el:px ave:px max:px weight pf cs ext19_cx:px ext19_cy:px
+R hello tm face=Segoe%20UI;req_h=-11 | Segoe%20UI 13 11 2 2 0 6 28 400 0x27 0 106 13
+H hello cw_ascii face=Segoe%20UI;req_h=-11 sha256=cd7f38d430d265f2 len=380
+R hello tm face=Segoe%20UI;req_h=-12 | Segoe%20UI 15 12 3 3 0 6 31 400 0x27 0 108 15
+H hello cw_ascii face=Segoe%20UI;req_h=-12 sha256=30197bd5dee5ad05 len=380
+R hello tm face=MS%20Shell%20Dlg;req_h=-11 | MS%20Shell%20Dlg 13 11 2 2 0 5 23 400 0x27 0 97 13
+H hello cw_ascii face=MS%20Shell%20Dlg;req_h=-11 sha256=b6d16c61e8c16b23 len=380
+R hello tm face=MS%20Shell%20Dlg;req_h=-12 | MS%20Shell%20Dlg 13 11 2 2 0 5 23 400 0x27 0 97 13
+H hello cw_ascii face=MS%20Shell%20Dlg;req_h=-12 sha256=b6d16c61e8c16b23 len=380
+R hello tm face=MS%20Shell%20Dlg%202;req_h=-11 | MS%20Shell%20Dlg%202 13 11 2 2 0 5 27 400 0x27 0 97 13
+H hello cw_ascii face=MS%20Shell%20Dlg%202;req_h=-11 sha256=7d8f14f2ae3d73b1 len=380
+R hello tm face=MS%20Shell%20Dlg%202;req_h=-12 | MS%20Shell%20Dlg%202 14 12 2 2 0 5 29 400 0x27 0 114 14
+H hello cw_ascii face=MS%20Shell%20Dlg%202;req_h=-12 sha256=baa0cef3586c6c61 len=380
+R hello tm face=Tahoma;req_h=-11 | Tahoma 13 11 2 2 0 5 27 400 0x27 0 97 13
+H hello cw_ascii face=Tahoma;req_h=-11 sha256=7d8f14f2ae3d73b1 len=380
+R hello tm face=Tahoma;req_h=-12 | Tahoma 14 12 2 2 0 5 29 400 0x27 0 114 14
+H hello cw_ascii face=Tahoma;req_h=-12 sha256=baa0cef3586c6c61 len=380
+R hello tm face=Arial;req_h=-11 | Arial 14 11 3 3 0 5 29 400 0x27 0 100 14
+H hello cw_ascii face=Arial;req_h=-11 sha256=220e808b157a5f82 len=380
+R hello tm face=Arial;req_h=-12 | Arial 15 12 3 3 0 5 32 400 0x27 0 108 15
+H hello cw_ascii face=Arial;req_h=-12 sha256=4feff75dcc6da7c1 len=380
+R hello tm face=Courier%20New;req_h=-11 | Courier%20New 14 11 3 3 0 7 8 400 0x36 0 133 14
+H hello cw_ascii face=Courier%20New;req_h=-11 sha256=276b1d9c4cc2a262 len=380
+R hello tm face=Courier%20New;req_h=-12 | Courier%20New 15 12 3 3 0 7 9 400 0x36 0 133 15
+H hello cw_ascii face=Courier%20New;req_h=-12 sha256=276b1d9c4cc2a262 len=380
+R hello tm face=System;req_h=-11 | System 16 13 3 3 0 7 14 700 0x21 0 129 16
+H hello cw_ascii face=System;req_h=-11 sha256=5343f0e60aeaff6c len=380
+R hello tm face=System;req_h=-12 | System 16 13 3 3 0 7 14 700 0x21 0 129 16
+H hello cw_ascii face=System;req_h=-12 sha256=5343f0e60aeaff6c len=380
+R hello tm face=NoSuchFace;req_h=-11 | Arial 14 11 3 3 0 5 29 400 0x27 0 100 14
+H hello cw_ascii face=NoSuchFace;req_h=-11 sha256=220e808b157a5f82 len=380
+R hello tm face=NoSuchFace;req_h=-12 | Arial 15 12 3 3 0 5 32 400 0x27 0 108 15
+H hello cw_ascii face=NoSuchFace;req_h=-12 sha256=4feff75dcc6da7c1 len=380
+B hello glyph face=Segoe%20UI;req_h=-12;text=Ag;quality=nonaa 24x18x8 b64://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////8AAP////////////////////////////8AAP///////////////////////////wD//wD//////////////////////////wD//wD/////AAAAAP///////////////wD//wD///8A////AP//////////////AP////8A//8A////AP//////////////AAAAAAAA//8A////AP////////////8A////////AP8A//8AAP////////////8A////////AP//AAD/AP//////////////////////////////AP//////////////////////////////AP////////////////////////8AAAAA////////////////////////////////////////////////////////////////////////////
+B hello glyph4 face=Segoe%20UI;req_h=-12;text=Ag;quality=nonaa 24x18x4 b64:///////////////////////////////////////////////////////////////////wD//////////////wD/////////////8P8P////////////8P8P//AAD///////8P8P/w//D///////D//w/w//D///////AAAA/w//D//////w////Dw/wD//////w////D/APD///////////////D///////////////D////////////wAA//////////////////////////////////////
+B hello glyph face=Segoe%20UI;req_h=-12;text=Ag;quality=aa 24x18x8 b64://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////+MjP////////////////////////////AAAPD//////////////////////////71oaL3//////////////////////////2i9smj////wfAC9AL3/////////////2QDw6QDZ//+aaP/QAL3/////////////p3z//2in//8Avf//AL3/////////////AAAAAAAA//8Avf//AL3////////////HAP////AAx/98aP/HAL3///////////98mv////+MfP/paE3QAL3////////////////////////////wAMf///////////////////////////+aTfD///////////////////////98AAB84f//////////////////////////////////////////////////////////////////////////
+B hello glyph4 face=Segoe%20UI;req_h=-12;text=Ag;quality=aa 24x18x4 b64:///////////////////////////////////////////////////////////////////4j//////////////wD/////////////+2a/////////////9rtv//cLC///////0P4N/5b9C///////p/9q/wv/C///////AAAA/wv/C//////8D//wz3b8C//////3n//4f+ZNC///////////////DP/////////////5T////////////3AH7/////////////////////////////////////
+B hello glyph face=Segoe%20UI;req_h=-12;text=Ag;quality=cleartype 24x18x8 b64://////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////9yUP///////////////////////////90+R8j//////////////////////////5x+nH7/////////////////////////+lPI3UP0///dEQB2Jcj/////////////3UP0+lPI//Yepv+cBsj/////////////nH7//5xQ/91D9P/2Jcj////////////2HgAAAAAL6d1D9P/2Jcj////////////CMvT///pNpvYepv+cBsj///////////9yfv////+cUP/CAAB2Jcj////////////////////////////dHen///////////////////////////9yMvT///////////////////////pNAAAL6f//////////////////////////////////////////////////////////////////////////
+B hello glyph4 face=Segoe%20UI;req_h=-12;text=Ag;quality=cleartype 24x18x4 b64:///////////////////////////////////////////////////////////////////3X//////////////TTP////////////+Xl/////////////9c1P/9EHLP//////1P9c/xr5DP//////l/+V/U//LP//////EAAA7U//LP/////8P//0rxr5DP/////3f//5X8AHLP/////////////9Hv/////////////3P////////////0AA7/////////////////////////////////////
+N hello hello%20done
+END hello rows=207 crc32=DD8A78AA status=ok

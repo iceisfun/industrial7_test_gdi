@@ -1,0 +1,63 @@
+# serial serial.log sha256=63fc2608c09fd88f6d00f27b45d0b21a2fdf7e039d8f44c8fa65e7ec8d87565a bytes=104040
+# wrote data/win10/hello/resA-dpi96-1280x1024.rec
+# wrote data/win10/hello/resA-dpi96-1280x1024.sys.rec
+# wrote data/win10/hello/resA-dpi96-1280x1024.v6pm2.rec
+# wrote data/win10/hello/resA-dpi144-1280x1024.rec
+# wrote data/win10/hello/resA-dpi144-1280x1024.sys.rec
+# wrote data/win10/hello/resA-dpi144-1280x1024.v6pm2.rec
+# wrote data/win10/hello/resA-dpi144-1920x1080.sys.rec
+# wrote data/win10/hello/resA-dpi144-800x600.sys.rec
+I7VM: logon Tue 11/10/2026  5:56:23.03 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-resA-dpi96-1280x1024-sweep-20261110-052317-1830258 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T05:56:23.179
+I7P ECHO id=gdi-resA-dpi96-1280x1024-sweep-20261110-052317-1830258 tag=resA-dpi96-1280x1024 dpi=96 res=1280x1024
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P SETRES want=1280x1024 rc=0 now=1280x1024x32
+I7P BEGIN name=hello seq=0 timeout=300 time=2026-11-10T05:56:24.726
+I7P END name=hello seq=0 rc=0 ms=140 timeout=0
+I7P BEGIN name=hello.sys seq=1 timeout=300 time=2026-11-10T05:56:24.867
+I7P END name=hello.sys seq=1 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.v6pm2 seq=2 timeout=300 time=2026-11-10T05:56:24.960
+I7P END name=hello.v6pm2 seq=2 rc=0 ms=109 timeout=0
+I7P SHOT name=resA-dpi96
+I7P DONE n=3 failed=0
+I7DPI set LogPixels=144
+I7VMRUN LOGOFF next=1
+I7VM: logon Tue 11/10/2026  5:56:52.52 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-resA-dpi96-1280x1024-sweep-20261110-052317-1830258 logon=1
+I7VMRUN STAGE dpi=144 plan=plan1.txt
+I7P RUNNER v=1 plan=D:\i7run\plan1.txt time=2026-11-10T05:56:52.629
+I7P ECHO id=gdi-resA-dpi96-1280x1024-sweep-20261110-052317-1830258 tag=resA-dpi144-1280x1024 dpi=144 res=1280x1024
+I7P SETRES want=1280x1024 rc=0 now=1280x1024x32
+I7P BEGIN name=hello seq=0 timeout=300 time=2026-11-10T05:56:54.176
+I7P END name=hello seq=0 rc=0 ms=78 timeout=0
+I7P BEGIN name=hello.sys seq=1 timeout=300 time=2026-11-10T05:56:54.254
+I7P END name=hello.sys seq=1 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.v6pm2 seq=2 timeout=300 time=2026-11-10T05:56:54.348
+I7P END name=hello.v6pm2 seq=2 rc=0 ms=78 timeout=0
+I7P SHOT name=resA-dpi144
+I7P SETRES want=1920x1080 rc=0 now=1920x1080x32
+I7P BEGIN name=hello.sys seq=3 timeout=300 time=2026-11-10T05:56:58.957
+I7P END name=hello.sys seq=3 rc=0 ms=78 timeout=0
+I7P SHOT name=resA-1920x1080
+I7P SETRES want=800x600 rc=0 now=800x600x32
+I7P BEGIN name=hello.sys seq=4 timeout=300 time=2026-11-10T05:57:03.598
+I7P END name=hello.sys seq=4 rc=0 ms=93 timeout=0
+I7P SHOT name=resA-800x600
+I7P DONE n=5 failed=0
+I7VMRUN END id=gdi-resA-dpi96-1280x1024-sweep-20261110-052317-1830258
+I7VM: payload exit 0 

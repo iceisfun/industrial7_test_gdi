@@ -126,7 +126,18 @@ mode 1024x768x32 at 64 Hz, `HORZSIZE x VERTSIZE` 325x203 mm, 1 monitor.
 
 ### 5.3 Display modes and `--dpi-mode boot`
 
-(section 5.3 is filled from runs `gdi-resA-*` and `gdi-bootB-*`, below)
+**Display modes** (run `gdi-resA-dpi96-1280x1024-sweep-20261110-052317-1830258`, `--dpi 96,144 --res 1280x1024
+--plan-extra` with `setres 1920x1080` / `setres 800x600` + hello.sys, 8/8 recordings valid, `data/win10/hello/resA-*.rec`):
+- `-vga std` (Microsoft Basic Display Adapter) offers 11 modes, all 32 bpp at 64 Hz: 640x480, 800x600, 1024x768 (boot
+  default), 1280x1024, 1600x1200, 1280x800, 1280x960, 1440x900, 1680x1050, 1920x1200, 1920x1080 (`I7P MODE`, in that order).
+- `setres` (ChangeDisplaySettings, no reboot) returned 0 (DISP_CHANGE_SUCCESSFUL) for 1280x1024, 1920x1080 and 800x600, and
+  ENV `display.mode`/`display.res`/`sm.CXSCREEN` follow it; `display.size_mm` stays 325x203.
+- The DPI does not follow the mode: at LogPixels 144, `hello.sys` reports `dpi.system` 144 at 800x600, 1280x1024 and
+  1920x1080 alike; the unaware exe at 144 sees the virtualized 853x683 (= 1280x1024 / 1.5).
+- hello's rows at 144 DPI are identical at 1024x768 and 800x600 (`rec.py diff`, 0 diffs).
+- The mode persists across the logoff between stages (stage 1 set it again anyway; `I7P SETRES ... now=1280x1024x32`).
+
+(`--dpi-mode boot`: see below)
 
 ## 6. Wine (plumbing only)
 
