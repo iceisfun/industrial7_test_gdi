@@ -167,8 +167,10 @@ static void tt_one(const fspec *f, const char *theme, int balloon, int i){
   ti.cbSize = g_cc6 ? sizeof ti : TTTOOLINFOW_V2_SIZE;
   ti.hwnd = g_top; ti.uId = 1; ti.rect.right = 50; ti.rect.bottom = 50; ti.lpszText = (LPWSTR)TT[i].s; ti.hinst = g_hi;
   SendMessageW(h, TTM_ADDTOOLW, 0, (LPARAM)&ti);
-  DWORD bs = (DWORD)SendMessageW(h, TTM_GETBUBBLESIZE, 0, (LPARAM)&ti);
-  rv_i(&v, LOWORD(bs)); rv_i(&v, HIWORD(bs));
+  /* TTM_GETBUBBLESIZE is a comctl32 v6 message: on comctl32 5.82 (no manifest) it access-violates (Win10 19045, crash inside comctl32
+     on the first tooltip), so it is only sent when v6 is active and recorded as not-available otherwise. */
+  if (g_cc6) { DWORD bs = (DWORD)SendMessageW(h, TTM_GETBUBBLESIZE, 0, (LPARAM)&ti); rv_i(&v, LOWORD(bs)); rv_i(&v, HIWORD(bs)); }
+  else { rv_na(&v); rv_na(&v); }
   RECT m = {NA_SENT, NA_SENT, NA_SENT, NA_SENT}; SendMessageW(h, TTM_GETMARGIN, 0, (LPARAM)&m);
   rv_s32(&v, m.left); rv_s32(&v, m.top); rv_s32(&v, m.right); rv_s32(&v, m.bottom);
   RECT a = {0, 0, 100, 20}; int ok = (int)SendMessageW(h, TTM_ADJUSTRECT, TRUE, (LPARAM)&a); rv_rect(&v, &a, ok);
