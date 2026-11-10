@@ -1,0 +1,36 @@
+I7VM: logon Mon 11/09/2026 15:44:06.05 
+I7VM: payload D:\i7run 
+RUN tm_hello 
+
+Microsoft Windows [Version 10.0.19045.2965]
+HELLO dpiY=96 dpiX=96 bpp=32 horzres=1024
+TM face=Segoe UI req_h=-11 dpi=96 got=Segoe UI h=13 a=11 d=2 il=2 el=0 ave=6 max=28 ow=0 pf=0x27 ext19=106x13 w_i=3 w_W=12 w_0=6
+TM face=Segoe UI req_h=-12 dpi=96 got=Segoe UI h=15 a=12 d=3 il=3 el=0 ave=6 max=31 ow=0 pf=0x27 ext19=108x15 w_i=3 w_W=12 w_0=6
+TM face=Segoe UI req_h=-16 dpi=96 got=Segoe UI h=21 a=17 d=4 il=5 el=0 ave=9 max=41 ow=0 pf=0x27 ext19=140x21 w_i=4 w_W=16 w_0=9
+TM face=Tahoma req_h=-11 dpi=96 got=Tahoma h=13 a=11 d=2 il=2 el=0 ave=5 max=27 ow=0 pf=0x27 ext19=97x13 w_i=2 w_W=11 w_0=6
+TM face=Tahoma req_h=-12 dpi=96 got=Tahoma h=14 a=12 d=2 il=2 el=0 ave=5 max=29 ow=0 pf=0x27 ext19=114x14 w_i=2 w_W=13 w_0=7
+TM face=Tahoma req_h=-16 dpi=96 got=Tahoma h=19 a=16 d=3 il=3 el=0 ave=7 max=39 ow=0 pf=0x27 ext19=146x19 w_i=4 w_W=15 w_0=9
+TM face=MS Shell Dlg req_h=-11 dpi=96 got=MS Shell Dlg h=13 a=11 d=2 il=2 el=0 ave=5 max=23 ow=0 pf=0x27 ext19=97x13 w_i=2 w_W=12 w_0=6
+TM face=MS Shell Dlg req_h=-12 dpi=96 got=MS Shell Dlg h=13 a=11 d=2 il=2 el=0 ave=5 max=23 ow=0 pf=0x27 ext19=97x13 w_i=2 w_W=12 w_0=6
+TM face=MS Shell Dlg req_h=-16 dpi=96 got=MS Shell Dlg h=20 a=16 d=4 il=4 el=0 ave=7 max=33 ow=0 pf=0x27 ext19=140x20 w_i=3 w_W=16 w_0=9
+TM face=MS Shell Dlg 2 req_h=-11 dpi=96 got=MS Shell Dlg 2 h=13 a=11 d=2 il=2 el=0 ave=5 max=27 ow=0 pf=0x27 ext19=97x13 w_i=2 w_W=11 w_0=6
+TM face=MS Shell Dlg 2 req_h=-12 dpi=96 got=MS Shell Dlg 2 h=14 a=12 d=2 il=2 el=0 ave=5 max=29 ow=0 pf=0x27 ext19=114x14 w_i=2 w_W=13 w_0=7
+TM face=MS Shell Dlg 2 req_h=-16 dpi=96 got=MS Shell Dlg 2 h=19 a=16 d=3 il=3 el=0 ave=7 max=39 ow=0 pf=0x27 ext19=146x19 w_i=4 w_W=15 w_0=9
+TM face=MS Sans Serif req_h=-11 dpi=96 got=MS Sans Serif h=13 a=11 d=2 il=2 el=0 ave=5 max=11 ow=0 pf=0x21 ext19=97x13 w_i=2 w_W=12 w_0=6
+TM face=MS Sans Serif req_h=-12 dpi=96 got=MS Sans Serif h=13 a=11 d=2 il=2 el=0 ave=5 max=11 ow=0 pf=0x21 ext19=97x13 w_i=2 w_W=12 w_0=6
+TM face=MS Sans Serif req_h=-16 dpi=96 got=MS Sans Serif h=20 a=16 d=4 il=4 el=0 ave=8 max=16 ow=0 pf=0x21 ext19=140x20 w_i=3 w_W=16 w_0=9
+TM face=Arial req_h=-11 dpi=96 got=Arial h=14 a=11 d=3 il=3 el=0 ave=5 max=29 ow=0 pf=0x27 ext19=100x14 w_i=2 w_W=11 w_0=6
+TM face=Arial req_h=-12 dpi=96 got=Arial h=15 a=12 d=3 il=3 el=0 ave=5 max=32 ow=0 pf=0x27 ext19=108x15 w_i=3 w_W=12 w_0=7
+TM face=Arial req_h=-16 dpi=96 got=Arial h=18 a=15 d=3 il=2 el=1 ave=7 max=43 ow=0 pf=0x27 ext19=137x18 w_i=4 w_W=16 w_0=9
+TM face=Courier New req_h=-11 dpi=96 got=Courier New h=14 a=11 d=3 il=3 el=0 ave=7 max=8 ow=0 pf=0x36 ext19=133x14 w_i=7 w_W=8 w_0=7
+TM face=Courier New req_h=-12 dpi=96 got=Courier New h=15 a=12 d=3 il=3 el=0 ave=7 max=9 ow=0 pf=0x36 ext19=133x15 w_i=7 w_W=8 w_0=7
+TM face=Courier New req_h=-16 dpi=96 got=Courier New h=18 a=14 d=4 il=2 el=0 ave=10 max=12 ow=0 pf=0x36 ext19=190x18 w_i=10 w_W=11 w_0=10
+TM face=System req_h=-11 dpi=96 got=System h=16 a=13 d=3 il=3 el=0 ave=7 max=14 ow=0 pf=0x21 ext19=129x16 w_i=4 w_W=15 w_0=8
+TM face=System req_h=-12 dpi=96 got=System h=16 a=13 d=3 il=3 el=0 ave=7 max=14 ow=0 pf=0x21 ext19=129x16 w_i=4 w_W=15 w_0=8
+TM face=System req_h=-16 dpi=96 got=System h=16 a=13 d=3 il=3 el=0 ave=7 max=14 ow=0 pf=0x21 ext19=129x16 w_i=4 w_W=15 w_0=8
+TM face=NoSuchFace req_h=-11 dpi=96 got=Arial h=14 a=11 d=3 il=3 el=0 ave=5 max=29 ow=0 pf=0x27 ext19=100x14 w_i=2 w_W=11 w_0=6
+TM face=NoSuchFace req_h=-12 dpi=96 got=Arial h=15 a=12 d=3 il=3 el=0 ave=5 max=32 ow=0 pf=0x27 ext19=108x15 w_i=3 w_W=12 w_0=7
+TM face=NoSuchFace req_h=-16 dpi=96 got=Arial h=18 a=15 d=3 il=2 el=1 ave=7 max=43 ow=0 pf=0x27 ext19=137x18 w_i=4 w_W=16 w_0=9
+ENUMCOUNT 682
+DONE
+I7VM: payload exit 0 

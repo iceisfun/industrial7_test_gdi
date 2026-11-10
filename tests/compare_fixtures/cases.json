@@ -1,0 +1,158 @@
+{
+ "reference": "win10_tm_hello.rec",
+ "cases": [
+  {
+   "name": "identical",
+   "file": "win10_tm_hello.rec",
+   "expect": {
+    "fail": false,
+    "bad": 0,
+    "missing": 0,
+    "extra": 0
+   }
+  },
+  {
+   "name": "ascent +1 at -11 (h follows)",
+   "file": "ascent_m11.rec",
+   "expect": {
+    "fail": true,
+    "bad": 18,
+    "hints": [
+     "req_h=-11",
+     "TM.a:",
+     "height diff equals ascent diff"
+    ]
+   }
+  },
+  {
+   "name": "ascent +1 within tolerance 1",
+   "file": "ascent_m11.rec",
+   "args": [
+    "--tol",
+    "1"
+   ],
+   "expect": {
+    "fail": false,
+    "bad": 0
+   }
+  },
+  {
+   "name": "segoe -12 wine-like",
+   "file": "segoe12.rec",
+   "expect": {
+    "fail": true,
+    "hints": [
+     "TM.il: isolated",
+     "Segoe UI|req_h=-12"
+    ]
+   }
+  },
+  {
+   "name": "face substitution",
+   "file": "face_subst.rec",
+   "expect": {
+    "fail": true,
+    "bad": 3,
+    "hints": [
+     "appears as 'DejaVu Sans' in 3 row"
+    ]
+   }
+  },
+  {
+   "name": "max width halved",
+   "file": "maxw_half.rec",
+   "expect": {
+    "fail": true,
+    "hints": [
+     "TM.max"
+    ]
+   }
+  },
+  {
+   "name": "max width halved, ignored",
+   "file": "maxw_half.rec",
+   "args": [
+    "--ignore",
+    "max"
+   ],
+   "expect": {
+    "fail": false,
+    "bad": 0
+   }
+  },
+  {
+   "name": "w_W jitter all rows",
+   "file": "jitter_w.rec",
+   "expect": {
+    "fail": true,
+    "hints": [
+     "systematic offset +1 in all 27 rows"
+    ]
+   }
+  },
+  {
+   "name": "jitter ok at tol w_W=1",
+   "file": "jitter_w.rec",
+   "args": [
+    "--tol",
+    "w_W=1"
+   ],
+   "expect": {
+    "fail": false
+   }
+  },
+  {
+   "name": "courier rows missing",
+   "file": "no_courier.rec",
+   "expect": {
+    "fail": true,
+    "missing": 3,
+    "hints": [
+     "face=Courier New is missing"
+    ]
+   }
+  },
+  {
+   "name": "courier rows missing allowed",
+   "file": "no_courier.rec",
+   "args": [
+    "--allow-missing"
+   ],
+   "expect": {
+    "fail": false,
+    "missing": 3
+   }
+  },
+  {
+   "name": "extents 25 percent wider",
+   "file": "wide_ext.rec",
+   "expect": {
+    "fail": true,
+    "hints": [
+     "proportional scale"
+    ]
+   }
+  },
+  {
+   "name": "extents wider within rel-tol 0.3",
+   "file": "wide_ext.rec",
+   "args": [
+    "--rel-tol",
+    "0.3"
+   ],
+   "expect": {
+    "fail": false
+   }
+  },
+  {
+   "name": "pitch/family flag bits",
+   "file": "pitchfamily.rec",
+   "expect": {
+    "fail": true,
+    "hints": [
+     "TM.pf: flag bits differ"
+    ]
+   }
+  }
+ ]
+}
