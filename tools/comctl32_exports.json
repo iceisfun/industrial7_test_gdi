@@ -1,0 +1,1528 @@
+[
+{
+"name": "MenuHelp",
+"ordinal": 2,
+"rva": 959296,
+"forwarder": null,
+"ref": "comctl32.dll!0xea340"
+},
+{
+"name": "ShowHideMenuCtl",
+"ordinal": 3,
+"rva": 959856,
+"forwarder": null,
+"ref": "comctl32.dll!0xea570"
+},
+{
+"name": "GetEffectiveClientRect",
+"ordinal": 4,
+"rva": 345120,
+"forwarder": null,
+"ref": "comctl32.dll!0x54420"
+},
+{
+"name": "DrawStatusTextA",
+"ordinal": 5,
+"rva": 949872,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7e70"
+},
+{
+"name": "CreateStatusWindowA",
+"ordinal": 6,
+"rva": 949760,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7e00"
+},
+{
+"name": "CreateToolbar",
+"ordinal": 7,
+"rva": 1034720,
+"forwarder": null,
+"ref": "comctl32.dll!0xfc9e0"
+},
+{
+"name": "CreateMappedBitmap",
+"ordinal": 8,
+"rva": 1000608,
+"forwarder": null,
+"ref": "comctl32.dll!0xf44a0"
+},
+{
+"name": "DPA_LoadStream",
+"ordinal": 9,
+"rva": 1445120,
+"forwarder": null,
+"ref": "comctl32.dll!0x160d00"
+},
+{
+"name": "DPA_SaveStream",
+"ordinal": 10,
+"rva": 1446080,
+"forwarder": null,
+"ref": "comctl32.dll!0x1610c0"
+},
+{
+"name": "DPA_Merge",
+"ordinal": 11,
+"rva": 1445568,
+"forwarder": null,
+"ref": "comctl32.dll!0x160ec0"
+},
+{
+"name": "CreatePropertySheetPage",
+"ordinal": 12,
+"rva": 1006896,
+"forwarder": null,
+"ref": "comctl32.dll!0xf5d30"
+},
+{
+"name": "MakeDragList",
+"ordinal": 13,
+"rva": 958656,
+"forwarder": null,
+"ref": "comctl32.dll!0xea0c0"
+},
+{
+"name": "LBItemFromPt",
+"ordinal": 14,
+"rva": 958208,
+"forwarder": null,
+"ref": "comctl32.dll!0xe9f00"
+},
+{
+"name": "DrawInsert",
+"ordinal": 15,
+"rva": 957728,
+"forwarder": null,
+"ref": "comctl32.dll!0xe9d20"
+},
+{
+"name": "CreateUpDownControl",
+"ordinal": 16,
+"rva": 358720,
+"forwarder": null,
+"ref": "comctl32.dll!0x57940"
+},
+{
+"name": "InitCommonControls",
+"ordinal": 17,
+"rva": 610944,
+"forwarder": null,
+"ref": "comctl32.dll!0x95280"
+},
+{
+"name": null,
+"ordinal": 18,
+"rva": 998960,
+"forwarder": null,
+"ref": "comctl32.dll!0xf3e30"
+},
+{
+"name": null,
+"ordinal": 19,
+"rva": 1000480,
+"forwarder": null,
+"ref": "comctl32.dll!0xf4420"
+},
+{
+"name": null,
+"ordinal": 20,
+"rva": 629504,
+"forwarder": null,
+"ref": "comctl32.dll!0x99b00"
+},
+{
+"name": "CreatePropertySheetPageA",
+"ordinal": 21,
+"rva": 1006896,
+"forwarder": null,
+"ref": "comctl32.dll!0xf5d30"
+},
+{
+"name": "CreatePropertySheetPageW",
+"ordinal": 22,
+"rva": 227520,
+"forwarder": null,
+"ref": "comctl32.dll!0x378c0"
+},
+{
+"name": "CreateStatusWindow",
+"ordinal": 23,
+"rva": 949760,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7e00"
+},
+{
+"name": "CreateStatusWindowW",
+"ordinal": 24,
+"rva": 354704,
+"forwarder": null,
+"ref": "comctl32.dll!0x56990"
+},
+{
+"name": "CreateToolbarEx",
+"ordinal": 25,
+"rva": 1034832,
+"forwarder": null,
+"ref": "comctl32.dll!0xfca50"
+},
+{
+"name": "DestroyPropertySheetPage",
+"ordinal": 26,
+"rva": 227840,
+"forwarder": null,
+"ref": "comctl32.dll!0x37a00"
+},
+{
+"name": "DllGetVersion",
+"ordinal": 27,
+"rva": 996160,
+"forwarder": null,
+"ref": "comctl32.dll!0xf3340"
+},
+{
+"name": "DllInstall",
+"ordinal": 28,
+"rva": 611648,
+"forwarder": null,
+"ref": "comctl32.dll!0x95540"
+},
+{
+"name": "DrawShadowText",
+"ordinal": 29,
+"rva": 1036496,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd0d0"
+},
+{
+"name": "DrawStatusText",
+"ordinal": 30,
+"rva": 949872,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7e70"
+},
+{
+"name": "DrawStatusTextW",
+"ordinal": 31,
+"rva": 950096,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7f50"
+},
+{
+"name": "FlatSB_EnableScrollBar",
+"ordinal": 32,
+"rva": 959040,
+"forwarder": null,
+"ref": "comctl32.dll!0xea240"
+},
+{
+"name": "FlatSB_GetScrollInfo",
+"ordinal": 33,
+"rva": 959072,
+"forwarder": null,
+"ref": "comctl32.dll!0xea260"
+},
+{
+"name": "FlatSB_GetScrollPos",
+"ordinal": 34,
+"rva": 959104,
+"forwarder": null,
+"ref": "comctl32.dll!0xea280"
+},
+{
+"name": "FlatSB_GetScrollProp",
+"ordinal": 35,
+"rva": 611648,
+"forwarder": null,
+"ref": "comctl32.dll!0x95540"
+},
+{
+"name": "FlatSB_GetScrollPropPtr",
+"ordinal": 36,
+"rva": 611648,
+"forwarder": null,
+"ref": "comctl32.dll!0x95540"
+},
+{
+"name": "FlatSB_GetScrollRange",
+"ordinal": 37,
+"rva": 959136,
+"forwarder": null,
+"ref": "comctl32.dll!0xea2a0"
+},
+{
+"name": "FlatSB_SetScrollInfo",
+"ordinal": 38,
+"rva": 959168,
+"forwarder": null,
+"ref": "comctl32.dll!0xea2c0"
+},
+{
+"name": "FlatSB_SetScrollPos",
+"ordinal": 39,
+"rva": 959200,
+"forwarder": null,
+"ref": "comctl32.dll!0xea2e0"
+},
+{
+"name": "FlatSB_SetScrollProp",
+"ordinal": 40,
+"rva": 611648,
+"forwarder": null,
+"ref": "comctl32.dll!0x95540"
+},
+{
+"name": "FlatSB_SetScrollRange",
+"ordinal": 41,
+"rva": 959232,
+"forwarder": null,
+"ref": "comctl32.dll!0xea300"
+},
+{
+"name": "FlatSB_ShowScrollBar",
+"ordinal": 42,
+"rva": 959264,
+"forwarder": null,
+"ref": "comctl32.dll!0xea320"
+},
+{
+"name": "GetMUILanguage",
+"ordinal": 43,
+"rva": 960192,
+"forwarder": null,
+"ref": "comctl32.dll!0xea6c0"
+},
+{
+"name": "HIMAGELIST_QueryInterface",
+"ordinal": 44,
+"rva": 522800,
+"forwarder": null,
+"ref": "comctl32.dll!0x7fa30"
+},
+{
+"name": "ImageList_Add",
+"ordinal": 45,
+"rva": 512512,
+"forwarder": null,
+"ref": "comctl32.dll!0x7d200"
+},
+{
+"name": "ImageList_AddIcon",
+"ordinal": 46,
+"rva": 1061920,
+"forwarder": null,
+"ref": "comctl32.dll!0x103420"
+},
+{
+"name": "ImageList_AddMasked",
+"ordinal": 47,
+"rva": 86992,
+"forwarder": null,
+"ref": "comctl32.dll!0x153d0"
+},
+{
+"name": "ImageList_BeginDrag",
+"ordinal": 48,
+"rva": 1061952,
+"forwarder": null,
+"ref": "comctl32.dll!0x103440"
+},
+{
+"name": "ImageList_CoCreateInstance",
+"ordinal": 49,
+"rva": 514336,
+"forwarder": null,
+"ref": "comctl32.dll!0x7d920"
+},
+{
+"name": "ImageList_Copy",
+"ordinal": 50,
+"rva": 1062336,
+"forwarder": null,
+"ref": "comctl32.dll!0x1035c0"
+},
+{
+"name": "ImageList_Create",
+"ordinal": 51,
+"rva": 509296,
+"forwarder": null,
+"ref": "comctl32.dll!0x7c570"
+},
+{
+"name": "ImageList_Destroy",
+"ordinal": 52,
+"rva": 506480,
+"forwarder": null,
+"ref": "comctl32.dll!0x7ba70"
+},
+{
+"name": "ImageList_DestroyShared",
+"ordinal": 53,
+"rva": 1062704,
+"forwarder": null,
+"ref": "comctl32.dll!0x103730"
+},
+{
+"name": "ImageList_DragEnter",
+"ordinal": 54,
+"rva": 1062720,
+"forwarder": null,
+"ref": "comctl32.dll!0x103740"
+},
+{
+"name": "ImageList_DragLeave",
+"ordinal": 55,
+"rva": 1062912,
+"forwarder": null,
+"ref": "comctl32.dll!0x103800"
+},
+{
+"name": "ImageList_DragMove",
+"ordinal": 56,
+"rva": 1063072,
+"forwarder": null,
+"ref": "comctl32.dll!0x1038a0"
+},
+{
+"name": "ImageList_DragShowNolock",
+"ordinal": 57,
+"rva": 1063248,
+"forwarder": null,
+"ref": "comctl32.dll!0x103950"
+},
+{
+"name": "ImageList_Draw",
+"ordinal": 58,
+"rva": 86784,
+"forwarder": null,
+"ref": "comctl32.dll!0x15300"
+},
+{
+"name": "ImageList_DrawEx",
+"ordinal": 59,
+"rva": 340480,
+"forwarder": null,
+"ref": "comctl32.dll!0x53200"
+},
+{
+"name": "ImageList_DrawIndirect",
+"ordinal": 60,
+"rva": 525696,
+"forwarder": null,
+"ref": "comctl32.dll!0x80580"
+},
+{
+"name": "ImageList_Duplicate",
+"ordinal": 61,
+"rva": 1063408,
+"forwarder": null,
+"ref": "comctl32.dll!0x1039f0"
+},
+{
+"name": "ImageList_EndDrag",
+"ordinal": 62,
+"rva": 1063536,
+"forwarder": null,
+"ref": "comctl32.dll!0x103a70"
+},
+{
+"name": "ImageList_GetBkColor",
+"ordinal": 63,
+"rva": 101376,
+"forwarder": null,
+"ref": "comctl32.dll!0x18c00"
+},
+{
+"name": "ImageList_GetDragImage",
+"ordinal": 64,
+"rva": 1063648,
+"forwarder": null,
+"ref": "comctl32.dll!0x103ae0"
+},
+{
+"name": "ImageList_GetFlags",
+"ordinal": 65,
+"rva": 510544,
+"forwarder": null,
+"ref": "comctl32.dll!0x7ca50"
+},
+{
+"name": "ImageList_GetIcon",
+"ordinal": 66,
+"rva": 513648,
+"forwarder": null,
+"ref": "comctl32.dll!0x7d670"
+},
+{
+"name": "ImageList_GetIconSize",
+"ordinal": 67,
+"rva": 509072,
+"forwarder": null,
+"ref": "comctl32.dll!0x7c490"
+},
+{
+"name": "ImageList_GetImageCount",
+"ordinal": 68,
+"rva": 506944,
+"forwarder": null,
+"ref": "comctl32.dll!0x7bc40"
+},
+{
+"name": "ImageList_GetImageInfo",
+"ordinal": 69,
+"rva": 1063888,
+"forwarder": null,
+"ref": "comctl32.dll!0x103bd0"
+},
+{
+"name": "ImageList_GetImageRect",
+"ordinal": 70,
+"rva": 1064016,
+"forwarder": null,
+"ref": "comctl32.dll!0x103c50"
+},
+{
+"name": null,
+"ordinal": 71,
+"rva": 2260079,
+"forwarder": "SHUNIMPL.#105",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 72,
+"rva": 2260163,
+"forwarder": "SHUNIMPL.#106",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 73,
+"rva": 2260107,
+"forwarder": "SHUNIMPL.#107",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 74,
+"rva": 2260121,
+"forwarder": "SHUNIMPL.#108",
+"ref": null
+},
+{
+"name": "ImageList_LoadImage",
+"ordinal": 75,
+"rva": 1064160,
+"forwarder": null,
+"ref": "comctl32.dll!0x103ce0"
+},
+{
+"name": "ImageList_LoadImageA",
+"ordinal": 76,
+"rva": 1064160,
+"forwarder": null,
+"ref": "comctl32.dll!0x103ce0"
+},
+{
+"name": "ImageList_LoadImageW",
+"ordinal": 77,
+"rva": 336128,
+"forwarder": null,
+"ref": "comctl32.dll!0x52100"
+},
+{
+"name": "ImageList_Merge",
+"ordinal": 78,
+"rva": 1064336,
+"forwarder": null,
+"ref": "comctl32.dll!0x103d90"
+},
+{
+"name": "ImageList_Read",
+"ordinal": 79,
+"rva": 629328,
+"forwarder": null,
+"ref": "comctl32.dll!0x99a50"
+},
+{
+"name": "ImageList_ReadEx",
+"ordinal": 80,
+"rva": 603872,
+"forwarder": null,
+"ref": "comctl32.dll!0x936e0"
+},
+{
+"name": "ImageList_Remove",
+"ordinal": 81,
+"rva": 604832,
+"forwarder": null,
+"ref": "comctl32.dll!0x93aa0"
+},
+{
+"name": "ImageList_Replace",
+"ordinal": 82,
+"rva": 1064560,
+"forwarder": null,
+"ref": "comctl32.dll!0x103e70"
+},
+{
+"name": "ImageList_ReplaceIcon",
+"ordinal": 83,
+"rva": 515584,
+"forwarder": null,
+"ref": "comctl32.dll!0x7de00"
+},
+{
+"name": "ImageList_Resize",
+"ordinal": 84,
+"rva": 1064704,
+"forwarder": null,
+"ref": "comctl32.dll!0x103f00"
+},
+{
+"name": "ImageList_SetBkColor",
+"ordinal": 85,
+"rva": 361616,
+"forwarder": null,
+"ref": "comctl32.dll!0x58490"
+},
+{
+"name": "ImageList_SetDragCursorImage",
+"ordinal": 86,
+"rva": 1064992,
+"forwarder": null,
+"ref": "comctl32.dll!0x104020"
+},
+{
+"name": "ImageList_SetFilter",
+"ordinal": 87,
+"rva": 611648,
+"forwarder": null,
+"ref": "comctl32.dll!0x95540"
+},
+{
+"name": "ImageList_SetFlags",
+"ordinal": 88,
+"rva": 1065232,
+"forwarder": null,
+"ref": "comctl32.dll!0x104110"
+},
+{
+"name": "ImageList_SetIconSize",
+"ordinal": 89,
+"rva": 1065360,
+"forwarder": null,
+"ref": "comctl32.dll!0x104190"
+},
+{
+"name": "ImageList_SetImageCount",
+"ordinal": 90,
+"rva": 1065504,
+"forwarder": null,
+"ref": "comctl32.dll!0x104220"
+},
+{
+"name": "ImageList_SetOverlayImage",
+"ordinal": 91,
+"rva": 1065648,
+"forwarder": null,
+"ref": "comctl32.dll!0x1042b0"
+},
+{
+"name": "ImageList_Write",
+"ordinal": 92,
+"rva": 628256,
+"forwarder": null,
+"ref": "comctl32.dll!0x99620"
+},
+{
+"name": "ImageList_WriteEx",
+"ordinal": 93,
+"rva": 399184,
+"forwarder": null,
+"ref": "comctl32.dll!0x61750"
+},
+{
+"name": "InitCommonControlsEx",
+"ordinal": 94,
+"rva": 546128,
+"forwarder": null,
+"ref": "comctl32.dll!0x85550"
+},
+{
+"name": "InitMUILanguage",
+"ordinal": 95,
+"rva": 960208,
+"forwarder": null,
+"ref": "comctl32.dll!0xea6d0"
+},
+{
+"name": "InitializeFlatSB",
+"ordinal": 96,
+"rva": 611664,
+"forwarder": null,
+"ref": "comctl32.dll!0x95550"
+},
+{
+"name": "PropertySheet",
+"ordinal": 97,
+"rva": 1019088,
+"forwarder": null,
+"ref": "comctl32.dll!0xf8cd0"
+},
+{
+"name": "PropertySheetA",
+"ordinal": 98,
+"rva": 1019088,
+"forwarder": null,
+"ref": "comctl32.dll!0xf8cd0"
+},
+{
+"name": "PropertySheetW",
+"ordinal": 99,
+"rva": 220224,
+"forwarder": null,
+"ref": "comctl32.dll!0x35c40"
+},
+{
+"name": "RegisterClassNameW",
+"ordinal": 100,
+"rva": 546432,
+"forwarder": null,
+"ref": "comctl32.dll!0x85680"
+},
+{
+"name": "UninitializeFlatSB",
+"ordinal": 101,
+"rva": 611648,
+"forwarder": null,
+"ref": "comctl32.dll!0x95540"
+},
+{
+"name": "_TrackMouseEvent",
+"ordinal": 102,
+"rva": 1005952,
+"forwarder": null,
+"ref": "comctl32.dll!0xf5980"
+},
+{
+"name": null,
+"ordinal": 151,
+"rva": 947072,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7380"
+},
+{
+"name": "FreeMRUList",
+"ordinal": 152,
+"rva": 303344,
+"forwarder": null,
+"ref": "comctl32.dll!0x4a0f0"
+},
+{
+"name": null,
+"ordinal": 153,
+"rva": 947008,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7340"
+},
+{
+"name": null,
+"ordinal": 154,
+"rva": 947552,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7560"
+},
+{
+"name": null,
+"ordinal": 155,
+"rva": 948048,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7750"
+},
+{
+"name": null,
+"ordinal": 156,
+"rva": 947280,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7450"
+},
+{
+"name": null,
+"ordinal": 157,
+"rva": 947104,
+"forwarder": null,
+"ref": "comctl32.dll!0xe73a0"
+},
+{
+"name": null,
+"ordinal": 163,
+"rva": 2260093,
+"forwarder": "SHUNIMPL.#104",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 164,
+"rva": 1018688,
+"forwarder": null,
+"ref": "comctl32.dll!0xf8b40"
+},
+{
+"name": null,
+"ordinal": 165,
+"rva": 1018736,
+"forwarder": null,
+"ref": "comctl32.dll!0xf8b70"
+},
+{
+"name": null,
+"ordinal": 167,
+"rva": 946384,
+"forwarder": null,
+"ref": "comctl32.dll!0xe70d0"
+},
+{
+"name": null,
+"ordinal": 169,
+"rva": 947856,
+"forwarder": null,
+"ref": "comctl32.dll!0xe7690"
+},
+{
+"name": null,
+"ordinal": 174,
+"rva": 1005984,
+"forwarder": null,
+"ref": "comctl32.dll!0xf59a0"
+},
+{
+"name": "DrawSizeBox",
+"ordinal": 200,
+"rva": 587664,
+"forwarder": null,
+"ref": "comctl32.dll!0x8f790"
+},
+{
+"name": "DrawScrollBar",
+"ordinal": 201,
+"rva": 462128,
+"forwarder": null,
+"ref": "comctl32.dll!0x70d30"
+},
+{
+"name": "SizeBoxHwnd",
+"ordinal": 202,
+"rva": 479968,
+"forwarder": null,
+"ref": "comctl32.dll!0x752e0"
+},
+{
+"name": "ScrollBar_MouseMove",
+"ordinal": 203,
+"rva": 991952,
+"forwarder": null,
+"ref": "comctl32.dll!0xf22d0"
+},
+{
+"name": "ScrollBar_Menu",
+"ordinal": 204,
+"rva": 991456,
+"forwarder": null,
+"ref": "comctl32.dll!0xf20e0"
+},
+{
+"name": "HandleScrollCmd",
+"ordinal": 205,
+"rva": 991296,
+"forwarder": null,
+"ref": "comctl32.dll!0xf2040"
+},
+{
+"name": "DetachScrollBars",
+"ordinal": 206,
+"rva": 9296,
+"forwarder": null,
+"ref": "comctl32.dll!0x2450"
+},
+{
+"name": "AttachScrollBars",
+"ordinal": 207,
+"rva": 487776,
+"forwarder": null,
+"ref": "comctl32.dll!0x77160"
+},
+{
+"name": "CCSetScrollInfo",
+"ordinal": 208,
+"rva": 467520,
+"forwarder": null,
+"ref": "comctl32.dll!0x72240"
+},
+{
+"name": "CCGetScrollInfo",
+"ordinal": 209,
+"rva": 572624,
+"forwarder": null,
+"ref": "comctl32.dll!0x8bcd0"
+},
+{
+"name": "CCEnableScrollBar",
+"ordinal": 210,
+"rva": 10304,
+"forwarder": null,
+"ref": "comctl32.dll!0x2840"
+},
+{
+"name": null,
+"ordinal": 233,
+"rva": 1446880,
+"forwarder": null,
+"ref": "comctl32.dll!0x1613e0"
+},
+{
+"name": null,
+"ordinal": 234,
+"rva": 1447024,
+"forwarder": null,
+"ref": "comctl32.dll!0x161470"
+},
+{
+"name": null,
+"ordinal": 235,
+"rva": 369648,
+"forwarder": null,
+"ref": "comctl32.dll!0x5a3f0"
+},
+{
+"name": "Str_SetPtrW",
+"ordinal": 236,
+"rva": 303552,
+"forwarder": null,
+"ref": "comctl32.dll!0x4a1c0"
+},
+{
+"name": "DSA_Create",
+"ordinal": 320,
+"rva": 556944,
+"forwarder": null,
+"ref": "comctl32.dll!0x87f90"
+},
+{
+"name": "DSA_Destroy",
+"ordinal": 321,
+"rva": 553920,
+"forwarder": null,
+"ref": "comctl32.dll!0x873c0"
+},
+{
+"name": "DSA_GetItem",
+"ordinal": 322,
+"rva": 505872,
+"forwarder": null,
+"ref": "comctl32.dll!0x7b810"
+},
+{
+"name": "DSA_GetItemPtr",
+"ordinal": 323,
+"rva": 501696,
+"forwarder": null,
+"ref": "comctl32.dll!0x7a7c0"
+},
+{
+"name": "DSA_InsertItem",
+"ordinal": 324,
+"rva": 500176,
+"forwarder": null,
+"ref": "comctl32.dll!0x7a1d0"
+},
+{
+"name": "DSA_SetItem",
+"ordinal": 325,
+"rva": 505488,
+"forwarder": null,
+"ref": "comctl32.dll!0x7b690"
+},
+{
+"name": "DSA_DeleteItem",
+"ordinal": 326,
+"rva": 502528,
+"forwarder": null,
+"ref": "comctl32.dll!0x7ab00"
+},
+{
+"name": "DSA_DeleteAllItems",
+"ordinal": 327,
+"rva": 1446672,
+"forwarder": null,
+"ref": "comctl32.dll!0x161310"
+},
+{
+"name": "DPA_Create",
+"ordinal": 328,
+"rva": 582512,
+"forwarder": null,
+"ref": "comctl32.dll!0x8e370"
+},
+{
+"name": "DPA_Destroy",
+"ordinal": 329,
+"rva": 512384,
+"forwarder": null,
+"ref": "comctl32.dll!0x7d180"
+},
+{
+"name": "DPA_Grow",
+"ordinal": 330,
+"rva": 354432,
+"forwarder": null,
+"ref": "comctl32.dll!0x56880"
+},
+{
+"name": "DPA_Clone",
+"ordinal": 331,
+"rva": 354176,
+"forwarder": null,
+"ref": "comctl32.dll!0x56780"
+},
+{
+"name": "DPA_GetPtr",
+"ordinal": 332,
+"rva": 497744,
+"forwarder": null,
+"ref": "comctl32.dll!0x79850"
+},
+{
+"name": "DPA_GetPtrIndex",
+"ordinal": 333,
+"rva": 574656,
+"forwarder": null,
+"ref": "comctl32.dll!0x8c4c0"
+},
+{
+"name": "DPA_InsertPtr",
+"ordinal": 334,
+"rva": 539008,
+"forwarder": null,
+"ref": "comctl32.dll!0x83980"
+},
+{
+"name": "DPA_SetPtr",
+"ordinal": 335,
+"rva": 354288,
+"forwarder": null,
+"ref": "comctl32.dll!0x567f0"
+},
+{
+"name": "DPA_DeletePtr",
+"ordinal": 336,
+"rva": 580560,
+"forwarder": null,
+"ref": "comctl32.dll!0x8dbd0"
+},
+{
+"name": "DPA_DeleteAllPtrs",
+"ordinal": 337,
+"rva": 291696,
+"forwarder": null,
+"ref": "comctl32.dll!0x47370"
+},
+{
+"name": "DPA_Sort",
+"ordinal": 338,
+"rva": 568160,
+"forwarder": null,
+"ref": "comctl32.dll!0x8ab60"
+},
+{
+"name": "DPA_Search",
+"ordinal": 339,
+"rva": 576064,
+"forwarder": null,
+"ref": "comctl32.dll!0x8ca40"
+},
+{
+"name": "DPA_CreateEx",
+"ordinal": 340,
+"rva": 539424,
+"forwarder": null,
+"ref": "comctl32.dll!0x83b20"
+},
+{
+"name": null,
+"ordinal": 341,
+"rva": 961696,
+"forwarder": null,
+"ref": "comctl32.dll!0xeaca0"
+},
+{
+"name": null,
+"ordinal": 342,
+"rva": 479808,
+"forwarder": null,
+"ref": "comctl32.dll!0x75240"
+},
+{
+"name": "DSA_Clone",
+"ordinal": 343,
+"rva": 1446544,
+"forwarder": null,
+"ref": "comctl32.dll!0x161290"
+},
+{
+"name": "TaskDialog",
+"ordinal": 344,
+"rva": 1109648,
+"forwarder": null,
+"ref": "comctl32.dll!0x10ee90"
+},
+{
+"name": "TaskDialogIndirect",
+"ordinal": 345,
+"rva": 10960,
+"forwarder": null,
+"ref": "comctl32.dll!0x2ad0"
+},
+{
+"name": "DSA_Sort",
+"ordinal": 346,
+"rva": 621648,
+"forwarder": null,
+"ref": "comctl32.dll!0x97c50"
+},
+{
+"name": "DPA_GetSize",
+"ordinal": 347,
+"rva": 611408,
+"forwarder": null,
+"ref": "comctl32.dll!0x95450"
+},
+{
+"name": "DSA_GetSize",
+"ordinal": 348,
+"rva": 1446752,
+"forwarder": null,
+"ref": "comctl32.dll!0x161360"
+},
+{
+"name": null,
+"ordinal": 350,
+"rva": 2260231,
+"forwarder": "SHUNIMPL.#78",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 351,
+"rva": 2260335,
+"forwarder": "SHUNIMPL.#79",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 352,
+"rva": 2260283,
+"forwarder": "SHUNIMPL.#80",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 353,
+"rva": 2260296,
+"forwarder": "SHUNIMPL.#81",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 354,
+"rva": 2260413,
+"forwarder": "SHUNIMPL.#82",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 355,
+"rva": 2260426,
+"forwarder": "SHUNIMPL.#83",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 356,
+"rva": 2260177,
+"forwarder": "SHUNIMPL.#84",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 357,
+"rva": 2260465,
+"forwarder": "SHUNIMPL.#85",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 358,
+"rva": 2260270,
+"forwarder": "SHUNIMPL.#86",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 359,
+"rva": 2260374,
+"forwarder": "SHUNIMPL.#87",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 360,
+"rva": 2260322,
+"forwarder": "SHUNIMPL.#88",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 361,
+"rva": 2260309,
+"forwarder": "SHUNIMPL.#89",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 362,
+"rva": 2260452,
+"forwarder": "SHUNIMPL.#90",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 363,
+"rva": 2260439,
+"forwarder": "SHUNIMPL.#91",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 364,
+"rva": 2260218,
+"forwarder": "SHUNIMPL.#92",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 365,
+"rva": 2260478,
+"forwarder": "SHUNIMPL.#93",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 366,
+"rva": 2260244,
+"forwarder": "SHUNIMPL.#94",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 367,
+"rva": 2260257,
+"forwarder": "SHUNIMPL.#95",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 368,
+"rva": 2260348,
+"forwarder": "SHUNIMPL.#96",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 369,
+"rva": 2260361,
+"forwarder": "SHUNIMPL.#97",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 372,
+"rva": 2260387,
+"forwarder": "SHUNIMPL.#98",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 373,
+"rva": 2260400,
+"forwarder": "SHUNIMPL.#99",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 374,
+"rva": 2260190,
+"forwarder": "SHUNIMPL.#100",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 375,
+"rva": 2260204,
+"forwarder": "SHUNIMPL.#101",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 376,
+"rva": 2260135,
+"forwarder": "SHUNIMPL.#102",
+"ref": null
+},
+{
+"name": null,
+"ordinal": 377,
+"rva": 2260149,
+"forwarder": "SHUNIMPL.#103",
+"ref": null
+},
+{
+"name": "LoadIconMetric",
+"ordinal": 380,
+"rva": 1019232,
+"forwarder": null,
+"ref": "comctl32.dll!0xf8d60"
+},
+{
+"name": "LoadIconWithScaleDown",
+"ordinal": 381,
+"rva": 581248,
+"forwarder": null,
+"ref": "comctl32.dll!0x8de80"
+},
+{
+"name": null,
+"ordinal": 382,
+"rva": 293104,
+"forwarder": null,
+"ref": "comctl32.dll!0x478f0"
+},
+{
+"name": null,
+"ordinal": 383,
+"rva": 955168,
+"forwarder": null,
+"ref": "comctl32.dll!0xe9320"
+},
+{
+"name": null,
+"ordinal": 384,
+"rva": 1097632,
+"forwarder": null,
+"ref": "comctl32.dll!0x10bfa0"
+},
+{
+"name": "DPA_EnumCallback",
+"ordinal": 385,
+"rva": 524352,
+"forwarder": null,
+"ref": "comctl32.dll!0x80040"
+},
+{
+"name": "DPA_DestroyCallback",
+"ordinal": 386,
+"rva": 582784,
+"forwarder": null,
+"ref": "comctl32.dll!0x8e480"
+},
+{
+"name": "DSA_EnumCallback",
+"ordinal": 387,
+"rva": 501392,
+"forwarder": null,
+"ref": "comctl32.dll!0x7a690"
+},
+{
+"name": "DSA_DestroyCallback",
+"ordinal": 388,
+"rva": 553872,
+"forwarder": null,
+"ref": "comctl32.dll!0x87390"
+},
+{
+"name": null,
+"ordinal": 389,
+"rva": 611648,
+"forwarder": null,
+"ref": "comctl32.dll!0x95540"
+},
+{
+"name": null,
+"ordinal": 390,
+"rva": 1064848,
+"forwarder": null,
+"ref": "comctl32.dll!0x103f90"
+},
+{
+"name": null,
+"ordinal": 391,
+"rva": 1018816,
+"forwarder": null,
+"ref": "comctl32.dll!0xf8bc0"
+},
+{
+"name": null,
+"ordinal": 392,
+"rva": 243152,
+"forwarder": null,
+"ref": "comctl32.dll!0x3b5d0"
+},
+{
+"name": null,
+"ordinal": 393,
+"rva": 87136,
+"forwarder": null,
+"ref": "comctl32.dll!0x15460"
+},
+{
+"name": "QuerySystemGestureStatus",
+"ordinal": 394,
+"rva": 991392,
+"forwarder": null,
+"ref": "comctl32.dll!0xf20a0"
+},
+{
+"name": null,
+"ordinal": 395,
+"rva": 417456,
+"forwarder": null,
+"ref": "comctl32.dll!0x65eb0"
+},
+{
+"name": "CreateMRUListW",
+"ordinal": 400,
+"rva": 296128,
+"forwarder": null,
+"ref": "comctl32.dll!0x484c0"
+},
+{
+"name": "AddMRUStringW",
+"ordinal": 401,
+"rva": 295744,
+"forwarder": null,
+"ref": "comctl32.dll!0x48340"
+},
+{
+"name": null,
+"ordinal": 402,
+"rva": 948128,
+"forwarder": null,
+"ref": "comctl32.dll!0xe77a0"
+},
+{
+"name": "EnumMRUListW",
+"ordinal": 403,
+"rva": 296992,
+"forwarder": null,
+"ref": "comctl32.dll!0x48820"
+},
+{
+"name": null,
+"ordinal": 404,
+"rva": 296160,
+"forwarder": null,
+"ref": "comctl32.dll!0x484e0"
+},
+{
+"name": "SetWindowSubclass",
+"ordinal": 410,
+"rva": 408912,
+"forwarder": null,
+"ref": "comctl32.dll!0x63d50"
+},
+{
+"name": "GetWindowSubclass",
+"ordinal": 411,
+"rva": 307376,
+"forwarder": null,
+"ref": "comctl32.dll!0x4b0b0"
+},
+{
+"name": "RemoveWindowSubclass",
+"ordinal": 412,
+"rva": 405600,
+"forwarder": null,
+"ref": "comctl32.dll!0x63060"
+},
+{
+"name": "DefSubclassProc",
+"ordinal": 413,
+"rva": 563568,
+"forwarder": null,
+"ref": "comctl32.dll!0x89970"
+},
+{
+"name": null,
+"ordinal": 414,
+"rva": 960288,
+"forwarder": null,
+"ref": "comctl32.dll!0xea720"
+},
+{
+"name": null,
+"ordinal": 415,
+"rva": 1036624,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd150"
+},
+{
+"name": null,
+"ordinal": 416,
+"rva": 1036592,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd130"
+},
+{
+"name": null,
+"ordinal": 417,
+"rva": 1036656,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd170"
+},
+{
+"name": null,
+"ordinal": 418,
+"rva": 1036672,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd180"
+},
+{
+"name": null,
+"ordinal": 419,
+"rva": 1036704,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd1a0"
+},
+{
+"name": null,
+"ordinal": 420,
+"rva": 1036704,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd1a0"
+},
+{
+"name": null,
+"ordinal": 421,
+"rva": 1036736,
+"forwarder": null,
+"ref": "comctl32.dll!0xfd1c0"
+},
+{
+"name": null,
+"ordinal": 422,
+"rva": 611664,
+"forwarder": null,
+"ref": "comctl32.dll!0x95550"
+}
+]
