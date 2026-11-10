@@ -64,9 +64,16 @@ setdpi(){ # setdpi <dpi>: per-user custom scaling (applied at the next logon)
 regq='reg query "HKCU\Control Panel\Desktop" /v LogPixels >COM1 2>&1
 reg query "HKCU\Control Panel\Desktop" /v Win8DpiScaling >COM1 2>&1
 reg query "HKCU\Control Panel\Desktop\WindowMetrics" /v AppliedDPI >COM1 2>&1'
+logoff(){ # logoff <next stage>: record the next stage, make sure auto-logon follows a logoff, log off and wait.
+  # ForceAutoLogon=1 (HKLM Winlogon, throw-away overlay) re-logs Administrator on after a logoff. The wait is long
+  # (logoff kills this cmd within seconds); if it ever returns, the hook powers the VM off and the sweep is cut short.
+  printf '%s\n' ">C:\\i7gdi\\stage.txt echo $1" \
+    'reg add "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" /v ForceAutoLogon /t REG_SZ /d 1 /f >nul 2>&1' \
+    ">COM1 echo I7VMRUN LOGOFF next=$1" 'shutdown /l' 'ping -n 300 127.0.0.1 >nul' '>COM1 echo I7VMRUN LOGOFF-FAILED' 'exit /b 0'; }
 plan_for(){ # plan_for <dpi> <file>
   local t; t="$(tag_for "$1")"
   { echo "echo id=$RUNID tag=$t dpi=$1 res=${RES:-default}"
+    case "$2" in */plan0.txt) echo "modes";; esac       # display modes the guest driver offers, once per boot
     [ -n "$RES" ] && echo "setres $RES"
     for p in "${PROBES[@]}"; do echo "run $TMO $p $p.exe --tag $t $ARGS"; done
     for s in "${SHOTS[@]+"${SHOTS[@]}"}"; do echo "shot $s-dpi$1 3000"; done; } > "$2"; }
@@ -89,7 +96,7 @@ if [ "$MODE" = logoff ]; then
     # stage 0 may need a DPI change before any probe runs
     if [ "${DPI[0]}" != 96 ]; then
       echo ":L$k"; setdpi "${DPI[0]}"; k=$((k+1))
-      echo ">C:\\i7gdi\\stage.txt echo $k"; echo ">COM1 echo I7VMRUN LOGOFF next=$k"; echo 'shutdown /l'; echo 'ping -n 120 127.0.0.1 >nul'; echo 'exit /b 0'
+      logoff "$k"
     fi
     for d in "${DPI[@]}"; do
       plan_for "$d" "$S2/plan$i.txt"
@@ -98,7 +105,7 @@ if [ "$MODE" = logoff ]; then
       i=$((i+1))
       if [ $i -lt ${#DPI[@]} ]; then
         setdpi "${DPI[$i]}"; k=$((k+1))
-        echo ">C:\\i7gdi\\stage.txt echo $k"; echo ">COM1 echo I7VMRUN LOGOFF next=$k"; echo 'shutdown /l'; echo 'ping -n 120 127.0.0.1 >nul'; echo 'exit /b 0'
+        logoff "$k"
       fi
     done
     echo ">COM1 echo I7VMRUN END id=$RUNID"

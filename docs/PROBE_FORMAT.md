@@ -69,7 +69,9 @@ escaping (wide strings go through `WideCharToMultiByte(CP_UTF8)`). Two reserved 
 
 ## 4. ENV block written by `rec_init` (`--env full`, the default)
 
-`--env min` writes groups 1-5, `--env none` nothing. Keys (values are tokens):
+`--env min` writes groups 1-5, `--env none` nothing. Keys (values are tokens; a bare `!` = not available, e.g. a
+registry value that does not exist. Recordings made before 2026-11-10 wrote it escaped as `%21`; `rec.py` reads an ENV
+value `%21` as not available too):
 
 1. probe: `probe.exe`, `probe.exe_sha256` (first 16 hex of the exe's SHA-256), `probe.exe_size`, `probe.version`,
    `probe.format`, `probe.bits` (64/32), `probe.args`.
@@ -128,12 +130,14 @@ greyscale renders (8bpp, or 4bpp to halve the size: `rec_gray_from_dib(..., 4, .
     rec.py csv FILE [--table GLOB] [-o out.csv]
     rec.py diff A B [--tol N] [--tol COL=N] [--tol TABLE.COL=N] [--rel-tol R] [--ignore GLOB]
                     [--table GLOB] [--bitmap-tol N] [--env] [--allow-missing] [--allow-extra] [--csv OUT]
+                    [--by variant|probe]
     rec.py legacy FILE                 TAG key=val lines for tools/compare_metrics.py (docs/COMPARE.md)
     rec.py blobs FILE --outdir DIR     extract X blobs (verified)
     rec.py bitmaps FILE [--outdir DIR] [--ascii]
     rec.py selftest [C-written recordings...]
 
-`diff` matches recordings by (probe, variant), rows by (table, key); numeric columns compare with tolerances,
+`diff` matches recordings by (probe, variant) (`--by probe`: by probe only; two files holding one recording each of
+the same probe always pair, e.g. `dpi96.rec` vs `dpi96.x86.rec` or `dpi96.sys.rec` vs `dpi144.sys.rec`), rows by (table, key); numeric columns compare with tolerances,
 text exactly, hashes exactly, bitmaps per pixel (`--bitmap-tol` grey levels). Exit 0 = equal within tolerance,
 1 = differences/missing rows. Python API: `rec.load(path) -> [Recording]` with `.env`, `.schemas`,
 `.rows[table][key] -> [values]`, `.row_dicts(table)`, `.hashes`, `.bitmaps`, `.blobs`, `.notes`, `.ok`, `.errors`.

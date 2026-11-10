@@ -1,0 +1,126 @@
+# serial serial.log sha256=155d7e667ec44ce0f310fc6a3f19657604bdd284e26bc8c29bb437af90b4d63d bytes=320770
+# wrote data/win10/hello/dpi96.rec
+# wrote data/win10/hello/dpi96.v6.rec
+# wrote data/win10/hello/dpi96.sys.rec
+# wrote data/win10/hello/dpi96.v6pm2.rec
+# wrote data/win10/hello/dpi96.x86.rec
+# wrote data/win10/hello/dpi120.rec
+# wrote data/win10/hello/dpi120.v6.rec
+# wrote data/win10/hello/dpi120.sys.rec
+# wrote data/win10/hello/dpi120.v6pm2.rec
+# wrote data/win10/hello/dpi120.x86.rec
+# wrote data/win10/hello/dpi144.rec
+# wrote data/win10/hello/dpi144.v6.rec
+# wrote data/win10/hello/dpi144.sys.rec
+# wrote data/win10/hello/dpi144.v6pm2.rec
+# wrote data/win10/hello/dpi144.x86.rec
+# wrote data/win10/hello/dpi168.rec
+# wrote data/win10/hello/dpi168.v6.rec
+# wrote data/win10/hello/dpi168.sys.rec
+# wrote data/win10/hello/dpi168.v6pm2.rec
+# wrote data/win10/hello/dpi168.x86.rec
+# wrote data/win10/hello/dpi192.rec
+# wrote data/win10/hello/dpi192.v6.rec
+# wrote data/win10/hello/dpi192.sys.rec
+# wrote data/win10/hello/dpi192.v6pm2.rec
+# wrote data/win10/hello/dpi192.x86.rec
+I7VM: logon Tue 11/10/2026  4:21:04.82 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-050155-1758077 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T04:21:04.962
+I7P ECHO id=gdi-dpi96-sweep-20261110-050155-1758077 tag=dpi96 dpi=96 res=default
+I7P BEGIN name=hello seq=0 timeout=300 time=2026-11-10T04:21:04.962
+I7P END name=hello seq=0 rc=0 ms=156 timeout=0
+I7P BEGIN name=hello.v6 seq=1 timeout=300 time=2026-11-10T04:21:05.118
+I7P END name=hello.v6 seq=1 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.sys seq=2 timeout=300 time=2026-11-10T04:21:05.212
+I7P END name=hello.sys seq=2 rc=0 ms=93 timeout=0
+I7P BEGIN name=hello.v6pm2 seq=3 timeout=300 time=2026-11-10T04:21:05.337
+I7P END name=hello.v6pm2 seq=3 rc=0 ms=109 timeout=0
+I7P BEGIN name=hello.x86 seq=4 timeout=300 time=2026-11-10T04:21:05.447
+I7P END name=hello.x86 seq=4 rc=0 ms=157 timeout=0
+I7P SHOT name=desk-dpi96
+I7P DONE n=5 failed=0
+I7DPI set LogPixels=120
+I7VMRUN LOGOFF next=1
+I7VM: logon Tue 11/10/2026  4:21:21.20 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-050155-1758077 logon=1
+I7VMRUN STAGE dpi=120 plan=plan1.txt
+I7P RUNNER v=1 plan=D:\i7run\plan1.txt time=2026-11-10T04:21:21.317
+I7P ECHO id=gdi-dpi96-sweep-20261110-050155-1758077 tag=dpi120 dpi=120 res=default
+I7P BEGIN name=hello seq=0 timeout=300 time=2026-11-10T04:21:21.317
+I7P END name=hello seq=0 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.v6 seq=1 timeout=300 time=2026-11-10T04:21:21.411
+I7P END name=hello.v6 seq=1 rc=0 ms=110 timeout=0
+I7P BEGIN name=hello.sys seq=2 timeout=300 time=2026-11-10T04:21:21.520
+I7P END name=hello.sys seq=2 rc=0 ms=78 timeout=0
+I7P BEGIN name=hello.v6pm2 seq=3 timeout=300 time=2026-11-10T04:21:21.614
+I7P END name=hello.v6pm2 seq=3 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.x86 seq=4 timeout=300 time=2026-11-10T04:21:21.708
+I7P END name=hello.x86 seq=4 rc=0 ms=94 timeout=0
+I7P SHOT name=desk-dpi120
+I7P DONE n=5 failed=0
+I7DPI set LogPixels=144
+I7VMRUN LOGOFF next=2
+I7VM: logon Tue 11/10/2026  4:21:36.86 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-050155-1758077 logon=2
+I7VMRUN STAGE dpi=144 plan=plan2.txt
+I7P RUNNER v=1 plan=D:\i7run\plan2.txt time=2026-11-10T04:21:36.970
+I7P ECHO id=gdi-dpi96-sweep-20261110-050155-1758077 tag=dpi144 dpi=144 res=default
+I7P BEGIN name=hello seq=0 timeout=300 time=2026-11-10T04:21:36.970
+I7P END name=hello seq=0 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.v6 seq=1 timeout=300 time=2026-11-10T04:21:37.064
+I7P END name=hello.v6 seq=1 rc=0 ms=109 timeout=0
+I7P BEGIN name=hello.sys seq=2 timeout=300 time=2026-11-10T04:21:37.173
+I7P END name=hello.sys seq=2 rc=0 ms=110 timeout=0
+I7P BEGIN name=hello.v6pm2 seq=3 timeout=300 time=2026-11-10T04:21:37.267
+I7P END name=hello.v6pm2 seq=3 rc=0 ms=93 timeout=0
+I7P BEGIN name=hello.x86 seq=4 timeout=300 time=2026-11-10T04:21:37.361
+I7P END name=hello.x86 seq=4 rc=0 ms=94 timeout=0
+I7P SHOT name=desk-dpi144
+I7P DONE n=5 failed=0
+I7DPI set LogPixels=168
+I7VMRUN LOGOFF next=3
+I7VM: logon Tue 11/10/2026  4:21:52.76 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-050155-1758077 logon=3
+I7VMRUN STAGE dpi=168 plan=plan3.txt
+I7P RUNNER v=1 plan=D:\i7run\plan3.txt time=2026-11-10T04:21:52.878
+I7P ECHO id=gdi-dpi96-sweep-20261110-050155-1758077 tag=dpi168 dpi=168 res=default
+I7P BEGIN name=hello seq=0 timeout=300 time=2026-11-10T04:21:52.878
+I7P END name=hello seq=0 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.v6 seq=1 timeout=300 time=2026-11-10T04:21:52.971
+I7P END name=hello.v6 seq=1 rc=0 ms=109 timeout=0
+I7P BEGIN name=hello.sys seq=2 timeout=300 time=2026-11-10T04:21:53.081
+I7P END name=hello.sys seq=2 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.v6pm2 seq=3 timeout=300 time=2026-11-10T04:21:53.175
+I7P END name=hello.v6pm2 seq=3 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.x86 seq=4 timeout=300 time=2026-11-10T04:21:53.268
+I7P END name=hello.x86 seq=4 rc=0 ms=93 timeout=0
+I7P SHOT name=desk-dpi168
+I7P DONE n=5 failed=0
+I7DPI set LogPixels=192
+I7VMRUN LOGOFF next=4
+I7VM: logon Tue 11/10/2026  4:22:20.70 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-050155-1758077 logon=4
+I7VMRUN STAGE dpi=192 plan=plan4.txt
+I7P RUNNER v=1 plan=D:\i7run\plan4.txt time=2026-11-10T04:22:20.815
+I7P ECHO id=gdi-dpi96-sweep-20261110-050155-1758077 tag=dpi192 dpi=192 res=default
+I7P BEGIN name=hello seq=0 timeout=300 time=2026-11-10T04:22:20.815
+I7P END name=hello seq=0 rc=0 ms=110 timeout=0
+I7P BEGIN name=hello.v6 seq=1 timeout=300 time=2026-11-10T04:22:20.925
+I7P END name=hello.v6 seq=1 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.sys seq=2 timeout=300 time=2026-11-10T04:22:21.019
+I7P END name=hello.sys seq=2 rc=0 ms=93 timeout=0
+I7P BEGIN name=hello.v6pm2 seq=3 timeout=300 time=2026-11-10T04:22:21.112
+I7P END name=hello.v6pm2 seq=3 rc=0 ms=94 timeout=0
+I7P BEGIN name=hello.x86 seq=4 timeout=300 time=2026-11-10T04:22:21.206
+I7P END name=hello.x86 seq=4 rc=0 ms=109 timeout=0
+I7P SHOT name=desk-dpi192
+I7P DONE n=5 failed=0
+I7VMRUN END id=gdi-dpi96-sweep-20261110-050155-1758077
+I7VM: payload exit 0 

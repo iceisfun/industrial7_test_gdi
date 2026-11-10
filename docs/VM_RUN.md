@@ -75,7 +75,58 @@ probe's data needs one; then commit a cropped/derived artefact plus its hash.
 
 ## 5. What was verified on this image (Win10 22H2 19045.2965, 2026-11-09)
 
-(filled in from the real runs below; every item names the run dir)
+Every item below is FACT from a real run unless marked *inference*. Runs live in `~/w10lab/runs/<id>/stage2/` (serial.log,
+shots/); the provenance logs are in `data/win10/_runs/`.
+
+### 5.1 One-boot DPI sweep (logoff mode) - works at 96/120/144/168/192
+
+Run `gdi-dpi96-sweep-20261110-050155-1758077` (`tools/vm_run.sh hello,hello.v6,hello.sys,hello.v6pm2,hello.x86 --dpi
+96,120,144,168,192 --shot desk`): 5 logon stages in one boot, 25/25 recordings valid (`data/win10/hello/dpi<N>[.<v>].rec`).
+Lock acquired 05:20:36, VM powered off at about 05:22:45 host time, so roughly 2 min for boot plus 5 stages. Guest uptime at the
+first probe of each stage (ENV `time.uptime_ms`): 30.6 s, 46.9 s, 62.6 s, 78.5 s, 106.4 s, so a logoff and auto-logon cycle takes about 15-30 s.
+After each logoff, auto-logon brought Administrator back and the HKLM Run hook re-ran run.cmd (`I7VMRUN BEGIN logon=1..4`).
+`ForceAutoLogon=1` is written before every `shutdown /l`. *Inference*: it may not be required, but this run did not test without it.
+
+HKCU values read back at the start of each stage (`reg query` in serial.log) and in ENV: `LogPixels` = the requested value,
+`WindowMetrics\AppliedDPI` = the same value (0x78/0x90/0xa8/0xc0); at 96 LogPixels is absent, Win8DpiScaling=0, AppliedDPI=96.
+`dpi.reg_hw_logpixels` (HKLM hardware profile) stays 96 throughout.
+
+What each manifest variant sees (ENV `dpi.system` / `dpi.awareness` / `dpi.logpixels` / `display.res`):
+
+| LogPixels | base, v6, x86 (no dpiAware) | sys (system aware) | v6pm2 (PerMonitorV2) |
+|---|---|---|---|
+| 96  | 96 / 0 / 96 / 1024x768 | 96 / 1 / 96 / 1024x768 | 96 / 2 / 96 / 1024x768 |
+| 120 | **120 / 2 / 120 / 1024x768** | 120 / 1 / 120 / 1024x768 | 120 / 2 / 120 / 1024x768 |
+| 144 | 96 / 0 / 96 / 683x512 (virtualized) | 144 / 1 / 144 / 1024x768 | 144 / 2 / 144 / 1024x768 |
+| 168 | 96 / 0 / 96 / 585x439 (virtualized) | 168 / 1 / 168 / 1024x768 | 168 / 2 / 168 / 1024x768 |
+| 192 | 96 / 0 / 96 / 512x384 (virtualized) | 192 / 1 / 192 / 1024x768 | 192 / 2 / 192 / 1024x768 |
+
+At 120 DPI (125%) the unaware exes are NOT virtualized: they see 120 DPI and report awareness 2. *Inference*: this is the
+"XP-style DPI scaling" that Windows uses at or below 120 DPI. Consequence for probes: **to measure at a real DPI above 120,
+use the `sys` or `pm2`/`v6pm2` variants.** Unaware variants at 144+ measure the 96-DPI virtualized view, which is also a
+useful datum because it is what an unaware app (the default i7 case) sees.
+`SM_CYCAPTION` (sys/pm2): 23/29/34/40/45 and `SM_CYMENU` 20/25/30/34/39 at 96/120/144/168/192. `ncm.message` lfHeight
+(sys): -12/-15/-18/-21/-24. comctl32: `5.82.10586` without the v6 manifest, `6.16.10586` with it.
+
+hello's pixel-height rows (lfHeight < 0, MM_TEXT, screen DC: tm, cw_ascii hashes, glyph bitmaps) are byte-identical
+across all 5 DPIs and all 5 variants (`rec.py diff`, 0 diffs), and between the x64 and x86 builds.
+
+Screendumps (QMP, `shots/desk-dpi<N>.png`, 1024x768) show the desktop and console window at the expected scale.
+
+### 5.2 Guest facts recorded in ENV (same run)
+
+Windows 10 Home (EditionID Core) 22H2, 10.0.19045 UBR 2965; computer `I7-WIN10`, user `Administrator`, session 1,
+elevated 1; time zone Pacific Standard Time (bias 480, `tz_state` 1). Guest clock: `time.local` 04:21:04.993 while the
+host (America/Los_Angeles, PST) wrote the matching screendump at 05:21:07, so the guest runs 1 h behind the host
+(qemu `-rtc base=localtime`; cause not investigated). Do not use guest timestamps for anything but ordering. Locale en-US, LCID 0x0409, ACP 1252,
+OEMCP 437, keyboard 00000409; theme active; font smoothing on, type 2 (ClearType), contrast 1200, orientation 1 (RGB);
+`%WINDIR%\Fonts`: 339 files, 360823736 bytes; `micross.ttf` present (876256 bytes); FontSubstitutes: `MS Shell Dlg` ->
+`Microsoft Sans Serif`, `MS Shell Dlg 2` -> `Tahoma`; DEFAULT_GUI_FONT = MS Shell Dlg, lfHeight -11; display adapter
+mode 1024x768x32 at 64 Hz, `HORZSIZE x VERTSIZE` 325x203 mm, 1 monitor.
+
+### 5.3 Display modes and `--dpi-mode boot`
+
+(section 5.3 is filled from runs `gdi-resA-*` and `gdi-bootB-*`, below)
 
 ## 6. Wine (plumbing only)
 

@@ -159,7 +159,7 @@ class Recording:
     def add(self, tag, rest, lineno):
         if tag == "ENV":
             k, _, v = rest.partition(" ")
-            self.env[unesc(k)] = unesc(v)
+            self.env[unesc(k)] = None if v == "%21" else unesc(v)   # rec.c before 2026-11-10 escaped the NA marker in ENV
         elif tag == "S":
             t = rest.split(" ")
             if len(t) < 3 or t[2] != "|":
@@ -516,10 +516,14 @@ def cmd_diff(a):
     def tolerance(table, col):
         return tol.get("%s.%s" % (table, col), tol.get(col, tol_default))
 
-    bmap = {r.ident(): r for r in B}
+    # pairing: by (probe, variant); --by probe ignores the variant; one recording per side of the same probe always pairs
+    # (so dpi96.rec vs dpi96.x86.rec, or a .rec vs a different variant's .rec, compare row by row)
+    single = len(A) == 1 and len(B) == 1 and A[0].probe == B[0].probe
+    ident = (lambda r: r.probe) if (a.by == "probe" or single) else (lambda r: r.ident())
+    bmap = {ident(r): r for r in B}
     diffs, missing, extra, within = [], [], [], 0
     for ra in A:
-        rb = bmap.get(ra.ident())
+        rb = bmap.get(ident(ra))
         if rb is None:
             missing.append((ra.probe, ra.variant, "*", "(whole recording)"))
             continue
@@ -586,8 +590,8 @@ def cmd_diff(a):
                     within += 1; continue
                 diffs.append((ra.probe, t, k, "pixels", "", "", "%d px differ (max |d|=%d)" % (cnt, mx), "bitmap"))
             extra += [(ra.probe, ra.variant, t, k) for k in tb if k not in ta]
-    aset = {r.ident() for r in A}
-    extra += [(r.probe, r.variant, "*", "(whole recording)") for r in B if r.ident() not in aset]
+    aset = {ident(r) for r in A}
+    extra += [(r.probe, r.variant, "*", "(whole recording)") for r in B if ident(r) not in aset]
     for d in diffs:
         print("DIFF %s %s [%s] %s: %s -> %s %s" % (d[0], d[1], unesc_key(d[2]) if d[1] != "ENV" else d[2], d[3], d[4], d[5], d[6]))
     for m in missing:
@@ -729,6 +733,7 @@ def main(argv=None):
     p.add_argument("--rel-tol", type=float, default=0.0); p.add_argument("--ignore", action="append"); p.add_argument("--table")
     p.add_argument("--bitmap-tol", type=int, default=0); p.add_argument("--env", action="store_true")
     p.add_argument("--allow-missing", action="store_true"); p.add_argument("--allow-extra", action="store_true"); p.add_argument("--csv")
+    p.add_argument("--by", choices=["variant", "probe"], default="variant", help="pair recordings by (probe, variant) or by probe only")
     p.set_defaults(f=cmd_diff)
     p = sp.add_parser("legacy"); p.add_argument("file"); p.set_defaults(f=cmd_legacy)
     p = sp.add_parser("blobs"); p.add_argument("file"); p.add_argument("--outdir", required=True); p.set_defaults(f=cmd_blobs)

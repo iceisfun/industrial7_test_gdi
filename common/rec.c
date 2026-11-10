@@ -148,6 +148,7 @@ void rec_rowf(const char *table, const char *rawkey, const char *fmt, ...){
   lb_s(&l," |"); if(*vals){ lb_s(&l," "); lb_s(&l,vals); } lb_emit(&l);
 }
 static void env_line(const char *key, const char *val){ lb l={0}; lb_head(&l,"ENV"); lb_s(&l," "); lb_tok(&l,key); lb_s(&l," "); lb_tok(&l,val); lb_emit(&l); }
+static void env_na(const char *key){ lb l={0}; lb_head(&l,"ENV"); lb_s(&l," "); lb_tok(&l,key); lb_s(&l," !"); lb_emit(&l); } /* value not available: bare ! */
 void rec_env(const char *key, const char *fmt, ...){ char v[3000]; va_list ap; va_start(ap,fmt); vsnprintf(v,sizeof v,fmt,ap); va_end(ap); env_line(key,v); }
 void rec_envw(const char *key, const WCHAR *val){ char u[2000]; w2u(u,sizeof u,val); env_line(key,u); }
 void rec_note(const char *fmt, ...){ char v[3000]; va_list ap; va_start(ap,fmt); vsnprintf(v,sizeof v,fmt,ap); va_end(ap);
@@ -185,7 +186,7 @@ static int reg_str(HKEY root, const WCHAR *path, const WCHAR *name, char *out, i
   RegCloseKey(k); return ok;
 }
 static void env_reg(const char *key, HKEY root, const WCHAR *path, const WCHAR *name){
-  char v[2048]; if(reg_str(root,path,name,v,sizeof v)) env_line(key,v); else env_line(key,"!"); }
+  char v[2048]; if(reg_str(root,path,name,v,sizeof v)) env_line(key,v); else env_na(key); }
 
 /* enumerate all values of a key, sorted by name (case-insensitive), as "name=value\n" lines; hash + count */
 typedef struct { char name[300]; char val[700]; } kv;
@@ -204,7 +205,7 @@ static int reg_enum(HKEY root, const WCHAR *path, kv **out){
   RegCloseKey(k); qsort(a,n,sizeof(kv),kvcmp); *out=a; return n;
 }
 static void env_regkey_digest(const char *key, HKEY root, const WCHAR *path){
-  kv *a; int n=reg_enum(root,path,&a); if(n<0){ env_line(key,"!"); return; }
+  kv *a; int n=reg_enum(root,path,&a); if(n<0){ env_na(key); return; }
   rec_sha256_ctx c; rec_sha256_init(&c); uint8_t d[32]; char hx[65];
   for(int i=0;i<n;i++){ rec_sha256_update(&c,a[i].name,strlen(a[i].name)); rec_sha256_update(&c,"=",1); rec_sha256_update(&c,a[i].val,strlen(a[i].val)); rec_sha256_update(&c,"\n",1); }
   rec_sha256_final(&c,d); rec_hex(hx,d,8); rec_env(key,"count=%d,sha256=%s",n,hx); free(a);
@@ -238,7 +239,7 @@ static void env_min(int argc, char **argv, const char *version){
   /* OS */
   OSVERSIONINFOEXW ov; memset(&ov,0,sizeof ov); ov.dwOSVersionInfoSize=sizeof ov;
   RtlGetVersion_t rgv=(RtlGetVersion_t)(void*)GetProcAddress(GetModuleHandleA("ntdll.dll"),"RtlGetVersion");
-  if(rgv && !rgv(&ov)) rec_env("os.version","%lu.%lu.%lu",ov.dwMajorVersion,ov.dwMinorVersion,ov.dwBuildNumber); else env_line("os.version","!");
+  if(rgv && !rgv(&ov)) rec_env("os.version","%lu.%lu.%lu",ov.dwMajorVersion,ov.dwMinorVersion,ov.dwBuildNumber); else env_na("os.version");
   rec_env("os.sp","%u.%u",ov.wServicePackMajor,ov.wServicePackMinor);
   const WCHAR *cv=L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion";
   env_reg("os.ubr",HKEY_LOCAL_MACHINE,cv,L"UBR");
@@ -247,8 +248,8 @@ static void env_min(int argc, char **argv, const char *version){
   env_reg("os.edition",HKEY_LOCAL_MACHINE,cv,L"EditionID");
   env_reg("os.buildlab",HKEY_LOCAL_MACHINE,cv,L"BuildLabEx");
   /* host */
-  DWORD n=sizeof v; if(GetComputerNameA(v,&n)) env_line("host.computer",v); else env_line("host.computer","!");
-  n=sizeof v; if(GetUserNameA(v,&n)) env_line("host.user",v); else env_line("host.user","!");
+  DWORD n=sizeof v; if(GetComputerNameA(v,&n)) env_line("host.computer",v); else env_na("host.computer");
+  n=sizeof v; if(GetUserNameA(v,&n)) env_line("host.user",v); else env_na("host.user");
   DWORD sid=0; ProcessIdToSessionId(GetCurrentProcessId(),&sid); rec_env("host.session","%lu",sid);
   { HANDLE tok; TOKEN_ELEVATION el={0}; DWORD rl; int e=-1; if(OpenProcessToken(GetCurrentProcess(),TOKEN_QUERY,&tok)){ if(GetTokenInformation(tok,TokenElevation,&el,sizeof el,&rl)) e=(int)el.TokenIsElevated; CloseHandle(tok);} rec_env("host.elevated","%d",e); }
   /* time */
@@ -258,8 +259,8 @@ static void env_min(int argc, char **argv, const char *version){
   /* locale */
   WCHAR w[200]; HMODULE k32=GetModuleHandleA("kernel32.dll");
   LocaleName_t uln=(LocaleName_t)(void*)GetProcAddress(k32,"GetUserDefaultLocaleName"), sln=(LocaleName_t)(void*)GetProcAddress(k32,"GetSystemDefaultLocaleName");
-  if(uln && uln(w,200)) rec_envw("locale.user",w); else env_line("locale.user","!");
-  if(sln && sln(w,200)) rec_envw("locale.system",w); else env_line("locale.system","!");
+  if(uln && uln(w,200)) rec_envw("locale.user",w); else env_na("locale.user");
+  if(sln && sln(w,200)) rec_envw("locale.system",w); else env_na("locale.system");
   rec_env("locale.lcid_user","0x%04lx",GetUserDefaultLCID()); rec_env("locale.lcid_system","0x%04lx",GetSystemDefaultLCID());
   rec_env("locale.lcid_thread","0x%04lx",GetThreadLocale());
   rec_env("locale.ui_user","0x%04x",GetUserDefaultUILanguage()); rec_env("locale.ui_system","0x%04x",GetSystemDefaultUILanguage());
@@ -271,9 +272,9 @@ static void env_min(int argc, char **argv, const char *version){
   GetThreadDpiAwarenessContext_t gtc=(GetThreadDpiAwarenessContext_t)(void*)GetProcAddress(u32,"GetThreadDpiAwarenessContext");
   GetAwarenessFromDpiAwarenessContext_t gac=(GetAwarenessFromDpiAwarenessContext_t)(void*)GetProcAddress(u32,"GetAwarenessFromDpiAwarenessContext");
   IsProcessDPIAware_t ipa=(IsProcessDPIAware_t)(void*)GetProcAddress(u32,"IsProcessDPIAware");
-  if(gds) rec_env("dpi.system","%u",gds()); else env_line("dpi.system","!");
+  if(gds) rec_env("dpi.system","%u",gds()); else env_na("dpi.system");
   if(gtc && gac){ HANDLE c=gtc(); int a=gac(c); rec_env("dpi.awareness","%d",a); rec_env("dpi.context","0x%llx",(unsigned long long)(ULONG_PTR)c); }
-  else env_line("dpi.awareness","!");
+  else env_na("dpi.awareness");
   if(ipa) rec_env("dpi.process_aware","%d",ipa()?1:0);
   HDC sdc=GetDC(NULL);
   rec_env("dpi.logpixels","%dx%d",GetDeviceCaps(sdc,LOGPIXELSX),GetDeviceCaps(sdc,LOGPIXELSY));
@@ -292,9 +293,9 @@ static void env_min(int argc, char **argv, const char *version){
   /* comctl32 + theme (version depends on the exe's manifest: 5.82 without, 6.x with the v6 dependency) */
   HMODULE cc=LoadLibraryA("comctl32.dll");
   if(cc){ DllGetVersion_t dgv=(DllGetVersion_t)(void*)GetProcAddress(cc,"DllGetVersion"); DLLVERSIONINFO_ dv={sizeof dv};
-    if(dgv && !dgv(&dv)) rec_env("comctl32.version","%lu.%lu.%lu",dv.dwMajorVersion,dv.dwMinorVersion,dv.dwBuildNumber); else env_line("comctl32.version","!");
+    if(dgv && !dgv(&dv)) rec_env("comctl32.version","%lu.%lu.%lu",dv.dwMajorVersion,dv.dwMinorVersion,dv.dwBuildNumber); else env_na("comctl32.version");
     char p[MAX_PATH]; GetModuleFileNameA(cc,p,sizeof p); env_line("comctl32.path",p); }
-  else env_line("comctl32.version","!");
+  else env_na("comctl32.version");
   HMODULE ux=LoadLibraryA("uxtheme.dll");
   if(ux){ IsThemeActive_t ita=(IsThemeActive_t)(void*)GetProcAddress(ux,"IsThemeActive"); if(ita) rec_env("theme.active","%d",ita()?1:0); }
 }
@@ -324,7 +325,7 @@ static void env_full(void){
       ncm.iBorderWidth,ncm.iScrollWidth,ncm.iScrollHeight,ncm.iCaptionWidth,ncm.iCaptionHeight,ncm.iSmCaptionWidth,ncm.iSmCaptionHeight,ncm.iMenuWidth,ncm.iMenuHeight,ncm.iPaddedBorderWidth);
     env_lf("ncm.caption",&ncm.lfCaptionFont); env_lf("ncm.smcaption",&ncm.lfSmCaptionFont); env_lf("ncm.menu",&ncm.lfMenuFont);
     env_lf("ncm.status",&ncm.lfStatusFont); env_lf("ncm.message",&ncm.lfMessageFont);
-  } else env_line("ncm.metrics","!");
+  } else env_na("ncm.metrics");
   { ICONMETRICSW im; memset(&im,0,sizeof im); im.cbSize=sizeof im; if(SystemParametersInfoW(SPI_GETICONMETRICS,sizeof im,&im,0)){ rec_env("icm.metrics","hspacing=%d,vspacing=%d,wrap=%d",im.iHorzSpacing,im.iVertSpacing,im.iTitleWrap); env_lf("icm.font",&im.lfFont);} }
   { UINT a=0; SystemParametersInfoW(SPI_GETFONTSMOOTHING,0,&a,0); rec_env("spi.fontsmoothing","%u",a);
     a=0; SystemParametersInfoW(SPI_GETFONTSMOOTHINGTYPE,0,&a,0); rec_env("spi.fontsmoothingtype","%u",a);
@@ -335,7 +336,7 @@ static void env_full(void){
   static const struct { int id; const char *n; } ST[]={{SYSTEM_FONT,"SYSTEM_FONT"},{SYSTEM_FIXED_FONT,"SYSTEM_FIXED_FONT"},{OEM_FIXED_FONT,"OEM_FIXED_FONT"},
     {ANSI_FIXED_FONT,"ANSI_FIXED_FONT"},{ANSI_VAR_FONT,"ANSI_VAR_FONT"},{DEVICE_DEFAULT_FONT,"DEVICE_DEFAULT_FONT"},{DEFAULT_GUI_FONT,"DEFAULT_GUI_FONT"}};
   for(unsigned i=0;i<sizeof ST/sizeof*ST;i++){ LOGFONTW lf; char k[64]; snprintf(k,sizeof k,"stock.%s",ST[i].n);
-    if(GetObjectW(GetStockObject(ST[i].id),sizeof lf,&lf)) env_lf(k,&lf); else env_line(k,"!"); }
+    if(GetObjectW(GetStockObject(ST[i].id),sizeof lf,&lf)) env_lf(k,&lf); else env_na(k); }
   /* fonts directory fingerprint: count, bytes, sha256(16) over sorted lowercase "name\tsize\n" */
   { char dir[MAX_PATH], pat[MAX_PATH]; GetWindowsDirectoryA(dir,sizeof dir); strncat(dir,"\\Fonts",sizeof dir-strlen(dir)-1);
     snprintf(pat,sizeof pat,"%s\\*",dir); WIN32_FIND_DATAA fd; HANDLE f=FindFirstFileA(pat,&fd);
@@ -348,7 +349,7 @@ static void env_full(void){
     uint8_t d[32]; char hx[65]; rec_sha256_final(&c,d); rec_hex(hx,d,8); rec_env("fonts.dir","files=%d,bytes=%llu,sha256=%s",n,tot,hx); free(a);
     static const char *KF[]={"segoeui.ttf","segoeuib.ttf","tahoma.ttf","tahomabd.ttf","micross.ttf","arial.ttf","cour.ttf","couree.fon","coure.fon","sserife.fon","serife.fon","vgasys.fon","vgaoem.fon","vgafix.fon","8514sys.fon","marlett.ttf","smalle.fon","ssee0874.fon"};
     for(unsigned i=0;i<sizeof KF/sizeof*KF;i++){ char p[MAX_PATH], k[80]; uint8_t h[32]; unsigned long long sz; snprintf(p,sizeof p,"%s\\%s",dir,KF[i]); snprintf(k,sizeof k,"fonts.file.%s",KF[i]);
-      if(rec_file_sha256(p,h,&sz)){ rec_hex(hx,h,8); rec_env(k,"size=%llu,sha256=%s",sz,hx); } else env_line(k,"!"); } }
+      if(rec_file_sha256(p,h,&sz)){ rec_hex(hx,h,8); rec_env(k,"size=%llu,sha256=%s",sz,hx); } else env_na(k); } }
   /* font registry */
   const WCHAR *FS=L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\FontSubstitutes";
   env_regkey_digest("reg.fontsubstitutes",HKEY_LOCAL_MACHINE,FS);
@@ -357,7 +358,7 @@ static void env_full(void){
   env_regkey_digest("reg.fonts",HKEY_LOCAL_MACHINE,L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts");
   env_regkey_digest("reg.systemlink",HKEY_LOCAL_MACHINE,L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\FontLink\\SystemLink");
   { kv *a; int n=reg_enum(HKEY_LOCAL_MACHINE,L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\GRE_Initialize",&a);
-    if(n>=0){ for(int i=0;i<n;i++){ char k[340]; snprintf(k,sizeof k,"reg.gre_init.%s",a[i].name); env_line(k,a[i].val); } free(a); } else env_line("reg.gre_init","!"); }
+    if(n>=0){ for(int i=0;i<n;i++){ char k[340]; snprintf(k,sizeof k,"reg.gre_init.%s",a[i].name); env_line(k,a[i].val); } free(a); } else env_na("reg.gre_init"); }
   { kv *a; int n=reg_enum(HKEY_LOCAL_MACHINE,L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\FontDPI",&a);
     if(n>=0){ for(int i=0;i<n;i++){ char k[340]; snprintf(k,sizeof k,"reg.fontdpi.%s",a[i].name); env_line(k,a[i].val); } free(a); } }
   (void)v;
