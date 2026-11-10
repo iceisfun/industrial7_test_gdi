@@ -11,14 +11,23 @@
  *   FontAssoc, LanguagePack, Windows\*Font*, Hardware Profiles fonts, HKCU desktop font/DPI values),
  *   the %WINDIR%\Fonts listing with size + SHA-256, EnumFontFamiliesExW per charset and per family (all styles),
  *   EnumFontsW / EnumFontFamiliesW, stock fonts, font fallback for missing glyphs (GetGlyphIndicesW with and
- *   without GGI_MARK_NONEXISTING_GLYPHS, extents and a 4bpp render of CJK / emoji / RTL / Thai strings in the
+ *   without GGI_MARK_NONEXISTING_GLYPHS, extents and a 1bpp render of CJK / emoji / RTL / Thai strings in the
  *   UI faces), buffer-protocol / bad-parameter behaviour, and the `answer` table: which face, file, strike and
  *   metrics MS Shell Dlg / MS Shell Dlg 2 / MS Sans Serif / Microsoft Sans Serif give at -8..-13 (GM_COMPATIBLE
- *   and GM_ADVANCED), with greyscale renders.
+ *   and GM_ADVANCED, weight 400 and 700; plus Tahoma, Arial, Segoe UI, Courier, Courier New), with 1bpp renders. Doc: docs/probes/face_substitution.md
  *
- * Units: lfHeight is the request as passed (h<0 = character/em height in logical units, h>0 = cell height).
+ * Units: req_h is lfHeight as passed (req_h<0 = character/em height in logical units, req_h>0 = cell height).
  *   All DCs here are MM_TEXT with an identity transform, so logical = device px. TEXTMETRIC columns are px:
- *   h = tmHeight (cell = ascent + descent), il/el = internal/external leading.
+ *   h = tmHeight (cell = ascent + descent), il/el = internal/external leading. Request fields are keyed req_*
+ *   (v2) so they never clash with the same-named result columns (cs = tmCharSet, wt = tmWeight, ...).
+ * ok column of the measure block: 1 = font created and selected, 0 = CreateFont* returned NULL,
+ *   -1 = created but SelectObject failed (all other columns `!`, nothing is measured on the DC's old font).
+ * rz_* columns (v2): GetFontRealizationInfo (struct size accepted: 0x32c on Win10 - NtGdiGetRealizationInfo
+ *   accepts only 0x10 / 0x32c; 24 on Wine) -> flags, file count, face index in the file (TTC), simulations
+ *   (bit0 = emboldened, bit1 = obliqued; RFONTOBJ::GetRealizationInfo @0xaa044), then GetFontFileInfo(file 0)
+ *   -> rz_file = lowercase basename of the file that backs the realised font (also raster .fon strikes and
+ *   TTC members, which the hash match cannot name) and rz_fsize = its size in bytes (NtGdiGetFontFileInfo).
+ * Bitmaps (answer_bmp, fallback_bmp) are 1bpp black-on-white renders, NONANTIALIASED_QUALITY.
  *
  * usage: face_substitution.exe [recorder options, rec.h] [--quick | --full (default)] [--no-filehash]
  *   --quick   smaller matrix (UI faces only, fewer heights/charsets, no per-family enumeration) ~1/5 of the rows
@@ -43,6 +52,10 @@ typedef int (WINAPI *pfnFaceAlias)(HDC,int,LPWSTR);
 static pfnFaceAlias pGetTextFaceAliasW;
 typedef BOOL (WINAPI *pfnFontResInfo)(LPCWSTR,DWORD*,LPVOID,DWORD);
 static pfnFontResInfo pGetFontResourceInfoW;
+typedef BOOL (WINAPI *pfnRzInfo)(HDC,void*);
+static pfnRzInfo pGetFontRealizationInfo;
+typedef BOOL (WINAPI *pfnFontFileInfo)(DWORD,DWORD,void*,SIZE_T,SIZE_T*);
+static pfnFontFileInfo pGetFontFileInfo;
 
 /* ------------------------------------------------------------------ small utils */
 /* text value/key: "!" (and NULL) -> the not-available token, "~" or "" -> the empty token; anything else escaped */
@@ -152,19 +165,44 @@ static void font_ident(HDC dc, char id[17], char file[260]){
   free(head); free(name);
 }
 
+/* ------------------------------------------------------------------ realisation info: which file backs the font */
+typedef struct { int ver; DWORD flags, nfiles; int face, sim; char file[260]; unsigned long long fsize; int fok; } rzinfo;
+static void rz_get(HDC dc, rzinfo *r){
+  memset(r,0,sizeof *r); strcpy(r->file,"!");
+  if(!pGetFontRealizationInfo) return;
+  static DWORD b[0x400/4]; static const DWORD SZ[]={0x32c,24};
+  for(int i=0;i<2 && !r->ver;i++){ memset(b,0,sizeof b); b[0]=SZ[i]; if(pGetFontRealizationInfo(dc,b)) r->ver=(int)SZ[i]; }
+  if(!r->ver) return;
+  r->flags=b[1]; r->nfiles=b[4]; r->face=((const WORD*)b)[10]; r->sim=((const WORD*)b)[11];
+  if(!pGetFontFileInfo || !r->nfiles) return;
+  static BYTE fb[16+2*1100]; SIZE_T need=0; memset(fb,0,sizeof fb);
+  if(!pGetFontFileInfo(b[3],0,fb,sizeof fb,&need)) return;
+  WCHAR *p=(WCHAR*)(fb+16); p[1099]=0; const WCHAR *bs=p;
+  for(const WCHAR *q=p;*q;q++) if(*q==L'\\'||*q==L'/') bs=q+1;
+  char u[260]; w2u(u,sizeof u,bs); CharLowerA(u); if(u[0]){ snprintf(r->file,sizeof r->file,"%s",u); r->fok=1; }
+  memcpy(&r->fsize,fb+8,8);
+}
+static void rv_rz(rv *v, const rzinfo *r){
+  if(!r->ver){ for(int i=0;i<7;i++) rv_na(v); return; }
+  rv_x(v,r->ver); rv_x(v,r->flags); rv_u(v,r->nfiles); rv_i(v,r->face); rv_x(v,r->sim);
+  if(r->fok){ rv_t(v,r->file); rv_u(v,r->fsize); } else { rv_na(v); rv_na(v); } }
+#define RZ_COLS "rz rz_flags rz_nfiles rz_face rz_sim rz_file rz_fsize:B"
+
 /* ------------------------------------------------------------------ the measurement row */
 static const WCHAR EXT19[]=L"The quick brown fox";
 static const WCHAR EXT52[]=L"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 #define MEAS_COLS "ok got got_n alias h:px a:px d:px il:px el:px ave:px max:px wt ovh:px dax day first last dflt brk it ul so pf cs " \
-  "lf_eq lf_face lf_h lf_cs type font file otm_family otm_face otm_style otm_full otm_em ur_glyphs ur_ranges ur_sha tci_cs csb0 csb1 cw_sha ext19:px ext52:px ext_cy:px"
+  "lf_eq lf_face lf_h lf_cs type font file otm_family otm_face otm_style otm_full otm_em ur_glyphs ur_ranges ur_sha tci_cs csb0 csb1 cw_sha ext19:px ext52:px ext_cy:px " RZ_COLS
+#define MEAS_N 53 /* columns of MEAS_COLS */
 static const char *ftype(BYTE pf){ static char b[16]; const char *t=(pf&TMPF_TRUETYPE)?"tt":(pf&TMPF_VECTOR)?"vector":"raster"; snprintf(b,sizeof b,"%s%s",t,(pf&TMPF_DEVICE)?"+dev":""); return b; }
 
 /* measures font f in dc; ansi: use the A functions for face/metrics/readback. lfin: the LOGFONTW (or LOGFONTA when ansi) passed. */
 static void measure(rv *v, HDC dc, HFONT f, int ansi, const void *lfin, TEXTMETRICW *tmout, char fileout[260]){
   if(tmout) memset(tmout,0,sizeof *tmout); if(fileout) strcpy(fileout,"!");
-  if(!f){ rv_i(v,0); for(int i=0;i<45;i++) rv_na(v); return; }
-  rv_i(v,1);
+  if(!f){ rv_i(v,0); for(int i=1;i<MEAS_N;i++) rv_na(v); return; }
   HFONT o=(HFONT)SelectObject(dc,f);
+  if(!o || o==(HFONT)HGDI_ERROR){ rv_i(v,-1); for(int i=1;i<MEAS_N;i++) rv_na(v); return; }
+  rv_i(v,1);
   if(ansi){ char got[LF_FACESIZE*2]=""; int n=GetTextFaceA(dc,sizeof got,got); if(n>0) rv_t(v,got); else rv_na(v); rv_i(v,n); }
   else { WCHAR got[LF_FACESIZE*2]=L""; int n=GetTextFaceW(dc,LF_FACESIZE*2,got); if(n>0) rv_w(v,got); else rv_na(v); rv_i(v,n); }
   if(pGetTextFaceAliasW){ WCHAR al[LF_FACESIZE*2]=L""; int n=pGetTextFaceAliasW(dc,LF_FACESIZE*2,al); if(n>0) rv_w(v,al); else rv_na(v); } else rv_na(v);
@@ -181,7 +219,7 @@ static void measure(rv *v, HDC dc, HFONT f, int ansi, const void *lfin, TEXTMETR
     rv_x(v,tm.tmPitchAndFamily); rv_i(v,tm.tmCharSet); if(tmout) *tmout=tm; }
   else for(int i=0;i<20;i++) rv_na(v);
   /* GetObject read-back */
-  if(ansi){ LOGFONTA a; memset(&a,0,sizeof a); int n=GetObjectA(f,sizeof a,&a); if(n>0){ const LOGFONTA *li=(const LOGFONTA*)lfin; rv_i(v,!memcmp(&a,li,offsetof(LOGFONTA,lfFaceName)) && !strncmp(a.lfFaceName,li->lfFaceName,LF_FACESIZE)); rv_t(v,a.lfFaceName[0]?a.lfFaceName:"~"); rv_i(v,a.lfHeight); rv_i(v,a.lfCharSet); } else { rv_na(v); rv_na(v); rv_na(v); rv_na(v); } }
+  if(ansi){ LOGFONTA a; memset(&a,0,sizeof a); int n=GetObjectA(f,sizeof a,&a); if(n>0){ const LOGFONTA *li=(const LOGFONTA*)lfin; char an[LF_FACESIZE+1]; memcpy(an,a.lfFaceName,LF_FACESIZE); an[LF_FACESIZE]=0; rv_i(v,!memcmp(&a,li,offsetof(LOGFONTA,lfFaceName)) && !strncmp(a.lfFaceName,li->lfFaceName,LF_FACESIZE)); rv_t(v,an[0]?an:"~"); rv_i(v,a.lfHeight); rv_i(v,a.lfCharSet); } else { rv_na(v); rv_na(v); rv_na(v); rv_na(v); } }
   else { LOGFONTW a; memset(&a,0,sizeof a); int n=GetObjectW(f,sizeof a,&a); if(n>0){ WCHAR fn[LF_FACESIZE+1]; memcpy(fn,a.lfFaceName,sizeof a.lfFaceName); fn[LF_FACESIZE]=0;
       const LOGFONTW *li=(const LOGFONTW*)lfin; rv_i(v,!memcmp(&a,li,offsetof(LOGFONTW,lfFaceName)) && !wcsncmp(a.lfFaceName,li->lfFaceName,LF_FACESIZE)); if(fn[0]) rv_w(v,fn); else rv_t(v,"~"); rv_i(v,a.lfHeight); rv_i(v,a.lfCharSet); } else { rv_na(v); rv_na(v); rv_na(v); rv_na(v); } }
   rv_t(v,okt?ftype(tm.tmPitchAndFamily):"!");
@@ -201,6 +239,7 @@ static void measure(rv *v, HDC dc, HFONT f, int ansi, const void *lfin, TEXTMETR
   INT w[95]; if(GetCharWidth32W(dc,0x20,0x7e,w)){ char h[17]; sha16(h,w,sizeof w); rv_t(v,h); } else rv_na(v);
   SIZE s1={0,0}, s2={0,0}; int e1=GetTextExtentPoint32W(dc,EXT19,19,&s1), e2=GetTextExtentPoint32W(dc,EXT52,52,&s2);
   if(e1) rv_i(v,s1.cx); else rv_na(v); if(e2){ rv_i(v,s2.cx); rv_i(v,s2.cy); } else { rv_na(v); rv_na(v); }
+  { rzinfo rz; rz_get(dc,&rz); rv_rz(v,&rz); }
   SelectObject(dc,o);
 }
 
@@ -209,13 +248,13 @@ typedef struct { const char *src, *api; LOGFONTW lf; const char *dcn; int gm; } 
 static void req_key(rk *k, const req *r, const char *facekey){
   rk_reset(k); rk_t(k,"src",r->src); rk_t(k,"api",r->api);
   if(facekey) rk_t(k,"face",facekey); else { WCHAR fn[LF_FACESIZE+1]; memcpy(fn,r->lf.lfFaceName,sizeof r->lf.lfFaceName); fn[LF_FACESIZE]=0; if(fn[0]) rk_w(k,"face",fn); else rk_t(k,"face","~"); }
-  rk_i(k,"h",r->lf.lfHeight); rk_i(k,"w",r->lf.lfWidth); rk_i(k,"wt",r->lf.lfWeight); rk_i(k,"it",r->lf.lfItalic); rk_i(k,"cs",r->lf.lfCharSet);
-  rk_x(k,"pf",r->lf.lfPitchAndFamily); rk_i(k,"op",r->lf.lfOutPrecision); rk_x(k,"cp",r->lf.lfClipPrecision); rk_i(k,"q",r->lf.lfQuality);
-  rk_i(k,"esc",r->lf.lfEscapement); rk_i(k,"ori",r->lf.lfOrientation); rk_t(k,"dc",r->dcn); rk_i(k,"gm",r->gm);
+  rk_i(k,"req_h",r->lf.lfHeight); rk_i(k,"req_w",r->lf.lfWidth); rk_i(k,"req_wt",r->lf.lfWeight); rk_i(k,"req_it",r->lf.lfItalic); rk_i(k,"req_cs",r->lf.lfCharSet);
+  rk_x(k,"req_pf",r->lf.lfPitchAndFamily); rk_i(k,"req_op",r->lf.lfOutPrecision); rk_x(k,"req_cp",r->lf.lfClipPrecision); rk_i(k,"req_q",r->lf.lfQuality);
+  rk_i(k,"req_esc",r->lf.lfEscapement); rk_i(k,"req_ori",r->lf.lfOrientation); rk_t(k,"dc",r->dcn); rk_i(k,"gm",r->gm);
 }
 static int g_map_schema=0;
 static void map_req(const req *r, const char *facekey){
-  if(!g_map_schema){ g_map_schema=1; rec_schema("map","src api face h w wt it cs pf op cp q esc ori dc gm",MEAS_COLS); }
+  if(!g_map_schema){ g_map_schema=1; rec_schema("map","src api face req_h req_w req_wt req_it req_cs req_pf req_op req_cp req_q req_esc req_ori dc gm",MEAS_COLS); }
   HDC dc=!strcmp(r->dcn,"mem")?g_mem:g_scr; int oldgm=SetGraphicsMode(dc,r->gm);
   HFONT f=NULL; int ansi=0; LOGFONTA la;
   if(!strcmp(r->api,"W")) f=CreateFontIndirectW(&r->lf);
@@ -319,7 +358,6 @@ static void do_registry(void){
 
 /* ------------------------------------------------------------------ enumeration */
 typedef struct { int qcs; const char *mode; sset *fams; int count; } enum_ctx;
-static int g_ef_schema=0, g_es_schema=0;
 static int CALLBACK ef_proc(const LOGFONTW *lf, const TEXTMETRICW *tm, DWORD type, LPARAM lp){
   enum_ctx *c=(enum_ctx*)lp; const ENUMLOGFONTEXW *e=(const ENUMLOGFONTEXW*)lf; c->count++;
   if(c->fams){ char u[200]; w2u(u,sizeof u,lf->lfFaceName); sset_add(c->fams,u); }
@@ -330,7 +368,7 @@ static int CALLBACK ef_proc(const LOGFONTW *lf, const TEXTMETRICW *tm, DWORD typ
   row_u("enum_fam",&k,&v); return 1; }
 static int CALLBACK es_proc(const LOGFONTW *lf, const TEXTMETRICW *tm, DWORD type, LPARAM lp){
   enum_ctx *c=(enum_ctx*)lp; const ENUMLOGFONTEXW *e=(const ENUMLOGFONTEXW*)lf; c->count++;
-  rk k; rk_reset(&k); rk_t(&k,"q_face",c->mode); rk_w(&k,"face",lf->lfFaceName); rk_w(&k,"full",e->elfFullName); rk_w(&k,"style",e->elfStyle); rk_i(&k,"cs",lf->lfCharSet); rk_x(&k,"type",type); rk_i(&k,"h",lf->lfHeight); rk_i(&k,"w",lf->lfWidth);
+  rk k; rk_reset(&k); rk_t(&k,"q_face",c->mode); rk_w(&k,"face",lf->lfFaceName); rk_w(&k,"full",e->elfFullName); rk_w(&k,"style",e->elfStyle); rk_i(&k,"cs",lf->lfCharSet); rk_x(&k,"type",type); rk_i(&k,"ent_h",lf->lfHeight); rk_i(&k,"ent_w",lf->lfWidth);
   rv v; rv_reset(&v); rv_w(&v,e->elfScript);
   rv_i(&v,lf->lfHeight); rv_i(&v,lf->lfWidth); rv_i(&v,lf->lfWeight); rv_i(&v,lf->lfItalic); rv_x(&v,lf->lfPitchAndFamily); rv_i(&v,lf->lfOutPrecision); rv_i(&v,lf->lfClipPrecision); rv_i(&v,lf->lfQuality);
   rv_i(&v,tm->tmHeight); rv_i(&v,tm->tmAscent); rv_i(&v,tm->tmDescent); rv_i(&v,tm->tmInternalLeading); rv_i(&v,tm->tmExternalLeading); rv_i(&v,tm->tmAveCharWidth); rv_i(&v,tm->tmMaxCharWidth);
@@ -354,7 +392,7 @@ static void do_enum(void){
     enum_ctx c={cs,"",cs==DEFAULT_CHARSET?&g_fams:NULL,0}; int r=EnumFontFamiliesExW(g_scr,&lf,ef_proc,(LPARAM)&c,0);
     rk k; rk_reset(&k); rk_t(&k,"api","EnumFontFamiliesExW"); rk_t(&k,"q_face","~"); rk_i(&k,"q_cs",cs); rv v; rv_reset(&v); rv_i(&v,c.count); rec_row("enum_count",&k,&v); (void)r; }
   if(!g_fams.n){ /* still collect the DEFAULT list when quick list lacked it */ }
-  rec_schema("enum_style","q_face face full style cs type h w","script lf_h lf_w lf_wt lf_it lf_pf lf_op lf_cp lf_q h:px a:px d:px il:px el:px ave:px max:px wt ovh:px dax day first last dflt brk pf tcs ntm_flags ntm_em ntm_cell ntm_avgw usb csb");
+  rec_schema("enum_style","q_face face full style cs type ent_h ent_w","script lf_h lf_w lf_wt lf_it lf_pf lf_op lf_cp lf_q h:px a:px d:px il:px el:px ave:px max:px wt ovh:px dax day first last dflt brk pf tcs ntm_flags ntm_em ntm_cell ntm_avgw usb csb");
   /* per family: all styles x charsets */
   char **fam=NULL; int nf=0;
   if(g_full){ fam=(char**)calloc(g_fams.n+1,sizeof(char*)); for(int i=0;i<g_fams.cap;i++) if(g_fams.v[i]) fam[nf++]=g_fams.v[i];
@@ -379,14 +417,15 @@ static void do_enum(void){
 static void do_stock(void){
   static const struct { int id; const char *n; } ST[]={{OEM_FIXED_FONT,"OEM_FIXED_FONT"},{ANSI_FIXED_FONT,"ANSI_FIXED_FONT"},{ANSI_VAR_FONT,"ANSI_VAR_FONT"},{SYSTEM_FONT,"SYSTEM_FONT"},
     {DEVICE_DEFAULT_FONT,"DEVICE_DEFAULT_FONT"},{SYSTEM_FIXED_FONT,"SYSTEM_FIXED_FONT"},{DEFAULT_GUI_FONT,"DEFAULT_GUI_FONT"}};
-  rec_schema("stock","obj dc","lf_n lf_h lf_w lf_wt lf_it lf_cs lf_op lf_cp lf_q lf_pf lf_face " MEAS_COLS);
+  /* obj_*: the stock object's own LOGFONT (GetObjectW); the measure block follows (its lf_* = the same read-back, compared) */
+  rec_schema("stock","obj dc","obj_n obj_h obj_w obj_wt obj_it obj_cs obj_op obj_cp obj_q obj_pf obj_face " MEAS_COLS " is_system_font");
   sset seen={0};
   for(int d=0;d<2;d++){ HDC dc=d?g_mem:g_scr;
     for(int i=0;i<N(ST);i++){ HFONT f=(HFONT)GetStockObject(ST[i].id); LOGFONTW lf; memset(&lf,0,sizeof lf); int n=GetObjectW(f,sizeof lf,&lf);
       rk k; rk_reset(&k); rk_t(&k,"obj",ST[i].n); rk_t(&k,"dc",d?"mem":"screen");
       rv v; rv_reset(&v); rv_i(&v,n); rv_i(&v,lf.lfHeight); rv_i(&v,lf.lfWidth); rv_i(&v,lf.lfWeight); rv_i(&v,lf.lfItalic); rv_i(&v,lf.lfCharSet); rv_i(&v,lf.lfOutPrecision); rv_i(&v,lf.lfClipPrecision); rv_i(&v,lf.lfQuality); rv_x(&v,lf.lfPitchAndFamily);
       if(lf.lfFaceName[0]) rv_w(&v,lf.lfFaceName); else rv_t(&v,"~");
-      measure(&v,dc,f,0,&lf,NULL,NULL); row_u("stock",&k,&v);
+      measure(&v,dc,f,0,&lf,NULL,NULL); rv_i(&v,f==(HFONT)GetStockObject(SYSTEM_FONT)); row_u("stock",&k,&v);
       /* EnumFonts on the stock face name */
       if(!d && lf.lfFaceName[0]){ char u[100]; w2u(u,sizeof u,lf.lfFaceName); if(sset_add(&seen,u)){ enum_ctx c={-2,"EnumFontsW.stock",NULL,0}; EnumFontsW(g_scr,lf.lfFaceName,eo_proc,(LPARAM)&c); } } }
     /* the DC's initial font */
@@ -394,7 +433,7 @@ static void do_stock(void){
     rk k; rk_reset(&k); rk_t(&k,"obj","dc_initial"); rk_t(&k,"dc",d?"mem.compat":"screen.compat");
     rv v; rv_reset(&v); rv_i(&v,n); rv_i(&v,lf.lfHeight); rv_i(&v,lf.lfWidth); rv_i(&v,lf.lfWeight); rv_i(&v,lf.lfItalic); rv_i(&v,lf.lfCharSet); rv_i(&v,lf.lfOutPrecision); rv_i(&v,lf.lfClipPrecision); rv_i(&v,lf.lfQuality); rv_x(&v,lf.lfPitchAndFamily);
     if(lf.lfFaceName[0]) rv_w(&v,lf.lfFaceName); else rv_t(&v,"~");
-    rv_i(&v,cur==(HFONT)GetStockObject(SYSTEM_FONT)); for(int j=0;j<45;j++) rv_na(&v); /* identity with SYSTEM_FONT in place of the measure block */
+    measure(&v,tmp,cur,0,&lf,NULL,NULL); rv_i(&v,cur==(HFONT)GetStockObject(SYSTEM_FONT)); /* v1 put the identity into `ok` and left the block NA */
     row_u("stock",&k,&v); DeleteDC(tmp); }
   sset_free(&seen);
 }
@@ -408,19 +447,19 @@ static void do_fallback(void){
     {"pua",L"\xE000\xF020"},{"nonchar",L"\xFFFF\xFFFE"},{"ctrl",L"\x0001\x0009\x000A"},{"nbsp_shy",L"\x00A0\x00AD\x2011"},{"latinext",L"\x0151\x0171\x1EA0"},{"armenian",L"\x0531\x0561"},{"georgian",L"\x10D0\x10D1"}};
   static const char *FF[]={"Tahoma","Segoe UI","MS Shell Dlg","MS Shell Dlg 2","Microsoft Sans Serif","MS Sans Serif","Arial","Courier New","System","SimSun","Microsoft YaHei","MS Gothic","Malgun Gothic","Segoe UI Emoji","Segoe UI Symbol","Times New Roman","NoSuchFace"};
   int nff=g_full?N(FF):8;
-  rec_schema("fallback","face h q text","got n ret_mark idx_mark ret_plain idx_plain missing ext_cx:px ext_cy:px abc_ok font file");
+  rec_schema("fallback","face req_h q text","got n ret_mark idx_mark ret_plain idx_plain missing ext_cx:px ext_cy:px abc_ok font file rz_file rz_face");
   for(int fi=0;fi<nff;fi++) for(int hq=0;hq<2;hq++){
     int h=hq?-16:-12; LOGFONTW lf=lf_make(FF[fi],h,DEFAULT_CHARSET); lf.lfQuality=NONANTIALIASED_QUALITY;
     HFONT f=CreateFontIndirectW(&lf); HFONT o=(HFONT)SelectObject(g_scr,f);
-    WCHAR got[64]=L""; GetTextFaceW(g_scr,64,got); char id[17], file[260]; font_ident(g_scr,id,file);
+    WCHAR got[64]=L""; GetTextFaceW(g_scr,64,got); char id[17], file[260]; font_ident(g_scr,id,file); rzinfo rz; rz_get(g_scr,&rz);
     for(int ti=0;ti<N(TX);ti++){ const WCHAR *s=TX[ti].s; int n=(int)wcslen(s); WORD a[16], b[16]; memset(a,0,sizeof a); memset(b,0,sizeof b);
       DWORD r1=GetGlyphIndicesW(g_scr,s,n,a,GGI_MARK_NONEXISTING_GLYPHS), r2=GetGlyphIndicesW(g_scr,s,n,b,0);
       char ia[16*6+1]="", ib[16*6+1]=""; int miss=0; for(int i=0;i<n;i++){ char t[8]; snprintf(t,sizeof t,"%s%x",i?",":"",a[i]); strcat(ia,t); snprintf(t,sizeof t,"%s%x",i?",":"",b[i]); strcat(ib,t); if(a[i]==0xffff) miss++; }
       SIZE sz={0,0}; int okx=GetTextExtentPoint32W(g_scr,s,n,&sz);
       ABC abc[4]; int okabc=GetCharABCWidthsW(g_scr,s[0],s[0],abc);
-      rk k; rk_reset(&k); rk_t(&k,"face",FF[fi]); rk_i(&k,"h",h); rk_t(&k,"q","nonaa"); rk_t(&k,"text",TX[ti].n);
+      rk k; rk_reset(&k); rk_t(&k,"face",FF[fi]); rk_i(&k,"req_h",h); rk_t(&k,"q","nonaa"); rk_t(&k,"text",TX[ti].n);
       rv v; rv_reset(&v); rv_w(&v,got); rv_i(&v,n); rv_i(&v,(int)r1); rv_t(&v,r1==GDI_ERROR?"!":ia); rv_i(&v,(int)r2); rv_t(&v,r2==GDI_ERROR?"!":ib); rv_i(&v,miss);
-      if(okx){ rv_i(&v,sz.cx); rv_i(&v,sz.cy); } else { rv_na(&v); rv_na(&v); } rv_i(&v,okabc); rv_t(&v,id); rv_t(&v,file); row_u("fallback",&k,&v);
+      if(okx){ rv_i(&v,sz.cx); rv_i(&v,sz.cy); } else { rv_na(&v); rv_na(&v); } rv_i(&v,okabc); rv_t(&v,id); rv_t(&v,file); if(rz.fok) rv_t(&v,rz.file); else rv_na(&v); if(rz.ver) rv_i(&v,rz.face); else rv_na(&v); row_u("fallback",&k,&v);
       /* render: does TextOut fall back / link? 4bpp, black on white, non-antialiased */
       if(h==-12){ int W=8+n*16, H=20; if(W>96) W=96; rec_dib d; if(rec_dib_create(&d,W,H)){
           HFONT f2=CreateFontIndirectW(&lf); HFONT o2=(HFONT)SelectObject(d.dc,f2); SetBkMode(d.dc,TRANSPARENT); SetTextColor(d.dc,RGB(0,0,0));
@@ -501,27 +540,33 @@ static void do_proto(void){
 
 /* ------------------------------------------------------------------ the answer: MS Shell Dlg family at -8..-13 */
 static void do_answer(void){
-  static const char *AF[]={"MS Shell Dlg","MS Shell Dlg 2","MS Sans Serif","Microsoft Sans Serif","Tahoma","Arial","Segoe UI"};
-  rec_schema("answer","face h gm dc","got otm_family file type h:px a:px d:px il:px el:px ave:px max:px ext52:px cw_sha font");
-  for(int fi=0;fi<N(AF);fi++) for(int h=-8;h>=-13;h--) for(int gm=1;gm<=2;gm++){
-    LOGFONTW lf=lf_make(AF[fi],h,DEFAULT_CHARSET); int og=SetGraphicsMode(g_scr,gm);
-    HFONT f=CreateFontIndirectW(&lf); HFONT o=(HFONT)SelectObject(g_scr,f);
-    WCHAR got[64]=L""; GetTextFaceW(g_scr,64,got); TEXTMETRICW tm; memset(&tm,0,sizeof tm); int okt=GetTextMetricsW(g_scr,&tm);
-    char id[17], file[260]; font_ident(g_scr,id,file);
+  /* key: requested face, req_h (lfHeight; <0 = em height px), req_wt (400 / 700: bold dialog text), gm, dc. DEFAULT_CHARSET, other fields 0. */
+  static const char *AF[]={"MS Shell Dlg","MS Shell Dlg 2","MS Sans Serif","Microsoft Sans Serif","Tahoma","Arial","Segoe UI","Courier","Courier New"};
+  rec_schema("answer","face req_h req_wt gm dc","got otm_family file type h:px a:px d:px il:px el:px ave:px max:px ext52:px cw_sha font " RZ_COLS " cs pf");
+  for(int fi=0;fi<N(AF);fi++) for(int wi=0;wi<2;wi++) for(int h=-8;h>=-13;h--) for(int gm=1;gm<=2;gm++){
+    LOGFONTW lf=lf_make(AF[fi],h,DEFAULT_CHARSET); lf.lfWeight=wi?FW_BOLD:FW_NORMAL; int og=SetGraphicsMode(g_scr,gm);
+    HFONT f=CreateFontIndirectW(&lf); HFONT o=f?(HFONT)SelectObject(g_scr,f):NULL;
+    rk k; rk_reset(&k); rk_t(&k,"face",AF[fi]); rk_i(&k,"req_h",h); rk_i(&k,"req_wt",lf.lfWeight); rk_i(&k,"gm",gm); rk_t(&k,"dc","screen");
+    rv v; rv_reset(&v);
+    if(!o || o==(HFONT)HGDI_ERROR){ for(int i=0;i<14+7+2;i++) rv_na(&v); rec_row("answer",&k,&v); SetGraphicsMode(g_scr,og?og:GM_COMPATIBLE); if(f) DeleteObject(f); continue; }
+    WCHAR got[64]=L""; int gn=GetTextFaceW(g_scr,64,got); TEXTMETRICW tm; memset(&tm,0,sizeof tm); int okt=GetTextMetricsW(g_scr,&tm);
+    char id[17], file[260]; font_ident(g_scr,id,file); rzinfo rz; rz_get(g_scr,&rz);
     WCHAR fam[64]=L"!"; UINT on=GetOutlineTextMetricsW(g_scr,0,NULL); if(on>0&&on<1000000){ OUTLINETEXTMETRICW *ot=(OUTLINETEXTMETRICW*)calloc(1,on); if(ot&&GetOutlineTextMetricsW(g_scr,on,ot)&&(size_t)ot->otmpFamilyName<on){ wcsncpy(fam,(WCHAR*)((char*)ot+(size_t)ot->otmpFamilyName),63); fam[63]=0; } free(ot); }
-    SIZE s={0,0}; GetTextExtentPoint32W(g_scr,EXT52,52,&s); INT w[95]; char cw[17]="!"; if(GetCharWidth32W(g_scr,0x20,0x7e,w)) sha16(cw,w,sizeof w);
-    rk k; rk_reset(&k); rk_t(&k,"face",AF[fi]); rk_i(&k,"h",h); rk_i(&k,"gm",gm); rk_t(&k,"dc","screen");
-    rv v; rv_reset(&v); rv_w(&v,got); if(wcscmp(fam,L"!")) rv_w(&v,fam); else rv_na(&v); rv_t(&v,file); rv_t(&v,okt?ftype(tm.tmPitchAndFamily):"!");
-    rv_i(&v,tm.tmHeight); rv_i(&v,tm.tmAscent); rv_i(&v,tm.tmDescent); rv_i(&v,tm.tmInternalLeading); rv_i(&v,tm.tmExternalLeading); rv_i(&v,tm.tmAveCharWidth); rv_i(&v,tm.tmMaxCharWidth); rv_i(&v,s.cx); rv_t(&v,cw); rv_t(&v,id);
+    SIZE s={0,0}; int okx=GetTextExtentPoint32W(g_scr,EXT52,52,&s); INT w[95]; char cw[17]="!"; if(GetCharWidth32W(g_scr,0x20,0x7e,w)) sha16(cw,w,sizeof w);
+    if(gn>0) rv_w(&v,got); else rv_na(&v); if(wcscmp(fam,L"!")) rv_w(&v,fam); else rv_na(&v); rv_t(&v,file); rv_t(&v,okt?ftype(tm.tmPitchAndFamily):"!");
+    if(okt){ rv_i(&v,tm.tmHeight); rv_i(&v,tm.tmAscent); rv_i(&v,tm.tmDescent); rv_i(&v,tm.tmInternalLeading); rv_i(&v,tm.tmExternalLeading); rv_i(&v,tm.tmAveCharWidth); rv_i(&v,tm.tmMaxCharWidth); }
+    else for(int i=0;i<7;i++) rv_na(&v);
+    if(okx) rv_i(&v,s.cx); else rv_na(&v); rv_t(&v,cw); rv_t(&v,id); rv_rz(&v,&rz);
+    if(okt){ rv_i(&v,tm.tmCharSet); rv_x(&v,tm.tmPitchAndFamily); } else { rv_na(&v); rv_na(&v); }
     rec_row("answer",&k,&v);
     SelectObject(g_scr,o); SetGraphicsMode(g_scr,og?og:GM_COMPATIBLE);
-    /* render "Shell Dlg 0123" in this font (GM as requested), 4bpp greyscale, ClearType off */
-    if(fi<4){ LOGFONTW lq=lf; lq.lfQuality=NONANTIALIASED_QUALITY; rec_dib d; if(rec_dib_create(&d,96,18)){ SetGraphicsMode(d.dc,gm); HFONT f2=CreateFontIndirectW(&lq); HFONT o2=(HFONT)SelectObject(d.dc,f2);
-        SetBkMode(d.dc,TRANSPARENT); SetTextColor(d.dc,RGB(0,0,0)); TextOutW(d.dc,1,1,L"Shell Dlg 0123",14); GdiFlush(); uint8_t g[12*18]; size_t gn=rec_gray_from_dib(d.bits,96,18,1,g,sizeof g);
-        rec_bitmap("answer_bmp",&k,96,18,1,g,gn); SelectObject(d.dc,o2); DeleteObject(f2); rec_dib_free(&d); } }
+    /* render "Shell Dlg 0123" in this font (GM as requested), 1bpp, non-antialiased; regular weight of the four Shell/Sans faces */
+    if(fi<4 && !wi){ LOGFONTW lq=lf; lq.lfQuality=NONANTIALIASED_QUALITY; rec_dib d; if(rec_dib_create(&d,96,18)){ SetGraphicsMode(d.dc,gm); HFONT f2=CreateFontIndirectW(&lq); HFONT o2=(HFONT)SelectObject(d.dc,f2);
+        SetBkMode(d.dc,TRANSPARENT); SetTextColor(d.dc,RGB(0,0,0)); TextOutW(d.dc,1,1,L"Shell Dlg 0123",14); GdiFlush(); uint8_t g[12*18]; size_t gn2=rec_gray_from_dib(d.bits,96,18,1,g,sizeof g);
+        rec_bitmap("answer_bmp",&k,96,18,1,g,gn2); SelectObject(d.dc,o2); DeleteObject(f2); rec_dib_free(&d); } }
     DeleteObject(f); }
-  /* micross.ttf presence and who serves the Shell faces */
-  const ffile *m=ff_find("micross.ttf"); if(m){ char hx[65]="!"; if(m->hashed) rec_hex(hx,m->sha,32); rec_note("answer micross.ttf present size=%llu sha256=%s",m->size,hx); } else rec_note("answer micross.ttf absent");
+  /* micross.ttf presence (directory listing) */
+  const ffile *m=ff_find("micross.ttf"); if(m){ char hx[65]="!"; if(m->hashed) rec_hex(hx,m->sha,32); rec_note("answer micross.ttf present size=%llu sha256=%s",m->size,hx); } else rec_note("answer micross.ttf absent from the %%WINDIR%%\\Fonts listing");
 }
 
 /* ------------------------------------------------------------------ font resource info (file -> faces) */
@@ -575,7 +620,8 @@ static void do_map(void){
   rec_flush();
   const char **SF=g_full?CORE:SMALL; int nsf=g_full?N(CORE):N(SMALL);
   /* D: pitch x family */
-  for(int fi=0;fi<nsf;fi++) for(int p=0;p<3;p++) for(int fam=0;fam<=0x50;fam+=0x10){ if(!g_full && fam && p) continue; LOGFONTW lf=lf_make(SF[fi],-11,DEFAULT_CHARSET); lf.lfPitchAndFamily=(BYTE)(p|fam); map_simple("pitchfamily","W",&lf,"screen",GM_COMPATIBLE); }
+  static const int PITCH[]={DEFAULT_PITCH,FIXED_PITCH,VARIABLE_PITCH,MONO_FONT};
+  for(int fi=0;fi<nsf;fi++) for(int pi=0;pi<N(PITCH);pi++) for(int fam=0;fam<=0x50;fam+=0x10){ int p=PITCH[pi]; if(!g_full && fam && p) continue; LOGFONTW lf=lf_make(SF[fi],-11,DEFAULT_CHARSET); lf.lfPitchAndFamily=(BYTE)(p|fam); map_simple("pitchfamily","W",&lf,"screen",GM_COMPATIBLE); }
   rec_flush();
   /* E: out precision 0..10 */
   for(int fi=0;fi<nsf;fi++) for(int op=0;op<=10;op++){ LOGFONTW lf=lf_make(SF[fi],-11,DEFAULT_CHARSET); lf.lfOutPrecision=(BYTE)op; map_simple("outprec","W",&lf,"screen",GM_COMPATIBLE); }
@@ -599,13 +645,16 @@ static void do_map(void){
 }
 
 int main(int argc, char **argv){
-  rec_init(&argc,argv,"face_substitution","1");
+  rec_init(&argc,argv,"face_substitution","2");
   for(int i=1;i<argc;i++){ if(!strcmp(argv[i],"--quick")) g_full=0; else if(!strcmp(argv[i],"--full")) g_full=1; else if(!strcmp(argv[i],"--no-filehash")) g_filehash=0; }
   rec_env("fs.mode","%s",g_full?"full":"quick");
   HMODULE gdi=GetModuleHandleA("gdi32.dll");
-  pGetTextFaceAliasW=(pfnFaceAlias)GetProcAddress(gdi,"GetTextFaceAliasW");
-  pGetFontResourceInfoW=(pfnFontResInfo)GetProcAddress(gdi,"GetFontResourceInfoW");
+  pGetTextFaceAliasW=(pfnFaceAlias)(void*)GetProcAddress(gdi,"GetTextFaceAliasW");
+  pGetFontResourceInfoW=(pfnFontResInfo)(void*)GetProcAddress(gdi,"GetFontResourceInfoW");
+  pGetFontRealizationInfo=(pfnRzInfo)(void*)GetProcAddress(gdi,"GetFontRealizationInfo");
+  pGetFontFileInfo=(pfnFontFileInfo)(void*)GetProcAddress(gdi,"GetFontFileInfo");
   rec_env("fs.have_GetTextFaceAliasW","%d",pGetTextFaceAliasW!=NULL); rec_env("fs.have_GetFontResourceInfoW","%d",pGetFontResourceInfoW!=NULL);
+  rec_env("fs.have_GetFontRealizationInfo","%d",pGetFontRealizationInfo!=NULL); rec_env("fs.have_GetFontFileInfo","%d",pGetFontFileInfo!=NULL);
   g_scr=GetDC(NULL); g_mem=CreateCompatibleDC(g_scr);
   DWORD t0=GetTickCount(), t;
   do_registry(); rec_flush(); t=GetTickCount(); rec_env("fs.ms.registry","%lu",t-t0); t0=t;

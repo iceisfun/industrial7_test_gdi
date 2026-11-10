@@ -236,3 +236,31 @@ TEST(glyph_indices_observations){
   t_note("Tahoma GetGlyphIndicesW mark: ret %lu %04x %04x %04x; plain: ret %lu %04x %04x %04x",r1,a[0],a[1],a[2],r2,b[0],b[1],b[2]);
   U(SelectObject)(dc,o); U(DeleteObject)(f); release_dc(dc);
 }
+
+/* ---------------------------------------------------------------- GetFontRealizationInfo / GetFontFileInfo (file behind a realised font) */
+typedef BOOL (WINAPI *GetFontRealizationInfo_pfn)(HDC,void*);
+typedef BOOL (WINAPI *GetFontFileInfo_pfn)(DWORD,DWORD,void*,SIZE_T,SIZE_T*);
+TEST(font_file_info_protocol){
+  /* gdi32full!GetFontFileInfo @0x56190 -> win32kfull!NtGdiGetFontFileInfo @0x155a10: needed = wcslen(path)*2 + 0x12 is
+     written to *pcbNeeded; buffer NULL or smaller than needed -> 0x7a (ERROR_INSUFFICIENT_BUFFER); file index >= file
+     count -> 0x57; user mode sets the error and returns FALSE. Layout: +0 write time, +8 file size (u64), +0x10 path.
+     NtGdiGetRealizationInfo @0xa6090 accepts struct sizes 0x10 and 0x32c only (the user-mode cache path in
+     bGetRealizationInfoInternal may copy other sizes, so that is a note, not a check). */
+  GetFontRealizationInfo_pfn rz=UN(GetFontRealizationInfo); GetFontFileInfo_pfn ffi=UN(GetFontFileInfo); REQUIRE(rz); REQUIRE(ffi);
+  HDC dc=screen_dc(); REQUIRE(dc);
+  LOGFONTW lf=mk(L"Arial",-12,DEFAULT_CHARSET); HFONT f=U(CreateFontIndirectW)(&lf); REQUIRE(f); HFONT o=(HFONT)U(SelectObject)(dc,f);
+  DWORD b[0x400/4]; memset(b,0,sizeof b); b[0]=0x10; BOOL r16=rz(dc,b); DWORD inst=b[3];
+  memset(b,0,sizeof b); b[0]=0x32c; BOOL rbig=rz(dc,b);
+  memset(b,0,sizeof b); b[0]=0x18; BOOL r24=rz(dc,b);
+  t_note("GetFontRealizationInfo(Arial): size 0x10 -> %d, 0x32c -> %d, 0x18 -> %d",r16,rbig,r24);
+  if(r16){
+    BYTE fb[16+2*600]; SIZE_T need=0; memset(fb,0,sizeof fb);
+    SET_ERR(0); BOOL ok=ffi(inst,0,fb,sizeof fb,&need); CHECK(ok);
+    if(ok){ const WCHAR *p=(const WCHAR*)(fb+16); int n=lstrlenW(p); CHECK(n>0);
+      unsigned long long fsz; memcpy(&fsz,fb+8,8); CHECK(fsz>12);
+      SIZE_T need2=0; BYTE small[16]; SET_ERR(0); CHECK(!ffi(inst,0,small,sizeof small,&need2)); EXPECT_ERR(ERROR_INSUFFICIENT_BUFFER); CHECK(need2>sizeof small);
+      char u[600]; WideCharToMultiByte(CP_UTF8,0,p,-1,u,sizeof u,NULL,NULL); t_note("Arial -12 backed by %s (%llu bytes), needed %lu",u,fsz,(unsigned long)need2); }
+    SET_ERR(0); CHECK(!ffi(inst,0x7fff,fb,sizeof fb,&need)); EXPECT_ERR(ERROR_INVALID_PARAMETER); }
+  else t_note("GetFontRealizationInfo size 0x10 failed");
+  U(SelectObject)(dc,o); U(DeleteObject)(f); release_dc(dc);
+}
