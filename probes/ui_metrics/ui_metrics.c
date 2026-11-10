@@ -19,11 +19,19 @@
  *   menu, menu_item       menu bar of a real window at 3 widths; popup (TrackPopupMenuEx) item rects (--full)
  *   mb, mb_ch             MessageBox window and child rects for sample texts (captured from a WH_CBT hook)
  *   theme, theme_sz, theme_part   IsThemeActive/IsAppThemed, GetThemeSysSize/Font, a few GetThemePartSize
+ *   face                  presence of every dialog face in the font enumeration (EnumFontFamiliesExW, DEFAULT_CHARSET):
+ *                         an absent face still gets a row (n=0); the dialog rows then show what the mapper chose
  *
  * usage: ui_metrics.exe [recorder options] [--quick | --full] [--no-msgbox] [--no-popup]
- *   --full (default): all contexts, all fonts, ~8k rows, a few seconds plus ~0.2 s per message box.
+ *   --full (default): all contexts, all fonts, ~12.6k R rows (~1.4 MB), a few seconds plus ~0.2 s per message box.
  *   --quick: process context only, 4 dialog fonts, 3 message boxes, no popup menu.
  * All rows are in device pixels (px) of the context they were measured in unless the column says :du.
+ * Sign conventions: awr d* = how far AdjustWindowRectEx grew each side of a 0,0-100,100 rect (positive = outward);
+ * ctl x/y = control origin in dialog CLIENT coordinates; menu bar_* / menu_item = relative to the window rect
+ * top-left; popup_item x/y = relative to the popup window top-left; mb x/y = screen coordinates.
+ * Read-only on the system: only SPI_GET* actions; every window, menu, dialog and message box is destroyed; message
+ * boxes and the popup are closed by the probe itself with an escalation (posted click/EndMenu -> WM_CLOSE/
+ * WM_CANCELMODE+Esc -> EndDialog) and MessageBoxTimeoutW (5 s) as the last resort, so nothing waits for input.
  */
 #define WINVER 0x0A00
 #define _WIN32_WINNT 0x0A00
@@ -38,7 +46,7 @@
 #else
 #define PROBE "ui_metrics"
 #endif
-#define PROBE_VER "1"
+#define PROBE_VER "2"
 #ifndef SPI_GETCARETTIMEOUT
 #define SPI_GETCARETTIMEOUT 0x2022
 #endif
@@ -117,7 +125,7 @@ static void schemas(void){
   rec_schema("dbu", "ctx", "cx:px cy:px raw");
   rec_schema("dlg", "ctx tmpl style face pt wt it frame", "ok gle style exstyle win_w:px win_h:px cli_w:px cli_h:px "
              "bu_x:px bu_y:px map100_w:px map100_h:px map_7_7_x:px map_7_7_y:px win_dpi fontnull font_eq_guifont");
-  rec_schema("ctl", "ctx tmpl style face pt wt it frame cid", "ok style exstyle x:px y:px w:px h:px cli_w:px cli_h:px font du_x:du du_y:du du_w:du du_h:du");
+  rec_schema("ctl", "ctx tmpl style face pt wt it frame cid", "ok style exstyle x:px y:px w:px h:px cli_w:px cli_h:px font_kind du_x:du du_y:du du_w:du du_h:du");
   rec_schema("ctl_edit", "ctx tmpl style face pt wt it frame cid", "margin_l:px margin_r:px rect_l:px rect_t:px rect_r:px rect_b:px");
   rec_schema("ctl_cb", "ctx tmpl style face pt wt it frame cid", "ih_sel:px ih_item:px drop_w:px drop_h:px "
              "item_l:px item_t:px item_r:px item_b:px btn_l:px btn_t:px btn_r:px btn_b:px");
@@ -136,6 +144,11 @@ static void schemas(void){
   rec_schema("theme", "ctx", "is_theme_active is_app_themed app_props dwm_composition");
   rec_schema("theme_sz", "ctx src id", "v");
   rec_schema("theme_part", "ctx cls part state ts", "hr cx:px cy:px");
+  rec_schema("face", "face", "n fonttype charsets first_full first_style");
+  rec_note("ctl.font_kind: WM_GETFONT of the control: 0 NULL (system font), 1 the dialog font (same HFONT as the dialog), "
+           "2 DEFAULT_GUI_FONT of this thread context, 3 another font");
+  rec_note("mb_ret.seen: 0 the message box was never found, 1 measured from the WH_CBT HCBT_ACTIVATE hook, "
+           "2 measured from the fallback thread timer; mb_ret.ret 32000 = MB_TIMEDOUT (the posted click did not close it)");
 }
 
 /* ------------------------------------------------------------------ fonts */
@@ -552,24 +565,39 @@ static void menubar(int width, int shown){
   DestroyWindow(w);
 }
 
-static HMENU g_pop; static HWND g_popowner; static int g_popdone;
-static void CALLBACK pop_timer(HWND h, UINT msg, UINT_PTR id, DWORD t){
-  (void)msg; (void)t;
-  KillTimer(h, id);
-  if (id == 2 || g_popdone) { EndMenu(); return; }
-  g_popdone = 1;
-  HWND pw = NULL;   /* the visible popup menu window (class #32768) */
-  for (HWND c = FindWindowExW(NULL, NULL, L"#32768", NULL); c; c = FindWindowExW(NULL, c, L"#32768", NULL))
-    if (IsWindowVisible(c)) { pw = c; break; }
-  RECT pr = {0, 0, 0, 0}; if (pw) GetWindowRect(pw, &pr);
-  int n = GetMenuItemCount(g_pop);
-  rk k; kctx(&k); rv v; rv_reset(&v); rv_i(&v, pw != NULL); rv_wh(&v, &pr); rv_i(&v, n);
+/* popup: a 100 ms timer measures the popup window (#32768 of this thread) and calls EndMenu; it stays alive until
+ * TrackPopupMenuEx returns and escalates (EndMenu + WM_CANCELMODE + Esc every tick from 0.3 s after the measurement;
+ * a popup that never appears is given up after 4 s). Item rects use GetMenuItemRect(NULL, popup) (the documented
+ * form for a popup menu) and are relative to the popup window. */
+static HMENU g_pop; static HWND g_popowner; static int g_popdone, g_popticks, g_popafter;
+static BOOL CALLBACK pop_find(HWND h, LPARAM l){
+  WCHAR c[16] = L""; GetClassNameW(h, c, 16);
+  if (!lstrcmpW(c, L"#32768") && IsWindowVisible(h)) { *(HWND *)l = h; return FALSE; }
+  return TRUE;
+}
+static void popup_row(HWND pw, const RECT *pr){
+  rk k; kctx(&k); rv v; rv_reset(&v); rv_i(&v, pw != NULL);
+  if (pw) rv_wh(&v, pr); else { rv_na(&v); rv_na(&v); }
+  rv_i(&v, GetMenuItemCount(g_pop));
   LONG cm = GetMenuCheckMarkDimensions(); rv_i(&v, LOWORD(cm)); rv_i(&v, HIWORD(cm));
-  rv_b(&v, pw != NULL, pr.left - 100); rv_b(&v, pw != NULL, pr.top - 100);
+  rv_b(&v, pw != NULL, pr->left - 100); rv_b(&v, pw != NULL, pr->top - 100);
   rec_row("popup", &k, &v);
+}
+static void CALLBACK pop_timer(HWND h, UINT msg, UINT_PTR id, DWORD t){
+  (void)h; (void)msg; (void)id; (void)t;
+  if (g_popdone) {
+    if (++g_popafter >= 3) { EndMenu(); PostMessageW(g_popowner, WM_CANCELMODE, 0, 0); PostMessageW(g_popowner, WM_KEYDOWN, VK_ESCAPE, 0); }
+    return;
+  }
+  HWND pw = NULL; EnumThreadWindows(GetCurrentThreadId(), pop_find, (LPARAM)&pw);
+  if (!pw && ++g_popticks < 40) return;
+  g_popdone = 1;
+  RECT pr = {0, 0, 0, 0}; if (pw) GetWindowRect(pw, &pr);
+  popup_row(pw, &pr);
+  int n = GetMenuItemCount(g_pop);
   for (int i = 0; i < n; i++) {
-    RECT r; kctx(&k); rk_i(&k, "item", i); rv_reset(&v);
-    if (GetMenuItemRect(g_popowner, g_pop, i, &r)) { rv_i(&v, r.left - pr.left); rv_i(&v, r.top - pr.top); rv_wh(&v, &r); } else rv_rect_na(&v);
+    RECT r; rk k; kctx(&k); rk_i(&k, "item", i); rv v; rv_reset(&v);
+    if (pw && GetMenuItemRect(NULL, g_pop, i, &r)) { rv_i(&v, r.left - pr.left); rv_i(&v, r.top - pr.top); rv_wh(&v, &r); } else rv_rect_na(&v);
     rec_row("popup_item", &k, &v);
   }
   EndMenu();
@@ -590,13 +618,14 @@ static void popup_menu(void){
   AppendMenuW(p, MF_STRING, 106, L"&Default item");
   AppendMenuW(p, MF_STRING, 107, L"A rather long menu item text here");
   SetMenuDefaultItem(p, 106, FALSE);
-  g_pop = p; g_popowner = w; g_popdone = 0;
-  SetTimer(w, 1, 400, pop_timer); SetTimer(w, 2, 4000, pop_timer);
+  g_pop = p; g_popowner = w; g_popdone = 0; g_popticks = 0; g_popafter = 0;
+  SetTimer(w, 1, 100, pop_timer);
   rec_flush();
   TrackPopupMenuEx(p, TPM_RETURNCMD | TPM_NONOTIFY | TPM_LEFTALIGN | TPM_TOPALIGN, 100, 100, w, NULL);
-  KillTimer(w, 1); KillTimer(w, 2);
-  if (!g_popdone) rec_note("popup: timer did not run inside TrackPopupMenuEx");
+  KillTimer(w, 1);
+  if (!g_popdone) { RECT z = {0, 0, 0, 0}; rec_note("popup: timer did not run inside TrackPopupMenuEx"); popup_row(NULL, &z); }
   DestroyMenu(p); DestroyWindow(w);
+  MSG m; for (int i = 0; i < 1000 && PeekMessageW(&m, NULL, 0, 0, PM_REMOVE); i++) DispatchMessageW(&m);   /* drop the escalation posts (bounded) */
 }
 
 /* ------------------------------------------------------------------ dialogs */
@@ -785,9 +814,45 @@ static void dialogs(int ctxsweep){
   if (parent) DestroyWindow(parent);
 }
 
+/* ------------------------------------------------------------------ face presence (dialog faces) */
+typedef struct { int n; DWORD type; BYTE cs[256]; int ncs; WCHAR full[LF_FULLFACESIZE]; WCHAR style[LF_FACESIZE]; } faceenum;
+static int CALLBACK face_cb(const LOGFONTW *lf, const TEXTMETRICW *tm, DWORD type, LPARAM l){
+  (void)tm; faceenum *e = (faceenum *)l; const ENUMLOGFONTEXW *el = (const ENUMLOGFONTEXW *)lf;
+  if (!e->n) { lstrcpynW(e->full, el->elfFullName, LF_FULLFACESIZE); lstrcpynW(e->style, el->elfStyle, LF_FACESIZE); }
+  e->n++; e->type |= type;
+  if (!e->cs[lf->lfCharSet]) { e->cs[lf->lfCharSet] = 1; e->ncs++; }
+  return e->n < 4096;   /* bounded */
+}
+static void face_presence(void){
+  static const char *extra[] = {"Fixedsys", "Terminal", "Segoe UI Semibold", "MS Serif", "Small Fonts"};
+  const char *seen[64]; int ns = 0;
+  HDC dc = GetDC(NULL);
+  int nfull = (int)(sizeof FONTS_FULL / sizeof *FONTS_FULL), nx = (int)(sizeof extra / sizeof *extra);
+  for (int i = 0; i < nfull + nx; i++) {
+    const char *fa = i < nfull ? FONTS_FULL[i].face : extra[i - nfull];
+    int dup = 0; for (int j = 0; j < ns; j++) if (!strcmp(seen[j], fa)) dup = 1;
+    if (dup || ns >= 64) continue;
+    seen[ns++] = fa;
+    LOGFONTW lf; memset(&lf, 0, sizeof lf); lf.lfCharSet = DEFAULT_CHARSET;
+    MultiByteToWideChar(CP_UTF8, 0, fa, -1, lf.lfFaceName, LF_FACESIZE);
+    static faceenum e; memset(&e, 0, sizeof e);
+    if (dc) EnumFontFamiliesExW(dc, &lf, face_cb, (LPARAM)&e, 0);
+    rk k; rk_reset(&k); rk_s(&k, "face", fa);
+    rv v; rv_reset(&v); rv_i(&v, e.n); rv_x(&v, e.type); rv_i(&v, e.ncs);
+    if (e.n) { rv_w(&v, e.full[0] ? e.full : L""); rv_w(&v, e.style[0] ? e.style : L""); } else { rv_na(&v); rv_na(&v); }
+    rec_row("face", &k, &v);
+  }
+  if (dc) ReleaseDC(NULL, dc);
+}
+
 /* ------------------------------------------------------------------ message boxes */
-static HHOOK g_mbhook; static const char *g_mbcase; static int g_mbseen;
+/* Measured when the box activates (WH_CBT HCBT_ACTIVATE: the dialog is laid out, before the modal loop runs); if
+ * that never happens (activation refused), a 100 ms thread timer finds the thread's #32770 instead. The box is then
+ * closed by posting a click on its first non-Help button; the same timer escalates to WM_CLOSE (1 s) and EndDialog
+ * (2 s) and MessageBoxTimeoutW ends it after 5 s whatever happens. */
+static HHOOK g_mbhook; static const char *g_mbcase; static int g_mbseen, g_mbafter; static HWND g_mbdlg;
 static void mb_record(HWND h){
+  g_mbdlg = h;
   RECT wr, cr; GetWindowRect(h, &wr); GetClientRect(h, &cr);
   int nch = 0; for (HWND c = GetWindow(h, GW_CHILD); c; c = GetWindow(c, GW_HWNDNEXT)) nch++;
   rk k; kctx(&k); rk_s(&k, "case", g_mbcase);
@@ -797,7 +862,7 @@ static void mb_record(HWND h){
   rec_row("mb", &k, &v);
   int i = 0; HWND first_btn = NULL; int first_id = 0;
   for (HWND c = GetWindow(h, GW_CHILD); c; c = GetWindow(c, GW_HWNDNEXT), i++) {
-    WCHAR cls[64] = L"", txt[512] = L""; GetClassNameW(c, cls, 64); GetWindowTextW(c, txt, 512);
+    WCHAR cls[64] = L"", txt[1024] = L""; GetClassNameW(c, cls, 64); GetWindowTextW(c, txt, 1024);
     RECT r; GetWindowRect(c, &r); MapWindowPoints(NULL, h, (POINT *)&r, 2);
     int id = GetDlgCtrlID(c);
     kctx(&k); rk_s(&k, "case", g_mbcase); rk_i(&k, "i", i);
@@ -820,14 +885,34 @@ static LRESULT CALLBACK mb_cbt(int code, WPARAM w, LPARAM l){
   }
   return CallNextHookEx(g_mbhook, code, w, l);
 }
+static BOOL CALLBACK mb_find(HWND h, LPARAM l){
+  WCHAR c[16] = L""; GetClassNameW(h, c, 16);
+  if (!lstrcmpW(c, L"#32770")) { *(HWND *)l = h; return FALSE; }
+  return TRUE;
+}
+static VOID CALLBACK mb_timer(HWND h, UINT m, UINT_PTR id, DWORD t){
+  (void)h; (void)m; (void)id; (void)t;
+  if (!g_mbseen) {
+    HWND d = NULL; EnumThreadWindows(GetCurrentThreadId(), mb_find, (LPARAM)&d);
+    if (d) { g_mbseen = 2; mb_record(d); }
+    return;
+  }
+  ++g_mbafter;
+  if (g_mbafter == 10 && IsWindow(g_mbdlg)) PostMessageW(g_mbdlg, WM_CLOSE, 0, 0);
+  if (g_mbafter >= 20 && IsWindow(g_mbdlg)) EndDialog(g_mbdlg, IDCANCEL);
+}
 static void one_mb(const char *cs, const WCHAR *text, const WCHAR *cap, UINT type){
-  g_mbcase = cs; g_mbseen = 0;
+  g_mbcase = cs; g_mbseen = 0; g_mbafter = 0; g_mbdlg = NULL;
   g_mbhook = SetWindowsHookExW(WH_CBT, mb_cbt, NULL, GetCurrentThreadId());
+  UINT_PTR tm = SetTimer(NULL, 0, 100, mb_timer);
   rec_flush();
   int r = pMessageBoxTimeoutW ? pMessageBoxTimeoutW(NULL, text, cap, type | MB_SETFOREGROUND, 0, 5000) : MessageBoxW(NULL, text, cap, type | MB_SETFOREGROUND);
-  UnhookWindowsHookEx(g_mbhook);
-  rk k; kctx(&k); rk_s(&k, "case", cs);
-  rv v; rv_reset(&v); rv_i(&v, r); rv_i(&v, g_mbseen); rec_row("mb_ret", &k, &v);
+  if (tm) KillTimer(NULL, tm);
+  if (g_mbhook) UnhookWindowsHookEx(g_mbhook);
+  rk k; rv v;
+  if (!g_mbseen) { kctx(&k); rk_s(&k, "case", cs); rv_reset(&v); rv_i(&v, 0); for (int i = 0; i < 9; i++) rv_na(&v); rec_row("mb", &k, &v); }
+  kctx(&k); rk_s(&k, "case", cs);
+  rv_reset(&v); rv_i(&v, r); rv_i(&v, g_mbseen); rec_row("mb_ret", &k, &v);
 }
 static void msgboxes(int nmax){
   static WCHAR longnospace[301], longwords[1024];
@@ -907,6 +992,7 @@ int main(int argc, char **argv){
   per_context(1);
   sysmetrics_dpi();
   theme_info();
+  face_presence();
   if (g_full) { menubar(400, 1); menubar(160, 1); }
   rec_flush();
   if (g_msgbox) msgboxes(g_full ? 100 : 3);
