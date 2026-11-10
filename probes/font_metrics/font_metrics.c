@@ -21,13 +21,13 @@
  *   SystemParametersInfoForDpi value), ncm, icm.
  * Grid per (face, req_h): main = wt{400,700} x it{0,1} at q=default cs=1 gm=compat; quality axis (7 lfQuality values
  *   incl. PROOF) at 400/0/cs=1; charset axis {0,2(symbol faces only),255,161,204,128,177,178} at 400/0/q=default;
- *   one gm=adv row (GM_ADVANCED DC: no MS Shell Dlg height snap). Column `a_ch` = TEXTMETRICA first<<24|last<<16|
+ *   one gm=adv row (same DC set to GM_ADVANCED for that row only: no MS Shell Dlg height snap). Column `a_ch` = TEXTMETRICA first<<24|last<<16|
  *   default<<8|break; `a_eq` = all other A fields equal W; `go_eq` = GetObjectW returned the passed LOGFONTW byte for
  *   byte; `sel` = SelectObject returned the previous font and gave f back; `gcp0`/`gcpf` = GetCharacterPlacementW
  *   return (cy<<16|cx) for "Hello World" with flags 0 / GetFontLanguageInfo&FLI_MASK; `ri_*` = GetFontRealizationInfo
  *   (flags byte|byte5<<8, file count, face index, simulations bit0 bold bit1 italic); `file` = GetFontFileInfo name.
  *
- * usage: font_metrics.exe [recorder options] [--full | --quick] [--no-otm] [--no-grid]
+ * usage: font_metrics.exe [recorder options] [--full | --quick] [--no-otm] [--no-grid] [--faces "A,B" (~ = empty name)]
  *   --full (default): 21 faces x 71 heights, ~27k tm rows + ~6k otm rows (~8-9 MB of text, < 1 min on Win10)
  *   --quick: 8 UI faces x 17 heights, fewer qualities/charsets (~3k rows) */
 #include "rec.h"
@@ -81,7 +81,7 @@ static void probe_ri_size(HDC dc){
 }
 
 /* ---------------------------------------------------------------- table schemas */
-#define TM_COLS "got facelen h:px a:px d:px il:px el:px ave:px max:px wt oh:px dax day first last dflt brk it ul so pf cs " \
+#define TM_COLS "got facelen h:px a:px d:px il:px el:px ave:px max:px wt oh:px dax:dpi day:dpi first last dflt brk it ul so pf cs " \
                 "a_ch a_eq go_ret go_eq sel fli gcp0 gcpf tci_cs ext52_cx:px ext52_cy:px ri_flags ri_files ri_face ri_sim file"
 #define LF_COLS "h w esc ori wt it ul so cs op cp q pf face"
 
@@ -113,6 +113,8 @@ static void measure(HDC dc, HFONT f, const LOGFONTW *lf, rv *v, TEXTMETRICW *tmo
   if(!f){ pad_na(v,ncols(TM_COLS)); return; }
   HGDIOBJ cur=GetCurrentObject(dc,OBJ_FONT);
   HGDIOBJ prev=SelectObject(dc,f);
+  if(!prev || prev==HGDI_ERROR){ /* not selected: anything measured now would belong to the previous font */
+    pad_na(v,ncols(TM_COLS)); return; }
   /* face */
   WCHAR face[LF_FACESIZE*2]; face[0]=0;
   int fl=GetTextFaceW(dc,0,NULL);
@@ -194,8 +196,8 @@ static HFONT make_font(LOGFONTW *lf, const char *face, int h, int wt, int it, in
 }
 
 /* ---------------------------------------------------------------- OTM */
-#define OTM_COLS "need ret size tm_eq panose fssel fstype rise run ital em:fu asc:px desc:px lgap:px capem:px xh:px " \
-                 "box_l:px box_t:px box_r:px box_b:px mac_asc:px mac_desc:px mac_lgap:px minppem sub_sx:px sub_sy:px sub_ox:px sub_oy:px " \
+#define OTM_COLS "need ret size tm_eq panose fssel fstype rise run ital:0.1deg em:fu asc:px desc:px lgap:px capem:px xh:px " \
+                 "box_l:px box_t:px box_r:px box_b:px mac_asc:px mac_desc:px mac_lgap:px minppem:px sub_sx:px sub_sy:px sub_ox:px sub_oy:px " \
                  "sup_sx:px sup_sy:px sup_ox:px sup_oy:px so_size:px so_pos:px us_size:px us_pos:px"
 static const char *OTMN_COLS = "family face style full need usb0 usb1 usb2 usb3 csb0 csb1";
 
@@ -205,6 +207,7 @@ static void otm_row(HDC dc, const rk *k, const TEXTMETRICW *tm, int names, const
   rv_i(&v,need);
   if(!need){ pad_na(&v,ncols(OTM_COLS)-1); rec_row("otm",k,&v); return; }
   OUTLINETEXTMETRICW *o=(OUTLINETEXTMETRICW*)calloc(1,need+16);
+  if(!o){ pad_na(&v,ncols(OTM_COLS)-1); rec_row("otm",k,&v); return; }
   UINT ret=GetOutlineTextMetricsW(dc,need,o);
   rv_i(&v,ret);
   if(!ret){ pad_na(&v,ncols(OTM_COLS)-2); rec_row("otm",k,&v); free(o); return; }
@@ -239,14 +242,29 @@ static void otm_row(HDC dc, const rk *k, const TEXTMETRICW *tm, int names, const
 }
 
 /* ---------------------------------------------------------------- grid */
+/* --faces "A,B,C": only these faces of the selected list (re-run after a crash in one face); "~" = the empty name */
+static int face_in_list(const char *list, const char *face){
+  const char *p=list; size_t fl=strlen(face);
+  while(*p){ const char *e=strchr(p,','); size_t n=e?(size_t)(e-p):strlen(p);
+    if((n==fl && !strncmp(p,face,n)) || (!fl && n==1 && *p=='~')) return 1;
+    if(!e) break;
+    p=e+1;
+  }
+  return 0;
+}
 typedef struct { tm_packed tm[64]; int n; } grp_t;
 
 static void grid_one(HDC dc, const char *face, int h, int wt, int it, int qi, int cs, int adv, grp_t *g, int do_otm){
   LOGFONTW lf; HFONT f=make_font(&lf,face,h,wt,it,QUALS[qi].v,cs);
+  /* gm=adv: the same DC switched to GM_ADVANCED for this one row (identity world transform, so lu == px still) and
+   * switched back right after; one DC for every row, so the gm=adv rows cannot differ by DC kind or DPI context */
+  int gm_ok = adv ? SetGraphicsMode(dc,GM_ADVANCED)!=0 : 1;
   rk k; rk_reset(&k); rk_s(&k,"face",face); rk_i(&k,"req_h",h); rk_i(&k,"wt",wt); rk_i(&k,"it",it);
   rk_s(&k,"q",QUALS[qi].name); rk_i(&k,"cs",cs); rk_s(&k,"gm",adv?"adv":"compat");
   rv v; rv_reset(&v); TEXTMETRICW tm;
-  measure(dc,f,&lf,&v,&tm);
+  if(gm_ok && GetGraphicsMode(dc)==(adv?GM_ADVANCED:GM_COMPATIBLE)) measure(dc,f,&lf,&v,&tm);
+  else { memset(&tm,0,sizeof tm); pad_na(&v,ncols(TM_COLS)); }
+  if(adv) SetGraphicsMode(dc,GM_COMPATIBLE);
   rec_row("tm",&k,&v);
   if(g->n<64) tm_pack(&tm,&g->tm[g->n++]);
   if(do_otm && f){
@@ -259,7 +277,7 @@ static void grid_one(HDC dc, const char *face, int h, int wt, int it, int qi, in
   if(f) DeleteObject(f);
 }
 
-static void run_grid(HDC dc, HDC dcadv, int quick, int otm){
+static void run_grid(HDC dc, int quick, int otm, const char *only){
   rec_schema("tm","face req_h wt it q cs gm",TM_COLS);
   if(otm){ rec_schema("otm","face req_h wt it",OTM_COLS); rec_schema("otmname","face req_h wt it",OTMN_COLS); }
   const char **faces = quick?FACES_QUICK:FACES_FULL;
@@ -272,6 +290,7 @@ static void run_grid(HDC dc, HDC dcadv, int quick, int otm){
   DWORD t0=GetTickCount();
   for(int fi=0;fi<nfaces;fi++){
     const char *face=faces[fi];
+    if(only && !face_in_list(only,face)) continue;
     for(int hi=0;hi<nh;hi++){
       int h=hs[hi]; static grp_t g; g.n=0;
       /* main grid: weight x italic at q=default cs=DEFAULT gm=compat */
@@ -281,7 +300,7 @@ static void run_grid(HDC dc, HDC dcadv, int quick, int otm){
       /* charset axis at 400/0/q default */
       for(int c=0;c<ncs;c++){ if(css[c]==SYMBOL_CHARSET && !symbol_meaningful(face)) continue; grid_one(dc,face,h,400,0,0,css[c],0,&g,0); }
       /* GM_ADVANCED (no MS Shell Dlg height snap there, research 02 5.3) */
-      grid_one(dcadv,face,h,400,0,0,DEFAULT_CHARSET,1,&g,0);
+      grid_one(dc,face,h,400,0,0,DEFAULT_CHARSET,1,&g,0);
       rk k; rk_reset(&k); rk_s(&k,"face",face); rk_i(&k,"req_h",h);
       rec_hash("tmhash",&k,g.tm,sizeof(tm_packed)*(size_t)g.n);
     }
@@ -362,31 +381,36 @@ static void run_ui(HDC dc){
 }
 
 int main(int argc, char **argv){
-  rec_init(&argc,argv,"font_metrics","1");
-  int quick=0, otm=1, grid=1;
+  rec_init(&argc,argv,"font_metrics","2");
+  int quick=0, otm=1, grid=1; const char *only=NULL;
   for(int i=1;i<argc;i++){
     if(!strcmp(argv[i],"--quick")) quick=1; else if(!strcmp(argv[i],"--full")) quick=0;
     else if(!strcmp(argv[i],"--no-otm")) otm=0; else if(!strcmp(argv[i],"--no-grid")) grid=0;
+    else if(!strcmp(argv[i],"--faces") && i+1<argc) only=argv[++i];
     else rec_note("unknown argument %s",argv[i]);
   }
   HMODULE g32=GetModuleHandleA("gdi32.dll"), u32=GetModuleHandleA("user32.dll");
-  fnRI=(pGetFontRealizationInfo)GetProcAddress(g32,"GetFontRealizationInfo");
-  fnFFI=(pGetFontFileInfo)GetProcAddress(g32,"GetFontFileInfo");
-  fnSPIDpi=(pSPIForDpi)GetProcAddress(u32,"SystemParametersInfoForDpi");
-  HDC dc=GetDC(NULL), dcadv=GetDC(NULL);
+  fnRI=(pGetFontRealizationInfo)(void*)GetProcAddress(g32,"GetFontRealizationInfo");
+  fnFFI=(pGetFontFileInfo)(void*)GetProcAddress(g32,"GetFontFileInfo");
+  fnSPIDpi=(pSPIForDpi)(void*)GetProcAddress(u32,"SystemParametersInfoForDpi");
+  HDC dc=GetDC(NULL);
+  if(!dc){ rec_note("GetDC(NULL) failed err=%lu",GetLastError()); return rec_finish(1); }
   probe_ri_size(dc);
   rec_env("fm.mode","%s",quick?"quick":"full");
   rec_env("fm.dc","screen GetDC(NULL) MM_TEXT");
   rec_env("fm.ri_size","0x%lx",ri_size);
   rec_env("fm.has_fontfileinfo","%d",fnFFI!=NULL);
   rec_env("fm.logpixels","%dx%d",GetDeviceCaps(dc,LOGPIXELSX),GetDeviceCaps(dc,LOGPIXELSY));
-  int gm=SetGraphicsMode(dcadv,GM_ADVANCED);
-  rec_env("fm.gm_advanced_set","%d",gm!=0);
+  rec_env("fm.faces","%s",only?only:"all");
+  { int gm=SetGraphicsMode(dc,GM_ADVANCED); rec_env("fm.gm_advanced_set","%d",gm!=0); SetGraphicsMode(dc,GM_COMPATIBLE); }
+  /* units / sign conventions that the S line cannot carry (deterministic notes) */
+  rec_note("units: tm/otm lengths device px (screen DC, MM_TEXT, identity transform). req_h = lfHeight as passed: <0 char (em) height, >0 cell height, 0 default");
+  rec_note("signs: every otm column (desc, mac_desc, box_*, sub_o*, sup_o*, so_pos, us_pos) is exactly as GetOutlineTextMetricsW returned it, not normalised");
+  rec_note("cols: first/last/dflt/brk = TEXTMETRICW WCHARs (hex); a_ch = TEXTMETRICA first<<24|last<<16|dflt<<8|brk; gcp0/gcpf = GetCharacterPlacementW DWORD (cy<<16|cx) for Hello World; ri_flags = FONT_REALIZATION_INFO byte4|byte5<<8; ri_sim bit0 bold bit1 italic");
   run_stock(dc);
   run_ui(dc);
-  if(grid) run_grid(dc,dcadv,quick,otm);
-  SetGraphicsMode(dcadv,GM_COMPATIBLE);
-  ReleaseDC(NULL,dcadv); ReleaseDC(NULL,dc);
+  if(grid) run_grid(dc,quick,otm,only);
+  ReleaseDC(NULL,dc);
   rec_note("font_metrics done");
   return rec_finish(0);
 }
