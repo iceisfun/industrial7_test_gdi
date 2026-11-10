@@ -1,0 +1,118 @@
+# serial serial.log sha256=669ca35b0d4bd67bacf6ee043c64655ef0a86df11de3a693b3a0577d2a4dc614 bytes=2651833
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-spda.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-shc0.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-shc1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-shc2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-pctx1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-pctx2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-pctx3.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-pctx4.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi96.api-pctx5.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-spda.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-shc0.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-shc1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-shc2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-pctx1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-pctx2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-pctx3.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-pctx4.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi120.api-pctx5.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-spda.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-shc0.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-shc1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-shc2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-pctx1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-pctx2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-pctx3.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-pctx4.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi144.api-pctx5.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-spda.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-shc0.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-shc1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-shc2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-pctx1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-pctx2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-pctx3.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-pctx4.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi168.api-pctx5.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-spda.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-shc0.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-shc1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-shc2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-pctx1.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-pctx2.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-pctx3.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-pctx4.rec
+# wrote /tmp/claude-1000/fS/dpi_scaling/dpi192.api-pctx5.rec
+I7VM: logon Tue 11/10/2026 20:41:20.19 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214038-2436782 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T20:41:20.441
+I7P ECHO id=gdi-dpi96-sweep-20261110-214038-2436782 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=dpi_scaling seq=0 timeout=600 time=2026-11-10T20:41:20.457
+I7P END name=dpi_scaling seq=0 rc=0 ms=28031 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=120
+I7VMRUN LOGOFF next=1
+I7VM: logon Tue 11/10/2026 20:42:12.79 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214038-2436782 logon=1
+I7VMRUN STAGE dpi=120 plan=plan1.txt
+I7P RUNNER v=1 plan=D:\i7run\plan1.txt time=2026-11-10T20:42:12.993
+I7P ECHO id=gdi-dpi96-sweep-20261110-214038-2436782 tag=dpi120 dpi=120 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=600 time=2026-11-10T20:42:12.993
+I7P END name=dpi_scaling seq=0 rc=0 ms=26531 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=144
+I7VMRUN LOGOFF next=2
+I7VM: logon Tue 11/10/2026 20:42:58.08 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214038-2436782 logon=2
+I7VMRUN STAGE dpi=144 plan=plan2.txt
+I7P RUNNER v=1 plan=D:\i7run\plan2.txt time=2026-11-10T20:42:58.271
+I7P ECHO id=gdi-dpi96-sweep-20261110-214038-2436782 tag=dpi144 dpi=144 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=600 time=2026-11-10T20:42:58.271
+I7P END name=dpi_scaling seq=0 rc=0 ms=25969 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=168
+I7VMRUN LOGOFF next=3
+I7VM: logon Tue 11/10/2026 20:43:42.36 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214038-2436782 logon=3
+I7VMRUN STAGE dpi=168 plan=plan3.txt
+I7P RUNNER v=1 plan=D:\i7run\plan3.txt time=2026-11-10T20:43:42.550
+I7P ECHO id=gdi-dpi96-sweep-20261110-214038-2436782 tag=dpi168 dpi=168 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=600 time=2026-11-10T20:43:42.550
+I7P END name=dpi_scaling seq=0 rc=0 ms=25984 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=192
+I7VMRUN LOGOFF next=4
+I7VM: logon Tue 11/10/2026 20:44:27.05 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214038-2436782 logon=4
+I7VMRUN STAGE dpi=192 plan=plan4.txt
+I7P RUNNER v=1 plan=D:\i7run\plan4.txt time=2026-11-10T20:44:27.253
+I7P ECHO id=gdi-dpi96-sweep-20261110-214038-2436782 tag=dpi192 dpi=192 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=600 time=2026-11-10T20:44:27.253
+I7P END name=dpi_scaling seq=0 rc=0 ms=26891 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-dpi96-sweep-20261110-214038-2436782
+I7VM: payload exit 0 

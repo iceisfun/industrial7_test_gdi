@@ -1,0 +1,12 @@
+# data/win10/char_widths
+
+Character widths recorder (`--full`): 16 faces (UI, bitmap, reference, one absent name), heights -8..-32, widths/ABC/kerning/ExtTextOut/DrawText.
+File: `dpi96.rec.gz` (74076 lines: R=68512 H=5377). Probe time 204 s (boot ~4.4 min). Boots: quick 1, full 2.
+Determinism: IDENTICAL (diff 0).
+Known limits: DPI 96 only.
+
+Environment (FACT, ENV rows): Windows 10 Home 22H2, 10.0.19045 UBR 2965 (buildlab 19041.1.amd64fre.vb_release.191206-1406), computer I7-WIN10,
+user `Administrator`, session 1, elevated=1 (the auto-logon account is an elevated administrator, NOT a standard user), en-US (LCID 0x0409, ACP 1252,
+OEMCP 437), 1024x768x32@64 Hz, one monitor, std VGA (Microsoft Basic Display Adapter), qemu/KVM `-cpu host -smp 2` (2 vCPU), 4 GiB. No comctl32 v6 manifest
+for the base exe (comctl32 5.82.10586); the `v6` exe loads 6.16.10586. Produced by `tools/vm_run.sh` (docs/VM_RUN.md); provenance logs in `data/win10/_runs/`.
+Determinism = a second fresh boot of the same exe at DPI 96, `python3 tools/rec.py diff A B` (the second recording is not stored).

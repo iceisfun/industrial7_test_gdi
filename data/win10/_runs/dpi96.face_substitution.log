@@ -1,0 +1,25 @@
+# serial serial.log sha256=ca9376d1d985a111277fbf7da74b7618b363b35bcfb425d0aeaaeee40d0625c9 bytes=4426858
+# wrote /tmp/claude-1000/fA/face_substitution/dpi96.rec.gz
+I7VM: logon Tue 11/10/2026 20:01:36.27 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-20261110-210050-2393906 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T20:01:36.539
+I7P ECHO id=gdi-dpi96-20261110-210050-2393906 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=face_substitution seq=0 timeout=600 time=2026-11-10T20:01:36.555
+I7P END name=face_substitution seq=0 rc=0 ms=99734 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-dpi96-20261110-210050-2393906
+I7VM: payload exit 0 

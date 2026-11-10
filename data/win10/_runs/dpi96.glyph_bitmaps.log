@@ -1,0 +1,33 @@
+# serial serial.log sha256=6eea02b8e7356a17eef2d20200979d679a6ca01d6179d9187c9962252a8d85e7 bytes=6790416
+# wrote /tmp/claude-1000/fA/glyph_bitmaps/dpi96.rec.gz
+I7VM: logon Tue 11/10/2026 20:10:05.65 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-20261110-210921-2402465 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T20:10:05.917
+I7P ECHO id=gdi-dpi96-20261110-210921-2402465 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=glyph_bitmaps seq=0 timeout=600 time=2026-11-10T20:10:05.933
+I7P ERR name=glyph_bitmaps | section%20spi%200%20ms
+I7P ERR name=glyph_bitmaps | section%20font%2062%20ms
+I7P ERR name=glyph_bitmaps | section%20gidx%2047%20ms
+I7P ERR name=glyph_bitmaps | section%20fonttab%205000%20ms
+I7P ERR name=glyph_bitmaps | section%20ggo%2092922%20ms
+I7P ERR name=glyph_bitmaps | section%20text%2037719%20ms
+I7P ERR name=glyph_bitmaps | section%20methods%206875%20ms
+I7P ERR name=glyph_bitmaps | section%20styles%206078%20ms
+I7P END name=glyph_bitmaps seq=0 rc=0 ms=149735 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-dpi96-20261110-210921-2402465
+I7VM: payload exit 0 

@@ -1,0 +1,46 @@
+# serial serial.log sha256=022ad9fbb615d6f8201eb90ea894b7f6272fefce8adb33f9fe6f28939d34c6ef bytes=7670324
+# wrote /tmp/claude-1000/fA/font_metrics/dpi96.rec.gz
+I7VM: logon Tue 11/10/2026 19:53:10.03 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-20261110-205219-2390908 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T19:53:10.265
+I7P ECHO id=gdi-dpi96-20261110-205219-2390908 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=font_metrics seq=0 timeout=600 time=2026-11-10T19:53:10.280
+I7P ERR name=font_metrics | font_metrics:%20face%201/21%20done,%208875%20ms,%202004%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%202/21%20done,%2019500%20ms,%203649%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%203/21%20done,%2031469%20ms,%205294%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%204/21%20done,%2039781%20ms,%206939%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%205/21%20done,%2053531%20ms,%208655%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%206/21%20done,%2064031%20ms,%2010300%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%207/21%20done,%2071141%20ms,%2011945%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%208/21%20done,%2079547%20ms,%2013590%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%209/21%20done,%2086250%20ms,%2015235%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2010/21%20done,%2093422%20ms,%2016880%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2011/21%20done,%2099937%20ms,%2018525%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2012/21%20done,%20106594%20ms,%2020170%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2013/21%20done,%20114422%20ms,%2021815%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2014/21%20done,%20123312%20ms,%2023460%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2015/21%20done,%20132719%20ms,%2025176%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2016/21%20done,%20142312%20ms,%2026821%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2017/21%20done,%20152859%20ms,%2028466%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2018/21%20done,%20167094%20ms,%2030111%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2019/21%20done,%20174125%20ms,%2031827%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2020/21%20done,%20181875%20ms,%2033543%20rows
+I7P ERR name=font_metrics | font_metrics:%20face%2021/21%20done,%20189656%20ms,%2035188%20rows
+I7P END name=font_metrics seq=0 rc=0 ms=190875 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-dpi96-20261110-205219-2390908
+I7VM: payload exit 0 

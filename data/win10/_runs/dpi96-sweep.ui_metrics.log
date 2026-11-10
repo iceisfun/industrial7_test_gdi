@@ -1,0 +1,73 @@
+# serial serial.log sha256=92b5f60b2a972944fd0fab8db00e8a440ac1a2ac3d44880a8b73f5d6ec16cdd7 bytes=7261667
+# wrote /tmp/claude-1000/fS/ui_metrics/dpi96.rec
+# wrote /tmp/claude-1000/fS/ui_metrics/dpi120.rec
+# wrote /tmp/claude-1000/fS/ui_metrics/dpi144.rec
+# wrote /tmp/claude-1000/fS/ui_metrics/dpi168.rec
+# wrote /tmp/claude-1000/fS/ui_metrics/dpi192.rec
+I7VM: logon Tue 11/10/2026 20:45:48.91 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214503-2439362 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T20:45:49.213
+I7P ECHO id=gdi-dpi96-sweep-20261110-214503-2439362 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=ui_metrics seq=0 timeout=600 time=2026-11-10T20:45:49.229
+I7P END name=ui_metrics seq=0 rc=0 ms=72188 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=120
+I7VMRUN LOGOFF next=1
+I7VM: logon Tue 11/10/2026 20:47:25.08 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214503-2439362 logon=1
+I7VMRUN STAGE dpi=120 plan=plan1.txt
+I7P RUNNER v=1 plan=D:\i7run\plan1.txt time=2026-11-10T20:47:25.288
+I7P ECHO id=gdi-dpi96-sweep-20261110-214503-2439362 tag=dpi120 dpi=120 res=default
+I7P BEGIN name=ui_metrics seq=0 timeout=600 time=2026-11-10T20:47:25.288
+I7P END name=ui_metrics seq=0 rc=0 ms=70359 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=144
+I7VMRUN LOGOFF next=2
+I7VM: logon Tue 11/10/2026 20:48:58.13 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214503-2439362 logon=2
+I7VMRUN STAGE dpi=144 plan=plan2.txt
+I7P RUNNER v=1 plan=D:\i7run\plan2.txt time=2026-11-10T20:48:58.308
+I7P ECHO id=gdi-dpi96-sweep-20261110-214503-2439362 tag=dpi144 dpi=144 res=default
+I7P BEGIN name=ui_metrics seq=0 timeout=600 time=2026-11-10T20:48:58.308
+I7P END name=ui_metrics seq=0 rc=0 ms=69391 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=168
+I7VMRUN LOGOFF next=3
+I7VM: logon Tue 11/10/2026 20:50:26.81 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214503-2439362 logon=3
+I7VMRUN STAGE dpi=168 plan=plan3.txt
+I7P RUNNER v=1 plan=D:\i7run\plan3.txt time=2026-11-10T20:50:27.036
+I7P ECHO id=gdi-dpi96-sweep-20261110-214503-2439362 tag=dpi168 dpi=168 res=default
+I7P BEGIN name=ui_metrics seq=0 timeout=600 time=2026-11-10T20:50:27.036
+I7P END name=ui_metrics seq=0 rc=0 ms=70063 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=192
+I7VMRUN LOGOFF next=4
+I7VM: logon Tue 11/10/2026 20:51:59.37 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214503-2439362 logon=4
+I7VMRUN STAGE dpi=192 plan=plan4.txt
+I7P RUNNER v=1 plan=D:\i7run\plan4.txt time=2026-11-10T20:51:59.578
+I7P ECHO id=gdi-dpi96-sweep-20261110-214503-2439362 tag=dpi192 dpi=192 res=default
+I7P BEGIN name=ui_metrics seq=0 timeout=600 time=2026-11-10T20:51:59.578
+I7P END name=ui_metrics seq=0 rc=0 ms=70328 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-dpi96-sweep-20261110-214503-2439362
+I7VM: payload exit 0 

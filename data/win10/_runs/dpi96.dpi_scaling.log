@@ -1,0 +1,34 @@
+# serial serial.log sha256=94118db3171c68d057c0b7981707fde9a44d221ccc7d30abe67ea072047981ee bytes=524277
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-spda.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-shc0.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-shc1.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-shc2.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx1.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx2.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx3.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx4.rec
+# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx5.rec
+I7VM: logon Tue 11/10/2026 20:13:32.21 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-20261110-211246-2403724 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T20:13:32.509
+I7P ECHO id=gdi-dpi96-20261110-211246-2403724 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=dpi_scaling seq=0 timeout=600 time=2026-11-10T20:13:32.525
+I7P END name=dpi_scaling seq=0 rc=0 ms=28344 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-dpi96-20261110-211246-2403724
+I7VM: payload exit 0 

@@ -1,0 +1,488 @@
+REC 1 dpi_scaling v=2 variant=api-pctx3 tag=dpi192
+ENV dpi_scaling probe.exe dpi_scaling.exe
+ENV dpi_scaling probe.exe_sha256 53e7949794e4c36d
+ENV dpi_scaling probe.exe_size 354375
+ENV dpi_scaling probe.version 2
+ENV dpi_scaling probe.format 1
+ENV dpi_scaling probe.bits 64
+ENV dpi_scaling probe.args --api%20pctx3
+ENV dpi_scaling os.version 10.0.19045
+ENV dpi_scaling os.sp 0.0
+ENV dpi_scaling os.ubr 2965
+ENV dpi_scaling os.display_version 22H2
+ENV dpi_scaling os.product Windows%2010%20Home
+ENV dpi_scaling os.edition Core
+ENV dpi_scaling os.buildlab 19041.1.amd64fre.vb_release.191206-1406
+ENV dpi_scaling host.computer I7-WIN10
+ENV dpi_scaling host.user Administrator
+ENV dpi_scaling host.session 5
+ENV dpi_scaling host.elevated 1
+ENV dpi_scaling time.local 2026-11-10T20:44:48.675
+ENV dpi_scaling time.utc 2026-11-11T04:44:48.675Z
+ENV dpi_scaling time.tz_bias_min 480
+ENV dpi_scaling time.tz_name Pacific%20Standard%20Time
+ENV dpi_scaling time.tz_state 1
+ENV dpi_scaling time.uptime_ms 248531
+ENV dpi_scaling locale.user en-US
+ENV dpi_scaling locale.system en-US
+ENV dpi_scaling locale.lcid_user 0x0409
+ENV dpi_scaling locale.lcid_system 0x0409
+ENV dpi_scaling locale.lcid_thread 0x0409
+ENV dpi_scaling locale.ui_user 0x0409
+ENV dpi_scaling locale.ui_system 0x0409
+ENV dpi_scaling locale.acp 1252
+ENV dpi_scaling locale.oemcp 437
+ENV dpi_scaling locale.kbd 00000409
+ENV dpi_scaling dpi.system 192
+ENV dpi_scaling dpi.awareness 2
+ENV dpi_scaling dpi.context 0x12
+ENV dpi_scaling dpi.process_aware 1
+ENV dpi_scaling dpi.logpixels 192x192
+ENV dpi_scaling display.res 1024x768
+ENV dpi_scaling display.desktopres 1024x768
+ENV dpi_scaling display.bpp 32
+ENV dpi_scaling display.vrefresh 64
+ENV dpi_scaling display.size_mm 325x203
+ENV dpi_scaling display.mode 1024x768x32@64
+ENV dpi_scaling display.monitors 1
+ENV dpi_scaling dpi.reg_logpixels 192
+ENV dpi_scaling dpi.reg_win8dpiscaling 1
+ENV dpi_scaling dpi.reg_applieddpi 192
+ENV dpi_scaling dpi.reg_hw_logpixels 96
+ENV dpi_scaling comctl32.version 5.82.10586
+ENV dpi_scaling comctl32.path C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.1110_none_792d1c772443f647\COMCTL32.dll
+ENV dpi_scaling theme.active 1
+ENV dpi_scaling sm.CXSCREEN 1024
+ENV dpi_scaling sm.CYSCREEN 768
+ENV dpi_scaling sm.CXVIRTUALSCREEN 1024
+ENV dpi_scaling sm.CYVIRTUALSCREEN 768
+ENV dpi_scaling sm.CXFULLSCREEN 1024
+ENV dpi_scaling sm.CYFULLSCREEN 643
+ENV dpi_scaling sm.CXMAXIMIZED 1050
+ENV dpi_scaling sm.CYMAXIMIZED 714
+ENV dpi_scaling sm.CYCAPTION 45
+ENV dpi_scaling sm.CYSMCAPTION 45
+ENV dpi_scaling sm.CYMENU 39
+ENV dpi_scaling sm.CYMENUSIZE 38
+ENV dpi_scaling sm.CXMENUSIZE 38
+ENV dpi_scaling sm.CXSIZE 72
+ENV dpi_scaling sm.CYSIZE 44
+ENV dpi_scaling sm.CXSMSIZE 44
+ENV dpi_scaling sm.CYSMSIZE 44
+ENV dpi_scaling sm.CXBORDER 1
+ENV dpi_scaling sm.CYBORDER 1
+ENV dpi_scaling sm.CXEDGE 2
+ENV dpi_scaling sm.CYEDGE 2
+ENV dpi_scaling sm.CXFIXEDFRAME 3
+ENV dpi_scaling sm.CYFIXEDFRAME 3
+ENV dpi_scaling sm.CXSIZEFRAME 13
+ENV dpi_scaling sm.CYSIZEFRAME 13
+ENV dpi_scaling sm.CXPADDEDBORDER 0
+ENV dpi_scaling sm.CXVSCROLL 34
+ENV dpi_scaling sm.CYHSCROLL 34
+ENV dpi_scaling sm.CYVSCROLL 34
+ENV dpi_scaling sm.CXHSCROLL 34
+ENV dpi_scaling sm.CXHTHUMB 34
+ENV dpi_scaling sm.CYVTHUMB 34
+ENV dpi_scaling sm.CXICON 64
+ENV dpi_scaling sm.CYICON 64
+ENV dpi_scaling sm.CXSMICON 32
+ENV dpi_scaling sm.CYSMICON 32
+ENV dpi_scaling sm.CXCURSOR 64
+ENV dpi_scaling sm.CYCURSOR 64
+ENV dpi_scaling sm.CXICONSPACING 150
+ENV dpi_scaling sm.CYICONSPACING 150
+ENV dpi_scaling sm.CXMENUCHECK 31
+ENV dpi_scaling sm.CYMENUCHECK 31
+ENV dpi_scaling sm.CXMIN 258
+ENV dpi_scaling sm.CYMIN 71
+ENV dpi_scaling sm.CXMINTRACK 258
+ENV dpi_scaling sm.CYMINTRACK 71
+ENV dpi_scaling sm.CXDLGFRAME 3
+ENV dpi_scaling sm.CYDLGFRAME 3
+ENV dpi_scaling sm.CXFOCUSBORDER 1
+ENV dpi_scaling sm.CYFOCUSBORDER 1
+ENV dpi_scaling sm.CXDRAG 4
+ENV dpi_scaling sm.CYDRAG 4
+ENV dpi_scaling sm.CXDOUBLECLK 4
+ENV dpi_scaling sm.CYDOUBLECLK 4
+ENV dpi_scaling sm.CYKANJIWINDOW 0
+ENV dpi_scaling sm.DBCSENABLED 0
+ENV dpi_scaling sm.IMMENABLED 1
+ENV dpi_scaling sm.MIDEASTENABLED 0
+ENV dpi_scaling sm.REMOTESESSION 0
+ENV dpi_scaling sm.CMOUSEBUTTONS 5
+ENV dpi_scaling ncm.metrics border=10,scrollw=34,scrollh=34,captionw=72,captionh=44,smcaptionw=44,smcaptionh=44,menuw=38,menuh=38,paddedborder=0
+ENV dpi_scaling ncm.caption h=-9,w=0,wt=400,it=0,cs=1,q=5,pf=0x0,face=Segoe%20UI
+ENV dpi_scaling ncm.smcaption h=-24,w=0,wt=400,it=0,cs=1,q=5,pf=0x0,face=Segoe%20UI
+ENV dpi_scaling ncm.menu h=-24,w=0,wt=400,it=0,cs=1,q=5,pf=0x0,face=Segoe%20UI
+ENV dpi_scaling ncm.status h=-24,w=0,wt=400,it=0,cs=1,q=5,pf=0x0,face=Segoe%20UI
+ENV dpi_scaling ncm.message h=-24,w=0,wt=400,it=0,cs=1,q=5,pf=0x0,face=Segoe%20UI
+ENV dpi_scaling icm.metrics hspacing=150,vspacing=150,wrap=1
+ENV dpi_scaling icm.font h=-24,w=0,wt=400,it=0,cs=1,q=5,pf=0x0,face=Segoe%20UI
+ENV dpi_scaling spi.fontsmoothing 1
+ENV dpi_scaling spi.fontsmoothingtype 2
+ENV dpi_scaling spi.fontsmoothingcontrast 1200
+ENV dpi_scaling spi.fontsmoothingorientation 1
+ENV dpi_scaling spi.cleartype 1
+ENV dpi_scaling stock.SYSTEM_FONT h=20,w=9,wt=700,it=0,cs=0,q=2,pf=0x22,face=System
+ENV dpi_scaling stock.SYSTEM_FIXED_FONT h=20,w=10,wt=400,it=0,cs=0,q=2,pf=0x31,face=Fixedsys
+ENV dpi_scaling stock.OEM_FIXED_FONT h=20,w=10,wt=400,it=0,cs=255,q=2,pf=0x31,face=8514oem
+ENV dpi_scaling stock.ANSI_FIXED_FONT h=12,w=9,wt=400,it=0,cs=0,q=2,pf=0x1,face=Courier
+ENV dpi_scaling stock.ANSI_VAR_FONT h=12,w=9,wt=400,it=0,cs=0,q=2,pf=0x2,face=MS%20Sans%20Serif
+ENV dpi_scaling stock.DEVICE_DEFAULT_FONT h=20,w=9,wt=700,it=0,cs=0,q=2,pf=0x22,face=System
+ENV dpi_scaling stock.DEFAULT_GUI_FONT h=-21,w=0,wt=400,it=0,cs=0,q=0,pf=0x0,face=MS%20Shell%20Dlg
+ENV dpi_scaling fonts.dir files=339,bytes=360823736,sha256=2a39731511ddfe7d
+ENV dpi_scaling fonts.file.segoeui.ttf size=955804,sha256=ba32a222b23d7272
+ENV dpi_scaling fonts.file.segoeuib.ttf size=951724,sha256=1b242874a2f57529
+ENV dpi_scaling fonts.file.tahoma.ttf size=939280,sha256=b890858df485549d
+ENV dpi_scaling fonts.file.tahomabd.ttf size=867988,sha256=68f92341975acc27
+ENV dpi_scaling fonts.file.micross.ttf size=876256,sha256=3f557479a768a1d9
+ENV dpi_scaling fonts.file.arial.ttf size=1036584,sha256=c9b76220a5be42ea
+ENV dpi_scaling fonts.file.cour.ttf size=806504,sha256=93c3ff526c19d034
+ENV dpi_scaling fonts.file.couree.fon size=23440,sha256=6c879f57850f0c0f
+ENV dpi_scaling fonts.file.coure.fon size=23408,sha256=e81d15ef094f997d
+ENV dpi_scaling fonts.file.sserife.fon size=64656,sha256=28877eee4ccda2a3
+ENV dpi_scaling fonts.file.serife.fon size=57936,sha256=19bfe5865332ca1f
+ENV dpi_scaling fonts.file.vgasys.fon size=7280,sha256=7baefa14ef8ef235
+ENV dpi_scaling fonts.file.vgaoem.fon size=5168,sha256=011326f65e151d83
+ENV dpi_scaling fonts.file.vgafix.fon size=5360,sha256=57402d1e89dc0d83
+ENV dpi_scaling fonts.file.8514sys.fon size=9280,sha256=dc7e1c9bb168e22b
+ENV dpi_scaling fonts.file.marlett.ttf size=27724,sha256=b7397adf2dcc24ca
+ENV dpi_scaling fonts.file.smalle.fon size=26112,sha256=de416395301da32c
+ENV dpi_scaling fonts.file.ssee0874.fon !
+ENV dpi_scaling reg.fontsubstitutes count=26,sha256=a11fda2b499b2235
+ENV dpi_scaling reg.fontsubst.MS%20Shell%20Dlg Microsoft%20Sans%20Serif
+ENV dpi_scaling reg.fontsubst.MS%20Shell%20Dlg%202 Tahoma
+ENV dpi_scaling reg.fontsubst.Helv MS%20Sans%20Serif
+ENV dpi_scaling reg.fontsubst.Helvetica Arial
+ENV dpi_scaling reg.fontsubst.Tms%20Rmn MS%20Serif
+ENV dpi_scaling reg.fontsubst.Times Times%20New%20Roman
+ENV dpi_scaling reg.fontsubst.Courier !
+ENV dpi_scaling reg.fontsubst.MS%20Sans%20Serif !
+ENV dpi_scaling reg.fonts count=154,sha256=cd0aa256a5a10909
+ENV dpi_scaling reg.systemlink count=67,sha256=c570685f364b9a70
+ENV dpi_scaling reg.gre_init.DisableRemoteFontBootCache 0
+ENV dpi_scaling reg.gre_init.ServicingStackModifiedFonts 2
+ENV dpi_scaling reg.fontdpi.LogPixels 96
+N dpi_scaling mode=full%20api=pctx3
+S dpi_scaling api mode | avail ret err
+R dpi_scaling api mode=pctx3 | 1 0x1 0
+S dpi_scaling face face | present n_enum n_tt type full
+S dpi_scaling ctx ctx | set_ok cur aw ctxdpi sysdpi procsysdpi proc_aware shc_aw logpx logpy horzres:px vertres:px deskhorz:px deskvert:px dlgbu_x:px dlgbu_y:px mon_eff_x mon_eff_y mon_ang_x mon_ang_y mon_raw_x mon_raw_y mon_w:px mon_h:px work_w:px work_h:px desktop_wdpi
+S dpi_scaling sm ctx;name | val:px
+S dpi_scaling smdpi name;dpi | val:px
+S dpi_scaling ncm ctx;src;dpi | border:px scroll_w:px scroll_h:px caption_w:px caption_h:px smcaption_w:px smcaption_h:px menu_w:px menu_h:px padded:px icon_hspace:px icon_vspace:px icon_wrap
+S dpi_scaling ncmf ctx;src;dpi;font | lfh:px lfw:px weight italic cs quality pf face
+S dpi_scaling stock ctx;obj | lfh:px lfw:px weight italic cs quality pf face got h:px a:px d:px il:px el:px ave:px max:px weight ovh:px digx digy pf cs ext43_cx:px ext43_cy:px alpha_cx:px
+S dpi_scaling ptconv ctx | logpy muldiv8:px muldiv9:px dlgrule8:px dlgrule9:px dgf_lfh:px ncm_msg_lfh:px ncm_cap_lfh:px icontitle_lfh:px
+S dpi_scaling muldiv pt;dpi | pos neg negpos
+S dpi_scaling tm ctx;face;pt | logpy req_h:px got h:px a:px d:px il:px el:px ave:px max:px weight ovh:px digx digy pf cs ext43_cx:px ext43_cy:px alpha_cx:px
+S dpi_scaling cw ctx;face;pt | w32_20_7e:px
+S dpi_scaling dlg ctx;font;pt;style | ok gle lfh:px lfface got h:px a:px d:px il:px el:px ave:px max:px weight ovh:px digx digy pf cs ext43_cx:px ext43_cy:px alpha_cx:px bu4_x:px bu8_y:px map100_cx:px map50_cy:px client_w:px client_h:px win_w:px win_h:px wdpi
+S dpi_scaling ctl ctx;font;cls;m | val:px
+S dpi_scaling awr ctx;style;dpi | l:px t:px r:px b:px
+S dpi_scaling win ctx | ok wdpi waw x:px y:px w:px h:px cw:px ch:px phys_x:px phys_y:px phys_w:px phys_h:px phys_cw:px phys_ch:px l2p_x l2p_y p2l_x p2l_y
+S dpi_scaling cap ctx | phys_x:px phys_y:px phys_w:px phys_h:px pm2_ok ink_px
+R dpi_scaling face face=Segoe%20UI | 1 32 32 0x4 Segoe%20UI
+R dpi_scaling face face=MS%20Shell%20Dlg | 1 10 10 0x4 Microsoft%20Sans%20Serif
+R dpi_scaling face face=MS%20Shell%20Dlg%202 | 1 20 20 0x4 Tahoma
+R dpi_scaling face face=Tahoma | 1 20 20 0x4 Tahoma
+R dpi_scaling face face=Microsoft%20Sans%20Serif | 1 10 10 0x4 Microsoft%20Sans%20Serif
+R dpi_scaling face face=MS%20Sans%20Serif | 1 12 0 0x1 MS%20Sans%20Serif
+R dpi_scaling face face=Arial | 1 34 34 0x4 Arial
+R dpi_scaling face face=Courier%20New | 1 34 34 0x4 Courier%20New
+R dpi_scaling face face=Courier | 1 6 0 0x1 Courier
+R dpi_scaling face face=System | 1 2 0 0x1 System
+R dpi_scaling face face=Terminal | 1 11 0 0x1 Terminal
+R dpi_scaling face face=Fixedsys | 1 2 0 0x1 Fixedsys
+R dpi_scaling ctx ctx=proc | 1 0x12 2 0 192 192 1 2 192 192 1024 768 1024 768 8 16 192 192 80 96 80 96 1024 768 1024 688 120
+R dpi_scaling sm ctx=proc;name=CXSCREEN | 1024
+R dpi_scaling sm ctx=proc;name=CYSCREEN | 768
+R dpi_scaling sm ctx=proc;name=CXVSCROLL | 34
+R dpi_scaling sm ctx=proc;name=CYHSCROLL | 34
+R dpi_scaling sm ctx=proc;name=CYCAPTION | 45
+R dpi_scaling sm ctx=proc;name=CXBORDER | 1
+R dpi_scaling sm ctx=proc;name=CYBORDER | 1
+R dpi_scaling sm ctx=proc;name=CXDLGFRAME | 3
+R dpi_scaling sm ctx=proc;name=CYDLGFRAME | 3
+R dpi_scaling sm ctx=proc;name=CYVTHUMB | 34
+R dpi_scaling sm ctx=proc;name=CXHTHUMB | 34
+R dpi_scaling sm ctx=proc;name=CXICON | 64
+R dpi_scaling sm ctx=proc;name=CYICON | 64
+R dpi_scaling sm ctx=proc;name=CXCURSOR | 64
+R dpi_scaling sm ctx=proc;name=CYCURSOR | 64
+R dpi_scaling sm ctx=proc;name=CYMENU | 39
+R dpi_scaling sm ctx=proc;name=CXFULLSCREEN | 1024
+R dpi_scaling sm ctx=proc;name=CYFULLSCREEN | 643
+R dpi_scaling sm ctx=proc;name=CYVSCROLL | 34
+R dpi_scaling sm ctx=proc;name=CXHSCROLL | 34
+R dpi_scaling sm ctx=proc;name=CXMIN | 258
+R dpi_scaling sm ctx=proc;name=CYMIN | 71
+R dpi_scaling sm ctx=proc;name=CXSIZE | 72
+R dpi_scaling sm ctx=proc;name=CYSIZE | 44
+R dpi_scaling sm ctx=proc;name=CXFRAME | 13
+R dpi_scaling sm ctx=proc;name=CYFRAME | 13
+R dpi_scaling sm ctx=proc;name=CXMINTRACK | 258
+R dpi_scaling sm ctx=proc;name=CYMINTRACK | 71
+R dpi_scaling sm ctx=proc;name=CXDOUBLECLK | 4
+R dpi_scaling sm ctx=proc;name=CYDOUBLECLK | 4
+R dpi_scaling sm ctx=proc;name=CXICONSPACING | 150
+R dpi_scaling sm ctx=proc;name=CYICONSPACING | 150
+R dpi_scaling sm ctx=proc;name=CXEDGE | 2
+R dpi_scaling sm ctx=proc;name=CYEDGE | 2
+R dpi_scaling sm ctx=proc;name=CXMINSPACING | 314
+R dpi_scaling sm ctx=proc;name=CYMINSPACING | 51
+R dpi_scaling sm ctx=proc;name=CXSMICON | 32
+R dpi_scaling sm ctx=proc;name=CYSMICON | 32
+R dpi_scaling sm ctx=proc;name=CYSMCAPTION | 45
+R dpi_scaling sm ctx=proc;name=CXSMSIZE | 44
+R dpi_scaling sm ctx=proc;name=CYSMSIZE | 44
+R dpi_scaling sm ctx=proc;name=CXMENUSIZE | 38
+R dpi_scaling sm ctx=proc;name=CYMENUSIZE | 38
+R dpi_scaling sm ctx=proc;name=CXMINIMIZED | 314
+R dpi_scaling sm ctx=proc;name=CYMINIMIZED | 50
+R dpi_scaling sm ctx=proc;name=CXMAXTRACK | 1054
+R dpi_scaling sm ctx=proc;name=CYMAXTRACK | 798
+R dpi_scaling sm ctx=proc;name=CXMAXIMIZED | 1050
+R dpi_scaling sm ctx=proc;name=CYMAXIMIZED | 714
+R dpi_scaling sm ctx=proc;name=CXDRAG | 4
+R dpi_scaling sm ctx=proc;name=CYDRAG | 4
+R dpi_scaling sm ctx=proc;name=CXMENUCHECK | 31
+R dpi_scaling sm ctx=proc;name=CYMENUCHECK | 31
+R dpi_scaling sm ctx=proc;name=CXFOCUSBORDER | 1
+R dpi_scaling sm ctx=proc;name=CYFOCUSBORDER | 1
+R dpi_scaling sm ctx=proc;name=CXPADDEDBORDER | 0
+R dpi_scaling sm ctx=proc;name=CXVIRTUALSCREEN | 1024
+R dpi_scaling sm ctx=proc;name=CYVIRTUALSCREEN | 768
+R dpi_scaling ncm ctx=proc;src=spi;dpi=%7E | 10 34 34 72 44 44 44 38 38 0 150 150 1
+R dpi_scaling ncmf ctx=proc;src=spi;dpi=%7E;font=caption | -9 0 400 0 1 5 0x0 Segoe%20UI
+R dpi_scaling ncmf ctx=proc;src=spi;dpi=%7E;font=smcaption | -24 0 400 0 1 5 0x0 Segoe%20UI
+R dpi_scaling ncmf ctx=proc;src=spi;dpi=%7E;font=menu | -24 0 400 0 1 5 0x0 Segoe%20UI
+R dpi_scaling ncmf ctx=proc;src=spi;dpi=%7E;font=status | -24 0 400 0 1 5 0x0 Segoe%20UI
+R dpi_scaling ncmf ctx=proc;src=spi;dpi=%7E;font=message | -24 0 400 0 1 5 0x0 Segoe%20UI
+R dpi_scaling ncmf ctx=proc;src=spi;dpi=%7E;font=icon | -24 0 400 0 1 5 0x0 Segoe%20UI
+R dpi_scaling ncmf ctx=proc;src=spi;dpi=%7E;font=icontitle | -24 0 400 0 1 5 0x0 Segoe%20UI
+R dpi_scaling stock ctx=proc;obj=SYSTEM_FONT | 20 9 700 0 0 2 0x22 System System 20 16 4 4 0 9 17 700 0 120 120 0x21 0 349 20 525
+R dpi_scaling stock ctx=proc;obj=DEFAULT_GUI_FONT | -21 0 400 0 0 0 0x0 MS%20Shell%20Dlg MS%20Shell%20Dlg 25 20 5 4 0 9 43 400 0 192 192 0x27 0 427 25 645
+R dpi_scaling stock ctx=proc;obj=ANSI_VAR_FONT | 12 9 400 0 0 2 0x2 MS%20Sans%20Serif MS%20Sans%20Serif 13 11 2 2 0 5 11 400 0 96 96 0x21 0 211 13 323
+R dpi_scaling stock ctx=proc;obj=ANSI_FIXED_FONT | 12 9 400 0 0 2 0x1 Courier Courier 13 11 2 0 0 8 8 400 0 96 96 0x30 0 344 13 416
+R dpi_scaling stock ctx=proc;obj=OEM_FIXED_FONT | 20 10 400 0 255 2 0x31 8514oem 8514oem 20 16 4 2 0 10 10 400 0 96 96 0x30 255 430 20 520
+R dpi_scaling stock ctx=proc;obj=DEVICE_DEFAULT_FONT | 20 9 700 0 0 2 0x22 System System 20 16 4 4 0 9 17 700 0 120 120 0x21 0 349 20 525
+R dpi_scaling stock ctx=proc;obj=SYSTEM_FIXED_FONT | 20 10 400 0 0 2 0x31 Fixedsys Fixedsys 20 16 4 2 0 10 10 400 0 96 96 0x30 0 430 20 520
+R dpi_scaling ptconv ctx=proc | 192 21 24 -21 -24 -21 -24 -9 -24
+R dpi_scaling tm ctx=proc;face=Segoe%20UI;pt=8 | 192 -21 Segoe%20UI 30 24 6 9 0 11 54 400 0 192 192 0x27 0 416 30 605
+H dpi_scaling cw_ascii ctx=proc;face=Segoe%20UI;pt=8 sha256=9dd5c301c8711a72 len=380
+H dpi_scaling abc_ascii ctx=proc;face=Segoe%20UI;pt=8 sha256=fae16293d9da56b9 len=1140
+R dpi_scaling tm ctx=proc;face=Segoe%20UI;pt=9 | 192 -24 Segoe%20UI 32 26 6 8 0 13 62 400 0 192 192 0x27 0 483 32 691
+H dpi_scaling cw_ascii ctx=proc;face=Segoe%20UI;pt=9 sha256=cc205c19ba8f4dff len=380
+H dpi_scaling abc_ascii ctx=proc;face=Segoe%20UI;pt=9 sha256=cdcf9261d1edf6d8 len=1140
+R dpi_scaling tm ctx=proc;face=MS%20Shell%20Dlg;pt=8 | 192 -21 MS%20Shell%20Dlg 25 20 5 4 0 9 43 400 0 192 192 0x27 0 427 25 645
+H dpi_scaling cw_ascii ctx=proc;face=MS%20Shell%20Dlg;pt=8 sha256=31ff132032a129f3 len=380
+H dpi_scaling abc_ascii ctx=proc;face=MS%20Shell%20Dlg;pt=8 sha256=1ed9724a374924d7 len=1140
+R dpi_scaling tm ctx=proc;face=MS%20Shell%20Dlg;pt=9 | 192 -24 MS%20Shell%20Dlg 29 23 6 5 0 11 49 400 0 192 192 0x27 0 474 29 726
+H dpi_scaling cw_ascii ctx=proc;face=MS%20Shell%20Dlg;pt=9 sha256=c24ce71b0bff5a9d len=380
+H dpi_scaling abc_ascii ctx=proc;face=MS%20Shell%20Dlg;pt=9 sha256=6507300c54cde065 len=1140
+R dpi_scaling tm ctx=proc;face=MS%20Shell%20Dlg%202;pt=8 | 192 -21 MS%20Shell%20Dlg%202 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603
+H dpi_scaling cw_ascii ctx=proc;face=MS%20Shell%20Dlg%202;pt=8 sha256=3bc9a2555d43d94e len=380
+H dpi_scaling abc_ascii ctx=proc;face=MS%20Shell%20Dlg%202;pt=8 sha256=693d3371fc4d6891 len=1140
+R dpi_scaling tm ctx=proc;face=MS%20Shell%20Dlg%202;pt=9 | 192 -24 MS%20Shell%20Dlg%202 29 24 5 5 0 11 59 400 0 192 192 0x27 0 482 29 682
+H dpi_scaling cw_ascii ctx=proc;face=MS%20Shell%20Dlg%202;pt=9 sha256=e4dc08a6081f7db1 len=380
+H dpi_scaling abc_ascii ctx=proc;face=MS%20Shell%20Dlg%202;pt=9 sha256=95b91f6b8a1f96a6 len=1140
+R dpi_scaling tm ctx=proc;face=Tahoma;pt=8 | 192 -21 Tahoma 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603
+H dpi_scaling cw_ascii ctx=proc;face=Tahoma;pt=8 sha256=3bc9a2555d43d94e len=380
+H dpi_scaling abc_ascii ctx=proc;face=Tahoma;pt=8 sha256=693d3371fc4d6891 len=1140
+R dpi_scaling tm ctx=proc;face=Tahoma;pt=9 | 192 -24 Tahoma 29 24 5 5 0 11 59 400 0 192 192 0x27 0 482 29 682
+H dpi_scaling cw_ascii ctx=proc;face=Tahoma;pt=9 sha256=e4dc08a6081f7db1 len=380
+H dpi_scaling abc_ascii ctx=proc;face=Tahoma;pt=9 sha256=95b91f6b8a1f96a6 len=1140
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg;pt=8;style=setfont | 1 0 -21 MS%20Shell%20Dlg MS%20Shell%20Dlg 25 20 5 4 0 9 43 400 0 192 192 0x27 0 427 25 645 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg;pt=8;style=setfont_ex | 1 0 -21 MS%20Shell%20Dlg MS%20Shell%20Dlg 25 20 5 4 0 9 43 400 0 192 192 0x27 0 427 25 645 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg;pt=8;style=shellfont | 1 0 -21 MS%20Shell%20Dlg%202 MS%20Shell%20Dlg%202 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg%202;pt=8;style=setfont | 1 0 -21 MS%20Shell%20Dlg%202 MS%20Shell%20Dlg%202 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg%202;pt=8;style=setfont_ex | 1 0 -21 MS%20Shell%20Dlg%202 MS%20Shell%20Dlg%202 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg%202;pt=8;style=shellfont | 1 0 -21 MS%20Shell%20Dlg%202 MS%20Shell%20Dlg%202 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=Segoe%20UI;pt=9;style=setfont | 1 0 -24 Segoe%20UI Segoe%20UI 32 26 6 8 0 13 62 400 0 192 192 0x27 0 483 32 691 13 32 325 200 325 200 331 251 192
+R dpi_scaling dlg ctx=proc;font=Segoe%20UI;pt=9;style=setfont_ex | 1 0 -24 Segoe%20UI Segoe%20UI 32 26 6 8 0 13 62 400 0 192 192 0x27 0 483 32 691 13 32 325 200 325 200 331 251 192
+R dpi_scaling dlg ctx=proc;font=Segoe%20UI;pt=9;style=shellfont | 1 0 -24 Segoe%20UI Segoe%20UI 32 26 6 8 0 13 62 400 0 192 192 0x27 0 483 32 691 13 32 325 200 325 200 331 251 192
+R dpi_scaling dlg ctx=proc;font=Tahoma;pt=8;style=setfont | 1 0 -21 Tahoma Tahoma 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=Tahoma;pt=8;style=setfont_ex | 1 0 -21 Tahoma Tahoma 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=Tahoma;pt=8;style=shellfont | 1 0 -21 Tahoma Tahoma 25 21 4 4 0 9 51 400 0 192 192 0x27 0 424 25 603 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=Microsoft%20Sans%20Serif;pt=8;style=setfont | 1 0 -21 Microsoft%20Sans%20Serif Microsoft%20Sans%20Serif 25 20 5 4 0 9 43 400 0 192 192 0x27 0 427 25 645 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=Microsoft%20Sans%20Serif;pt=8;style=setfont_ex | 1 0 -21 Microsoft%20Sans%20Serif Microsoft%20Sans%20Serif 25 20 5 4 0 9 43 400 0 192 192 0x27 0 427 25 645 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=Microsoft%20Sans%20Serif;pt=8;style=shellfont | 1 0 -21 Microsoft%20Sans%20Serif Microsoft%20Sans%20Serif 25 20 5 4 0 9 43 400 0 192 192 0x27 0 427 25 645 12 25 300 156 300 156 306 207 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg;pt=32767;style=setfont | 1 0 -23 Segoe%20UI Segoe%20UI 31 25 6 8 0 12 59 400 0 192 192 0x27 0 456 31 664 13 31 325 194 325 194 331 245 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg;pt=32767;style=setfont_ex | 1 0 -23 Segoe%20UI Segoe%20UI 31 25 6 8 0 12 59 400 0 192 192 0x27 0 456 31 664 13 31 325 194 325 194 331 245 192
+R dpi_scaling dlg ctx=proc;font=MS%20Shell%20Dlg;pt=32767;style=shellfont | 1 0 -23 Segoe%20UI Segoe%20UI 31 25 6 8 0 12 59 400 0 192 192 0x27 0 456 31 664 13 31 325 194 325 194 331 245 192
+R dpi_scaling dlg ctx=proc;font=nofont;pt=%7E;style=setfont | 1 0 ! ! System 20 16 4 4 0 9 17 700 0 120 120 0x21 0 349 20 525 8 16 200 100 200 100 206 151 192
+R dpi_scaling ctl ctx=proc;font=%7E;cls=parent;m=dpi | 192
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=row_h | 33
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=item0_top | 36
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=item0_h | 33
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=label_h | 33
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=header_h | 36
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=spacing_small_cy | 33
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=none;cls=listview;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=none;cls=header;m=layout_cy | 24
+R dpi_scaling ctl ctx=proc;font=none;cls=header;m=font_h | 20
+R dpi_scaling ctl ctx=proc;font=none;cls=header;m=font_lfh | !
+R dpi_scaling ctl ctx=proc;font=none;cls=treeview;m=item_h | 34
+R dpi_scaling ctl ctx=proc;font=none;cls=treeview;m=indent | 34
+R dpi_scaling ctl ctx=proc;font=none;cls=treeview;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=none;cls=treeview;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=none;cls=button;m=ideal_cx | !
+R dpi_scaling ctl ctx=proc;font=none;cls=button;m=ideal_cy | !
+R dpi_scaling ctl ctx=proc;font=none;cls=button;m=font_h | 20
+R dpi_scaling ctl ctx=proc;font=none;cls=button;m=font_lfh | !
+R dpi_scaling ctl ctx=proc;font=none;cls=checkbox;m=ideal_cx | !
+R dpi_scaling ctl ctx=proc;font=none;cls=checkbox;m=ideal_cy | !
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_border;m=rect_top | 2
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_border;m=rect_left | 2
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_border;m=rect_h | 16
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_border;m=client_h | 30
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_border;m=margin_l | 0
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_border;m=margin_r | 0
+R dpi_scaling ctl ctx=proc;font=none;cls=edit;m=font_h | 20
+R dpi_scaling ctl ctx=proc;font=none;cls=edit;m=font_lfh | !
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_ce;m=rect_top | 1
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_ce;m=rect_left | 1
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_ce;m=rect_h | 16
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_ce;m=client_h | 26
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_ce;m=margin_l | 0
+R dpi_scaling ctl ctx=proc;font=none;cls=edit_ce;m=margin_r | 0
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_list;m=win_h | 28
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_list;m=sel_item_h | 22
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_list;m=item_h | 20
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_list;m=item_rect_h | 22
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_list;m=button_w | 34
+R dpi_scaling ctl ctx=proc;font=none;cls=combo;m=font_h | 20
+R dpi_scaling ctl ctx=proc;font=none;cls=combo;m=font_lfh | !
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_dropdown;m=win_h | 28
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_dropdown;m=sel_item_h | 22
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_dropdown;m=item_h | 20
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_dropdown;m=item_rect_h | 22
+R dpi_scaling ctl ctx=proc;font=none;cls=combo_dropdown;m=button_w | 34
+R dpi_scaling ctl ctx=proc;font=none;cls=listbox;m=item_h | 20
+R dpi_scaling ctl ctx=proc;font=none;cls=status;m=win_h | 44
+R dpi_scaling ctl ctx=proc;font=none;cls=status;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=none;cls=status;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=none;cls=tab;m=item_h | 25
+R dpi_scaling ctl ctx=proc;font=none;cls=tab;m=item_w | 76
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=row_h | 26
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=item0_top | 29
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=item0_h | 26
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=label_h | 26
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=header_h | 29
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=spacing_small_cy | 26
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=font_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listview;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=header;m=layout_cy | 29
+R dpi_scaling ctl ctx=proc;font=dgf;cls=header;m=font_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=header;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=treeview;m=item_h | 28
+R dpi_scaling ctl ctx=proc;font=dgf;cls=treeview;m=indent | 34
+R dpi_scaling ctl ctx=proc;font=dgf;cls=treeview;m=font_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=treeview;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=button;m=ideal_cx | !
+R dpi_scaling ctl ctx=proc;font=dgf;cls=button;m=ideal_cy | !
+R dpi_scaling ctl ctx=proc;font=dgf;cls=button;m=font_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=button;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=checkbox;m=ideal_cx | !
+R dpi_scaling ctl ctx=proc;font=dgf;cls=checkbox;m=ideal_cy | !
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_border;m=rect_top | 2
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_border;m=rect_left | 2
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_border;m=rect_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_border;m=client_h | 30
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_border;m=margin_l | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_border;m=margin_r | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit;m=font_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_ce;m=rect_top | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_ce;m=rect_left | 1
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_ce;m=rect_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_ce;m=client_h | 26
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_ce;m=margin_l | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=edit_ce;m=margin_r | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_list;m=win_h | 33
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_list;m=sel_item_h | 27
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_list;m=item_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_list;m=item_rect_h | 27
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_list;m=button_w | 34
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo;m=font_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_dropdown;m=win_h | 33
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_dropdown;m=sel_item_h | 27
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_dropdown;m=item_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_dropdown;m=item_rect_h | 27
+R dpi_scaling ctl ctx=proc;font=dgf;cls=combo_dropdown;m=button_w | 34
+R dpi_scaling ctl ctx=proc;font=dgf;cls=listbox;m=item_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=status;m=win_h | 36
+R dpi_scaling ctl ctx=proc;font=dgf;cls=status;m=font_h | 25
+R dpi_scaling ctl ctx=proc;font=dgf;cls=status;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=dgf;cls=tab;m=item_h | 30
+R dpi_scaling ctl ctx=proc;font=dgf;cls=tab;m=item_w | 88
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=row_h | 33
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=item0_top | 36
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=item0_h | 33
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=label_h | 33
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=header_h | 36
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=spacing_small_cy | 33
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listview;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=header;m=layout_cy | 36
+R dpi_scaling ctl ctx=proc;font=ncm;cls=header;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=header;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=treeview;m=item_h | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=treeview;m=indent | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=treeview;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=treeview;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=button;m=ideal_cx | !
+R dpi_scaling ctl ctx=proc;font=ncm;cls=button;m=ideal_cy | !
+R dpi_scaling ctl ctx=proc;font=ncm;cls=button;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=button;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=checkbox;m=ideal_cx | !
+R dpi_scaling ctl ctx=proc;font=ncm;cls=checkbox;m=ideal_cy | !
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_border;m=rect_top | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_border;m=rect_left | 8
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_border;m=rect_h | 30
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_border;m=client_h | 30
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_border;m=margin_l | 6
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_border;m=margin_r | 6
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_ce;m=rect_top | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_ce;m=rect_left | 7
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_ce;m=rect_h | 26
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_ce;m=client_h | 26
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_ce;m=margin_l | 6
+R dpi_scaling ctl ctx=proc;font=ncm;cls=edit_ce;m=margin_r | 6
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_list;m=win_h | 40
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_list;m=sel_item_h | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_list;m=item_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_list;m=item_rect_h | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_list;m=button_w | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_dropdown;m=win_h | 40
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_dropdown;m=sel_item_h | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_dropdown;m=item_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_dropdown;m=item_rect_h | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=combo_dropdown;m=button_w | 34
+R dpi_scaling ctl ctx=proc;font=ncm;cls=listbox;m=item_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=status;m=win_h | 44
+R dpi_scaling ctl ctx=proc;font=ncm;cls=status;m=font_h | 32
+R dpi_scaling ctl ctx=proc;font=ncm;cls=status;m=font_lfh | 0
+R dpi_scaling ctl ctx=proc;font=ncm;cls=tab;m=item_h | 37
+R dpi_scaling ctl ctx=proc;font=ncm;cls=tab;m=item_w | 94
+R dpi_scaling awr ctx=proc;style=overlapped;dpi=ctx | -13 -58 113 113
+R dpi_scaling awr ctx=proc;style=overlapped_menu;dpi=ctx | -13 -97 113 113
+R dpi_scaling awr ctx=proc;style=dialog;dpi=ctx | -3 -48 103 103
+R dpi_scaling awr ctx=proc;style=tool;dpi=ctx | -13 -58 113 113
+R dpi_scaling awr ctx=proc;style=popup_border;dpi=ctx | -1 -1 101 101
+R dpi_scaling awr ctx=proc;style=popup_thick;dpi=ctx | -12 -12 112 112
+R dpi_scaling awr ctx=proc;style=child_clientedge;dpi=ctx | -3 -3 103 103
+R dpi_scaling win ctx=proc | 1 192 2 100 100 300 200 274 129 100 100 300 200 274 129 200 150 200 150
+R dpi_scaling cap ctx=proc | 40 40 48 18 1 240
+B dpi_scaling cap_img ctx=proc 48x18x4 b64:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//////////////////////////////wD//////////////////////////////wD//////////////////////////////wD//////////////////////////////wD//////////////////////////////wD//////////////////////////////wD////5AM////////////////wF////+QD////0AH////////////////wF////+QD////RQT////////////////wF////+QD///+Qpwr///////////////wF////+QD///8T/AX////3EAOQf/////wF////+QD///wH/0DP//9AAAAAf/////wF////+QD///cM/5B///kC3/sQf/////wAAAAAAAD//9E//9EO//EM///Af/////wAAAAAAAD//5B///cK/9E////Af/////wF////+QD//0AAAAAD/9Ff///Af/////wF////+QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+N dpi_scaling dpi_scaling%20done
+END dpi_scaling rows=487 crc32=FD1BED2B status=ok
