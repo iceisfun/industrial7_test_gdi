@@ -3,15 +3,15 @@
 #include "ch.h"
 
 void ctl_schemas(void){
-  rec_schema("btn", "font theme cfg cap",
+  ch_schema("btn", "font theme cfg cap",
     "ideal_ret ideal_cx:px ideal_cy:px ideal100_ret ideal100_cx:px ideal100_cy:px tmarg_ret tmarg_l:px tmarg_t:px tmarg_r:px tmarg_b:px dt_cx:px dt_cy:px");
-  rec_schema("edit", "font theme cfg",
+  ch_schema("edit", "font theme cfg",
     "win_h:px cli_w:px cli_h:px rc_l:px rc_t:px rc_r:px rc_b:px marg_l:px marg_r:px pos0_x:px pos0_y:px posl2_y:px lines");
-  rec_schema("cb", "font theme cfg",
+  ch_schema("cb", "font theme cfg",
     "win_h:px ih_sel:px ih_item:px item_l:px item_t:px item_r:px item_b:px btn_l:px btn_t:px btn_r:px btn_b:px drop_h:px lb_ih:px");
-  rec_schema("cbex", "font theme cfg", "win_h:px ih_sel:px ih_item:px combo_h:px edit_h:px");
-  rec_schema("lb", "font theme cfg", "ih:px it0_l:px it0_t:px it0_r:px it0_b:px it1_t:px win_h:px cli_h:px");
-  rec_schema("tt", "font theme cfg txt", "bub_cx:px bub_cy:px marg_l:px marg_t:px marg_r:px marg_b:px adj_l:px adj_t:px adj_r:px adj_b:px");
+  ch_schema("cbex", "font theme cfg", "win_h:px ih_sel:px ih_item:px combo_h:px edit_h:px");
+  ch_schema("lb", "font theme cfg", "ih:px it0_l:px it0_t:px it0_r:px it0_b:px it1_t:px win_h:px cli_h:px");
+  ch_schema("tt", "font theme cfg txt", "bub_cx:px bub_cy:px marg_l:px marg_t:px marg_r:px marg_b:px adj_l:px adj_t:px adj_r:px adj_b:px");
 }
 
 /* ---------------------------------------------------------------- buttons */
@@ -28,7 +28,7 @@ static const struct { const char *n; const WCHAR *s; int quick; } CAP[] = {
 static void btn_one(const fspec *f, const char *theme, int bi, int ci){
   HWND h = mk(L"BUTTON", WS_CHILD | WS_VISIBLE | BS[bi].s, 0, 10, 10, 200, 30, g_top, 200, CAP[ci].s);
   rk k; kb(&k, BS[bi].n, f, theme); rk_s(&k, "cap", CAP[ci].n); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("btn", &k, &v); return; }
+  if (!h) { ch_fail("btn", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("button", h, f, theme);
   SIZE s = {0, 0}; int r = (int)SendMessageW(h, BCM_GETIDEALSIZE, 0, (LPARAM)&s);
@@ -60,7 +60,7 @@ static void edit_one(const fspec *f, const char *theme, int i){
   int multi = (ED[i].s & ES_MULTILINE) != 0;
   HWND h = mk(L"EDIT", WS_CHILD | WS_VISIBLE | ED[i].s, ED[i].ex, 10, 10, ED[i].w, ED[i].h, g_top, 201, multi ? L"Ag\r\nBg\r\nCg" : L"Agy");
   rk k; kb(&k, ED[i].n, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("edit", &k, &v); return; }
+  if (!h) { ch_fail("edit", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("edit", h, f, theme);
   RECT wr, cr, rc; GetWindowRect(h, &wr); GetClientRect(h, &cr);
@@ -83,7 +83,7 @@ static const struct { const char *n; DWORD s; int quick; } CB[] = {
 static void cb_one(const fspec *f, const char *theme, int i){
   HWND h = mk(L"COMBOBOX", WS_CHILD | WS_VISIBLE | WS_VSCROLL | CB[i].s, 0, 10, 10, 150, 200, g_top, 202, NULL);
   rk k; kb(&k, CB[i].n, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("cb", &k, &v); return; }
+  if (!h) { ch_fail("cb", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("combobox", h, f, theme);
   static const WCHAR *S[] = {L"First", L"Second item", L"Third"};
@@ -106,7 +106,7 @@ static const struct { const char *n; DWORD s; int il; int quick; } CBX[] = {
 static void cbex_one(const fspec *f, const char *theme, int i){
   HWND h = mk(WC_COMBOBOXEXW, WS_CHILD | WS_VISIBLE | CBX[i].s, 0, 10, 10, 150, 200, g_top, 203, NULL);
   rk k; kb(&k, CBX[i].n, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("cbex", &k, &v); return; }
+  if (!h) { ch_fail("cbex", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("comboboxex", h, f, theme);
   HIMAGELIST il = NULL;
@@ -136,7 +136,7 @@ static const struct { const char *n; DWORD s; int quick; } LB[] = {
 static void lb_one(const fspec *f, const char *theme, int i){
   HWND h = mk(L"LISTBOX", WS_CHILD | WS_VISIBLE | LB[i].s, 0, 10, 10, 150, 100, g_top, 204, NULL);
   rk k; kb(&k, LB[i].n, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("lb", &k, &v); return; }
+  if (!h) { ch_fail("lb", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("listbox", h, f, theme);
   static const WCHAR *S[] = {L"First", L"Second item", L"Third"};
@@ -159,7 +159,7 @@ static void tt_one(const fspec *f, const char *theme, int balloon, int i){
   HWND h = CreateWindowExW(WS_EX_TOPMOST, TOOLTIPS_CLASSW, NULL, WS_POPUP | TTS_NOPREFIX | TTS_ALWAYSTIP | (balloon ? TTS_BALLOON : 0),
                            CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, g_top, NULL, g_hi, NULL);
   rk k; kb(&k, balloon ? "balloon" : "std", f, theme); rk_s(&k, "txt", TT[i].n); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("tt", &k, &v); return; }
+  if (!h) { ch_fail("tt", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont(balloon ? "tooltip_balloon" : "tooltip", h, f, theme);
   if (TT[i].maxw) SendMessageW(h, TTM_SETMAXTIPWIDTH, 0, TT[i].maxw);

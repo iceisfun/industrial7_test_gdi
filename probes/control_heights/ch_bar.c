@@ -2,18 +2,18 @@
 #include "ch.h"
 
 void bar_schemas(void){
-  rec_schema("tb", "font theme cfg",
+  ch_schema("tb", "font theme cfg",
     "bs_cx:px bs_cy:px pad_cx:px pad_cy:px it0_l:px it0_t:px it0_r:px it0_b:px it1_l:px it1_r:px win_h:px max_cx:px max_cy:px rows "
     "m_cxpad:px m_cypad:px m_cxbarpad:px m_cybarpad:px m_cxspc:px m_cyspc:px");
-  rec_schema("sb", "font theme cfg", "win_h:px cli_h:px r0_l:px r0_t:px r0_r:px r0_b:px brd_h:px brd_v:px brd_between:px");
-  rec_schema("rb", "font theme cfg",
+  ch_schema("sb", "font theme cfg", "win_h:px cli_h:px r0_l:px r0_t:px r0_r:px r0_b:px brd_h:px brd_v:px brd_between:px");
+  ch_schema("rb", "font theme cfg",
     "bar_h:px row_h:px r_l:px r_t:px r_r:px r_b:px bb_l:px bb_t:px bb_r:px bb_b:px bm_l:px bm_t:px bm_r:px bm_b:px win_h:px child_h:px");
-  rec_schema("tab", "font theme cfg",
+  ch_schema("tab", "font theme cfg",
     "it0_l:px it0_t:px it0_r:px it0_b:px it1_l:px it1_r:px itN_l:px itN_t:px itN_r:px itN_b:px rows "
     "adjf_l:px adjf_t:px adjf_r:px adjf_b:px adjt_l:px adjt_t:px adjt_r:px adjt_b:px");
-  rec_schema("trk", "theme cfg", "th_l:px th_t:px th_r:px th_b:px ch_l:px ch_t:px ch_r:px ch_b:px th_len:px");
-  rec_schema("ud", "theme cfg", "ud_x:px ud_y:px ud_w:px ud_h:px bud_x:px bud_y:px bud_w:px bud_h:px");
-  rec_schema("pb", "theme cfg", "win_w:px win_h:px");
+  ch_schema("trk", "theme cfg", "th_l:px th_t:px th_r:px th_b:px ch_l:px ch_t:px ch_r:px ch_b:px th_len:px");
+  ch_schema("ud", "theme cfg", "ud_x:px ud_y:px ud_w:px ud_h:px bud_x:px bud_y:px bud_w:px bud_h:px");
+  ch_schema("pb", "theme cfg", "win_w:px win_h:px");
 }
 
 /* ---------------------------------------------------------------- toolbar */
@@ -24,7 +24,7 @@ static void tb_one(const fspec *f, const char *theme, int si, int il, int text){
   char cfg[64]; snprintf(cfg, sizeof cfg, "%s_il%d_%s", TBS[si].n, il, text ? "text" : "notext");
   HWND h = mk(TOOLBARCLASSNAMEW, WS_CHILD | WS_VISIBLE | CCS_TOP | TBS[si].s, 0, 0, 0, 0, 0, g_top, 300, NULL);
   rk k; kb(&k, cfg, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("tb", &k, &v); return; }
+  if (!h) { ch_fail("tb", &k, "nocreate"); return; }
   SendMessageW(h, TB_BUTTONSTRUCTSIZE, sizeof(TBBUTTON), 0);
   prep(h, f, theme);
   ctlfont("toolbar", h, f, theme);
@@ -58,7 +58,7 @@ static void tb_one(const fspec *f, const char *theme, int si, int il, int text){
 static void sb_one(const fspec *f, const char *theme, const char *cfg, DWORD style, int parts){
   HWND h = mk(STATUSCLASSNAMEW, WS_CHILD | WS_VISIBLE | style, 0, 0, 0, 0, 0, g_top, 301, NULL);
   rk k; kb(&k, cfg, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("sb", &k, &v); return; }
+  if (!h) { ch_fail("sb", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("statusbar", h, f, theme);
   if (parts) { int p[3] = {100, 200, -1}; SendMessageW(h, SB_SETPARTS, 3, (LPARAM)p); }
@@ -75,7 +75,7 @@ static void sb_one(const fspec *f, const char *theme, const char *cfg, DWORD sty
 static void rb_one(const fspec *f, const char *theme, const char *cfg, DWORD style, int child){
   HWND h = mk(REBARCLASSNAMEW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN | RBS_VARHEIGHT | CCS_NODIVIDER | style, 0, 0, 0, 400, 0, g_top, 302, NULL);
   rk k; kb(&k, cfg, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("rb", &k, &v); return; }
+  if (!h) { ch_fail("rb", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("rebar", h, f, theme);
   REBARINFO ri; memset(&ri, 0, sizeof ri); ri.cbSize = sizeof ri; SendMessageW(h, RB_SETBARINFO, 0, (LPARAM)&ri);
@@ -111,7 +111,7 @@ static const struct { const char *n; DWORD s; int ntab; int il; int quick; } TBC
 static void tab_one(const fspec *f, const char *theme, int i){
   HWND h = mk(WC_TABCONTROLW, WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | TBC[i].s, 0, 0, 0, 300, 200, g_top, 305, NULL);
   rk k; kb(&k, TBC[i].n, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("tab", &k, &v); return; }
+  if (!h) { ch_fail("tab", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("tab", h, f, theme);
   HIMAGELIST il = NULL;
@@ -155,7 +155,7 @@ void run_bar_fontless(const char *theme){
   for (unsigned i = 0; i < sizeof TK / sizeof *TK; i++) {
     HWND h = mk(TRACKBAR_CLASSW, WS_CHILD | WS_VISIBLE | TK[i].s, 0, 10, 10, TK[i].w, TK[i].h, g_top, 400, NULL);
     rk k; rk_reset(&k); rk_s(&k, "theme", theme); rk_s(&k, "cfg", TK[i].n); rv v; rv_reset(&v);
-    if (!h) { rv_raw(&v, "nocreate"); rec_row("trk", &k, &v); continue; }
+    if (!h) { ch_fail("trk", &k, "nocreate"); continue; }
     prep(h, NULL, theme);
     if (TK[i].thlen) SendMessageW(h, TBM_SETTHUMBLENGTH, TK[i].thlen, 0);
     RECT t, c; SendMessageW(h, TBM_GETTHUMBRECT, 0, (LPARAM)&t); SendMessageW(h, TBM_GETCHANNELRECT, 0, (LPARAM)&c);
@@ -172,7 +172,7 @@ void run_bar_fontless(const char *theme){
     if (e) prep(e, NULL, theme);
     HWND h = mk(UPDOWN_CLASSW, WS_CHILD | WS_VISIBLE | UD[i].s, 0, 0, 0, 0, 0, g_top, 402, NULL);
     rk k; rk_reset(&k); rk_s(&k, "theme", theme); rk_s(&k, "cfg", UD[i].n); rv v; rv_reset(&v);
-    if (!h) { rv_raw(&v, "nocreate"); rec_row("ud", &k, &v); if (e) DestroyWindow(e); continue; }
+    if (!h) { ch_fail("ud", &k, "nocreate"); if (e) DestroyWindow(e); continue; }
     prep(h, NULL, theme);
     if (e) SendMessageW(h, UDM_SETBUDDY, (WPARAM)e, 0);
     RECT r; rel_rect(h, &r); rv_i(&v, r.left); rv_i(&v, r.top); rv_i(&v, r.right - r.left); rv_i(&v, r.bottom - r.top);
@@ -185,7 +185,7 @@ void run_bar_fontless(const char *theme){
   for (unsigned i = 0; i < sizeof PB / sizeof *PB; i++) {
     HWND h = mk(PROGRESS_CLASSW, WS_CHILD | WS_VISIBLE | PB[i].s, 0, 10, 10, PB[i].w, PB[i].h, g_top, 403, NULL);
     rk k; rk_reset(&k); rk_s(&k, "theme", theme); rk_s(&k, "cfg", PB[i].n); rv v; rv_reset(&v);
-    if (!h) { rv_raw(&v, "nocreate"); rec_row("pb", &k, &v); continue; }
+    if (!h) { ch_fail("pb", &k, "nocreate"); continue; }
     prep(h, NULL, theme);
     SendMessageW(h, PBM_SETPOS, 50, 0);
     RECT wr; GetWindowRect(h, &wr); rv_i(&v, wr.right - wr.left); rv_i(&v, wr.bottom - wr.top);

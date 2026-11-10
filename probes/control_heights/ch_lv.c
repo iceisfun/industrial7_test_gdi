@@ -26,20 +26,20 @@ static const lvcfg LVC[] = {
   {"plain",   0, 0,                     0,  0, 0, 1},
   {"il32",    0, 0,                     0, 32, 0, 0},
   {"il48",    0, 0,                     0, 48, 0, 0},
-  {"cb",      0, LVS_EX_CHECKBOXES,     0, 32, 0, 0},
+  {"il32cb",  0, LVS_EX_CHECKBOXES,     0, 32, 0, 0},
 };
 static const WCHAR *ITEMS[] = {L"Item one", L"Item two", L"Third item"};
 
 void lv_schemas(void){
-  rec_schema("lv", "font theme view cfg",
+  ch_schema("lv", "font theme view cfg",
     "r0_l:px r0_t:px r0_r:px r0_b:px r1_t:px r2_t:px row_h:px lbl_l:px lbl_t:px lbl_r:px lbl_b:px ico_l:px ico_t:px ico_r:px ico_b:px "
     "sel_l:px sel_r:px sub1_l:px sub1_r:px spc_cx:px spc_cy:px spcsm_cx:px spcsm_cy:px avr_cx:px avr_cy:px vr_r:px vr_b:px cpp strw:px "
     "hdr_vis hdr_h:px hdr_lay_cy:px hdr_lay_ret");
-  rec_schema("lv_auto", "font theme cfg str", "w0_auto:px w1_auto:px w0_hdr:px w1_hdr:px w2_fill:px strw:px hstrw0:px hstrw1:px");
+  ch_schema("lv_auto", "font theme cfg str", "w0_auto:px w1_auto:px w0_hdr:px w1_hdr:px w2_fill:px strw:px hstrw0:px hstrw1:px");
 }
 
 static HWND lv_make(const fspec *f, const char *theme, int view, DWORD ex, int nohdr, HIMAGELIST *ils, int ilsm, int ilnorm){
-  HWND h = mk(WC_LISTVIEWW, WS_CHILD | WS_VISIBLE | view | LVS_SHAREIMAGELISTS | (nohdr ? LVS_NOCOLUMNHEADER : 0), 0, 0, 0, 400, 300, g_top, 100, NULL);
+  HWND h = mk(WC_LISTVIEWW, WS_CHILD | WS_VISIBLE | view | (nohdr ? LVS_NOCOLUMNHEADER : 0), 0, 0, 0, 400, 300, g_top, 100, NULL);
   if (!h) return NULL;
   if (!strcmp(theme, "off")) { SetWindowTheme(h, L"", L""); HWND hd = (HWND)SendMessageW(h, LVM_GETHEADER, 0, 0); if (hd) SetWindowTheme(hd, L"", L""); }
   if (f->h) SendMessageW(h, WM_SETFONT, (WPARAM)f->h, TRUE);
@@ -50,9 +50,11 @@ static HWND lv_make(const fspec *f, const char *theme, int view, DWORD ex, int n
   return h;
 }
 static void lv_free(HWND h, HIMAGELIST *ils){
+  /* No LVS_SHAREIMAGELISTS: the control owns and destroys its small/normal lists and the state list it builds for
+   * LVS_EX_CHECKBOXES (v6: decompile of CListView::OnNcDestroy, which with SHAREIMAGELISTS still frees a checkbox
+   * list it built itself; 5.82 not checked). Owning everything avoids both a leak and a double ImageList_Destroy. */
   DestroyWindow(h);
-  if (ils[0]) ImageList_Destroy(ils[0]);
-  if (ils[1]) ImageList_Destroy(ils[1]);
+  ils[0] = ils[1] = NULL;
 }
 
 static void lv_one(const fspec *f, const char *theme, const lvcfg *c){
@@ -60,7 +62,7 @@ static void lv_one(const fspec *f, const char *theme, const lvcfg *c){
   HWND h = lv_make(f, theme, c->view, c->ex, c->nohdr, ils, c->ilsm, c->ilnorm);
   rk k; kb(&k, NULL, f, theme); rk_s(&k, "view", VIEWN[c->view]); rk_s(&k, "cfg", c->name);
   rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("lv", &k, &v); return; }
+  if (!h) { ch_fail("lv", &k, "nocreate"); return; }
   ctlfont("listview", h, f, theme);
   LVCOLUMNW col; memset(&col, 0, sizeof col); col.mask = LVCF_TEXT | LVCF_WIDTH;
   col.pszText = (LPWSTR)L"Name"; col.cx = 150; SendMessageW(h, LVM_INSERTCOLUMNW, 0, (LPARAM)&col);
@@ -108,7 +110,7 @@ static void lv_auto(const fspec *f, const char *theme, const char *cfg, int il, 
   HWND h = lv_make(f, theme, LVS_REPORT, 0, 0, ils, il, 0);
   rk k; kb(&k, cfg, f, theme); rk_s(&k, "str", sname);
   rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("lv_auto", &k, &v); return; }
+  if (!h) { ch_fail("lv_auto", &k, "nocreate"); return; }
   LVCOLUMNW col; memset(&col, 0, sizeof col); col.mask = LVCF_TEXT | LVCF_WIDTH;
   col.pszText = (LPWSTR)L"Hdr"; col.cx = 60; SendMessageW(h, LVM_INSERTCOLUMNW, 0, (LPARAM)&col);
   col.pszText = (LPWSTR)L"A long column header"; col.cx = 60; SendMessageW(h, LVM_INSERTCOLUMNW, 1, (LPARAM)&col);
@@ -157,14 +159,14 @@ static const hdcfg HDC_[] = {
   {"hidden",   HDS_BUTTONS | HDS_HIDDEN, 0, 0, 0},
 };
 void hdr_schemas(void){
-  rec_schema("hdr", "font theme cfg",
+  ch_schema("hdr", "font theme cfg",
     "lay_ret lay_x:px lay_y:px lay_cx:px lay_cy:px lay_flags rc_top:px win_h:px cli_h:px "
     "it0_l:px it0_t:px it0_r:px it0_b:px it1_l:px it1_r:px bmpmargin:px");
 }
 static void hdr_one(const fspec *f, const char *theme, const hdcfg *c){
   HWND h = mk(WC_HEADERW, WS_CHILD | WS_VISIBLE | c->style, 0, 0, 0, 400, 30, g_top, 101, NULL);
   rk k; kb(&k, c->name, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("hdr", &k, &v); return; }
+  if (!h) { ch_fail("hdr", &k, "nocreate"); return; }
   prep(h, f, theme);
   ctlfont("header", h, f, theme);
   HIMAGELIST il = NULL;
@@ -207,14 +209,14 @@ static const tvcfg TVC[] = {
   {"fullrow",   TVS_FULLROWSELECT, 0, 0, 0},
 };
 void tv_schemas(void){
-  rec_schema("tv", "font theme cfg",
+  ch_schema("tv", "font theme cfg",
     "ih:px indent:px root_l:px root_t:px root_r:px root_b:px rtxt_l:px rtxt_t:px rtxt_r:px rtxt_b:px "
     "ctxt_l:px ctxt_t:px ctxt_r:px ctxt_b:px visible st_cx:px st_cy:px");
 }
 static void tv_one(const fspec *f, const char *theme, const tvcfg *c){
   HWND h = mk(WC_TREEVIEWW, WS_CHILD | WS_VISIBLE | c->style, 0, 0, 0, 300, 300, g_top, 102, NULL);
   rk k; kb(&k, c->name, f, theme); rv v; rv_reset(&v);
-  if (!h) { rv_raw(&v, "nocreate"); rec_row("tv", &k, &v); return; }
+  if (!h) { ch_fail("tv", &k, "nocreate"); return; }
   if (c->cb) SetWindowLongPtrW(h, GWL_STYLE, GetWindowLongPtrW(h, GWL_STYLE) | TVS_CHECKBOXES);
   prep(h, f, theme);
   ctlfont("treeview", h, f, theme);
@@ -230,9 +232,9 @@ static void tv_one(const fspec *f, const char *theme, const tvcfg *c){
   rv_i(&v, (int)SendMessageW(h, TVM_GETITEMHEIGHT, 0, 0));
   rv_i(&v, (int)SendMessageW(h, TVM_GETINDENT, 0, 0));
   RECT r; int ok;
-  *(HTREEITEM *)&r = root;  ok = (int)SendMessageW(h, TVM_GETITEMRECT, FALSE, (LPARAM)&r); rv_rect(&v, &r, ok);
-  *(HTREEITEM *)&r = root;  ok = (int)SendMessageW(h, TVM_GETITEMRECT, TRUE, (LPARAM)&r);  rv_rect(&v, &r, ok);
-  *(HTREEITEM *)&r = child; ok = (int)SendMessageW(h, TVM_GETITEMRECT, TRUE, (LPARAM)&r);  rv_rect(&v, &r, ok);
+  memcpy(&r, &root, sizeof root);  ok = (int)SendMessageW(h, TVM_GETITEMRECT, FALSE, (LPARAM)&r); rv_rect(&v, &r, ok);
+  memcpy(&r, &root, sizeof root);  ok = (int)SendMessageW(h, TVM_GETITEMRECT, TRUE, (LPARAM)&r);  rv_rect(&v, &r, ok);
+  memcpy(&r, &child, sizeof child); ok = (int)SendMessageW(h, TVM_GETITEMRECT, TRUE, (LPARAM)&r);  rv_rect(&v, &r, ok);
   rv_i(&v, (int)SendMessageW(h, TVM_GETVISIBLECOUNT, 0, 0));
   HIMAGELIST st = (HIMAGELIST)SendMessageW(h, TVM_GETIMAGELIST, TVSIL_STATE, 0);
   int cx, cy; if (st && ImageList_GetIconSize(st, &cx, &cy)) { rv_i(&v, cx); rv_i(&v, cy); } else { rv_na(&v); rv_na(&v); }

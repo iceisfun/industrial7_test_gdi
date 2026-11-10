@@ -23,7 +23,11 @@
  * Tables (keys before |; all lengths px; "!" = call failed or the control left the field untouched):
  *   sys          name | value                 system metrics, dialog base units, NONCLIENTMETRICS sizes, theming state
  *   font         font | kind req_h lf_* got_face h a d il el ave max wt ovh pf cs dots_cx/cy ("..." extent: header
- *                text cy) alpha_cx/cy (52 letters) ag_cy gcd_cx/cy (GdiGetCharDimensions);  H font_cw_ascii
+ *                text cy) alpha_cx/cy (52 letters) ag_cy gcd_cx/cy (GdiGetCharDimensions) enum_n enum_face (EnumFontFamiliesExW
+ *                on the LOGFONT face: 0 = not installed under that name);  H font_cw_ascii.  font rows with no matching
+ *                control rows (ctl=0) are font-table only: cell heights, raster faces by name, an absent face
+ *   dt           font | DrawTextW DT_CALCRECT on the screen DC: "Ag" single line cx/cy, 3 lines cy (without / with
+ *                DT_EXTERNALLEADING), word break at 100 px cx/cy (+ DT_EXTERNALLEADING cy)
  *   theme_part   cls part state ts | hr cx cy  (GetThemePartSize, ts min/true/draw); theme_margin, theme_int
  *   ctlfont      ctl theme | null face lf_h lf_wt tm_h tm_il   (font a control uses when it gets no WM_SETFONT)
  *   lv           font theme view cfg | item 0 LVIR_BOUNDS, row tops 1/2, row_h, LABEL, ICON, SELECTBOUNDS, subitem 1,
@@ -65,6 +69,9 @@ static fspec FONTS[] = {
   {"shelldlg2-11",  1, "MS Shell Dlg 2",       -11,  0, 0,                  0,  0, 1},
   {"mssans-11",     1, "Microsoft Sans Serif", -11,  0, 0,                  0,  0, 1},
   {"mssans8pt",     2, "Microsoft Sans Serif",   0,  8, 0,                  0,  0, 1},
+  {"mssansbmp-11",  1, "MS Sans Serif",        -11,  0, 0,                  0,  0, 1},   /* sserife.fon bitmap face */
+  {"mssansbmp8pt",  2, "MS Sans Serif",          0,  8, 0,                  0,  0, 1},
+  {"shelldlg2_8pt", 2, "MS Shell Dlg 2",         0,  8, 0,                  0,  0, 1},
   {"arial-12",      1, "Arial",                -12,  0, 0,                  0,  0, 1},
   {"courier-13",    1, "Courier",              -13,  0, 0,                  0,  0, 1},
   {"couriernew-13", 1, "Courier New",          -13,  0, 0,                  0,  0, 1},
@@ -81,6 +88,21 @@ static fspec FONTS[] = {
   {"oemfixed",      3, NULL,                     0,  0, OEM_FIXED_FONT,     0,  0, 0},
   {"sysfixed",      3, NULL,                     0,  0, SYSTEM_FIXED_FONT,  0,  0, 0},
   {"devdefault",    3, NULL,                     0,  0, DEVICE_DEFAULT_FONT,0,  0, 0},
+  /* font table only: cell heights (lfHeight > 0), the raster faces by name at their default height, an absent face */
+  {"segoe+16",      1, "Segoe UI",              16,  0, 0,                  0,  0, 0},
+  {"segoe+15",      1, "Segoe UI",              15,  0, 0,                  0,  0, 0},
+  {"tahoma+13",     1, "Tahoma",                13,  0, 0,                  0,  0, 0},
+  {"shelldlg+13",   1, "MS Shell Dlg",          13,  0, 0,                  0,  0, 0},
+  {"segoe-15",      1, "Segoe UI",             -15,  0, 0,                  0,  0, 0},
+  {"segoe-11",      1, "Segoe UI",             -11,  0, 0,                  0,  0, 0},
+  {"tahoma-12",     1, "Tahoma",               -12,  0, 0,                  0,  0, 0},
+  {"tahoma-13",     1, "Tahoma",               -13,  0, 0,                  0,  0, 0},
+  {"arial-11",      1, "Arial",                -11,  0, 0,                  0,  0, 0},
+  {"courier10pt",   2, "Courier",                0, 10, 0,                  0,  0, 0},
+  {"systemface",    1, "System",                 0,  0, 0,                  0,  0, 0},
+  {"terminal",      1, "Terminal",               0,  0, 0,                  0,  0, 0},
+  {"fixedsys",      1, "Fixedsys",               0,  0, 0,                  0,  0, 0},
+  {"absent-12",     1, "NoSuchFace Xyz",       -12,  0, 0,                  0,  1, 0},   /* face missing: what the mapper falls back to */
 };
 fspec *g_fonts = FONTS; int g_nfonts = sizeof FONTS / sizeof *FONTS;
 
@@ -108,6 +130,17 @@ static void font_make(fspec *f){
 static void font_free(fspec *f){ if (f->h && f->kind != 3) DeleteObject(f->h); f->h = NULL; }
 
 /* ---- helpers --------------------------------------------------------------------------------- */
+static struct { char t[24]; int n; } g_sch[64]; static int g_nsch;
+void ch_schema(const char *table, const char *keys, const char *cols){
+  rec_schema(table, keys, cols);
+  int n = 0; for (const char *p = cols; *p; ) { while (*p == ' ') p++; if (!*p) break; n++; while (*p && *p != ' ') p++; }
+  if (g_nsch < 64) { snprintf(g_sch[g_nsch].t, sizeof g_sch[g_nsch].t, "%s", table); g_sch[g_nsch].n = n; g_nsch++; }
+}
+void ch_fail(const char *table, rk *k, const char *why){
+  int n = 1; for (int i = 0; i < g_nsch; i++) if (!strcmp(g_sch[i].t, table)) n = g_sch[i].n;
+  rv v; rv_reset(&v); rv_raw(&v, why); for (int i = 1; i < n; i++) rv_na(&v);
+  rec_row(table, k, &v);
+}
 HWND mk(const WCHAR *cls, DWORD style, DWORD ex, int x, int y, int w, int h, HWND parent, int id, const WCHAR *text){
   return CreateWindowExW(ex, cls, text, style, x, y, w, h, parent, (HMENU)(INT_PTR)id, g_hi, NULL);
 }
@@ -195,9 +228,16 @@ static LRESULT CALLBACK top_proc(HWND h, UINT m, WPARAM w, LPARAM l){
 
 /* ---- font table ------------------------------------------------------------------------------ */
 typedef LONG (WINAPI *GdiGetCharDimensions_t)(HDC, LPTEXTMETRICW, LONG *);
+typedef struct { int n; WCHAR face[LF_FACESIZE]; } fenum;
+static int CALLBACK fenum_cb(const LOGFONTW *lf, const TEXTMETRICW *tm, DWORD type, LPARAM l){
+  fenum *e = (fenum *)l;
+  if (!e->n++) memcpy(e->face, lf->lfFaceName, sizeof e->face);
+  return e->n < 10000;
+}
 static void run_fonts(void){
-  rec_schema("font", "font", "kind req_h lf_h lf_w lf_wt lf_cs lf_q lf_face got_face h:px a:px d:px il:px el:px ave:px max:px wt ovh:px pf cs "
-             "dots_cx:px dots_cy:px alpha_cx:px alpha_cy:px ag_cy:px gcd_cx:px gcd_cy:px");
+  ch_schema("font", "font", "kind req_h lf_h lf_w lf_wt lf_cs lf_q lf_face got_face h:px a:px d:px il:px el:px ave:px max:px wt ovh:px pf cs "
+             "dots_cx:px dots_cy:px alpha_cx:px alpha_cy:px ag_cy:px gcd_cx:px gcd_cy:px enum_n enum_face");
+  ch_schema("dt", "font", "ag_cx:px ag_cy:px l3_cy:px l3el_cy:px wb100_cx:px wb100_cy:px wb100el_cy:px");
   GdiGetCharDimensions_t gcd = (GdiGetCharDimensions_t)GetProcAddress(GetModuleHandleA("gdi32.dll"), "GdiGetCharDimensions");
   static const WCHAR ALPHA[] = L"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
   for (int i = 0; i < g_nfonts; i++) {
@@ -210,7 +250,7 @@ static void run_fonts(void){
       rv_i(&v, lf.lfHeight); rv_i(&v, lf.lfWidth); rv_i(&v, lf.lfWeight); rv_i(&v, lf.lfCharSet); rv_i(&v, lf.lfQuality);
       rv_w(&v, lf.lfFaceName[0] ? lf.lfFaceName : L"");
     } else for (int j = 0; j < 6; j++) rv_na(&v);
-    if (!f->h) { for (int j = 0; j < 21; j++) rv_na(&v); rec_row("font", &k, &v); continue; }
+    if (!f->h) { for (int j = 0; j < 21; j++) rv_na(&v); rec_row("font", &k, &v); ch_fail("dt", &k, "nofont"); continue; }
     HFONT o = (HFONT)SelectObject(g_dc, f->h);
     WCHAR got[LF_FACESIZE] = L"";
     if (GetTextFaceW(g_dc, LF_FACESIZE, got) > 0) rv_w(&v, got[0] ? got : L""); else rv_na(&v);
@@ -224,7 +264,21 @@ static void run_fonts(void){
     if (GetTextExtentPoint32W(g_dc, ALPHA, 52, &s)) { rv_i(&v, s.cx); rv_i(&v, s.cy); } else { rv_na(&v); rv_na(&v); }
     if (GetTextExtentPoint32W(g_dc, L"Ag", 2, &s)) rv_i(&v, s.cy); else rv_na(&v);
     if (gcd) { LONG cy = 0; LONG cx = gcd(g_dc, NULL, &cy); rv_i(&v, cx); rv_i(&v, cy); } else { rv_na(&v); rv_na(&v); }
+    /* EnumFontFamiliesExW on the requested LOGFONT face (DEFAULT_CHARSET): how many entries, first face name.
+     * 0 = the face is not installed under that name (CreateFontIndirect still succeeds: got_face shows the fallback). */
+    { fenum fe = {0, L""}; LOGFONTW q; memset(&q, 0, sizeof q); q.lfCharSet = DEFAULT_CHARSET; memcpy(q.lfFaceName, lf.lfFaceName, sizeof q.lfFaceName);
+      if (q.lfFaceName[0]) { EnumFontFamiliesExW(g_dc, &q, fenum_cb, (LPARAM)&fe, 0); rv_i(&v, fe.n); rv_w(&v, fe.n ? (fe.face[0] ? fe.face : L"") : L""); }
+      else { rv_na(&v); rv_na(&v); } }
     rec_row("font", &k, &v);
+    /* DrawTextW DT_CALCRECT with this font: single line, 3 lines, 3 lines + DT_EXTERNALLEADING, word break at 100 px */
+    { rv d; rv_reset(&d); RECT r;
+      r = (RECT){0, 0, 0, 0}; DrawTextW(g_dc, L"Ag", -1, &r, DT_CALCRECT | DT_SINGLELINE | DT_NOPREFIX); rv_i(&d, r.right - r.left); rv_i(&d, r.bottom - r.top);
+      r = (RECT){0, 0, 0, 0}; DrawTextW(g_dc, L"Ag\nBg\nCg", -1, &r, DT_CALCRECT | DT_NOPREFIX); rv_i(&d, r.bottom - r.top);
+      r = (RECT){0, 0, 0, 0}; DrawTextW(g_dc, L"Ag\nBg\nCg", -1, &r, DT_CALCRECT | DT_NOPREFIX | DT_EXTERNALLEADING); rv_i(&d, r.bottom - r.top);
+      static const WCHAR WB[] = L"The quick brown fox jumps over the lazy dog";
+      r = (RECT){0, 0, 100, 0}; DrawTextW(g_dc, WB, -1, &r, DT_CALCRECT | DT_WORDBREAK | DT_NOPREFIX); rv_i(&d, r.right - r.left); rv_i(&d, r.bottom - r.top);
+      r = (RECT){0, 0, 100, 0}; DrawTextW(g_dc, WB, -1, &r, DT_CALCRECT | DT_WORDBREAK | DT_NOPREFIX | DT_EXTERNALLEADING); rv_i(&d, r.bottom - r.top);
+      rec_row("dt", &k, &d); }
     INT cw[95]; if (GetCharWidth32W(g_dc, 0x20, 0x7e, cw)) rec_hash("font_cw_ascii", &k, cw, sizeof cw);
     SelectObject(g_dc, o);
   }
@@ -232,7 +286,7 @@ static void run_fonts(void){
 
 /* ---- system constants ------------------------------------------------------------------------ */
 static void run_sys(void){
-  rec_schema("sys", "name", "value");
+  ch_schema("sys", "name", "value");
   static const struct { const char *n; int i; } SM[] = {
     {"SM_CXEDGE", SM_CXEDGE}, {"SM_CYEDGE", SM_CYEDGE}, {"SM_CXBORDER", SM_CXBORDER}, {"SM_CYBORDER", SM_CYBORDER},
     {"SM_CXFIXEDFRAME", SM_CXFIXEDFRAME}, {"SM_CYFIXEDFRAME", SM_CYFIXEDFRAME}, {"SM_CYMENU", SM_CYMENU},
@@ -265,9 +319,9 @@ static void run_sys(void){
 
 /* ---- theme part sizes / margins -------------------------------------------------------------- */
 static void run_theme(void){
-  rec_schema("theme_part", "cls part state ts", "hr cx:px cy:px");
-  rec_schema("theme_margin", "cls part state prop", "hr l:px r:px t:px b:px");
-  rec_schema("theme_int", "cls part state prop", "hr value");
+  ch_schema("theme_part", "cls part state ts", "hr cx:px cy:px");
+  ch_schema("theme_margin", "cls part state prop", "hr l:px r:px t:px b:px");
+  ch_schema("theme_int", "cls part state prop", "hr value");
   static const struct { const WCHAR *cls; const char *cn; int part, state; } P[] = {
     {L"Header", "Header", 1, 1}, {L"Header", "Header", 1, 0}, {L"Header", "Header", 2, 1}, {L"Header", "Header", 3, 1},
     {L"Header", "Header", 4, 1}, {L"Header", "Header", 5, 1}, {L"Header", "Header", 6, 1}, {L"Header", "Header", 7, 1},
@@ -353,6 +407,7 @@ int main(int argc, char **argv){
   RegisterClassW(&wc);
   g_top = CreateWindowExW(0, L"CHProbeTop", L"control_heights", WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, 0, 0, 700, 560, NULL, NULL, g_hi, NULL);
   if (!g_top) { rec_note("top-level window creation failed err=%lu", GetLastError()); return rec_finish(2); }
+  DWORD gdi0 = GetGuiResources(GetCurrentProcess(), GR_GDIOBJECTS), usr0 = GetGuiResources(GetCurrentProcess(), GR_USEROBJECTS);
   g_dc = GetDC(NULL);
   g_dpi = GetDeviceCaps(g_dc, LOGPIXELSY);
   for (int i = 0; i < g_nfonts; i++) font_make(&g_fonts[i]);
@@ -370,8 +425,8 @@ int main(int argc, char **argv){
   if (fam_on("ctl")) ctl_schemas();
   if (fam_on("bar")) bar_schemas();
   if (g_modal && fam_on("modal")) modal_schemas();
-  rec_schema("ctlfont", "ctl theme", "null face lf_h lf_wt tm_h:px tm_il:px");
-  rec_schema("ink", "font theme cfg ctl", "w:px h:px l:px t:px r:px b:px n");
+  ch_schema("ctlfont", "ctl theme", "null face lf_h lf_wt tm_h:px tm_il:px");
+  ch_schema("ink", "font theme cfg ctl", "w:px h:px l:px t:px r:px b:px n");
 
   struct { const char *fam; void (*fn)(const fspec *, const char *); } FAM[] = {
     {"lv", run_lv}, {"hdr", run_hdr}, {"tv", run_tv}, {"ctl", run_ctl}, {"bar", run_bar} };
@@ -392,6 +447,9 @@ int main(int argc, char **argv){
   for (int i = 0; i < g_nfonts; i++) font_free(&g_fonts[i]);
   ReleaseDC(NULL, g_dc);
   DestroyWindow(g_top); pump();
+  /* leak check: everything this probe created should be gone again (a few objects are cached by comctl32/uxtheme) */
+  rec_note("handles gdi_start=%lu gdi_end=%lu user_start=%lu user_end=%lu", gdi0, GetGuiResources(GetCurrentProcess(), GR_GDIOBJECTS),
+           usr0, GetGuiResources(GetCurrentProcess(), GR_USEROBJECTS));
   rec_note("control_heights done");
   return rec_finish(0);
 }

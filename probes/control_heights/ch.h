@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define CH_VERSION "1"
+#define CH_VERSION "2"
 #define NA_SENT (-123456)       /* sentinel: struct field the control did not fill -> "!" */
 
 /* A font condition. kind: 0 = no WM_SETFONT (control default), 1 = CreateFontIndirect(face, px),
@@ -36,6 +36,8 @@ extern fspec *g_fonts; extern int g_nfonts;
 extern const char *g_themes[2]; extern int g_nthemes;
 
 /* helpers (ch_main.c) */
+void ch_schema(const char *table, const char *keys, const char *cols);  /* rec_schema + remembers the column count */
+void ch_fail(const char *table, rk *k, const char *why);               /* full-width row: why, then "!" per column */
 HWND mk(const WCHAR *cls, DWORD style, DWORD ex, int x, int y, int w, int h, HWND parent, int id, const WCHAR *text);
 void prep(HWND h, const fspec *f, const char *theme);          /* SetWindowTheme(off) then WM_SETFONT */
 void kb(rk *k, const char *ctl_cfg_name, const fspec *f, const char *theme); /* font;theme;cfg */

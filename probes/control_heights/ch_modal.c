@@ -3,12 +3,12 @@
 #include "ch.h"
 
 void modal_schemas(void){
-  rec_schema("menubar", "cfg item", "ret l:px t:px r:px b:px h:px");
-  rec_schema("menubar_win", "cfg", "win_w:px win_h:px cli_w:px cli_h:px nc_h:px");
-  rec_schema("menupop", "cfg item", "ret l:px t:px r:px b:px h:px");
-  rec_schema("menupop_win", "cfg", "found win_w:px win_h:px cli_w:px cli_h:px");
-  rec_schema("msgbox", "case", "found win_w:px win_h:px cli_w:px cli_h:px nchild text_tm_h:px text_face");
-  rec_schema("msgbox_ctl", "case idx", "cls id x:px y:px w:px h:px");
+  ch_schema("menubar", "cfg item", "ret l:px t:px r:px b:px h:px");
+  ch_schema("menubar_win", "cfg", "win_w:px win_h:px cli_w:px cli_h:px nc_h:px");
+  ch_schema("menupop", "cfg item", "ret l:px t:px r:px b:px h:px");
+  ch_schema("menupop_win", "cfg", "found win_w:px win_h:px cli_w:px cli_h:px");
+  ch_schema("msgbox", "case", "found win_w:px win_h:px cli_w:px cli_h:px nchild text_tm_h:px text_face");
+  ch_schema("msgbox_ctl", "case idx", "cls id x:px y:px w:px h:px");
 }
 
 typedef struct { const WCHAR *cls; HWND found; int any; } findctx;
@@ -56,9 +56,10 @@ static void menubar_one(const char *cfg, int w, int many){
 }
 
 /* ---------------------------------------------------------------- popup */
-static struct { const char *cfg; HMENU m; int done; int ticks; } g_pop;
+static struct { const char *cfg; HMENU m; HWND owner; int done; int ticks; int after; } g_pop;
 static VOID CALLBACK pop_timer(HWND hw, UINT msg, UINT_PTR id, DWORD t){
-  if (g_pop.done) return;
+  /* the timer stays alive until TrackPopupMenuEx returns: if EndMenu did not end the loop, keep escalating */
+  if (g_pop.done) { if (++g_pop.after >= 3) { EndMenu(); PostMessageW(g_pop.owner, WM_CANCELMODE, 0, 0); PostMessageW(g_pop.owner, WM_KEYDOWN, VK_ESCAPE, 0); } return; }
   HWND p = find_thread_window(L"#32768", 0);
   if (!p && ++g_pop.ticks < 40) return;
   g_pop.done = 1;
@@ -93,7 +94,7 @@ static void menupop_one(const char *cfg, int variant){
   AppendMenuW(m, MF_STRING, 3005, L"A much longer menu item caption");
   if (variant == 1) { MENUINFO mi; memset(&mi, 0, sizeof mi); mi.cbSize = sizeof mi; mi.fMask = MIM_STYLE; mi.dwStyle = MNS_CHECKORBMP; SetMenuInfo(m, &mi); }
   HWND owner = CreateWindowExW(0, L"CHProbeTop", L"popup owner", WS_OVERLAPPEDWINDOW, 0, 0, 300, 200, NULL, NULL, g_hi, NULL);
-  memset(&g_pop, 0, sizeof g_pop); g_pop.cfg = cfg; g_pop.m = m;
+  memset(&g_pop, 0, sizeof g_pop); g_pop.cfg = cfg; g_pop.m = m; g_pop.owner = owner;
   UINT_PTR t1 = SetTimer(owner, 1, 150, pop_timer);
   rec_flush();
   TrackPopupMenuEx(m, TPM_LEFTALIGN | TPM_TOPALIGN | TPM_RETURNCMD | TPM_NONOTIFY, 100, 100, owner, NULL);
@@ -103,12 +104,18 @@ static void menupop_one(const char *cfg, int variant){
 }
 
 /* ---------------------------------------------------------------- message boxes */
-static struct { const char *cs; int done; int ticks; } g_mb;
+static struct { const char *cs; int done; int ticks; int after; HWND dlg; } g_mb;
 static VOID CALLBACK mb_timer(HWND hw, UINT msg, UINT_PTR id, DWORD t){
-  if (g_mb.done) return;
+  /* the timer stays alive until MessageBoxW returns: if the posted button click did not close it, escalate */
+  if (g_mb.done) {
+    ++g_mb.after;
+    if (g_mb.after == 5 && IsWindow(g_mb.dlg)) PostMessageW(g_mb.dlg, WM_CLOSE, 0, 0);
+    if (g_mb.after >= 10 && IsWindow(g_mb.dlg)) EndDialog(g_mb.dlg, IDCANCEL);
+    return;
+  }
   HWND d = find_thread_window(L"#32770", g_mb.ticks > 50);   /* after 5 s also accept an invisible dialog */
   if (!d) { if (++g_mb.ticks == 100) rec_note("msgbox %s: dialog not found", g_mb.cs); return; }
-  g_mb.done = 1;
+  g_mb.done = 1; g_mb.dlg = d;
   RECT wr, cr; GetWindowRect(d, &wr); GetClientRect(d, &cr);
   int n = 0, first_btn = 0; HWND btn = NULL, txt = NULL;
   for (HWND c = GetWindow(d, GW_CHILD); c; c = GetWindow(c, GW_HWNDNEXT)) {

@@ -205,10 +205,10 @@ TEST(treeview_item_height_contract){
     CHECKF(ih >= 1, "ih %d", ih);
     if (!nonEven && ih >= 2) CHECKF(ih % 2 == 0, "default height %d not even without TVS_NONEVENHEIGHT", ih);
     RECT ra, rb, rc, rt;
-    *(HTREEITEM *)&ra = a; EQ(SND(h, TVM_GETITEMRECT, FALSE, &ra), 1);
-    *(HTREEITEM *)&rb = b; EQ(SND(h, TVM_GETITEMRECT, FALSE, &rb), 1);
-    *(HTREEITEM *)&rc = c; EQ(SND(h, TVM_GETITEMRECT, FALSE, &rc), 1);
-    *(HTREEITEM *)&rt = a; EQ(SND(h, TVM_GETITEMRECT, TRUE, &rt), 1);
+    memcpy(&ra, &a, sizeof a); EQ(SND(h, TVM_GETITEMRECT, FALSE, &ra), 1);
+    memcpy(&rb, &b, sizeof b); EQ(SND(h, TVM_GETITEMRECT, FALSE, &rb), 1);
+    memcpy(&rc, &c, sizeof c); EQ(SND(h, TVM_GETITEMRECT, FALSE, &rc), 1);
+    memcpy(&rt, &a, sizeof a); EQ(SND(h, TVM_GETITEMRECT, TRUE, &rt), 1);
     EQ(ra.left, 0); EQ(rb.left, 0);
     EQ(ra.bottom - ra.top, ih); EQ(rb.bottom - rb.top, ih);
     EQ(rb.top, ra.top + ih); EQ(rc.top, ra.top + 2 * ih);
@@ -216,7 +216,7 @@ TEST(treeview_item_height_contract){
     /* set / reset */
     EQ(SND(h, TVM_SETITEMHEIGHT, 21, 0), ih);
     EQ(SND(h, TVM_GETITEMHEIGHT, 0, 0), nonEven ? 21 : 20);
-    *(HTREEITEM *)&rb = b; SND(h, TVM_GETITEMRECT, FALSE, &rb);
+    memcpy(&rb, &b, sizeof b); SND(h, TVM_GETITEMRECT, FALSE, &rb);
     EQ(rb.bottom - rb.top, nonEven ? 21 : 20);
     EQ(SND(h, TVM_SETITEMHEIGHT, 1, 0), nonEven ? 21 : 20);
     EQ(SND(h, TVM_GETITEMHEIGHT, 0, 0), 1);
