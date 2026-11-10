@@ -217,7 +217,15 @@ TEST(extent_cy_is_tmheight){
     for(unsigned si=0;si<sizeof ss/sizeof*ss;si++){
       SIZE sz; int n=lstrlenW(ss[si]);
       CHECK(U(GetTextExtentPoint32W)(d.dc,ss[si],n,&sz));
-      CHECKF(sz.cy==d.tm.tmHeight, "%ls h %d str %u: cy %ld tmHeight %ld", k_faces[fi],k_h[hi],si,sz.cy,d.tm.tmHeight);
+      /* hard check only where no font linking / LPK fallback can be involved: ASCII strings (the client CFONT path in
+       * GetTextExtentPointWInternal), or a TrueType face that has every glyph of the string. A non-ASCII string on a
+       * raster face or with a missing glyph goes through the kernel/LPK path with linked fonts: observation only. */
+      int ascii=1; for(int i=0;i<n;i++) if(ss[si][i]>=0x80) ascii=0;
+      int allglyphs=0;
+      if(!ascii && (d.tm.tmPitchAndFamily & TMPF_TRUETYPE)){ WORD g[16]; allglyphs = n<=16 && U(GetGlyphIndicesW)(d.dc,ss[si],n,g,GGI_MARK_NONEXISTING_GLYPHS)!=GDI_ERROR;
+        for(int i=0;allglyphs && i<n;i++) if(g[i]==0xFFFF) allglyphs=0; }
+      if(ascii || allglyphs) CHECKF(sz.cy==d.tm.tmHeight, "%ls h %d str %u: cy %ld tmHeight %ld", k_faces[fi],k_h[hi],si,sz.cy,d.tm.tmHeight);
+      else if(sz.cy!=d.tm.tmHeight) t_note("%ls h %d str %u (non-ASCII, linked/missing glyphs): cy %ld tmHeight %ld", k_faces[fi],k_h[hi],si,sz.cy,d.tm.tmHeight);
       /* observations only: sum of widths, ExPoint partial extents */
       long sum=0; for(int i=0;i<n;i++){ INT w=0; U(GetCharWidth32W)(d.dc,ss[si][i],ss[si][i],&w); sum+=w; }
       if(sum!=sz.cx) t_note("%ls h %d str %u: extent %ld != sum of GetCharWidth32W %ld", k_faces[fi],k_h[hi],si,sz.cx,sum);
