@@ -1,0 +1,25 @@
+# serial serial.log sha256=b9f5a1a59435d04749c5811b6a33fe34c24ade7308368811362afa5da586a4d7 bytes=4047411
+# wrote data-raw/run2/font_inventory/runB.rec
+I7VM: logon Tue 11/10/2026 10:31:05.32 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-runB-20261110-103624-2642877 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-10T10:31:05.463
+I7P ECHO id=gdi-runB-20261110-103624-2642877 tag=runB dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=font_inventory seq=0 timeout=300 time=2026-11-10T10:31:05.478
+I7P END name=font_inventory seq=0 rc=0 ms=20547 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-runB-20261110-103624-2642877
+I7VM: payload exit 0 
