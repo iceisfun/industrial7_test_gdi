@@ -71,15 +71,19 @@ static void one_font(HDC dc, const char *face, int wt, int it){
       for(unsigned r=0;r<nr && r<64;r++){ rk k2=kb; rk_i(&k2,"i",r); rv g; rv_reset(&g); rv_u(&g,u16(t,n,4+4*r)); rv_x(&g,u16(t,n,6+4*r)); rec_row("gasp",&k2,&g); }
     } else if(!memcmp(ts,"EBLC",4)){
       unsigned long ns=u32(t,n,4);
-      for(unsigned long r=0;r<ns && r<128;r++){ size_t b=8+48*r; rk k2=kb; rk_i(&k2,"i",(long long)r); rv e; rv_reset(&e);
-        rv_u(&e,t[b+44<n?b+44:0]); rv_u(&e,t[b+45<n?b+45:0]); rv_u(&e,u16(t,n,b+40)); rv_u(&e,u16(t,n,b+42)); rv_u(&e,t[b+46<n?b+46:0]);
-        rv_x(&e,t[b+47<n?b+47:0]); rv_u(&e,u32(t,n,b+8));
-        rv_i(&e,(signed char)(b+16<n?t[b+16]:0)); rv_i(&e,(signed char)(b+17<n?t[b+17]:0)); rv_u(&e,b+18<n?t[b+18]:0);
+      for(unsigned long r=0;r<ns && r<128;r++){ size_t b=8+48*(size_t)r; rk k2=kb; rk_i(&k2,"i",(long long)r); rv e; rv_reset(&e);
+        if(b+48>n){ for(int i=0;i<10;i++) rv_na(&e); rec_row("eblc",&k2,&e); break; }   /* truncated table: one ! row */
+        rv_u(&e,t[b+44]); rv_u(&e,t[b+45]); rv_u(&e,u16(t,n,b+40)); rv_u(&e,u16(t,n,b+42)); rv_u(&e,t[b+46]);
+        rv_x(&e,t[b+47]); rv_u(&e,u32(t,n,b+8));
+        rv_i(&e,(signed char)t[b+16]); rv_i(&e,(signed char)t[b+17]); rv_u(&e,t[b+18]);
         rec_row("eblc",&k2,&e); }
     } else if(!memcmp(ts,"hdmx",4)){
       unsigned nr=u16(t,n,2); unsigned long sz=u32(t,n,4); char lst[2048]; int ll=0; lst[0]=0;
-      for(unsigned r=0;r<nr && r<255;r++){ size_t b=8+sz*r; if(b+1<n) ll+=snprintf(lst+ll,sizeof lst-ll,"%s%u:%u",r?",":"",t[b],t[b+1]); }
-      rv_u(&p,u16(t,n,0)); rv_u(&p,nr); rv_u(&p,sz); rv_raw(&p,ll?lst:"~"); rec_row("hdmx",&kb,&p);
+      int ovf=0;
+      for(unsigned r=0;r<nr && r<255 && !ovf;r++){ size_t b=8+(size_t)sz*r; if(b+1<n){
+          int w=snprintf(lst+ll,sizeof lst-(size_t)ll,"%s%u:%u",ll?",":"",t[b],t[b+1]);
+          if(w<0 || (size_t)(ll+w)>=sizeof lst){ lst[ll]=0; ovf=1; } else ll+=w; } }
+      rv_u(&p,u16(t,n,0)); rv_u(&p,nr); rv_u(&p,sz); if(ovf) rv_na(&p); else rv_raw(&p,ll?lst:"~"); rec_row("hdmx",&kb,&p);
     } else if(!memcmp(ts,"VDMX",4)){
       unsigned nratios=u16(t,n,4);
       for(unsigned r=0;r<nratios && r<16;r++){

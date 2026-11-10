@@ -153,6 +153,30 @@ TEST(glyph_ggo_glyph_index_matches_char) {
         fdc_close(&d);
     }
 }
+TEST(glyph_ggo_unhinted_ignored_for_bitmaps) {
+    REQUIRE(U(GetGlyphOutlineW));
+    /* win32kfull!GreGetGlyphOutlineInternal keeps GGO_UNHINTED (0x100) in a local and hands it only to
+     * PFFOBJ::QueryTrueTypeOutline (GGO_NATIVE / GGO_BEZIER); GGO_METRICS and the bitmap formats go through
+     * PFFOBJ::QueryFontData without it, so with and without GGO_UNHINTED they return identical metrics and bytes */
+    static const UINT F[5] = { GGO_METRICS, GGO_BITMAP, GGO_GRAY2_BITMAP, GGO_GRAY4_BITMAP, GGO_GRAY8_BITMAP };
+    static const WCHAR chars[] = L"Ag0";
+    static const int hs[] = { -11, -16 };
+    for (unsigned f = 0; f < sizeof TT_FACES / sizeof *TT_FACES; f++)
+        for (unsigned h = 0; h < 2; h++) {
+            fdc d; if (!fdc_open(&d, TT_FACES[f], hs[h], DEFAULT_QUALITY)) continue;
+            for (int i = 0; chars[i]; i++)
+                for (int j = 0; j < 5; j++) {
+                    GLYPHMETRICS a, b; memset(&a, 0, sizeof a); memset(&b, 0, sizeof b);
+                    BYTE ba[4096], bb[4096]; memset(ba, 0, sizeof ba); memset(bb, 0, sizeof bb);
+                    DWORD na = U(GetGlyphOutlineW)(d.dc, chars[i], F[j], &a, j ? sizeof ba : 0, j ? ba : NULL, &IDENT);
+                    DWORD nb = U(GetGlyphOutlineW)(d.dc, chars[i], F[j] | GGO_UNHINTED, &b, j ? sizeof bb : 0, j ? bb : NULL, &IDENT);
+                    CHECKF(na == nb && !memcmp(&a, &b, sizeof a), "face %u h %d ch %x fmt %u: %lu vs %lu", f, hs[h], chars[i], F[j], na, nb);
+                    if (j && na == nb && na != GDI_ERROR && na <= sizeof ba)
+                        CHECKF(!memcmp(ba, bb, na), "face %u h %d ch %x fmt %u bytes", f, hs[h], chars[i], F[j]);
+                }
+            fdc_close(&d);
+        }
+}
 TEST(glyph_ggo_a_w_parity) {
     REQUIRE(U(GetGlyphOutlineW)); REQUIRE(U(GetGlyphOutlineA));
     fdc d; if (!fdc_open(&d, L"Tahoma", -11, DEFAULT_QUALITY)) return;
@@ -403,6 +427,16 @@ TEST(glyph_textface_buffer_protocol) {
     WCHAR b[LF_FACESIZE]; int r = U(GetTextFaceW)(d.dc, LF_FACESIZE, b);
     t_note("GetTextFaceW fetch returned %d", r);
     EXPECT_WSTR(b, L"Tahoma");
+    fdc_close(&d);
+}
+TEST(glyph_textface_buffer_with_bad_count) {
+    REQUIRE(U(GetTextFaceW));
+    fdc d; if (!fdc_open(&d, L"Tahoma", -12, DEFAULT_QUALITY)) return;
+    /* gdi32full!GetTextFaceW: lpName != NULL && c < 1 -> GdiSetLastError(87), 0, before the syscall */
+    WCHAR b[4] = { 'x', 'x', 'x', 0 };
+    SET_ERR(0); EXPECT_FAIL(U(GetTextFaceW)(d.dc, 0, b) == 0, ERROR_INVALID_PARAMETER);
+    SET_ERR(0); EXPECT_FAIL(U(GetTextFaceW)(d.dc, -1, b) == 0, ERROR_INVALID_PARAMETER);
+    CHECK(b[0] == 'x');                               /* nothing written */
     fdc_close(&d);
 }
 TEST(glyph_otm_size_query) {

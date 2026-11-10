@@ -1,9 +1,9 @@
 /* glyph_bitmaps: rasterisation fingerprints of the Win7 UI faces on Win10 (data for the Industrial7 D12 decision).
  *
  * usage: glyph_bitmaps.exe [recorder options, rec.h] [--full | --quick] [--only SECTION[,SECTION...]]
- *   --full (default; the VM runs this): all faces, heights -8..-16,-18,-20,-24,-32, full char set, unhinted pass
- *   --quick: 4 faces, heights -11,-12,-16, core chars only, no unhinted pass (plumbing / fast check)
- *   sections: spi font gidx ggo fonttab text methods styles
+ *   --full (default; the VM runs this): all faces, heights -8..-16,-18,-20,-24,-32, full char set
+ *   --quick: 4 faces, heights -11,-12,-16, core chars only (plumbing / fast check)
+ *   sections: spi font gidx ggo fonttab text methods styles (the face table is always written)
  *
  * Everything is measured on a memory DC (CreateCompatibleDC(NULL), MM_TEXT, no world transform), so all lengths are
  * device pixels == logical units. Fonts are created with CreateFontIndirectW (DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
@@ -11,14 +11,16 @@
  * system DPI (docs/VM_RUN.md 5.1), so one run at 96 DPI suffices; ENV records DPI and font-smoothing state anyway.
  *
  * Tables (S lines carry the columns; docs/probes/glyph_bitmaps.md explains each):
+ *   face      per face: present?, realised name, TrueType?, file length / head checkSumAdjustment / sha (alias targets)
  *   spi       SystemParametersInfo font smoothing state
  *   font      per face x height: realised face + TEXTMETRICW + GetFontData size + otmEMSquare
  *   gidx      GetGlyphIndicesW over the char set (flags 0 and GGI_MARK_NONEXISTING_GLYPHS)
  *   gm        GetGlyphOutlineW per char: GGO_METRICS GLYPHMETRICS + length/hash of GGO_BITMAP/GRAY2/4/8,
  *             with GGO_GLYPH_INDEX parity bits;  gmf: GLYPHMETRICS of a bitmap format when it differs from GGO_METRICS
- *   gmu       the same with GGO_UNHINTED (full only)
- *   ggo_all   H lines: one hash over the whole char set per face x height x format x hinting (aliases included)
- *   ggo_bm/ggo_g2/ggo_g4/ggo_g8 (+ ggou_*)  B lines: raw GGO bytes for the core chars (bbx x bby, raw levels)
+ *   gmo       GGO_NATIVE outline hashes hinted + GGO_UNHINTED, and the GGO_UNHINTED parity mask of metrics/bitmaps
+ *   ggo_nat   raw GGO_NATIVE bytes (hex) for the core chars at -11 -12 -16 -24, hinted and unhinted
+ *   ggo_all   H lines: one hash over the whole char set per face x height x format (aliases included)
+ *   ggo_bm/ggo_g2/ggo_g4/ggo_g8  B lines: raw GGO bytes for the core chars (bbx x bby, raw levels)
  *   ffile, ftab, fhead, fhhea, fos2, gasp, eblc, hdmx, vdmx   GetFontData tables (lengths, hashes, parsed fields)
  *   tx, txprof, txb   TextOutW renders into 32bpp / 8bpp-grey DIB sections (ink box, ink sum, profiles, raw crops)
  *   txm       ExtTextOutW (ETO_OPAQUE / ETO_CLIPPED / ETO_GLYPH_INDEX / lpDx), DrawTextW, 1bpp DIB, vs TextOutW
@@ -78,7 +80,7 @@ static void sec_font(void){
   HDC dc=CreateCompatibleDC(NULL);
   const int *hs=g_full?H_FULL:H_QUICK; int nh=g_full?13:3;
   for(int fi=0;fi<g_nfaces;fi++){
-    if(!gb_face_on(fi)) continue;
+    if(!g_full && !(fi==0 || fi==1 || fi==3 || fi==5)) continue;   /* absent faces too: the row shows the substitute */
     for(int hi=0;hi<nh;hi++){
       HFONT f=gb_font(g_faces[fi].face,hs[hi],FW_NORMAL,0,0,0,DEFAULT_QUALITY), o=(HFONT)SelectObject(dc,f);
       WCHAR got[LF_FACESIZE]=L""; TEXTMETRICW tm; memset(&tm,0,sizeof tm);
@@ -124,11 +126,52 @@ static void sec_gidx(void){
   DeleteDC(dc);
 }
 
-/* --quick: Segoe UI, Tahoma, Arial, MS Shell Dlg */
-int gb_face_on(int fi){ return g_full || fi==0 || fi==1 || fi==3 || fi==5; }
+/* ---------------------------------------------------------------- face: is the requested face really there?
+ * A non-alias face is present when GetTextFaceW returns the requested name (case-insensitive); an alias (MS Shell Dlg,
+ * MS Shell Dlg 2) is present when it realises at all (GetTextFaceW reports the alias name, so the file it maps to is
+ * identified by fontdata_len + the head checkSumAdjustment instead). An absent face gets its face row (present=0) and
+ * font/gidx rows (they show the substitute) but no ggo/fonttab/text/methods/styles rows: the probe never records a
+ * substitute's glyphs under the requested name. */
+static int g_present[16];
+#define TAG_HEAD_M 0x64616568u
+static void sec_face(void){
+  rec_schema("face","face","kind got present tt fontdata_len:B head_csum file_sha");
+  rec_note("face: kind outline|alias|raster (what the probe expects); got = GetTextFaceW at lfHeight -12; present = "
+           "requested face realised (alias: realised at all); tt = TMPF_TRUETYPE; fontdata_len = GetFontData(0) size; "
+           "head_csum = head.checkSumAdjustment; file_sha = first 64 bits of SHA-256 of the whole font data (! for raster)");
+  HDC dc=CreateCompatibleDC(NULL);
+  for(int fi=0;fi<g_nfaces;fi++){
+    const gb_face *F=&g_faces[fi];
+    HFONT f=gb_font(F->face,-12,FW_NORMAL,0,0,0,DEFAULT_QUALITY), o=(HFONT)SelectObject(dc,f);
+    WCHAR got[LF_FACESIZE]=L"", want[LF_FACESIZE]=L""; MultiByteToWideChar(CP_ACP,0,F->face,-1,want,LF_FACESIZE);
+    int okf=f && GetTextFaceW(dc,LF_FACESIZE,got)>0;
+    TEXTMETRICW tm; memset(&tm,0,sizeof tm); int okt=GetTextMetricsW(dc,&tm);
+    int present = okf && (F->alias || !lstrcmpiW(got,want));
+    if(fi<16) g_present[fi]=present;
+    rk k; rk_reset(&k); rk_s(&k,"face",F->face);
+    rv v; rv_reset(&v); rv_s(&v,F->alias?"alias":F->raster?"raster":"outline"); if(okf) rv_w(&v,got); else rv_na(&v);
+    rv_i(&v,present); if(okt) rv_i(&v,(tm.tmPitchAndFamily&TMPF_TRUETYPE)!=0); else rv_na(&v);
+    DWORD fl=GetFontData(dc,0,0,NULL,0);
+    if(fl==GDI_ERROR || fl==0){ rv_na(&v); rv_na(&v); rv_na(&v); }
+    else {
+      rv_u(&v,fl); uint8_t cs[4]; DWORD r=GetFontData(dc,TAG_HEAD_M,8,cs,4);
+      if(r==4) rv_x(&v,(unsigned long)cs[0]<<24|(unsigned long)cs[1]<<16|(unsigned long)cs[2]<<8|cs[3]); else rv_na(&v);
+      uint8_t *b=(uint8_t*)malloc(fl); char h[17];
+      if(b && GetFontData(dc,0,0,b,fl)==fl){ gb_short_hash(h,b,fl); rv_raw(&v,h); } else rv_na(&v);
+      free(b);
+    }
+    rec_row("face",&k,&v);
+    if(!present) rec_note("absent face=%s (realised as %s): ggo/fonttab/text/methods/styles rows skipped", F->face, okf?"other":"nothing");
+    SelectObject(dc,o); DeleteObject(f);
+  }
+  DeleteDC(dc);
+}
+
+/* --quick: Segoe UI, Tahoma, Arial, MS Shell Dlg. Absent faces are off in every mode (see sec_face). */
+int gb_face_on(int fi){ return (g_full || fi==0 || fi==1 || fi==3 || fi==5) && (fi>=16 || g_present[fi]); }
 
 int main(int argc, char **argv){
-  rec_init(&argc,argv,"glyph_bitmaps","1");
+  rec_init(&argc,argv,"glyph_bitmaps","2");
   const char *only=NULL;
   for(int i=1;i<argc;i++){
     if(!strcmp(argv[i],"--quick")) g_full=0; else if(!strcmp(argv[i],"--full")) g_full=1;
@@ -139,6 +182,7 @@ int main(int argc, char **argv){
   rec_flush();
 #define RUN(name, fn) do{ if(!only || strstr(only,name)){ DWORD t0=GetTickCount(); fn(); rec_note("section %s rows=%d", name, rec_rows()); \
                           fprintf(stderr,"section %s %lu ms\n",name,(unsigned long)(GetTickCount()-t0)); rec_flush(); } }while(0)
+  sec_face();               /* always: presence decides what the other sections record */
   RUN("spi",sec_spi);
   RUN("font",sec_font);
   RUN("gidx",sec_gidx);
