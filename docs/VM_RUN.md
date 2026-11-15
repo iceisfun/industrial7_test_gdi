@@ -149,6 +149,29 @@ unset, throw-away prefix) into `build/wine/<probe>.rec` and validates the traile
 emits a well-formed recording and does not crash. Its numbers are Wine's (FreeType, Wine/Liberation fonts) and must
 never go into `data/` (docs/research/04).
 
+## 7. Running conformance tests
+
+    tools/vm_test.sh core_smoke char_widths                 # one boot, build/vmtest/<tag>-<stamp>/
+    tools/vm_test.sh dpi_scaling --args "metrics" --timeout 600 --tag try1 --outdir /some/dir
+
+`tools/vm_test.sh AREA [AREA...] [--args "..."] [--timeout S] [--tag T] [--outdir DIR] [--destructive] [--dry-run]` builds
+`build/<area>.exe` (make), stages them with `vmrunner.exe` as one payload (plan: one `run` step per area, step name = area)
+and boots the oracle once, through the same `win10_run.sh` and lock as `vm_run.sh`. `--args` is passed to every exe (the
+harness takes one argument, a substring filter on test names). `dx_*` areas are refused without `--destructive`.
+
+Results in OUTDIR: `<area>.log` (the exe's stdout: `RUN`/`OK`/`FAIL`/`SKIP`/`NOTE` lines and the `SUMMARY` line),
+`<area>.err` (stderr, only if any), `summary.txt` (one line per area plus totals, also printed, followed by every `SKIP`
+line and a NOTE count per area), `results.tsv` (area, verdict, exit code, ms), `serial.log` (raw COM1).
+An area is `PASS` only if its step ended with exit code 0, no timeout, a `SUMMARY` with `tests>0 failed=0` and no `FAIL`
+line. Anything else, including a missing result (guest died, step never ran, no END marker), is `FAIL`. SKIPs do not fail.
+Exit status: 0 all areas PASS, 1 some area FAIL, 2 usage/build/boot error.
+
+Gotchas: the harness prints unbuffered, so output before a hang or timeout is kept (a timed-out area is killed with its
+process tree and reported `FAIL [timeout]`); `--args` may not contain cmd metacharacters (`" & | < > ^ %`) and is split on
+spaces by the runner; one boot costs about 110 s plus any wait for the host guest lock; `ORACLE_TIMEOUT` (default 840 s)
+bounds the whole boot, so keep the sum of area timeouts below it. Serial lines are not length-limited by the runner, but
+keep a single test line short anyway (very long NOTE lines make logs unreadable).
+
 ## Running on lanec: local oracle from bb depot m2
 
 `~/w10lab` is a symlink to `/storage/lanec/w10lab`, which holds `win10base.qcow2` (`bb depot get m2`, sha256 991856e1...c4e, read-only),
