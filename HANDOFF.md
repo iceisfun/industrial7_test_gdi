@@ -68,17 +68,19 @@ counted once in exactly one class; the document says which numbers the tooling p
 
 ## Done
 
-- Recorder families: font_metrics, char_widths, face_substitution, ui_metrics, control_heights, glyph_bitmaps, dpi_scaling,
-  font_inventory (+ hello, ui_metrics_ss6), recorded at 96 DPI, with DPI sweeps for ui_metrics / control_heights / dpi_scaling.
-- Conformance areas: core_smoke, char_widths, control_heights, dpi_scaling, face_substitution, font_inventory, font_metrics,
-  glyph_bitmaps, ui_metrics, plus six areas with an `EVIDENCE.md` each: glyph_indices_and_ranges, font_resources,
-  kerning_placement, outline_and_abc, text_output_extents, font_enum_order.
+- Recorder families (13): font_metrics, char_widths, face_substitution, ui_metrics, control_heights, glyph_bitmaps, dpi_scaling,
+  font_inventory, char_placement, drawtext_layout, exttextout_extents, outline_metrics, kerning_pairs (+ hello, ui_metrics_ss6), recorded at 96 DPI,
+  with DPI sweeps for ui_metrics / control_heights / dpi_scaling, awareness and comctl32 v6 variants of control_heights at five DPIs, and a
+  standard-user (restricted token) ui_metrics recording (`runstd` verb of the guest runner, `docs/STD_USER_RUNS.md`).
+- Conformance areas (20, each with an `EVIDENCE.md`): the 15 hand-written areas plus five generated golden areas
+  (`tests/golden_*`, produced by `tools/gen_golden.py` from `docs/D12_DECISION_DATA.md` data; regenerate both generators after changing
+  a recording: `python3 tools/gen_d12.py` and `python3 tools/gen_golden.py`, `--check` verifies them).
 - Guest runners for recorders (`tools/vm_run.sh`) and for tests (`tools/vm_test.sh`), `COVERAGE.md`.
+- Above 96 DPI the guest is not deterministic between boots (STATE.md "DPI states"); do not treat one sweep recording as a stable reference there.
 
 ## Not done
 
-See `STATE.md` for the current list. In short: decision-data tables and golden tests, system-aware and per-monitor-aware variants of
-control_heights, repeated non-96 DPI sweeps for determinism, standard-user recordings, `EVIDENCE.md` for the older areas, opt-in
-destructive `dx_*` areas (font installation limits, corrupt font files, handle exhaustion, runtime DPI / display / locale changes),
-more recorder families (outline metrics, ABC widths, kerning, character placement, ExtTextOut and DrawText layout, font linking,
-locale and charset variants, high contrast) and comparison against other oracle data.
+See `STATE.md` for the current list. In short: opt-in destructive `dx_*` areas (font installation limits, corrupt font files, handle
+exhaustion, runtime DPI / display / locale changes), tests at non-96 DPI, more recorder ideas (ABC widths as a recorder, font linking and
+fallback, locale and charset variants, high contrast, RTL and complex scripts for GetCharacterPlacement), a real standard-user account,
+and comparison against other oracle data.

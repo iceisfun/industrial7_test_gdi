@@ -43,14 +43,14 @@ Called by at least one conformance test. Which results are asserted is in `tests
 | `CreateFontIndirectA` | gdi32+gdi32full | face_substitution, font_enum_order, font_inventory |
 | `CreateFontIndirectExA` | gdi32+gdi32full | font_enum_order |
 | `CreateFontIndirectExW` | gdi32+gdi32full | face_substitution, font_enum_order |
-| `CreateFontIndirectW` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps, glyph_indices_and_ranges, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
+| `CreateFontIndirectW` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps, glyph_indices_and_ranges, golden_char_widths, golden_control_heights, golden_face_substitution, golden_font_metrics, golden_ui_metrics, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
 | `CreateFontW` | gdi32+gdi32full | dpi_scaling, face_substitution, font_enum_order, font_resources |
 | `CreateScalableFontResourceA` | gdi32+gdi32full | font_resources |
 | `CreateScalableFontResourceW` | gdi32 | font_resources |
 | `DPtoLP` | gdi32+gdi32full | text_output_extents |
 | `DeleteDC` | gdi32+gdi32full | control_heights, font_enum_order, font_inventory, font_metrics, font_resources, glyph_bitmaps, kerning_placement, text_output_extents |
 | `DeleteEnhMetaFile` | gdi32+gdi32full | kerning_placement |
-| `DeleteObject` | gdi32 | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, font_resources, glyph_bitmaps, glyph_indices_and_ranges, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
+| `DeleteObject` | gdi32 | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, font_resources, glyph_bitmaps, glyph_indices_and_ranges, golden_char_widths, golden_control_heights, golden_face_substitution, golden_font_metrics, golden_ui_metrics, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
 | `EnumFontFamiliesA` | gdi32+gdi32full | font_enum_order |
 | `EnumFontFamiliesExA` | gdi32+gdi32full | font_enum_order |
 | `EnumFontFamiliesExW` | gdi32+gdi32full | face_substitution, font_enum_order, font_resources |
@@ -72,7 +72,7 @@ Called by at least one conformance test. Which results are asserted is in `tests
 | `GetCharABCWidthsI` | gdi32+gdi32full | char_widths, glyph_indices_and_ranges, outline_and_abc |
 | `GetCharABCWidthsW` | gdi32+gdi32full | char_widths, dpi_scaling, face_substitution, font_inventory, font_metrics, glyph_bitmaps, outline_and_abc, text_output_extents |
 | `GetCharWidth32A` | gdi32+gdi32full | char_widths, outline_and_abc, text_output_extents |
-| `GetCharWidth32W` | gdi32+gdi32full | char_widths, dpi_scaling, face_substitution, font_inventory, font_metrics, glyph_bitmaps, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
+| `GetCharWidth32W` | gdi32+gdi32full | char_widths, dpi_scaling, face_substitution, font_inventory, font_metrics, glyph_bitmaps, golden_char_widths, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
 | `GetCharWidthA` | gdi32+gdi32full | outline_and_abc |
 | `GetCharWidthFloatA` | gdi32+gdi32full | outline_and_abc |
 | `GetCharWidthFloatW` | gdi32+gdi32full | face_substitution, outline_and_abc |
@@ -84,7 +84,7 @@ Called by at least one conformance test. Which results are asserted is in `tests
 | `GetCodePage` | gdi32full | glyph_indices_and_ranges |
 | `GetCurrentObject` | gdi32+gdi32full | char_widths, face_substitution, font_metrics, glyph_bitmaps |
 | `GetCurrentPositionEx` | gdi32+gdi32full | text_output_extents |
-| `GetDeviceCaps` | gdi32+gdi32full | dpi_scaling, font_enum_order, font_metrics, text_output_extents |
+| `GetDeviceCaps` | gdi32+gdi32full | dpi_scaling, font_enum_order, font_metrics, golden_control_heights, text_output_extents |
 | `GetETM` | gdi32+gdi32full | outline_and_abc |
 | `GetFontAssocStatus` | gdi32+gdi32full | font_enum_order |
 | `GetFontData` | gdi32+gdi32full | face_substitution, font_inventory, glyph_bitmaps, glyph_indices_and_ranges, kerning_placement, outline_and_abc |
@@ -108,9 +108,9 @@ Called by at least one conformance test. Which results are asserted is in `tests
 | `GetObjectType` | gdi32+gdi32full | face_substitution, ui_metrics |
 | `GetObjectW` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps, ui_metrics |
 | `GetOutlineTextMetricsA` | gdi32+gdi32full | outline_and_abc |
-| `GetOutlineTextMetricsW` | gdi32+gdi32full | font_inventory, font_metrics, glyph_bitmaps, glyph_indices_and_ranges, outline_and_abc |
+| `GetOutlineTextMetricsW` | gdi32+gdi32full | font_inventory, font_metrics, glyph_bitmaps, glyph_indices_and_ranges, golden_face_substitution, outline_and_abc |
 | `GetRasterizerCaps` | gdi32+gdi32full | glyph_indices_and_ranges |
-| `GetStockObject` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, font_metrics, ui_metrics |
+| `GetStockObject` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, font_metrics, golden_control_heights, golden_font_metrics, ui_metrics |
 | `GetStringBitmapA` | gdi32+gdi32full | outline_and_abc |
 | `GetStringBitmapW` | gdi32 | outline_and_abc |
 | `GetTextAlign` | gdi32+gdi32full | text_output_extents |
@@ -122,15 +122,15 @@ Called by at least one conformance test. Which results are asserted is in `tests
 | `GetTextExtentExPointI` | gdi32+gdi32full | text_output_extents |
 | `GetTextExtentExPointW` | gdi32+gdi32full | char_widths, font_metrics, kerning_placement, text_output_extents |
 | `GetTextExtentPoint32A` | gdi32+gdi32full | dpi_scaling, glyph_bitmaps, kerning_placement, text_output_extents |
-| `GetTextExtentPoint32W` | gdi32+gdi32full | char_widths, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps, kerning_placement, text_output_extents, ui_metrics |
+| `GetTextExtentPoint32W` | gdi32+gdi32full | char_widths, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps, golden_char_widths, kerning_placement, text_output_extents, ui_metrics |
 | `GetTextExtentPointA` | gdi32+gdi32full | text_output_extents |
 | `GetTextExtentPointI` | gdi32+gdi32full | text_output_extents |
 | `GetTextExtentPointW` | gdi32+gdi32full | text_output_extents |
 | `GetTextFaceA` | gdi32+gdi32full | face_substitution, font_enum_order, font_inventory, font_metrics, glyph_indices_and_ranges |
 | `GetTextFaceAliasW` | gdi32+gdi32full | font_enum_order |
-| `GetTextFaceW` | gdi32+gdi32full | char_widths, face_substitution, font_enum_order, font_inventory, font_metrics, font_resources, glyph_bitmaps, glyph_indices_and_ranges, kerning_placement, outline_and_abc, text_output_extents |
+| `GetTextFaceW` | gdi32+gdi32full | char_widths, face_substitution, font_enum_order, font_inventory, font_metrics, font_resources, glyph_bitmaps, glyph_indices_and_ranges, golden_face_substitution, golden_font_metrics, kerning_placement, outline_and_abc, text_output_extents |
 | `GetTextMetricsA` | gdi32+gdi32full | dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps |
-| `GetTextMetricsW` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps, glyph_indices_and_ranges, outline_and_abc, text_output_extents, ui_metrics |
+| `GetTextMetricsW` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, glyph_bitmaps, glyph_indices_and_ranges, golden_face_substitution, golden_font_metrics, golden_ui_metrics, outline_and_abc, text_output_extents, ui_metrics |
 | `GetViewportExtEx` | gdi32+gdi32full | text_output_extents |
 | `GetViewportOrgEx` | gdi32+gdi32full | text_output_extents |
 | `GetWindowExtEx` | gdi32+gdi32full | text_output_extents |
@@ -150,7 +150,7 @@ Called by at least one conformance test. Which results are asserted is in `tests
 | `SaveDC` | gdi32+gdi32full | text_output_extents |
 | `ScaleViewportExtEx` | gdi32+gdi32full | text_output_extents |
 | `ScaleWindowExtEx` | gdi32+gdi32full | text_output_extents |
-| `SelectObject` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, font_resources, glyph_bitmaps, glyph_indices_and_ranges, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
+| `SelectObject` | gdi32+gdi32full | char_widths, control_heights, dpi_scaling, face_substitution, font_enum_order, font_inventory, font_metrics, font_resources, glyph_bitmaps, glyph_indices_and_ranges, golden_char_widths, golden_face_substitution, golden_font_metrics, golden_ui_metrics, kerning_placement, outline_and_abc, text_output_extents, ui_metrics |
 | `SetBkColor` | gdi32+gdi32full | glyph_bitmaps, text_output_extents |
 | `SetBkMode` | gdi32+gdi32full | glyph_bitmaps, text_output_extents |
 | `SetGraphicsMode` | gdi32+gdi32full | outline_and_abc |
