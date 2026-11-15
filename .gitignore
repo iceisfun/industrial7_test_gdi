@@ -5,3 +5,4 @@ data/raw/
 *.rec.bad
 __pycache__/
 *.pyc
+tools/uncovered.txt

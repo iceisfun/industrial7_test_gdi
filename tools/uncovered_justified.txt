@@ -1,0 +1,1296 @@
+AbortDoc	printer-only or spooler path; the oracle guest has no printer device
+AbortDocImpl	printer-only or spooler path; the oracle guest has no printer device
+AbortPath	delegated: non-text GDI breadth, covered by the sibling corpus
+AddFontResourceTracking	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+AddFontResourceWImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+AngleArc	delegated: non-text GDI breadth, covered by the sibling corpus
+AnimatePalette	delegated: non-text GDI breadth, covered by the sibling corpus
+Arc	delegated: non-text GDI breadth, covered by the sibling corpus
+ArcTo	delegated: non-text GDI breadth, covered by the sibling corpus
+BRUSHOBJ_hGetColorTransform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+BRUSHOBJ_pvAllocRbrush	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+BRUSHOBJ_pvGetRbrush	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+BRUSHOBJ_ulGetBrushColor	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+BeginGdiRendering	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+BeginPath	delegated: non-text GDI breadth, covered by the sibling corpus
+BeginPathImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+BitBlt	delegated: non-text GDI breadth, covered by the sibling corpus
+CLIPOBJ_bEnum	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+CLIPOBJ_cEnumStart	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+CLIPOBJ_ppoGetPath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+CancelDC	delegated: non-text GDI breadth, covered by the sibling corpus
+CheckColorsInGamut	delegated: non-text GDI breadth, covered by the sibling corpus
+ChoosePixelFormat	delegated: non-text GDI breadth, covered by the sibling corpus
+Chord	delegated: non-text GDI breadth, covered by the sibling corpus
+ClearBitmapAttributes	delegated: non-text GDI breadth, covered by the sibling corpus
+ClearBrushAttributes	delegated: non-text GDI breadth, covered by the sibling corpus
+CloseFigure	delegated: non-text GDI breadth, covered by the sibling corpus
+CloseFigureImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+CloseMetaFile	delegated: non-text GDI breadth, covered by the sibling corpus
+ColorCorrectPalette	delegated: non-text GDI breadth, covered by the sibling corpus
+ColorMatchToTarget	delegated: non-text GDI breadth, covered by the sibling corpus
+CombineRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+CombineTransform	delegated: non-text GDI breadth, covered by the sibling corpus
+ConfigureOPMProtectedOutput	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+CopyEnhMetaFileA	delegated: non-text GDI breadth, covered by the sibling corpus
+CopyEnhMetaFileW	delegated: non-text GDI breadth, covered by the sibling corpus
+CopyMetaFileA	delegated: non-text GDI breadth, covered by the sibling corpus
+CopyMetaFileW	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateBitmap	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateBitmapFromDxSurface	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+CreateBitmapFromDxSurface2	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+CreateBitmapIndirect	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateBrushIndirect	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateColorSpaceA	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateColorSpaceW	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateDCA	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateDCAImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+CreateDCExW	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateDCW	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateDIBPatternBrush	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateDIBPatternBrushPt	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateDIBitmap	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateDPIScaledDIBSection	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+CreateDiscardableBitmap	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateEllipticRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateEllipticRgnIndirect	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateEnhMetaFileA	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateFontIndirectWImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+CreateHalftonePalette	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateHatchBrush	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateICA	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateICW	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateMetaFileA	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateMetaFileW	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateOPMProtectedOutput	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+CreateOPMProtectedOutputs	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+CreatePalette	delegated: non-text GDI breadth, covered by the sibling corpus
+CreatePatternBrush	delegated: non-text GDI breadth, covered by the sibling corpus
+CreatePen	delegated: non-text GDI breadth, covered by the sibling corpus
+CreatePenIndirect	delegated: non-text GDI breadth, covered by the sibling corpus
+CreatePolyPolygonRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+CreatePolygonRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateRectRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateRectRgnIndirect	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateRoundRectRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+CreateScalableFontResourceWImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+CreateScaledCompatibleBitmap	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+CreateSessionMappedDIBSection	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+CreateSolidBrush	delegated: non-text GDI breadth, covered by the sibling corpus
+D3DKMTAbandonSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTAcquireKeyedMutex	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTAcquireKeyedMutex2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTAcquireSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTAddSurfaceToSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTAdjustFullscreenGamma	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCacheHybridQueryValue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTChangeVideoMemoryReservation	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckExclusiveOwnership	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckMonitorPowerState	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckMultiPlaneOverlaySupport	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckMultiPlaneOverlaySupport2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckMultiPlaneOverlaySupport3	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckOcclusion	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckSharedResourceAccess	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCheckVidPnExclusiveOwnership	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCloseAdapter	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTConfigureSharedResource	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateAllocation	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateAllocation2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateBundleObject	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateContext	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateContextVirtual	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateDCFromMemory	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateDevice	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateHwContext	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateKeyedMutex	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateKeyedMutex2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateOutputDupl	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateOverlay	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreatePagingQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateProtectedSession	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateSynchronizationObject	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateSynchronizationObject2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTCreateTrackedWorkload	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDDisplayEnum	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyAllocation	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyAllocation2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyContext	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyDCFromMemory	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyDevice	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyHwContext	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyKeyedMutex	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyOutputDupl	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyOverlay	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyPagingQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyProtectedSession	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroySynchronizationObject	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDestroyTrackedWorkload	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDispMgrCreate	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDispMgrOperation	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDispMgrSourceOperation	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDispMgrTargetOperation	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDisplayPortOperation	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTDuplicateHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTEnumAdapters	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTEnumAdapters2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTEnumAdapters3	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTEscape	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTEvict	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTExtractBundleObject	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTFlipOverlay	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTFlushHeapTransitions	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTFreeGpuVirtualAddress	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetAllocationPriority	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetAvailableTrackedWorkloadIndex	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetCachedHybridQueryValue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetContextInProcessSchedulingPriority	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetContextSchedulingPriority	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetDWMVerticalBlankEvent	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetDeviceState	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetDisplayModeList	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetMemoryBudgetTarget	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetMultiPlaneOverlayCaps	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetMultisampleMethodList	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetOverlayState	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetPostCompositionCaps	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetPresentHistory	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetPresentQueueEvent	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetProcessDeviceRemovalSupport	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetProcessList	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetProcessSchedulingPriorityBand	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetProcessSchedulingPriorityClass	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetResourcePresentPrivateDriverData	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetRuntimeData	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetScanLine	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetSetSwapChainMetadata	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetSharedPrimaryHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetSharedResourceAdapterLuid	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetTrackedWorkloadStatistics	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTGetYieldPercentage	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTInvalidateActiveVidPn	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTInvalidateCache	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTLock	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTLock2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTMakeResident	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTMapGpuVirtualAddress	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTMarkDeviceAsError	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTNetDispGetNextChunkInfo	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTNetDispQueryMiracastDisplayDeviceStatus	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTNetDispQueryMiracastDisplayDeviceSupport	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTNetDispStartMiracastDisplayDevice	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTNetDispStartMiracastDisplayDevice2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTNetDispStartMiracastDisplayDeviceEx	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTNetDispStopMiracastDisplayDevice	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOfferAllocations	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenAdapterFromDeviceName	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenAdapterFromGdiDisplayName	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenAdapterFromHdc	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenAdapterFromLuid	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenBundleObjectNtHandleFromName	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenKeyedMutex	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenKeyedMutex2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenKeyedMutexFromNtHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenNtHandleFromName	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenProtectedSessionFromNtHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenResource	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenResource2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenResourceFromNtHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenSyncObjectFromNtHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenSyncObjectFromNtHandle2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenSyncObjectNtHandleFromName	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOpenSynchronizationObject	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOutputDuplGetFrameInfo	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOutputDuplGetMetaData	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOutputDuplGetPointerShapeData	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOutputDuplPresent	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOutputDuplPresentToHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTOutputDuplReleaseFrame	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPinDirectFlipResources	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPinResources	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPollDisplayChildren	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPresent	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPresentMultiPlaneOverlay	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPresentMultiPlaneOverlay2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPresentMultiPlaneOverlay3	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTPresentRedirected	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryAdapterInfo	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryAllocationResidency	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryClockCalibration	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryFSEBlock	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryProcessOfferInfo	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryProtectedSessionInfoFromNtHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryProtectedSessionStatus	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryRemoteVidPnSourceFromGdiDisplayName	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryResourceInfo	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryResourceInfoFromNtHandle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryStatistics	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryVidPnExclusiveOwnership	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTQueryVideoMemoryInfo	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTReclaimAllocations	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTReclaimAllocations2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTRegisterTrimNotification	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTRegisterVailProcess	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTReleaseKeyedMutex	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTReleaseKeyedMutex2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTReleaseProcessVidPnSourceOwners	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTReleaseSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTRemoveSurfaceFromSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTRender	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTReserveGpuVirtualAddress	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTResetTrackedWorkloadStatistics	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetAllocationPriority	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetContextInProcessSchedulingPriority	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetContextSchedulingPriority	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetDisplayMode	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetDisplayPrivateDriverFormat	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetDodIndirectSwapchain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetFSEBlock	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetGammaRamp	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetHwProtectionTeardownRecovery	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetMemoryBudgetTarget	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetMonitorColorSpaceTransform	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetProcessDeviceRemovalSupport	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetProcessSchedulingPriorityBand	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetProcessSchedulingPriorityClass	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetQueuedLimit	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetStablePowerState	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetStereoEnabled	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetSyncRefreshCountWaitTarget	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetVidPnSourceHwProtection	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetVidPnSourceOwner	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetVidPnSourceOwner1	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetVidPnSourceOwner2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSetYieldPercentage	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTShareObjects	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSharedPrimaryLockNotification	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSharedPrimaryUnLockNotification	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSignalSynchronizationObject	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSignalSynchronizationObject2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSignalSynchronizationObjectFromCpu	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSignalSynchronizationObjectFromGpu	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSignalSynchronizationObjectFromGpu2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSubmitCommand	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSubmitCommandToHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSubmitPresentBltToHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSubmitPresentToHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSubmitSignalSyncObjectsToHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTSubmitWaitForSyncObjectsToHwQueue	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTTrimProcessCommitment	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUnOrderedPresentSwapChain	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUnlock	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUnlock2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUnpinDirectFlipResources	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUnpinResources	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUnregisterTrimNotification	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUpdateAllocationProperty	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUpdateGpuVirtualAddress	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUpdateOverlay	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTUpdateTrackedWorkload	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTVailConnect	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTVailDisconnect	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTVailPromoteCompositionSurface	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTWaitForIdle	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTWaitForSynchronizationObject	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTWaitForSynchronizationObject2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTWaitForSynchronizationObjectFromCpu	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTWaitForSynchronizationObjectFromGpu	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTWaitForVerticalBlankEvent	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+D3DKMTWaitForVerticalBlankEvent2	WDDM kernel-mode thunk; needs a GPU adapter and display driver, not behaviour of GDI text
+DDCCIGetCapabilitiesString	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DDCCIGetCapabilitiesStringLength	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DDCCIGetTimingReport	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DDCCIGetVCPFeature	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DDCCISaveCurrentSettings	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DDCCISetVCPFeature	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DdCreateFullscreenSprite	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdDestroyFullscreenSprite	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry0	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry1	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry10	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry11	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry12	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry13	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry14	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry15	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry16	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry17	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry18	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry19	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry2	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry20	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry21	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry22	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry23	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry24	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry25	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry26	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry27	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry28	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry29	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry3	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry30	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry31	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry32	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry33	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry34	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry35	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry36	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry37	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry38	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry39	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry4	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry40	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry41	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry42	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry43	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry44	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry45	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry46	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry47	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry48	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry49	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry5	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry50	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry51	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry52	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry53	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry54	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry55	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry56	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry6	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry7	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry8	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdEntry9	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdNotifyFullscreenSpriteUpdate	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DdQueryVisRgnUniqueness	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+DeleteColorSpace	delegated: non-text GDI breadth, covered by the sibling corpus
+DeleteEMFSpoolData	delegated: non-text GDI breadth, covered by the sibling corpus
+DeleteMetaFile	delegated: non-text GDI breadth, covered by the sibling corpus
+DescribePixelFormat	delegated: non-text GDI breadth, covered by the sibling corpus
+DestroyOPMProtectedOutput	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DestroyPhysicalMonitorInternal	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+DeviceCapabilitiesExA	printer-only or spooler path; the oracle guest has no printer device
+DeviceCapabilitiesExW	printer-only or spooler path; the oracle guest has no printer device
+DocumentEventEx	printer-only or spooler path; the oracle guest has no printer device
+DrawEscape	printer-only or spooler path; the oracle guest has no printer device
+DwmCreatedBitmapRemotingOutput	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+DwmGetDirtyRgnImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+DxTrimNotificationListHead	exported data symbol, not a function
+Ellipse	delegated: non-text GDI breadth, covered by the sibling corpus
+EnableEUDC	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+EndDoc	printer-only or spooler path; the oracle guest has no printer device
+EndDocImpl	printer-only or spooler path; the oracle guest has no printer device
+EndFormPage	printer-only or spooler path; the oracle guest has no printer device
+EndGdiRendering	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+EndPage	printer-only or spooler path; the oracle guest has no printer device
+EndPageImpl	printer-only or spooler path; the oracle guest has no printer device
+EndPath	delegated: non-text GDI breadth, covered by the sibling corpus
+EndPathImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+EngAcquireSemaphore	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngAlphaBlend	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngAssociateSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngBitBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCheckAbort	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngComputeGlyphSet	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCopyBits	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCreateBitmap	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCreateClip	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCreateDeviceBitmap	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCreateDeviceSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCreatePalette	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngCreateSemaphore	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngDeleteClip	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngDeletePalette	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngDeletePath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngDeleteSemaphore	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngDeleteSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngEraseSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngFillPath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngFindResource	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngFreeModule	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngGetCurrentCodePage	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngGetDriverName	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngGetPrinterDataFileName	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngGradientFill	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngLineTo	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngLoadModule	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngLockSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngMarkBandingSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngMultiByteToUnicodeN	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngMultiByteToWideChar	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngPaint	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngPlgBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngQueryEMFInfo	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngQueryLocalTime	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngReleaseSemaphore	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngStretchBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngStretchBltROP	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngStrokeAndFillPath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngStrokePath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngTextOut	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngTransparentBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngUnicodeToMultiByteN	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngUnlockSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EngWideCharToMultiByte	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+EnumEnhMetaFile	delegated: non-text GDI breadth, covered by the sibling corpus
+EnumICMProfilesA	delegated: non-text GDI breadth, covered by the sibling corpus
+EnumICMProfilesW	delegated: non-text GDI breadth, covered by the sibling corpus
+EnumMetaFile	delegated: non-text GDI breadth, covered by the sibling corpus
+EnumObjects	delegated: non-text GDI breadth, covered by the sibling corpus
+EqualRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+Escape	printer-only or spooler path; the oracle guest has no printer device
+EscapeImpl	printer-only or spooler path; the oracle guest has no printer device
+EudcLoadLinkW	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+EudcUnloadLinkW	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+ExcludeClipRect	delegated: non-text GDI breadth, covered by the sibling corpus
+ExtCreatePen	delegated: non-text GDI breadth, covered by the sibling corpus
+ExtCreateRegion	delegated: non-text GDI breadth, covered by the sibling corpus
+ExtEscape	printer-only or spooler path; the oracle guest has no printer device
+ExtEscapeImpl	printer-only or spooler path; the oracle guest has no printer device
+ExtFloodFill	delegated: non-text GDI breadth, covered by the sibling corpus
+ExtSelectClipRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+ExtSelectClipRgnImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ExtTextOutAImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ExtTextOutWImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+FONTOBJ_cGetAllGlyphHandles	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FONTOBJ_cGetGlyphs	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FONTOBJ_pQueryGlyphAttrs	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FONTOBJ_pfdg	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FONTOBJ_pifi	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FONTOBJ_pvTrueTypeFontFile	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FONTOBJ_pxoGetXform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FONTOBJ_vGetInfo	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+FillPath	delegated: non-text GDI breadth, covered by the sibling corpus
+FillPathImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+FillRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+FixBrushOrgEx	delegated: non-text GDI breadth, covered by the sibling corpus
+FlattenPath	delegated: non-text GDI breadth, covered by the sibling corpus
+FloodFill	delegated: non-text GDI breadth, covered by the sibling corpus
+FrameRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+Gdi32DllInitialize	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiAddFontResourceW	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiAddGlsBounds	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiAddGlsRecord	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiAddInitialFonts	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiAlphaBlend	delegated: non-text GDI breadth, covered by the sibling corpus
+GdiArtificialDecrementDriver	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiBatchLimit	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GdiCleanCacheDC	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GdiComment	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConsoleTextOut	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertAndCheckDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertBitmap	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertBitmapV5	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertBrush	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertEnhMetaFile	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertFont	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertMetaFilePict	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertPalette	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertRegion	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiConvertToDevmodeW	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiCreateLocalEnhMetaFile	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiCreateLocalMetaFilePict	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiCurrentProcessSplWow64	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiDeleteLocalDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiDeleteSpoolFileHandle	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiDescribePixelFormat	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GdiDllInitialize	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiDllInitializeWrapper	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiDrawStream	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEndDocEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEndPageEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry1	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry10	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry11	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry12	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry13	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry14	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry15	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry16	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry2	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry3	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry4	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry5	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry6	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry7	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry8	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiEntry9	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiFixUpHandle	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiFullscreenControl	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetBatchLimit	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetBitmapBitsSize	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetDevmodeForPage	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetEntry	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetLocalBrush	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetLocalDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetLocalFont	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetPageCount	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetPageHandle	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetSpoolFileHandle	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetSpoolMessage	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGetVariationStoreDelta	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiGradientFill	delegated: non-text GDI breadth, covered by the sibling corpus
+GdiHandleBeingTracked	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiInitSpool	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiInitializeLanguagePack	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiIsMetaFileDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiIsMetaPrintDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiIsPlayMetafileDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiIsScreenDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiIsTrackingEnabled	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiIsUMPDSandboxingEnabled	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiLoadType1Fonts	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiPlayDCScript	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiPlayEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiPlayJournal	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiPlayPageEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiPlayPrivatePageEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiPlayScript	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiPrinterThunk	printer-only or spooler path; the oracle guest has no printer device
+GdiProcessSetup	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiQueryFonts	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiQueryTable	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiRealizationInfo	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiReleaseDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiReleaseLocalDC	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiResetDCEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiSetAttrs	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiSetBatchLimit	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiSetLastError	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiSetPixelFormat	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiSetServerAttr	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiStartDocEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiStartPageEMF	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiSupportsFontChangeEvent	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiSwapBuffers	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GdiTrackHCreate	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiTrackHDelete	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GdiTransparentBlt	delegated: non-text GDI breadth, covered by the sibling corpus
+GdiValidateHandle	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GditGetCallerTLStorage	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GditPopCallerInfo	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GditPushCallerInfo	undocumented internal initialisation, handle-table or spool helper; no stable contract, exercised implicitly by every public call
+GetArcDirection	delegated: non-text GDI breadth, covered by the sibling corpus
+GetAspectRatioFilterEx	delegated: non-text GDI breadth, covered by the sibling corpus
+GetBitmapAttributes	delegated: non-text GDI breadth, covered by the sibling corpus
+GetBitmapBits	delegated: non-text GDI breadth, covered by the sibling corpus
+GetBitmapDimensionEx	delegated: non-text GDI breadth, covered by the sibling corpus
+GetBoundsRect	delegated: non-text GDI breadth, covered by the sibling corpus
+GetBrushAttributes	delegated: non-text GDI breadth, covered by the sibling corpus
+GetBrushOrgEx	delegated: non-text GDI breadth, covered by the sibling corpus
+GetCOPPCompatibleOPMInformation	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetCertificate	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetCertificateByHandle	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetCertificateSize	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetCertificateSizeByHandle	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetClipBox	delegated: non-text GDI breadth, covered by the sibling corpus
+GetClipBoxImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GetClipRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+GetColorAdjustment	delegated: non-text GDI breadth, covered by the sibling corpus
+GetColorSpace	delegated: non-text GDI breadth, covered by the sibling corpus
+GetDCBrushColor	delegated: non-text GDI breadth, covered by the sibling corpus
+GetDCOrgEx	delegated: non-text GDI breadth, covered by the sibling corpus
+GetDCPenColor	delegated: non-text GDI breadth, covered by the sibling corpus
+GetDIBColorTable	delegated: non-text GDI breadth, covered by the sibling corpus
+GetDIBits	delegated: non-text GDI breadth, covered by the sibling corpus
+GetDeviceGammaRamp	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetEUDCTimeStamp	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+GetEUDCTimeStampExW	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+GetEnhMetaFileA	delegated: non-text GDI breadth, covered by the sibling corpus
+GetEnhMetaFileBits	delegated: non-text GDI breadth, covered by the sibling corpus
+GetEnhMetaFileDescriptionA	delegated: non-text GDI breadth, covered by the sibling corpus
+GetEnhMetaFileDescriptionW	delegated: non-text GDI breadth, covered by the sibling corpus
+GetEnhMetaFileHeader	delegated: non-text GDI breadth, covered by the sibling corpus
+GetEnhMetaFilePaletteEntries	delegated: non-text GDI breadth, covered by the sibling corpus
+GetEnhMetaFilePixelFormat	delegated: non-text GDI breadth, covered by the sibling corpus
+GetEnhMetaFileW	delegated: non-text GDI breadth, covered by the sibling corpus
+GetFontDataImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GetGraphicsMode	delegated: non-text GDI breadth, covered by the sibling corpus
+GetHFONT	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GetICMProfileA	delegated: non-text GDI breadth, covered by the sibling corpus
+GetICMProfileW	delegated: non-text GDI breadth, covered by the sibling corpus
+GetLogColorSpaceA	delegated: non-text GDI breadth, covered by the sibling corpus
+GetLogColorSpaceW	delegated: non-text GDI breadth, covered by the sibling corpus
+GetMetaFileA	delegated: non-text GDI breadth, covered by the sibling corpus
+GetMetaFileBitsEx	delegated: non-text GDI breadth, covered by the sibling corpus
+GetMetaFileW	delegated: non-text GDI breadth, covered by the sibling corpus
+GetMetaRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+GetMiterLimit	delegated: non-text GDI breadth, covered by the sibling corpus
+GetNearestColor	delegated: non-text GDI breadth, covered by the sibling corpus
+GetNearestPaletteIndex	delegated: non-text GDI breadth, covered by the sibling corpus
+GetNumberOfPhysicalMonitors	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetOPMInformation	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetOPMRandomNumber	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetPaletteEntries	delegated: non-text GDI breadth, covered by the sibling corpus
+GetPath	delegated: non-text GDI breadth, covered by the sibling corpus
+GetPhysicalMonitorDescription	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetPhysicalMonitors	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetPixel	delegated: non-text GDI breadth, covered by the sibling corpus
+GetPixelFormat	delegated: non-text GDI breadth, covered by the sibling corpus
+GetPolyFillMode	delegated: non-text GDI breadth, covered by the sibling corpus
+GetProcessSessionFonts	session or network font state not reachable without privileged setup
+GetROP2	delegated: non-text GDI breadth, covered by the sibling corpus
+GetRandomRgn	needs a DWM or Direct3D surface or session-mapped memory; not callable as plain GDI
+GetRegionData	delegated: non-text GDI breadth, covered by the sibling corpus
+GetRelAbs	delegated: non-text GDI breadth, covered by the sibling corpus
+GetRgnBox	delegated: non-text GDI breadth, covered by the sibling corpus
+GetStretchBltMode	delegated: non-text GDI breadth, covered by the sibling corpus
+GetSuggestedOPMProtectedOutputArraySize	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+GetSystemPaletteEntries	delegated: non-text GDI breadth, covered by the sibling corpus
+GetSystemPaletteUse	delegated: non-text GDI breadth, covered by the sibling corpus
+GetTextExtentExPointWPri	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GetTextMetricsAImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+GetTransform	delegated: non-text GDI breadth, covered by the sibling corpus
+GetWinMetaFileBits	delegated: non-text GDI breadth, covered by the sibling corpus
+GetWorldTransform	delegated: non-text GDI breadth, covered by the sibling corpus
+HT_Get8BPPFormatPalette	halftone helper of the driver DDI; only meaningful inside a driver
+HT_Get8BPPMaskPalette	halftone helper of the driver DDI; only meaningful inside a driver
+IcmDeleteLocalDC	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+IcmReleaseCachedColorSpace	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+InternalDeleteDC	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+InternalDeleteObject	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+IntersectClipRect	delegated: non-text GDI breadth, covered by the sibling corpus
+IntersectClipRectImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+InvertRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+IsValidEnhMetaRecord	delegated: non-text GDI breadth, covered by the sibling corpus
+IsValidEnhMetaRecordOffExt	delegated: non-text GDI breadth, covered by the sibling corpus
+LineDDA	delegated: non-text GDI breadth, covered by the sibling corpus
+LineTo	delegated: non-text GDI breadth, covered by the sibling corpus
+LineToImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+LpkDrawTextEx	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkEditControl	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkExtTextOut	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkGetCharacterPlacement	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkGetEditControl	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkGetTextExtentExPoint	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkInitialize	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkPSMTextOut	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkPresent	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkTabbedTextOut	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkUseGDIWidthCache	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkpEditControlSize	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+LpkpInitializeEditControl	language-pack callback invoked only by user32 text routines; no meaningful standalone call
+MF16_DeleteObject	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+MF_DeleteObject	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+MaskBlt	delegated: non-text GDI breadth, covered by the sibling corpus
+MirrorRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+ModerncoreCreateICW	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ModerncoreDeleteDC	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ModerncoreGdiInit	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ModifyWorldTransform	delegated: non-text GDI breadth, covered by the sibling corpus
+MoveToExImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+NamedEscape	printer-only or spooler path; the oracle guest has no printer device
+NtGdiAbortDoc	printer-only or spooler path; the oracle guest has no printer device
+NtGdiAbortPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiAddEmbFontToDC	session or network font state not reachable without privileged setup
+NtGdiAddFontMemResourceEx	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiAddFontResourceW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiAddRemoteFontToDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiAddRemoteMMInstanceToDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiAlphaBlend	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiAngleArc	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiAnyLinkedFonts	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiArcInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiBRUSHOBJ_DeleteRbrush	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiBRUSHOBJ_hGetColorTransform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiBRUSHOBJ_pvAllocRbrush	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiBRUSHOBJ_pvGetRbrush	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiBRUSHOBJ_ulGetBrushColor	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiBeginGdiRendering	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiBeginPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiBitBlt	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCLIPOBJ_bEnum	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiCLIPOBJ_cEnumStart	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiCLIPOBJ_ppoGetPath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiCancelDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiChangeGhostFont	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCheckBitmapBits	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiClearBitmapAttributes	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiClearBrushAttributes	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCloseFigure	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiColorCorrectPalette	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCombineRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCombineTransform	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiComputeXformCoefficients	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiConfigureOPMProtectedOutput	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiConvertMetafileRect	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateBitmap	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateBitmapFromDxSurface	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateBitmapFromDxSurface2	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateClientObj	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateColorSpace	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateColorTransform	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateCompatibleBitmap	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateCompatibleDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateDIBBrush	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateDIBSection	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateDIBitmapInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateEllipticRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateHalftonePalette	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateHatchBrushInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateMetafileDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateOPMProtectedOutput	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiCreateOPMProtectedOutputs	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiCreatePaletteInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreatePatternBrushInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreatePen	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateRectRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateRoundRectRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateServerMetaFile	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateSessionMappedDIBSection	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiCreateSolidBrush	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiD3dContextCreate	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiD3dContextDestroy	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiD3dContextDestroyAll	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiD3dDrawPrimitives2	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiD3dValidateTextureStageState	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDDCCIGetCapabilitiesString	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDDCCIGetCapabilitiesStringLength	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDDCCIGetTimingReport	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDDCCIGetVCPFeature	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDDCCISaveCurrentSettings	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDDCCISetVCPFeature	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDdAddAttachedSurface	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdAlphaBlt	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdAttachSurface	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdBeginMoCompFrame	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdBlt	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCanCreateD3DBuffer	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCanCreateSurface	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdColorControl	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCreateD3DBuffer	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCreateDirectDrawObject	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCreateFullscreenSprite	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCreateMoComp	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCreateSurface	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCreateSurfaceEx	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdCreateSurfaceObject	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdDeleteDirectDrawObject	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdDeleteSurfaceObject	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdDestroyD3DBuffer	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdDestroyFullscreenSprite	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdDestroyMoComp	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdDestroySurface	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdEndMoCompFrame	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdFlip	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdFlipToGDISurface	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetAvailDriverMemory	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetBltStatus	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetDC	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetDriverInfo	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetDriverState	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetDxHandle	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetFlipStatus	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetInternalMoCompInfo	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetMoCompBuffInfo	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetMoCompFormats	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetMoCompGuids	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdGetScanLine	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdLock	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdLockD3D	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdNotifyFullscreenSpriteUpdate	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdQueryDirectDrawObject	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdQueryMoCompStatus	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdQueryVisRgnUniqueness	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdReenableDirectDrawObject	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdReleaseDC	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdRenderMoComp	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdResetVisrgn	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdSetColorKey	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdSetExclusiveMode	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdSetGammaRamp	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdSetOverlayPosition	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdUnattachSurface	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdUnlock	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdUnlockD3D	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdUpdateOverlay	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDdWaitForVerticalBlank	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDeleteClientObj	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDeleteColorSpace	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDeleteColorTransform	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDeleteObjectApp	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDescribePixelFormat	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDestroyOPMProtectedOutput	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDestroyPhysicalMonitor	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiDoBanding	printer-only or spooler path; the oracle guest has no printer device
+NtGdiDoPalette	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDrawEscape	printer-only or spooler path; the oracle guest has no printer device
+NtGdiDrawStream	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDvpAcquireNotification	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpCanCreateVideoPort	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpColorControl	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpCreateVideoPort	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpDestroyVideoPort	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpFlipVideoPort	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoPortBandwidth	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoPortConnectInfo	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoPortField	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoPortFlipStatus	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoPortInputFormats	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoPortLine	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoPortOutputFormats	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpGetVideoSignalStatus	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpReleaseNotification	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpUpdateVideoPort	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDvpWaitForVideoPortSync	DirectDraw/Direct3D legacy kernel thunk; needs a display driver DDI, not exercisable from a black-box GDI test
+NtGdiDwmCreatedBitmapRemotingOutput	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiDxgGenericThunk	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEllipse	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEnableEudc	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+NtGdiEndDoc	printer-only or spooler path; the oracle guest has no printer device
+NtGdiEndGdiRendering	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEndPage	printer-only or spooler path; the oracle guest has no printer device
+NtGdiEndPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEngAlphaBlend	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngAssociateSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngBitBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngCheckAbort	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngComputeGlyphSet	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngCopyBits	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngCreateClip	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngDeleteClip	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngDeletePath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngEraseSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngFillPath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngGradientFill	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngLineTo	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngLockSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngMarkBandingSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngPaint	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngPlgBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngStretchBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngStretchBltROP	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngStrokeAndFillPath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngStrokePath	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngTextOut	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngTransparentBlt	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEngUnlockSurface	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiEnsureDpiDepDefaultGuiFontForPlateau	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEnumFonts	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEnumObjects	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEqualRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiEudcLoadUnloadLink	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+NtGdiExcludeClipRect	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiExtCreatePen	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiExtCreateRegion	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiExtEscape	printer-only or spooler path; the oracle guest has no printer device
+NtGdiExtFloodFill	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiExtGetObjectW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiExtSelectClipRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiExtTextOutW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiFONTOBJ_cGetAllGlyphHandles	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFONTOBJ_cGetGlyphs	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFONTOBJ_pQueryGlyphAttrs	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFONTOBJ_pfdg	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFONTOBJ_pifi	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFONTOBJ_pvTrueTypeFontFile	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFONTOBJ_pxoGetXform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFONTOBJ_vGetInfo	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiFillPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiFillRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiFlattenPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiFlush	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiFontIsLinked	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiForceUFIMapping	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiFrameRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiFullscreenControl	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetAndSetDCDword	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetAppClipBox	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetAppliedDeviceGammaRamp	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetBitmapBits	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetBitmapDimension	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetBitmapDpiScaleValue	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetBoundsRect	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetCOPPCompatibleOPMInformation	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetCertificate	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetCertificateByHandle	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetCertificateSize	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetCertificateSizeByHandle	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetCharABCWidthsW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetCharSet	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetCharWidthInfo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetCharWidthW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetCharacterPlacementW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetColorAdjustment	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetColorSpaceforBitmap	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetCurrentDpiInfo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDCDpiScaleValue	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDCDword	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDCObject	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDCPoint	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDCforBitmap	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDIBitsInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDeviceCaps	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDeviceCapsAll	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDeviceGammaRamp	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetDeviceWidth	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetDhpdev	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetETM	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetEmbUFI	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetEmbedFonts	session or network font state not reachable without privileged setup
+NtGdiGetEntry	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetEudcTimeStampEx	end-user-defined-character state is system-wide registry and font state; destructive, belongs in an opt-in dx_ area
+NtGdiGetFontData	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetFontFileData	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetFontFileInfo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetFontResourceInfoInternalW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetFontUnicodeRanges	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetGammaRampCapability	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetGlyphIndicesW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetGlyphIndicesWInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetGlyphOutline	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetKerningPairs	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetLinkedUFIs	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetMiterLimit	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetMonitorID	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetNearestColor	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetNearestPaletteIndex	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetNumberOfPhysicalMonitors	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetOPMInformation	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetOPMRandomNumber	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetObjectBitmapHandle	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetOutlineTextMetricsInternalW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetPerBandInfo	printer-only or spooler path; the oracle guest has no printer device
+NtGdiGetPhysicalMonitorDescription	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetPhysicalMonitors	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetPixel	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetRandomRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetRasterizerCaps	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetRealizationInfo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetRegionData	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetRgnBox	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetServerMetaFileBits	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetSpoolMessage	printer-only or spooler path; the oracle guest has no printer device
+NtGdiGetStats	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetStringBitmapW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetSuggestedOPMProtectedOutputArraySize	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiGetSystemPaletteUse	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetTextCharsetInfo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetTextExtent	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetTextExtentExW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetTextFaceW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetTextMetricsW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetTransform	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetUFI	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetUFIPathname	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGetWidthTable	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiGradientFill	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiHLSurfGetInformation	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiHLSurfSetInformation	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiHT_Get8BPPFormatPalette	halftone helper of the driver DDI; only meaningful inside a driver
+NtGdiHT_Get8BPPMaskPalette	halftone helper of the driver DDI; only meaningful inside a driver
+NtGdiHfontCreate	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiIcmBrushInfo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiInit	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiInitSpool	printer-only or spooler path; the oracle guest has no printer device
+NtGdiIntersectClipRect	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiInvertRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiLineTo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMakeFontDir	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMakeInfoDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMakeObjectUnXferable	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMakeObjectXferable	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMaskBlt	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMirrorWindowOrg	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiModifyWorldTransform	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMonoBitmap	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiMoveTo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiOffsetClipRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiOffsetRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiOpenDCW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPATHOBJ_bEnum	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiPATHOBJ_bEnumClipLines	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiPATHOBJ_vEnumStart	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiPATHOBJ_vEnumStartClipLines	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiPATHOBJ_vGetBounds	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiPatBlt	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPathToRegion	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPlgBlt	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPolyDraw	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPolyPatBlt	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPolyPolyDraw	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPolyTextOutW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPtInRegion	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiPtVisible	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiQueryFontAssocInfo	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiQueryFonts	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRectInRegion	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRectVisible	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRectangle	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRemoveFontMemResourceEx	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRemoveFontResourceW	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRemoveMergeFont	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiResetDC	printer-only or spooler path; the oracle guest has no printer device
+NtGdiResizePalette	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRestoreDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiRoundRect	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSTROBJ_bEnum	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiSTROBJ_bEnumPositionsOnly	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiSTROBJ_bGetAdvanceWidths	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiSTROBJ_dwGetCodePage	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiSTROBJ_vEnumStart	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiSaveDC	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiScaleRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiScaleValues	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiScaleViewportExtEx	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiScaleWindowExtEx	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSelectBitmap	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSelectBrush	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSelectClipPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSelectFont	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSelectPen	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetBitmapAttributes	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetBitmapBits	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetBitmapDimension	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetBoundsRect	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetBrushAttributes	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetBrushOrg	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetColorAdjustment	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetColorSpace	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetDIBitsToDeviceInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetDeviceGammaRamp	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiSetFontEnumeration	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetFontXform	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetIcmMode	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetLayout	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetLinkedUFIs	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetMagicColors	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiSetMetaRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetMiterLimit	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetOPMSigningKeyAndSequenceNumbers	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiSetPUMPDOBJ	printer-only or spooler path; the oracle guest has no printer device
+NtGdiSetPixel	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetPixelFormat	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetPrivateDeviceGammaRamp	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+NtGdiSetRectRgn	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetSizeDevice	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetSystemPaletteUse	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetTextJustification	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSetUMPDSandboxState	printer-only or spooler path; the oracle guest has no printer device
+NtGdiSetVirtualResolution	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiStartDoc	printer-only or spooler path; the oracle guest has no printer device
+NtGdiStartPage	printer-only or spooler path; the oracle guest has no printer device
+NtGdiStretchBlt	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiStretchDIBitsInternal	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiStrokeAndFillPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiStrokePath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiSwapBuffers	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiTransformPoints	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiTransparentBlt	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiUMPDEngFreeUserMem	printer-only or spooler path; the oracle guest has no printer device
+NtGdiUnloadPrinterDriver	printer-only or spooler path; the oracle guest has no printer device
+NtGdiUnmapMemFont	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiUnrealizeObject	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiUpdateColors	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiUpdateTransform	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiWidenPath	raw win32u syscall stub; kernel ABI, not a stable contract, behaviour covered through the public wrapper
+NtGdiXFORMOBJ_bApplyXform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiXFORMOBJ_iGetXform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiXLATEOBJ_cGetPalette	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiXLATEOBJ_hGetColorTransform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+NtGdiXLATEOBJ_iXlate	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+OffsetClipRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+OffsetRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+PATHOBJ_bEnum	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+PATHOBJ_bEnumClipLines	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+PATHOBJ_vEnumStart	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+PATHOBJ_vEnumStartClipLines	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+PATHOBJ_vGetBounds	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+PaintRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+PatBlt	delegated: non-text GDI breadth, covered by the sibling corpus
+PathToRegion	delegated: non-text GDI breadth, covered by the sibling corpus
+Pie	delegated: non-text GDI breadth, covered by the sibling corpus
+PlayEnhMetaFile	delegated: non-text GDI breadth, covered by the sibling corpus
+PlayEnhMetaFileRecord	delegated: non-text GDI breadth, covered by the sibling corpus
+PlayMetaFile	delegated: non-text GDI breadth, covered by the sibling corpus
+PlayMetaFileRecord	delegated: non-text GDI breadth, covered by the sibling corpus
+PlgBlt	delegated: non-text GDI breadth, covered by the sibling corpus
+PolyBezier	delegated: non-text GDI breadth, covered by the sibling corpus
+PolyBezierTo	delegated: non-text GDI breadth, covered by the sibling corpus
+PolyBezierToImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+PolyDraw	delegated: non-text GDI breadth, covered by the sibling corpus
+PolyDrawImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+PolyPatBlt	delegated: non-text GDI breadth, covered by the sibling corpus
+PolyPolygon	delegated: non-text GDI breadth, covered by the sibling corpus
+PolyPolyline	delegated: non-text GDI breadth, covered by the sibling corpus
+Polygon	delegated: non-text GDI breadth, covered by the sibling corpus
+Polyline	delegated: non-text GDI breadth, covered by the sibling corpus
+PolylineTo	delegated: non-text GDI breadth, covered by the sibling corpus
+PolylineToImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+PtInRegion	delegated: non-text GDI breadth, covered by the sibling corpus
+PtVisible	delegated: non-text GDI breadth, covered by the sibling corpus
+RealizePalette	delegated: non-text GDI breadth, covered by the sibling corpus
+RectInRegion	delegated: non-text GDI breadth, covered by the sibling corpus
+RectVisible	delegated: non-text GDI breadth, covered by the sibling corpus
+Rectangle	delegated: non-text GDI breadth, covered by the sibling corpus
+RectangleImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+RemoveFontResourceTracking	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+RemoveFontResourceWImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ResetDCA	printer-only or spooler path; the oracle guest has no printer device
+ResetDCW	printer-only or spooler path; the oracle guest has no printer device
+ResetDCWImpl	printer-only or spooler path; the oracle guest has no printer device
+ResizePalette	delegated: non-text GDI breadth, covered by the sibling corpus
+RestoreDCImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+RoundRect	delegated: non-text GDI breadth, covered by the sibling corpus
+STROBJ_bEnum	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+STROBJ_bEnumPositionsOnly	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+STROBJ_bGetAdvanceWidths	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+STROBJ_dwGetCodePage	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+STROBJ_vEnumStart	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+SaveDCImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ScaleRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+ScaleValues	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+ScriptApplyDigitSubstitution	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptApplyLogicalWidth	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptBreak	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptCPtoX	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptCacheGetHeight	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptFreeCache	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetCMap	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetFontAlternateGlyphs	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetFontFeatureTags	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetFontLanguageTags	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetFontProperties	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetFontScriptTags	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetGlyphABCWidth	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetLogicalWidths	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptGetProperties	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptIsComplex	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptItemize	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptItemizeOpenType	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptJustify	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptLayout	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptPlace	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptPlaceOpenType	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptPositionSingleGlyph	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptRecordDigitSubstitution	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptShape	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptShapeOpenType	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringAnalyse	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringCPtoX	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringFree	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringGetLogicalWidths	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringGetOrder	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringOut	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringValidate	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptStringXtoCP	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptString_pLogAttr	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptString_pSize	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptString_pcOutChars	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptSubstituteSingleGlyph	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptTextOut	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+ScriptXtoCP	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+SelectBrushLocal	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SelectClipPath	delegated: non-text GDI breadth, covered by the sibling corpus
+SelectClipPathImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SelectClipRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+SelectClipRgnImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SelectFontLocal	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SelectObjectImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SelectPalette	delegated: non-text GDI breadth, covered by the sibling corpus
+SetAbortProc	printer-only or spooler path; the oracle guest has no printer device
+SetArcDirection	delegated: non-text GDI breadth, covered by the sibling corpus
+SetBitmapAttributes	delegated: non-text GDI breadth, covered by the sibling corpus
+SetBitmapBits	delegated: non-text GDI breadth, covered by the sibling corpus
+SetBitmapDimensionEx	delegated: non-text GDI breadth, covered by the sibling corpus
+SetBkModeImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetBoundsRect	delegated: non-text GDI breadth, covered by the sibling corpus
+SetBrushAttributes	delegated: non-text GDI breadth, covered by the sibling corpus
+SetBrushOrgEx	delegated: non-text GDI breadth, covered by the sibling corpus
+SetColorAdjustment	delegated: non-text GDI breadth, covered by the sibling corpus
+SetColorSpace	delegated: non-text GDI breadth, covered by the sibling corpus
+SetDCBrushColor	delegated: non-text GDI breadth, covered by the sibling corpus
+SetDCPenColor	delegated: non-text GDI breadth, covered by the sibling corpus
+SetDIBColorTable	delegated: non-text GDI breadth, covered by the sibling corpus
+SetDIBits	delegated: non-text GDI breadth, covered by the sibling corpus
+SetDIBitsToDevice	delegated: non-text GDI breadth, covered by the sibling corpus
+SetDeviceGammaRamp	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+SetEnhMetaFileBits	delegated: non-text GDI breadth, covered by the sibling corpus
+SetICMMode	delegated: non-text GDI breadth, covered by the sibling corpus
+SetICMModeImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetICMProfileA	delegated: non-text GDI breadth, covered by the sibling corpus
+SetICMProfileW	delegated: non-text GDI breadth, covered by the sibling corpus
+SetMagicColors	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+SetMetaFileBitsEx	delegated: non-text GDI breadth, covered by the sibling corpus
+SetMetaRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+SetMiterLimit	delegated: non-text GDI breadth, covered by the sibling corpus
+SetMiterLimitImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetOPMSigningKeyAndSequenceNumbers	needs monitor or protected-output hardware, or changes display hardware state; no hardware in the oracle guest
+SetPaletteEntries	delegated: non-text GDI breadth, covered by the sibling corpus
+SetPixel	delegated: non-text GDI breadth, covered by the sibling corpus
+SetPixelFormat	delegated: non-text GDI breadth, covered by the sibling corpus
+SetPixelV	delegated: non-text GDI breadth, covered by the sibling corpus
+SetPolyFillMode	delegated: non-text GDI breadth, covered by the sibling corpus
+SetPolyFillModeImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetROP2	delegated: non-text GDI breadth, covered by the sibling corpus
+SetRectRgn	delegated: non-text GDI breadth, covered by the sibling corpus
+SetRelAbs	delegated: non-text GDI breadth, covered by the sibling corpus
+SetStretchBltMode	delegated: non-text GDI breadth, covered by the sibling corpus
+SetStretchBltModeImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetSystemPaletteUse	delegated: non-text GDI breadth, covered by the sibling corpus
+SetTextAlignImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetTextColorImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetVirtualResolution	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SetWinMetaFileBits	delegated: non-text GDI breadth, covered by the sibling corpus
+SetWorldTransform	delegated: non-text GDI breadth, covered by the sibling corpus
+SetWorldTransformImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+StartDocA	printer-only or spooler path; the oracle guest has no printer device
+StartDocW	printer-only or spooler path; the oracle guest has no printer device
+StartDocWImpl	printer-only or spooler path; the oracle guest has no printer device
+StartFormPage	printer-only or spooler path; the oracle guest has no printer device
+StartPage	printer-only or spooler path; the oracle guest has no printer device
+StartPageImpl	printer-only or spooler path; the oracle guest has no printer device
+StretchBlt	delegated: non-text GDI breadth, covered by the sibling corpus
+StretchDIBits	delegated: non-text GDI breadth, covered by the sibling corpus
+StretchDIBitsImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+StrokeAndFillPath	delegated: non-text GDI breadth, covered by the sibling corpus
+StrokePath	delegated: non-text GDI breadth, covered by the sibling corpus
+StrokePathImpl	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+SwapBuffers	delegated: non-text GDI breadth, covered by the sibling corpus
+UnloadNetworkFonts	session or network font state not reachable without privileged setup
+UnloadUserModePrinterDriver	printer-only or spooler path; the oracle guest has no printer device
+UnrealizeObject	delegated: non-text GDI breadth, covered by the sibling corpus
+UpdateColors	delegated: non-text GDI breadth, covered by the sibling corpus
+UpdateICMRegKeyA	delegated: non-text GDI breadth, covered by the sibling corpus
+UpdateICMRegKeyW	delegated: non-text GDI breadth, covered by the sibling corpus
+UspAllocCache	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+UspAllocTemp	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+UspFreeMem	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+WidenPath	delegated: non-text GDI breadth, covered by the sibling corpus
+XFORMOBJ_bApplyXform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+XFORMOBJ_iGetXform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+XLATEOBJ_cGetPalette	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+XLATEOBJ_hGetColorTransform	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+XLATEOBJ_iXlate	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+XLATEOBJ_piVector	graphics-driver DDI callback; only valid when called from inside a display or printer driver
+bCreateDCW	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+bDeleteLDC	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+bInitSystemAndFontsDirectoriesW	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+bMakePathNameW	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+cGetTTFFromFOT	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+fpClosePrinter	printer-only or spooler path; the oracle guest has no printer device
+ftsWordBreak	forwarded to the Uniscribe module; Uniscribe is outside the scope of this corpus, candidate for a separate shaping corpus
+gMaxGdiHandleCount	exported data symbol, not a function
+gW32PID	exported data symbol, not a function
+g_systemCallFilterId	exported data symbol, not a function
+gdiPlaySpoolStream	printer-only or spooler path; the oracle guest has no printer device
+ghICM	exported data symbol, not a function
+hGetPEBHandle	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+hdcCreateDCW	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+pGdiDevCaps	exported data symbol, not a function
+pGdiSharedHandleTable	exported data symbol, not a function
+pGdiSharedMemory	exported data symbol, not a function
+pldcGet	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+plinkGet	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+semDxTrimNotification	exported data symbol, not a function
+vDeleteLOCALFONT	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+vFreeUFIHashTable	internal helper behind a public wrapper; no stable contract, covered through the wrapper
+vSetPldc	internal helper behind a public wrapper; no stable contract, covered through the wrapper

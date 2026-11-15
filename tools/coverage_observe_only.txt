@@ -1,0 +1,9 @@
+# Exports that a test calls only to record what they do (NOTE lines, or checks that merely repeat the same call):
+# the test makes no assertion about the documented or observed contract of the export itself.
+# Format: name<TAB>test location and why. Hand-maintained; tools/gen_coverage_md.py reads it.
+SetLayoutWidth	tests/kerning_placement layout_width_observe: undocumented, no assertions, NOTE lines only
+GetDCDpiScaleValue	tests/text_output_extents dpi.c: undocumented, values reported with NOTE only
+GetBitmapDpiScaleValue	tests/text_output_extents dpi.c: undocumented, values reported with NOTE only
+GetCurrentDpiInfo	tests/text_output_extents dpi.c: undocumented, values reported with NOTE only
+QueryFontAssocStatus	tests/font_enum_order: value reported with NOTE; only checks that two calls agree
+SetFontEnumeration	tests/font_enum_order: undocumented, run in a child process, result reported with NOTE only
