@@ -1,0 +1,31 @@
+# serial serial.log sha256=49ee4b183dfb555c764cf4d1686df6f3f048d338844d7a3e3d80c0f340c2f35a bytes=3300962
+# wrote data/win10/char_placement/dpi96.rec
+# wrote data/win10/drawtext_layout/dpi96.rec
+# wrote data/win10/exttextout_extents/dpi96.rec
+I7VM: logon Sun 11/15/2026  6:25:53.96 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-20261115-064636-146334 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-15T06:25:54.479
+I7P ECHO id=gdi-dpi96-20261115-064636-146334 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=char_placement seq=0 timeout=300 time=2026-11-15T06:25:54.495
+I7P END name=char_placement seq=0 rc=0 ms=34313 timeout=0
+I7P BEGIN name=drawtext_layout seq=1 timeout=300 time=2026-11-15T06:26:28.808
+I7P END name=drawtext_layout seq=1 rc=0 ms=45375 timeout=0
+I7P BEGIN name=exttextout_extents seq=2 timeout=300 time=2026-11-15T06:27:14.214
+I7P END name=exttextout_extents seq=2 rc=0 ms=3609 timeout=0
+I7P DONE n=3 failed=0
+I7VMRUN END id=gdi-dpi96-20261115-064636-146334
+I7VM: payload exit 0 

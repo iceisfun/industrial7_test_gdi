@@ -1,9 +1,9 @@
 # serial serial.log sha256=92b5f60b2a972944fd0fab8db00e8a440ac1a2ac3d44880a8b73f5d6ec16cdd7 bytes=7261667
-# wrote /tmp/claude-1000/fS/ui_metrics/dpi96.rec
-# wrote /tmp/claude-1000/fS/ui_metrics/dpi120.rec
-# wrote /tmp/claude-1000/fS/ui_metrics/dpi144.rec
-# wrote /tmp/claude-1000/fS/ui_metrics/dpi168.rec
-# wrote /tmp/claude-1000/fS/ui_metrics/dpi192.rec
+# wrote ui_metrics/dpi96.rec
+# wrote ui_metrics/dpi120.rec
+# wrote ui_metrics/dpi144.rec
+# wrote ui_metrics/dpi168.rec
+# wrote ui_metrics/dpi192.rec
 I7VM: logon Tue 11/10/2026 20:45:48.91 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-214503-2439362 logon=0

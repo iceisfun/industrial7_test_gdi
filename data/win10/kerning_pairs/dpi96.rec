@@ -1,0 +1,647 @@
+REC 1 kerning_pairs v=1 variant=base tag=dpi96
+ENV kerning_pairs probe.exe kerning_pairs.exe
+ENV kerning_pairs probe.exe_sha256 2bcf2f1dc6a012f5
+ENV kerning_pairs probe.exe_size 308591
+ENV kerning_pairs probe.version 1
+ENV kerning_pairs probe.format 1
+ENV kerning_pairs probe.bits 64
+ENV kerning_pairs probe.args ~
+ENV kerning_pairs os.version 10.0.19045
+ENV kerning_pairs os.sp 0.0
+ENV kerning_pairs os.ubr 2965
+ENV kerning_pairs os.display_version 22H2
+ENV kerning_pairs os.product Windows%2010%20Home
+ENV kerning_pairs os.edition Core
+ENV kerning_pairs os.buildlab 19041.1.amd64fre.vb_release.191206-1406
+ENV kerning_pairs host.computer I7-WIN10
+ENV kerning_pairs host.user Administrator
+ENV kerning_pairs host.session 1
+ENV kerning_pairs host.elevated 1
+ENV kerning_pairs time.local 2026-11-15T08:23:26.777
+ENV kerning_pairs time.utc 2026-11-15T16:23:26.777Z
+ENV kerning_pairs time.tz_bias_min 480
+ENV kerning_pairs time.tz_name Pacific%20Standard%20Time
+ENV kerning_pairs time.tz_state 1
+ENV kerning_pairs time.uptime_ms 64953
+ENV kerning_pairs locale.user en-US
+ENV kerning_pairs locale.system en-US
+ENV kerning_pairs locale.lcid_user 0x0409
+ENV kerning_pairs locale.lcid_system 0x0409
+ENV kerning_pairs locale.lcid_thread 0x0409
+ENV kerning_pairs locale.ui_user 0x0409
+ENV kerning_pairs locale.ui_system 0x0409
+ENV kerning_pairs locale.acp 1252
+ENV kerning_pairs locale.oemcp 437
+ENV kerning_pairs locale.kbd 00000409
+ENV kerning_pairs dpi.system 96
+ENV kerning_pairs dpi.awareness 0
+ENV kerning_pairs dpi.context 0x6010
+ENV kerning_pairs dpi.process_aware 0
+ENV kerning_pairs dpi.logpixels 96x96
+ENV kerning_pairs display.res 1024x768
+ENV kerning_pairs display.desktopres 1024x768
+ENV kerning_pairs display.bpp 32
+ENV kerning_pairs display.vrefresh 64
+ENV kerning_pairs display.size_mm 325x203
+ENV kerning_pairs display.mode 1024x768x32@64
+ENV kerning_pairs display.monitors 1
+ENV kerning_pairs dpi.reg_logpixels !
+ENV kerning_pairs dpi.reg_win8dpiscaling 0
+ENV kerning_pairs dpi.reg_applieddpi 96
+ENV kerning_pairs dpi.reg_hw_logpixels 96
+ENV kerning_pairs comctl32.version 5.82.10586
+ENV kerning_pairs comctl32.path C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_5.82.19041.1110_none_792d1c772443f647\comctl32.dll
+ENV kerning_pairs theme.active 1
+ENV kerning_pairs sm.CXSCREEN 1024
+ENV kerning_pairs sm.CYSCREEN 768
+ENV kerning_pairs sm.CXVIRTUALSCREEN 1024
+ENV kerning_pairs sm.CYVIRTUALSCREEN 768
+ENV kerning_pairs sm.CXFULLSCREEN 1024
+ENV kerning_pairs sm.CYFULLSCREEN 705
+ENV kerning_pairs sm.CXMAXIMIZED 1040
+ENV kerning_pairs sm.CYMAXIMIZED 744
+ENV kerning_pairs sm.CYCAPTION 23
+ENV kerning_pairs sm.CYSMCAPTION 23
+ENV kerning_pairs sm.CYMENU 20
+ENV kerning_pairs sm.CYMENUSIZE 19
+ENV kerning_pairs sm.CXMENUSIZE 19
+ENV kerning_pairs sm.CXSIZE 36
+ENV kerning_pairs sm.CYSIZE 22
+ENV kerning_pairs sm.CXSMSIZE 22
+ENV kerning_pairs sm.CYSMSIZE 22
+ENV kerning_pairs sm.CXBORDER 1
+ENV kerning_pairs sm.CYBORDER 1
+ENV kerning_pairs sm.CXEDGE 2
+ENV kerning_pairs sm.CYEDGE 2
+ENV kerning_pairs sm.CXFIXEDFRAME 3
+ENV kerning_pairs sm.CYFIXEDFRAME 3
+ENV kerning_pairs sm.CXSIZEFRAME 8
+ENV kerning_pairs sm.CYSIZEFRAME 8
+ENV kerning_pairs sm.CXPADDEDBORDER 0
+ENV kerning_pairs sm.CXVSCROLL 17
+ENV kerning_pairs sm.CYHSCROLL 17
+ENV kerning_pairs sm.CYVSCROLL 17
+ENV kerning_pairs sm.CXHSCROLL 17
+ENV kerning_pairs sm.CXHTHUMB 17
+ENV kerning_pairs sm.CYVTHUMB 17
+ENV kerning_pairs sm.CXICON 32
+ENV kerning_pairs sm.CYICON 32
+ENV kerning_pairs sm.CXSMICON 16
+ENV kerning_pairs sm.CYSMICON 16
+ENV kerning_pairs sm.CXCURSOR 32
+ENV kerning_pairs sm.CYCURSOR 32
+ENV kerning_pairs sm.CXICONSPACING 75
+ENV kerning_pairs sm.CYICONSPACING 75
+ENV kerning_pairs sm.CXMENUCHECK 15
+ENV kerning_pairs sm.CYMENUCHECK 15
+ENV kerning_pairs sm.CXMIN 136
+ENV kerning_pairs sm.CYMIN 39
+ENV kerning_pairs sm.CXMINTRACK 136
+ENV kerning_pairs sm.CYMINTRACK 39
+ENV kerning_pairs sm.CXDLGFRAME 3
+ENV kerning_pairs sm.CYDLGFRAME 3
+ENV kerning_pairs sm.CXFOCUSBORDER 1
+ENV kerning_pairs sm.CYFOCUSBORDER 1
+ENV kerning_pairs sm.CXDRAG 4
+ENV kerning_pairs sm.CYDRAG 4
+ENV kerning_pairs sm.CXDOUBLECLK 4
+ENV kerning_pairs sm.CYDOUBLECLK 4
+ENV kerning_pairs sm.CYKANJIWINDOW 0
+ENV kerning_pairs sm.DBCSENABLED 0
+ENV kerning_pairs sm.IMMENABLED 1
+ENV kerning_pairs sm.MIDEASTENABLED 0
+ENV kerning_pairs sm.REMOTESESSION 0
+ENV kerning_pairs sm.CMOUSEBUTTONS 5
+ENV kerning_pairs ncm.metrics border=5,scrollw=17,scrollh=17,captionw=36,captionh=22,smcaptionw=22,smcaptionh=22,menuw=19,menuh=19,paddedborder=0
+ENV kerning_pairs ncm.caption h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV kerning_pairs ncm.smcaption h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV kerning_pairs ncm.menu h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV kerning_pairs ncm.status h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV kerning_pairs ncm.message h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV kerning_pairs icm.metrics hspacing=75,vspacing=75,wrap=1
+ENV kerning_pairs icm.font h=-12,w=0,wt=400,it=0,cs=1,q=0,pf=0x0,face=Segoe%20UI
+ENV kerning_pairs spi.fontsmoothing 1
+ENV kerning_pairs spi.fontsmoothingtype 2
+ENV kerning_pairs spi.fontsmoothingcontrast 1200
+ENV kerning_pairs spi.fontsmoothingorientation 1
+ENV kerning_pairs spi.cleartype 1
+ENV kerning_pairs stock.SYSTEM_FONT h=16,w=7,wt=700,it=0,cs=0,q=2,pf=0x22,face=System
+ENV kerning_pairs stock.SYSTEM_FIXED_FONT h=15,w=8,wt=400,it=0,cs=0,q=2,pf=0x31,face=Fixedsys
+ENV kerning_pairs stock.OEM_FIXED_FONT h=12,w=8,wt=400,it=0,cs=255,q=2,pf=0x31,face=Terminal
+ENV kerning_pairs stock.ANSI_FIXED_FONT h=12,w=9,wt=400,it=0,cs=0,q=2,pf=0x1,face=Courier
+ENV kerning_pairs stock.ANSI_VAR_FONT h=12,w=9,wt=400,it=0,cs=0,q=2,pf=0x2,face=MS%20Sans%20Serif
+ENV kerning_pairs stock.DEVICE_DEFAULT_FONT h=16,w=7,wt=700,it=0,cs=0,q=2,pf=0x22,face=System
+ENV kerning_pairs stock.DEFAULT_GUI_FONT h=-11,w=0,wt=400,it=0,cs=0,q=0,pf=0x0,face=MS%20Shell%20Dlg
+ENV kerning_pairs fonts.dir files=339,bytes=360823736,sha256=2a39731511ddfe7d
+ENV kerning_pairs fonts.file.segoeui.ttf size=955804,sha256=ba32a222b23d7272
+ENV kerning_pairs fonts.file.segoeuib.ttf size=951724,sha256=1b242874a2f57529
+ENV kerning_pairs fonts.file.tahoma.ttf size=939280,sha256=b890858df485549d
+ENV kerning_pairs fonts.file.tahomabd.ttf size=867988,sha256=68f92341975acc27
+ENV kerning_pairs fonts.file.micross.ttf size=876256,sha256=3f557479a768a1d9
+ENV kerning_pairs fonts.file.arial.ttf size=1036584,sha256=c9b76220a5be42ea
+ENV kerning_pairs fonts.file.cour.ttf size=806504,sha256=93c3ff526c19d034
+ENV kerning_pairs fonts.file.couree.fon size=23440,sha256=6c879f57850f0c0f
+ENV kerning_pairs fonts.file.coure.fon size=23408,sha256=e81d15ef094f997d
+ENV kerning_pairs fonts.file.sserife.fon size=64656,sha256=28877eee4ccda2a3
+ENV kerning_pairs fonts.file.serife.fon size=57936,sha256=19bfe5865332ca1f
+ENV kerning_pairs fonts.file.vgasys.fon size=7280,sha256=7baefa14ef8ef235
+ENV kerning_pairs fonts.file.vgaoem.fon size=5168,sha256=011326f65e151d83
+ENV kerning_pairs fonts.file.vgafix.fon size=5360,sha256=57402d1e89dc0d83
+ENV kerning_pairs fonts.file.8514sys.fon size=9280,sha256=dc7e1c9bb168e22b
+ENV kerning_pairs fonts.file.marlett.ttf size=27724,sha256=b7397adf2dcc24ca
+ENV kerning_pairs fonts.file.smalle.fon size=26112,sha256=de416395301da32c
+ENV kerning_pairs fonts.file.ssee0874.fon !
+ENV kerning_pairs reg.fontsubstitutes count=26,sha256=a11fda2b499b2235
+ENV kerning_pairs reg.fontsubst.MS%20Shell%20Dlg Microsoft%20Sans%20Serif
+ENV kerning_pairs reg.fontsubst.MS%20Shell%20Dlg%202 Tahoma
+ENV kerning_pairs reg.fontsubst.Helv MS%20Sans%20Serif
+ENV kerning_pairs reg.fontsubst.Helvetica Arial
+ENV kerning_pairs reg.fontsubst.Tms%20Rmn MS%20Serif
+ENV kerning_pairs reg.fontsubst.Times Times%20New%20Roman
+ENV kerning_pairs reg.fontsubst.Courier !
+ENV kerning_pairs reg.fontsubst.MS%20Sans%20Serif !
+ENV kerning_pairs reg.fonts count=154,sha256=cd0aa256a5a10909
+ENV kerning_pairs reg.systemlink count=67,sha256=c570685f364b9a70
+ENV kerning_pairs reg.gre_init.DisableRemoteFontBootCache 0
+ENV kerning_pairs reg.gre_init.ServicingStackModifiedFonts 2
+ENV kerning_pairs reg.fontdpi.LogPixels 96
+ENV kerning_pairs kerning_pairs.mode full
+N kerning_pairs pairs%20are%20packed%20as%20int32%20(first,second,amount)%20for%20the%20hashes%3B%20samples%20are%20first/second%20in%20hex,%20amount%20signed%3B%20kernsorted%20=%20pairs%20sorted%20by%20(first,second)
+S kerning_pairs kern face;req_h;wt;it;api | got count ret sorted min max sum nonzero r0 r1 r2 r3 r4 r5 r6 r7
+S kerning_pairs kernsorted face;req_h;wt;it;api | s0 s1 s2 s3 s4 s5 s6 s7
+S kerning_pairs kerncall face;req_h;wt;it | count ret_small ret_nullbuf
+R kerning_pairs kern face=Segoe%20UI;req_h=-12;wt=400;it=0;api=W | Segoe%20UI 8292 8292 0 -2 1 -2481 2844 22/72/0 22/73/0 22/161/0 22/15f/0 218/1e81/0 218/1e83/0 218/1e85/0 218/1ef3/0
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-12;wt=400;it=0;api=W | 22/72/0 22/73/0 22/155/0 22/157/0 203a/1e84/0 203a/1ef2/-1 fd3e/6a/1 fd3e/135/1
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-12;wt=400;it=0;api=W sha256=eaed8be1bd154e02 len=99504
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-12;wt=400;it=0;api=W sha256=85f2674d0cb92293 len=99504
+R kerning_pairs kern face=Segoe%20UI;req_h=-12;wt=400;it=0;api=A | Segoe%20UI 4980 4980 0 -2 1 -1509 1724 22/72/0 22/73/0 22/9a/0 22/73/0 53/74/0 df/74/0 70/74/0 70/70/0
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-12;wt=400;it=0;api=A | 22/72/0 22/72/0 22/72/0 22/72/0 ff/67/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-12;wt=400;it=0;api=A sha256=4c0967c7b32fd0f4 len=59760
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-12;wt=400;it=0;api=A sha256=a56af5f0dfb91cf8 len=59760
+R kerning_pairs kerncall face=Segoe%20UI;req_h=-12;wt=400;it=0 | 8292 8291 8292
+R kerning_pairs kern face=Segoe%20UI;req_h=-12;wt=700;it=0;api=W | Segoe%20UI 8319 8319 0 -2 1 -1998 2134 22/72/0 22/73/0 22/161/0 22/15f/0 218/1e81/0 218/1e83/0 218/1e85/0 218/1ef3/0
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-12;wt=700;it=0;api=W | 22/72/0 22/73/0 22/155/0 22/157/0 203a/1e84/0 203a/1ef2/0 fd3e/6a/1 fd3e/135/1
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-12;wt=700;it=0;api=W sha256=5a20550940c5685e len=99828
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-12;wt=700;it=0;api=W sha256=273a859f924a8964 len=99828
+R kerning_pairs kern face=Segoe%20UI;req_h=-12;wt=700;it=0;api=A | Segoe%20UI 5007 5007 0 -2 1 -1202 1292 22/72/0 22/73/0 22/9a/0 22/73/0 53/74/0 df/74/0 70/74/0 70/70/0
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-12;wt=700;it=0;api=A | 22/72/0 22/72/0 22/72/0 22/72/0 ff/67/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-12;wt=700;it=0;api=A sha256=226be9127bc13d9c len=60084
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-12;wt=700;it=0;api=A sha256=4584131a9bae223c len=60084
+R kerning_pairs kerncall face=Segoe%20UI;req_h=-12;wt=700;it=0 | 8319 8318 8319
+R kerning_pairs kern face=Segoe%20UI;req_h=-32;wt=400;it=0;api=W | Segoe%20UI 8292 8292 0 -6 4 -7013 5913 22/72/-1 22/73/-1 22/161/-1 22/15f/-1 218/1e81/0 218/1e83/0 218/1e85/0 218/1ef3/-1
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-32;wt=400;it=0;api=W | 22/72/-1 22/73/-1 22/155/-1 22/157/-1 203a/1e84/-1 203a/1ef2/-2 fd3e/6a/4 fd3e/135/4
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-32;wt=400;it=0;api=W sha256=5576264b76de0a2a len=99504
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-32;wt=400;it=0;api=W sha256=4c104bea1cf22426 len=99504
+R kerning_pairs kern face=Segoe%20UI;req_h=-32;wt=400;it=0;api=A | Segoe%20UI 4980 4980 0 -6 4 -4187 3432 22/72/-1 22/73/-1 22/9a/-1 22/73/-1 53/74/-1 df/74/-1 70/74/0 70/70/0
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-32;wt=400;it=0;api=A | 22/72/-1 22/72/-1 22/72/-1 22/72/-1 ff/67/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-32;wt=400;it=0;api=A sha256=43ac220edcf682a0 len=59760
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-32;wt=400;it=0;api=A sha256=d1de77486af9c93b len=59760
+R kerning_pairs kerncall face=Segoe%20UI;req_h=-32;wt=400;it=0 | 8292 8291 8292
+R kerning_pairs kern face=Segoe%20UI;req_h=-32;wt=700;it=0;api=W | Segoe%20UI 8319 8319 0 -6 3 -6168 5476 22/72/-1 22/73/-1 22/161/-1 22/15f/-1 218/1e81/0 218/1e83/0 218/1e85/0 218/1ef3/-1
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-32;wt=700;it=0;api=W | 22/72/-1 22/73/-1 22/155/-1 22/157/-1 203a/1e84/-1 203a/1ef2/-1 fd3e/6a/3 fd3e/135/3
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-32;wt=700;it=0;api=W sha256=40a333f3d2f3643c len=99828
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-32;wt=700;it=0;api=W sha256=0703d446cec5c040 len=99828
+R kerning_pairs kern face=Segoe%20UI;req_h=-32;wt=700;it=0;api=A | Segoe%20UI 5007 5007 0 -6 3 -3814 3230 22/72/-1 22/73/-1 22/9a/-1 22/73/-1 53/74/-1 df/74/-1 70/74/0 70/70/0
+R kerning_pairs kernsorted face=Segoe%20UI;req_h=-32;wt=700;it=0;api=A | 22/72/-1 22/72/-1 22/72/-1 22/72/-1 ff/67/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI;req_h=-32;wt=700;it=0;api=A sha256=fa25165da7fc5bfd len=60084
+H kerning_pairs h_sorted face=Segoe%20UI;req_h=-32;wt=700;it=0;api=A sha256=83b91ec09c28ef21 len=60084
+R kerning_pairs kerncall face=Segoe%20UI;req_h=-32;wt=700;it=0 | 8319 8318 8319
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-12;wt=400;it=0;api=W | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-12;wt=400;it=0;api=A | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=MS%20Shell%20Dlg;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-12;wt=700;it=0;api=W | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-12;wt=700;it=0;api=A | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=MS%20Shell%20Dlg;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-32;wt=400;it=0;api=W | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-32;wt=400;it=0;api=A | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=MS%20Shell%20Dlg;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-32;wt=700;it=0;api=W | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=MS%20Shell%20Dlg;req_h=-32;wt=700;it=0;api=A | MS%20Shell%20Dlg 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=MS%20Shell%20Dlg;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=W | MS%20Shell%20Dlg%202 674 674 0 -2 1 -164 183 21/201d/-1 21/2019/-1 27/41/-1 27/c6/-1 201e/54/-1 201e/56/-1 201e/57/-1 201e/59/-1
+R kerning_pairs kernsorted face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=W | 21/2019/-1 21/201d/-1 27/41/-1 27/c6/-1 2026/201d/-1 2219/6c/0 fb01/6c/0 fb02/69/0
+H kerning_pairs h_ret face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=W sha256=e4432f713b443f82 len=8088
+H kerning_pairs h_sorted face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=W sha256=88db636f9d2abe9c len=8088
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=A | MS%20Shell%20Dlg%202 670 670 0 -2 1 -164 183 21/94/-1 21/92/-1 27/41/-1 27/c6/-1 84/54/-1 84/56/-1 84/57/-1 84/59/-1
+R kerning_pairs kernsorted face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=A | 21/92/-1 21/94/-1 27/41/-1 27/c6/-1 f8/76/0 f8/78/0 f8/79/0 f8/85/0
+H kerning_pairs h_ret face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=A sha256=3afc2677302327e5 len=8040
+H kerning_pairs h_sorted face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0;api=A sha256=d1c45a1b6a3a1f69 len=8040
+R kerning_pairs kerncall face=MS%20Shell%20Dlg%202;req_h=-12;wt=400;it=0 | 674 673 674
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-12;wt=700;it=0;api=W | MS%20Shell%20Dlg%202 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-12;wt=700;it=0;api=A | MS%20Shell%20Dlg%202 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=MS%20Shell%20Dlg%202;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=W | MS%20Shell%20Dlg%202 674 674 0 -4 3 -490 377 21/201d/-1 21/2019/-1 27/41/-1 27/c6/-1 201e/54/-3 201e/56/-3 201e/57/-1 201e/59/-3
+R kerning_pairs kernsorted face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=W | 21/2019/-1 21/201d/-1 27/41/-1 27/c6/-1 2026/201d/-3 2219/6c/-1 fb01/6c/0 fb02/69/0
+H kerning_pairs h_ret face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=W sha256=ac566c13b38b202d len=8088
+H kerning_pairs h_sorted face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=W sha256=288c430e5bbee674 len=8088
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=A | MS%20Shell%20Dlg%202 670 670 0 -4 3 -490 377 21/94/-1 21/92/-1 27/41/-1 27/c6/-1 84/54/-3 84/56/-3 84/57/-1 84/59/-3
+R kerning_pairs kernsorted face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=A | 21/92/-1 21/94/-1 27/41/-1 27/c6/-1 f8/76/0 f8/78/0 f8/79/0 f8/85/0
+H kerning_pairs h_ret face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=A sha256=fec4d75c9e0dc035 len=8040
+H kerning_pairs h_sorted face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0;api=A sha256=467e275dff1714bf len=8040
+R kerning_pairs kerncall face=MS%20Shell%20Dlg%202;req_h=-32;wt=400;it=0 | 674 673 674
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-32;wt=700;it=0;api=W | MS%20Shell%20Dlg%202 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=MS%20Shell%20Dlg%202;req_h=-32;wt=700;it=0;api=A | MS%20Shell%20Dlg%202 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=MS%20Shell%20Dlg%202;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Tahoma;req_h=-12;wt=400;it=0;api=W | Tahoma 674 674 0 -2 1 -164 183 21/201d/-1 21/2019/-1 27/41/-1 27/c6/-1 201e/54/-1 201e/56/-1 201e/57/-1 201e/59/-1
+R kerning_pairs kernsorted face=Tahoma;req_h=-12;wt=400;it=0;api=W | 21/2019/-1 21/201d/-1 27/41/-1 27/c6/-1 2026/201d/-1 2219/6c/0 fb01/6c/0 fb02/69/0
+H kerning_pairs h_ret face=Tahoma;req_h=-12;wt=400;it=0;api=W sha256=e4432f713b443f82 len=8088
+H kerning_pairs h_sorted face=Tahoma;req_h=-12;wt=400;it=0;api=W sha256=88db636f9d2abe9c len=8088
+R kerning_pairs kern face=Tahoma;req_h=-12;wt=400;it=0;api=A | Tahoma 670 670 0 -2 1 -164 183 21/94/-1 21/92/-1 27/41/-1 27/c6/-1 84/54/-1 84/56/-1 84/57/-1 84/59/-1
+R kerning_pairs kernsorted face=Tahoma;req_h=-12;wt=400;it=0;api=A | 21/92/-1 21/94/-1 27/41/-1 27/c6/-1 f8/76/0 f8/78/0 f8/79/0 f8/85/0
+H kerning_pairs h_ret face=Tahoma;req_h=-12;wt=400;it=0;api=A sha256=3afc2677302327e5 len=8040
+H kerning_pairs h_sorted face=Tahoma;req_h=-12;wt=400;it=0;api=A sha256=d1c45a1b6a3a1f69 len=8040
+R kerning_pairs kerncall face=Tahoma;req_h=-12;wt=400;it=0 | 674 673 674
+R kerning_pairs kern face=Tahoma;req_h=-12;wt=700;it=0;api=W | Tahoma 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Tahoma;req_h=-12;wt=700;it=0;api=A | Tahoma 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Tahoma;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Tahoma;req_h=-32;wt=400;it=0;api=W | Tahoma 674 674 0 -4 3 -490 377 21/201d/-1 21/2019/-1 27/41/-1 27/c6/-1 201e/54/-3 201e/56/-3 201e/57/-1 201e/59/-3
+R kerning_pairs kernsorted face=Tahoma;req_h=-32;wt=400;it=0;api=W | 21/2019/-1 21/201d/-1 27/41/-1 27/c6/-1 2026/201d/-3 2219/6c/-1 fb01/6c/0 fb02/69/0
+H kerning_pairs h_ret face=Tahoma;req_h=-32;wt=400;it=0;api=W sha256=ac566c13b38b202d len=8088
+H kerning_pairs h_sorted face=Tahoma;req_h=-32;wt=400;it=0;api=W sha256=288c430e5bbee674 len=8088
+R kerning_pairs kern face=Tahoma;req_h=-32;wt=400;it=0;api=A | Tahoma 670 670 0 -4 3 -490 377 21/94/-1 21/92/-1 27/41/-1 27/c6/-1 84/54/-3 84/56/-3 84/57/-1 84/59/-3
+R kerning_pairs kernsorted face=Tahoma;req_h=-32;wt=400;it=0;api=A | 21/92/-1 21/94/-1 27/41/-1 27/c6/-1 f8/76/0 f8/78/0 f8/79/0 f8/85/0
+H kerning_pairs h_ret face=Tahoma;req_h=-32;wt=400;it=0;api=A sha256=fec4d75c9e0dc035 len=8040
+H kerning_pairs h_sorted face=Tahoma;req_h=-32;wt=400;it=0;api=A sha256=467e275dff1714bf len=8040
+R kerning_pairs kerncall face=Tahoma;req_h=-32;wt=400;it=0 | 674 673 674
+R kerning_pairs kern face=Tahoma;req_h=-32;wt=700;it=0;api=W | Tahoma 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Tahoma;req_h=-32;wt=700;it=0;api=A | Tahoma 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Tahoma;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Arial;req_h=-12;wt=400;it=0;api=W | Arial 909 909 0 -2 1 -326 334 20/41/-1 20/54/0 20/59/0 20/386/-1 3c0/3bf/0 3c0/3c2/0 3c0/3c9/0 3c0/3ce/0
+R kerning_pairs kernsorted face=Arial;req_h=-12;wt=400;it=0;api=W | 20/41/-1 20/54/0 20/59/0 20/386/-1 201e/40b/-1 201e/422/-1 201e/427/0 201e/42a/0
+H kerning_pairs h_ret face=Arial;req_h=-12;wt=400;it=0;api=W sha256=21f8e090ea29084b len=10908
+H kerning_pairs h_sorted face=Arial;req_h=-12;wt=400;it=0;api=W sha256=4f5b38fdf449d1f5 len=10908
+R kerning_pairs kern face=Arial;req_h=-12;wt=400;it=0;api=A | Arial 120 120 0 -2 0 -69 65 20/41/-1 20/54/0 20/59/0 31/31/-1 53/70/-1 70/61/0 70/73/0 70/66/0
+R kerning_pairs kernsorted face=Arial;req_h=-12;wt=400;it=0;api=A | 20/41/-1 20/54/0 20/59/0 31/31/-1 91/91/0 92/20/0 92/73/0 92/92/0
+H kerning_pairs h_ret face=Arial;req_h=-12;wt=400;it=0;api=A sha256=ca2eaec0dc32f214 len=1440
+H kerning_pairs h_sorted face=Arial;req_h=-12;wt=400;it=0;api=A sha256=e5de2d3352687049 len=1440
+R kerning_pairs kerncall face=Arial;req_h=-12;wt=400;it=0 | 909 908 909
+R kerning_pairs kern face=Arial;req_h=-12;wt=700;it=0;api=W | Arial 908 908 0 -2 2 -217 229 20/41/0 20/59/0 20/386/0 20/391/0 3c0/3bf/0 3c0/3c2/0 3c0/3c9/0 3c0/3ce/0
+R kerning_pairs kernsorted face=Arial;req_h=-12;wt=700;it=0;api=W | 20/41/0 20/59/0 20/386/0 20/391/0 201e/40b/-1 201e/422/-1 201e/427/-1 201e/42a/-1
+H kerning_pairs h_ret face=Arial;req_h=-12;wt=700;it=0;api=W sha256=ac005246a9c2534d len=10896
+H kerning_pairs h_sorted face=Arial;req_h=-12;wt=700;it=0;api=W sha256=9489024c90f9e332 len=10896
+R kerning_pairs kern face=Arial;req_h=-12;wt=700;it=0;api=A | Arial 117 117 0 -2 0 -69 67 20/41/0 20/59/0 31/31/-1 41/20/0 70/61/0 70/64/0 70/73/0 70/66/0
+R kerning_pairs kernsorted face=Arial;req_h=-12;wt=700;it=0;api=A | 20/41/0 20/59/0 31/31/-1 41/20/0 91/91/0 92/20/-1 92/73/0 92/92/0
+H kerning_pairs h_ret face=Arial;req_h=-12;wt=700;it=0;api=A sha256=b8c93682a36657f4 len=1404
+H kerning_pairs h_sorted face=Arial;req_h=-12;wt=700;it=0;api=A sha256=85902e9efa1bfcde len=1404
+R kerning_pairs kerncall face=Arial;req_h=-12;wt=700;it=0 | 908 907 908
+R kerning_pairs kern face=Arial;req_h=-32;wt=400;it=0;api=W | Arial 909 909 0 -6 3 -1011 661 20/41/-2 20/54/-1 20/59/-1 20/386/-2 3c0/3bf/0 3c0/3c2/0 3c0/3c9/0 3c0/3ce/0
+R kerning_pairs kernsorted face=Arial;req_h=-32;wt=400;it=0;api=W | 20/41/-2 20/54/-1 20/59/-1 20/386/-2 201e/40b/-3 201e/422/-3 201e/427/-1 201e/42a/-1
+H kerning_pairs h_ret face=Arial;req_h=-32;wt=400;it=0;api=W sha256=6bf328f98ffe3c08 len=10908
+H kerning_pairs h_sorted face=Arial;req_h=-32;wt=400;it=0;api=W sha256=5674ad651b6572e0 len=10908
+R kerning_pairs kern face=Arial;req_h=-32;wt=400;it=0;api=A | Arial 120 120 0 -4 1 -208 107 20/41/-2 20/54/-1 20/59/-1 31/31/-2 53/70/-2 70/61/0 70/73/0 70/66/0
+R kerning_pairs kernsorted face=Arial;req_h=-32;wt=400;it=0;api=A | 20/41/-2 20/54/-1 20/59/-1 31/31/-2 91/91/-1 92/20/-1 92/73/-1 92/92/-1
+H kerning_pairs h_ret face=Arial;req_h=-32;wt=400;it=0;api=A sha256=0fb1bdc12ef607d0 len=1440
+H kerning_pairs h_sorted face=Arial;req_h=-32;wt=400;it=0;api=A sha256=6e185df631815a23 len=1440
+R kerning_pairs kerncall face=Arial;req_h=-32;wt=400;it=0 | 909 908 909
+R kerning_pairs kern face=Arial;req_h=-32;wt=700;it=0;api=W | Arial 908 908 0 -5 4 -903 641 20/41/-1 20/59/-1 20/386/-1 20/391/-1 3c0/3bf/-1 3c0/3c2/-1 3c0/3c9/-1 3c0/3ce/-1
+R kerning_pairs kernsorted face=Arial;req_h=-32;wt=700;it=0;api=W | 20/41/-1 20/59/-1 20/386/-1 20/391/-1 201e/40b/-3 201e/422/-3 201e/427/-3 201e/42a/-3
+H kerning_pairs h_ret face=Arial;req_h=-32;wt=700;it=0;api=W sha256=69b9385bd49f98de len=10896
+H kerning_pairs h_sorted face=Arial;req_h=-32;wt=700;it=0;api=W sha256=d9f1e5aaf52b613c len=10896
+R kerning_pairs kern face=Arial;req_h=-32;wt=700;it=0;api=A | Arial 117 117 0 -4 1 -208 116 20/41/-1 20/59/-1 31/31/-2 41/20/-1 70/61/-1 70/64/-1 70/73/-1 70/66/-1
+R kerning_pairs kernsorted face=Arial;req_h=-32;wt=700;it=0;api=A | 20/41/-1 20/59/-1 31/31/-2 41/20/-1 91/91/-1 92/20/-2 92/73/-1 92/92/-1
+H kerning_pairs h_ret face=Arial;req_h=-32;wt=700;it=0;api=A sha256=5872dd377ebe01b0 len=1404
+H kerning_pairs h_sorted face=Arial;req_h=-32;wt=700;it=0;api=A sha256=6ace182e1801633f len=1404
+R kerning_pairs kerncall face=Arial;req_h=-32;wt=700;it=0 | 908 907 908
+R kerning_pairs kern face=Courier%20New;req_h=-12;wt=400;it=0;api=W | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Courier%20New;req_h=-12;wt=400;it=0;api=A | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Courier%20New;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Courier%20New;req_h=-12;wt=700;it=0;api=W | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Courier%20New;req_h=-12;wt=700;it=0;api=A | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Courier%20New;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Courier%20New;req_h=-32;wt=400;it=0;api=W | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Courier%20New;req_h=-32;wt=400;it=0;api=A | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Courier%20New;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Courier%20New;req_h=-32;wt=700;it=0;api=W | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Courier%20New;req_h=-32;wt=700;it=0;api=A | Courier%20New 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Courier%20New;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-12;wt=400;it=0;api=W | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-12;wt=400;it=0;api=A | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Microsoft%20Sans%20Serif;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-12;wt=700;it=0;api=W | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-12;wt=700;it=0;api=A | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Microsoft%20Sans%20Serif;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-32;wt=400;it=0;api=W | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-32;wt=400;it=0;api=A | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Microsoft%20Sans%20Serif;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-32;wt=700;it=0;api=W | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Microsoft%20Sans%20Serif;req_h=-32;wt=700;it=0;api=A | Microsoft%20Sans%20Serif 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Microsoft%20Sans%20Serif;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=W | Times%20New%20Roman 867 867 0 -2 1 -446 411 20/41/-1 20/54/0 20/56/0 20/57/0 490/37e/0 490/ab/-1 490/bb/0 490/2014/0
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=W | 20/41/-1 20/54/0 20/56/0 20/57/0 201e/40b/-1 201e/422/-1 201e/427/-2 201e/42a/-1
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=W sha256=c41d7374f4f5ad0c len=10404
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=W sha256=ded876c34b707e8a len=10404
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=A | Times%20New%20Roman 116 116 0 -2 1 -93 88 20/41/-1 20/54/0 20/56/0 20/57/0 92/92/-1 47/2c/-1 47/2e/-1 53/74/0
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=A | 20/41/-1 20/54/0 20/56/0 20/57/0 92/20/-1 92/73/-1 92/74/0 92/92/-1
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=A sha256=235c3ac5f3a7959f len=1392
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-12;wt=400;it=0;api=A sha256=1afdd07c27f6fddd len=1392
+R kerning_pairs kerncall face=Times%20New%20Roman;req_h=-12;wt=400;it=0 | 867 866 867
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=W | Times%20New%20Roman 872 872 0 -2 1 -425 403 20/41/-1 20/54/0 20/56/0 20/57/0 490/37e/0 490/ab/-1 490/bb/0 490/2014/0
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=W | 20/41/-1 20/54/0 20/56/0 20/57/0 201e/40b/-1 201e/422/-1 201e/427/-2 201e/42a/-1
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=W sha256=8479ac6a85c1c04f len=10464
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=W sha256=943a9ed2d5fd5a01 len=10464
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=A | Times%20New%20Roman 128 128 0 -2 1 -90 88 20/41/-1 20/54/0 20/56/0 20/57/0 47/20/0 47/2c/-1 47/2e/-1 53/74/-1
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=A | 20/41/-1 20/54/0 20/56/0 20/57/0 91/91/-1 92/20/-1 92/73/0 92/92/-1
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=A sha256=a9c22bc1d990b571 len=1536
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-12;wt=700;it=0;api=A sha256=d22167246e2c0f63 len=1536
+R kerning_pairs kerncall face=Times%20New%20Roman;req_h=-12;wt=700;it=0 | 872 871 872
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=W | Times%20New%20Roman 867 867 0 -6 2 -1378 713 20/41/-2 20/54/-1 20/56/-1 20/57/-1 490/37e/-1 490/ab/-3 490/bb/-1 490/2014/-1
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=W | 20/41/-2 20/54/-1 20/56/-1 20/57/-1 201e/40b/-3 201e/422/-3 201e/427/-6 201e/42a/-3
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=W sha256=68e3d91d6011c903 len=10404
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=W sha256=a28185979cc76e01 len=10404
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=A | Times%20New%20Roman 116 116 0 -4 2 -267 116 20/41/-2 20/54/-1 20/56/-1 20/57/-1 92/92/-2 47/2c/-4 47/2e/-4 53/74/-1
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=A | 20/41/-2 20/54/-1 20/56/-1 20/57/-1 92/20/-2 92/73/-2 92/74/-1 92/92/-2
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=A sha256=2c01180151528725 len=1392
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-32;wt=400;it=0;api=A sha256=957cdb7aad6ff9b6 len=1392
+R kerning_pairs kerncall face=Times%20New%20Roman;req_h=-32;wt=400;it=0 | 867 866 867
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=W | Times%20New%20Roman 872 872 0 -6 2 -1317 708 20/41/-2 20/54/-1 20/56/-1 20/57/-1 490/37e/-1 490/ab/-3 490/bb/-1 490/2014/-1
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=W | 20/41/-2 20/54/-1 20/56/-1 20/57/-1 201e/40b/-3 201e/422/-3 201e/427/-6 201e/42a/-3
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=W sha256=3493268e68320297 len=10464
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=W sha256=f31f6da43f200874 len=10464
+R kerning_pairs kern face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=A | Times%20New%20Roman 128 128 0 -4 2 -265 121 20/41/-2 20/54/-1 20/56/-1 20/57/-1 47/20/-1 47/2c/-4 47/2e/-4 53/74/-2
+R kerning_pairs kernsorted face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=A | 20/41/-2 20/54/-1 20/56/-1 20/57/-1 91/91/-2 92/20/-2 92/73/-1 92/92/-2
+H kerning_pairs h_ret face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=A sha256=d4e619958a87af1f len=1536
+H kerning_pairs h_sorted face=Times%20New%20Roman;req_h=-32;wt=700;it=0;api=A sha256=b2f8a4068466537a len=1536
+R kerning_pairs kerncall face=Times%20New%20Roman;req_h=-32;wt=700;it=0 | 872 871 872
+R kerning_pairs kern face=Verdana;req_h=-12;wt=400;it=0;api=W | Verdana 574 574 0 -2 2 -169 192 21/201d/-1 21/2019/-1 27/41/-1 27/c6/-1 579/575/1 57a/575/0 57b/575/1 57e/575/1
+R kerning_pairs kernsorted face=Verdana;req_h=-12;wt=400;it=0;api=W | 21/2019/-1 21/201d/-1 27/41/-1 27/c6/-1 201e/57/-1 201e/59/-1 2026/2019/-1 2026/201d/-1
+H kerning_pairs h_ret face=Verdana;req_h=-12;wt=400;it=0;api=W sha256=f15091a668d4a24a len=6888
+H kerning_pairs h_sorted face=Verdana;req_h=-12;wt=400;it=0;api=W sha256=7f1bbb12019aa006 len=6888
+R kerning_pairs kern face=Verdana;req_h=-12;wt=400;it=0;api=A | Verdana 534 534 0 -2 1 -167 172 21/94/-1 21/92/-1 27/41/-1 27/c6/-1 84/54/-1 84/56/-1 84/57/-1 84/59/-1
+R kerning_pairs kernsorted face=Verdana;req_h=-12;wt=400;it=0;api=A | 21/92/-1 21/94/-1 27/41/-1 27/c6/-1 f8/76/0 f8/78/0 f8/79/0 f8/85/0
+H kerning_pairs h_ret face=Verdana;req_h=-12;wt=400;it=0;api=A sha256=81ad7885c5b14657 len=6408
+H kerning_pairs h_sorted face=Verdana;req_h=-12;wt=400;it=0;api=A sha256=e37a70983f636166 len=6408
+R kerning_pairs kerncall face=Verdana;req_h=-12;wt=400;it=0 | 574 573 574
+R kerning_pairs kern face=Verdana;req_h=-12;wt=700;it=0;api=W | Verdana 42 42 1 -4 0 -110 35 531/533/-1 531/542/-1 531/55b/-1 531/55c/0 578/55e/-4 585/55b/-3 585/55c/-3 585/55e/-4
+R kerning_pairs kernsorted face=Verdana;req_h=-12;wt=700;it=0;api=W | 531/533/-1 531/542/-1 531/55b/-1 531/55c/0 578/55e/-4 585/55b/-3 585/55c/-3 585/55e/-4
+H kerning_pairs h_ret face=Verdana;req_h=-12;wt=700;it=0;api=W sha256=49c030258f4bae7a len=504
+H kerning_pairs h_sorted face=Verdana;req_h=-12;wt=700;it=0;api=W sha256=49c030258f4bae7a len=504
+R kerning_pairs kern face=Verdana;req_h=-12;wt=700;it=0;api=A | Verdana 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Verdana;req_h=-12;wt=700;it=0 | 42 41 42
+R kerning_pairs kern face=Verdana;req_h=-32;wt=400;it=0;api=W | Verdana 574 574 0 -6 5 -559 381 21/201d/-2 21/2019/-2 27/41/-2 27/c6/-2 579/575/3 57a/575/1 57b/575/2 57e/575/4
+R kerning_pairs kernsorted face=Verdana;req_h=-32;wt=400;it=0;api=W | 21/2019/-2 21/201d/-2 27/41/-2 27/c6/-2 201e/57/-2 201e/59/-3 2026/2019/-3 2026/201d/-3
+H kerning_pairs h_ret face=Verdana;req_h=-32;wt=400;it=0;api=W sha256=94cb8536fc5df859 len=6888
+H kerning_pairs h_sorted face=Verdana;req_h=-32;wt=400;it=0;api=W sha256=2de0b6a29e508350 len=6888
+R kerning_pairs kern face=Verdana;req_h=-32;wt=400;it=0;api=A | Verdana 534 534 0 -5 2 -557 343 21/94/-2 21/92/-2 27/41/-2 27/c6/-2 84/54/-3 84/56/-3 84/57/-2 84/59/-3
+R kerning_pairs kernsorted face=Verdana;req_h=-32;wt=400;it=0;api=A | 21/92/-2 21/94/-2 27/41/-2 27/c6/-2 f8/76/0 f8/78/0 f8/79/0 f8/85/0
+H kerning_pairs h_ret face=Verdana;req_h=-32;wt=400;it=0;api=A sha256=4741fdea883c4629 len=6408
+H kerning_pairs h_sorted face=Verdana;req_h=-32;wt=400;it=0;api=A sha256=b35cf33670dc1842 len=6408
+R kerning_pairs kerncall face=Verdana;req_h=-32;wt=400;it=0 | 574 573 574
+R kerning_pairs kern face=Verdana;req_h=-32;wt=700;it=0;api=W | Verdana 42 42 1 -10 0 -288 41 531/533/-1 531/542/-1 531/55b/-1 531/55c/0 578/55e/-10 585/55b/-8 585/55c/-8 585/55e/-10
+R kerning_pairs kernsorted face=Verdana;req_h=-32;wt=700;it=0;api=W | 531/533/-1 531/542/-1 531/55b/-1 531/55c/0 578/55e/-10 585/55b/-8 585/55c/-8 585/55e/-10
+H kerning_pairs h_ret face=Verdana;req_h=-32;wt=700;it=0;api=W sha256=6236486f76fbb3da len=504
+H kerning_pairs h_sorted face=Verdana;req_h=-32;wt=700;it=0;api=W sha256=6236486f76fbb3da len=504
+R kerning_pairs kern face=Verdana;req_h=-32;wt=700;it=0;api=A | Verdana 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Verdana;req_h=-32;wt=700;it=0 | 42 41 42
+R kerning_pairs kern face=Consolas;req_h=-12;wt=400;it=0;api=W | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Consolas;req_h=-12;wt=400;it=0;api=A | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Consolas;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Consolas;req_h=-12;wt=700;it=0;api=W | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Consolas;req_h=-12;wt=700;it=0;api=A | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Consolas;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Consolas;req_h=-32;wt=400;it=0;api=W | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Consolas;req_h=-32;wt=400;it=0;api=A | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Consolas;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Consolas;req_h=-32;wt=700;it=0;api=W | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Consolas;req_h=-32;wt=700;it=0;api=A | Consolas 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Consolas;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Calibri;req_h=-12;wt=400;it=0;api=W | Calibri 26706 26706 0 -2 1 -4103 4198 41/43/0 41/106/0 41/108/0 41/10c/0 1ef7/1ee3/0 1ef7/1ef5/0 1ef7/1ef9/0 1ef7/1ef7/0
+R kerning_pairs kernsorted face=Calibri;req_h=-12;wt=400;it=0;api=W | 28/67/0 28/6a/0 28/11d/0 28/11f/0 fb00/fb01/0 fb00/fb02/0 fb00/fb03/0 fb00/fb04/0
+H kerning_pairs h_ret face=Calibri;req_h=-12;wt=400;it=0;api=W sha256=1241b6260dff7311 len=320472
+H kerning_pairs h_sorted face=Calibri;req_h=-12;wt=400;it=0;api=W sha256=07e019d1005e2191 len=320472
+R kerning_pairs kern face=Calibri;req_h=-12;wt=400;it=0;api=A | Calibri 9409 9409 0 -2 1 -1301 1358 41/43/0 41/43/0 41/43/0 41/43/0 55/2e/-1 55/4f/0 55/6f/-1 55/75/0
+R kerning_pairs kernsorted face=Calibri;req_h=-12;wt=400;it=0;api=A | 28/67/0 28/67/0 28/67/0 28/67/0 ff/f6/0 ff/f8/0 ff/fd/0 ff/ff/0
+H kerning_pairs h_ret face=Calibri;req_h=-12;wt=400;it=0;api=A sha256=f1f64b203fa36888 len=112908
+H kerning_pairs h_sorted face=Calibri;req_h=-12;wt=400;it=0;api=A sha256=aba2f5161c108eab len=112908
+R kerning_pairs kerncall face=Calibri;req_h=-12;wt=400;it=0 | 26706 26705 26706
+R kerning_pairs kern face=Calibri;req_h=-12;wt=700;it=0;api=W | Calibri 26691 26691 0 -2 1 -3885 3992 41/43/0 41/106/0 41/108/0 41/10c/0 1ef7/1ee3/0 1ef7/1ef5/0 1ef7/1ef9/0 1ef7/1ef7/0
+R kerning_pairs kernsorted face=Calibri;req_h=-12;wt=700;it=0;api=W | 28/67/0 28/6a/0 28/11d/0 28/11f/0 fb00/2018/0 fb00/2019/1 fb00/201c/0 fb00/201d/1
+H kerning_pairs h_ret face=Calibri;req_h=-12;wt=700;it=0;api=W sha256=b3806505bba27549 len=320292
+H kerning_pairs h_sorted face=Calibri;req_h=-12;wt=700;it=0;api=W sha256=3d5d94d4b29bf7c8 len=320292
+R kerning_pairs kern face=Calibri;req_h=-12;wt=700;it=0;api=A | Calibri 9406 9406 0 -2 1 -1240 1287 41/43/0 41/43/0 41/43/0 41/43/0 55/2e/-1 55/4f/0 55/6f/-1 55/75/0
+R kerning_pairs kernsorted face=Calibri;req_h=-12;wt=700;it=0;api=A | 28/67/0 28/67/0 28/67/0 28/67/0 ff/f6/0 ff/f8/0 ff/fd/0 ff/ff/0
+H kerning_pairs h_ret face=Calibri;req_h=-12;wt=700;it=0;api=A sha256=c664ad14d0923c18 len=112872
+H kerning_pairs h_sorted face=Calibri;req_h=-12;wt=700;it=0;api=A sha256=bddade0b4ac67634 len=112872
+R kerning_pairs kerncall face=Calibri;req_h=-12;wt=700;it=0 | 26691 26690 26691
+R kerning_pairs kern face=Calibri;req_h=-32;wt=400;it=0;api=W | Calibri 26706 26706 0 -6 2 -17673 14913 41/43/0 41/106/0 41/108/0 41/10c/0 1ef7/1ee3/0 1ef7/1ef5/0 1ef7/1ef9/0 1ef7/1ef7/0
+R kerning_pairs kernsorted face=Calibri;req_h=-32;wt=400;it=0;api=W | 28/67/0 28/6a/1 28/11d/0 28/11f/0 fb00/fb01/0 fb00/fb02/0 fb00/fb03/0 fb00/fb04/0
+H kerning_pairs h_ret face=Calibri;req_h=-32;wt=400;it=0;api=W sha256=42d0703f9296d283 len=320472
+H kerning_pairs h_sorted face=Calibri;req_h=-32;wt=400;it=0;api=W sha256=72dc6902f1591aeb len=320472
+R kerning_pairs kern face=Calibri;req_h=-32;wt=400;it=0;api=A | Calibri 9409 9409 0 -6 2 -5731 4863 41/43/0 41/43/0 41/43/0 41/43/0 55/2e/-2 55/4f/-1 55/6f/-1 55/75/-1
+R kerning_pairs kernsorted face=Calibri;req_h=-32;wt=400;it=0;api=A | 28/67/0 28/67/0 28/67/0 28/67/0 ff/f6/0 ff/f8/0 ff/fd/0 ff/ff/0
+H kerning_pairs h_ret face=Calibri;req_h=-32;wt=400;it=0;api=A sha256=1ce9719d7549d304 len=112908
+H kerning_pairs h_sorted face=Calibri;req_h=-32;wt=400;it=0;api=A sha256=3057f5d95502370b len=112908
+R kerning_pairs kerncall face=Calibri;req_h=-32;wt=400;it=0 | 26706 26705 26706
+R kerning_pairs kern face=Calibri;req_h=-32;wt=700;it=0;api=W | Calibri 26691 26691 0 -6 2 -17566 13989 41/43/0 41/106/0 41/108/0 41/10c/0 1ef7/1ee3/0 1ef7/1ef5/0 1ef7/1ef9/0 1ef7/1ef7/0
+R kerning_pairs kernsorted face=Calibri;req_h=-32;wt=700;it=0;api=W | 28/67/0 28/6a/1 28/11d/0 28/11f/0 fb00/2018/1 fb00/2019/1 fb00/201c/1 fb00/201d/1
+H kerning_pairs h_ret face=Calibri;req_h=-32;wt=700;it=0;api=W sha256=21fec233abda231e len=320292
+H kerning_pairs h_sorted face=Calibri;req_h=-32;wt=700;it=0;api=W sha256=7cecbb87c972660e len=320292
+R kerning_pairs kern face=Calibri;req_h=-32;wt=700;it=0;api=A | Calibri 9406 9406 0 -6 2 -5559 4503 41/43/0 41/43/0 41/43/0 41/43/0 55/2e/-2 55/4f/-1 55/6f/-1 55/75/-1
+R kerning_pairs kernsorted face=Calibri;req_h=-32;wt=700;it=0;api=A | 28/67/0 28/67/0 28/67/0 28/67/0 ff/f6/0 ff/f8/0 ff/fd/0 ff/ff/0
+H kerning_pairs h_ret face=Calibri;req_h=-32;wt=700;it=0;api=A sha256=9d592da9b4495178 len=112872
+H kerning_pairs h_sorted face=Calibri;req_h=-32;wt=700;it=0;api=A sha256=575013ff54c9251f len=112872
+R kerning_pairs kerncall face=Calibri;req_h=-32;wt=700;it=0 | 26691 26690 26691
+R kerning_pairs kern face=Lucida%20Console;req_h=-12;wt=400;it=0;api=W | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Lucida%20Console;req_h=-12;wt=400;it=0;api=A | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Lucida%20Console;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Lucida%20Console;req_h=-12;wt=700;it=0;api=W | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Lucida%20Console;req_h=-12;wt=700;it=0;api=A | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Lucida%20Console;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Lucida%20Console;req_h=-32;wt=400;it=0;api=W | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Lucida%20Console;req_h=-32;wt=400;it=0;api=A | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Lucida%20Console;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Lucida%20Console;req_h=-32;wt=700;it=0;api=W | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Lucida%20Console;req_h=-32;wt=700;it=0;api=A | Lucida%20Console 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Lucida%20Console;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=W | Segoe%20UI%20Symbol 1361 1361 0 -2 1 -488 541 22/72/0 22/73/0 22/161/0 27/72/0 21e9/201d/-1 21e9/2018/-1 21e9/2019/-1 21e9/2108/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=W | 22/72/0 22/73/0 22/161/0 27/72/0 21e9/201c/-1 21e9/201d/-1 21e9/2108/0 21e9/2122/-1
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=W sha256=4fe68e4a7c0f2cc8 len=16332
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=W sha256=c89657f7d859c15e len=16332
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=A | Segoe%20UI%20Symbol 1352 1352 0 -2 1 -481 534 22/72/0 22/73/0 22/9a/0 27/72/0 fe/e4/0 fe/e3/0 fe/e5/0 fe/e6/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=A | 22/72/0 22/73/0 22/9a/0 27/72/0 ff/65/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=A sha256=cd74d3bf4ddb7641 len=16224
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0;api=A sha256=8dbdbd7795ef0648 len=16224
+R kerning_pairs kerncall face=Segoe%20UI%20Symbol;req_h=-12;wt=400;it=0 | 1361 1360 1361
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=W | Segoe%20UI%20Symbol 1361 1361 0 -2 1 -488 541 22/72/0 22/73/0 22/161/0 27/72/0 21e9/201d/-1 21e9/2018/-1 21e9/2019/-1 21e9/2108/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=W | 22/72/0 22/73/0 22/161/0 27/72/0 21e9/201c/-1 21e9/201d/-1 21e9/2108/0 21e9/2122/-1
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=W sha256=4fe68e4a7c0f2cc8 len=16332
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=W sha256=c89657f7d859c15e len=16332
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=A | Segoe%20UI%20Symbol 1352 1352 0 -2 1 -481 534 22/72/0 22/73/0 22/9a/0 27/72/0 fe/e4/0 fe/e3/0 fe/e5/0 fe/e6/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=A | 22/72/0 22/73/0 22/9a/0 27/72/0 ff/65/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=A sha256=cd74d3bf4ddb7641 len=16224
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0;api=A sha256=8dbdbd7795ef0648 len=16224
+R kerning_pairs kerncall face=Segoe%20UI%20Symbol;req_h=-12;wt=700;it=0 | 1361 1360 1361
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=W | Segoe%20UI%20Symbol 1361 1361 0 -6 4 -1343 997 22/72/-1 22/73/-1 22/161/-1 27/72/-1 21e9/201d/-3 21e9/2018/-2 21e9/2019/-3 21e9/2108/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=W | 22/72/-1 22/73/-1 22/161/-1 27/72/-1 21e9/201c/-2 21e9/201d/-3 21e9/2108/0 21e9/2122/-2
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=W sha256=78d882a3e8f6254f len=16332
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=W sha256=5a1a4ff926390436 len=16332
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=A | Segoe%20UI%20Symbol 1352 1352 0 -6 4 -1326 990 22/72/-1 22/73/-1 22/9a/-1 27/72/-1 fe/e4/0 fe/e3/0 fe/e5/0 fe/e6/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=A | 22/72/-1 22/73/-1 22/9a/-1 27/72/-1 ff/65/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=A sha256=5e4fc3f3bdb07c46 len=16224
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0;api=A sha256=530a358acc8ba797 len=16224
+R kerning_pairs kerncall face=Segoe%20UI%20Symbol;req_h=-32;wt=400;it=0 | 1361 1360 1361
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=W | Segoe%20UI%20Symbol 1361 1361 0 -6 4 -1343 997 22/72/-1 22/73/-1 22/161/-1 27/72/-1 21e9/201d/-3 21e9/2018/-2 21e9/2019/-3 21e9/2108/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=W | 22/72/-1 22/73/-1 22/161/-1 27/72/-1 21e9/201c/-2 21e9/201d/-3 21e9/2108/0 21e9/2122/-2
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=W sha256=78d882a3e8f6254f len=16332
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=W sha256=5a1a4ff926390436 len=16332
+R kerning_pairs kern face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=A | Segoe%20UI%20Symbol 1352 1352 0 -6 4 -1326 990 22/72/-1 22/73/-1 22/9a/-1 27/72/-1 fe/e4/0 fe/e3/0 fe/e5/0 fe/e6/0
+R kerning_pairs kernsorted face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=A | 22/72/-1 22/73/-1 22/9a/-1 27/72/-1 ff/65/0 ff/67/0 ff/6f/0 ff/71/0
+H kerning_pairs h_ret face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=A sha256=5e4fc3f3bdb07c46 len=16224
+H kerning_pairs h_sorted face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0;api=A sha256=530a358acc8ba797 len=16224
+R kerning_pairs kerncall face=Segoe%20UI%20Symbol;req_h=-32;wt=700;it=0 | 1361 1360 1361
+R kerning_pairs kern face=Georgia;req_h=-12;wt=400;it=0;api=W | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Georgia;req_h=-12;wt=400;it=0;api=A | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Georgia;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Georgia;req_h=-12;wt=700;it=0;api=W | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Georgia;req_h=-12;wt=700;it=0;api=A | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Georgia;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Georgia;req_h=-32;wt=400;it=0;api=W | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Georgia;req_h=-32;wt=400;it=0;api=A | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Georgia;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Georgia;req_h=-32;wt=700;it=0;api=W | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Georgia;req_h=-32;wt=700;it=0;api=A | Georgia 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Georgia;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=W | Trebuchet%20MS 118 118 0 -2 0 -109 90 20/41/-1 20/54/0 20/59/0 41/20/-1 2018/2018/-1 2019/20/0 2019/73/-1 2019/2019/-1
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=W | 20/41/-1 20/54/0 20/59/0 41/20/-1 2018/2018/-1 2019/20/0 2019/73/-1 2019/2019/-1
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=W sha256=800ee40304de7dd2 len=1416
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=W sha256=1052dbae95db0970 len=1416
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=A | Trebuchet%20MS 118 118 1 -2 0 -109 90 20/41/-1 20/54/0 20/59/0 41/20/-1 91/91/-1 92/20/0 92/73/-1 92/92/-1
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=A | 20/41/-1 20/54/0 20/59/0 41/20/-1 91/91/-1 92/20/0 92/73/-1 92/92/-1
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=A sha256=bff739a48cd5ef73 len=1416
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-12;wt=400;it=0;api=A sha256=bff739a48cd5ef73 len=1416
+R kerning_pairs kerncall face=Trebuchet%20MS;req_h=-12;wt=400;it=0 | 118 117 118
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=W | Trebuchet%20MS 111 111 0 -2 0 -86 79 20/41/-1 20/54/0 20/59/0 41/20/-1 2018/2018/-1 2019/20/0 2019/73/-1 2019/2019/-1
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=W | 20/41/-1 20/54/0 20/59/0 41/20/-1 2018/2018/-1 2019/20/0 2019/73/-1 2019/2019/-1
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=W sha256=41ed39f1e0f121ef len=1332
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=W sha256=d3e85e3a69c5c0f8 len=1332
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=A | Trebuchet%20MS 111 111 1 -2 0 -86 79 20/41/-1 20/54/0 20/59/0 41/20/-1 91/91/-1 92/20/0 92/73/-1 92/92/-1
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=A | 20/41/-1 20/54/0 20/59/0 41/20/-1 91/91/-1 92/20/0 92/73/-1 92/92/-1
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=A sha256=1d914dd87bbf211f len=1332
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-12;wt=700;it=0;api=A sha256=1d914dd87bbf211f len=1332
+R kerning_pairs kerncall face=Trebuchet%20MS;req_h=-12;wt=700;it=0 | 111 110 111
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=W | Trebuchet%20MS 118 118 0 -6 0 -312 116 20/41/-2 20/54/-1 20/59/-1 41/20/-2 2018/2018/-3 2019/20/-1 2019/73/-2 2019/2019/-3
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=W | 20/41/-2 20/54/-1 20/59/-1 41/20/-2 2018/2018/-3 2019/20/-1 2019/73/-2 2019/2019/-3
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=W sha256=2b17af7299dbd83c len=1416
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=W sha256=ea21e7ece857ec64 len=1416
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=A | Trebuchet%20MS 118 118 1 -6 0 -312 116 20/41/-2 20/54/-1 20/59/-1 41/20/-2 91/91/-3 92/20/-1 92/73/-2 92/92/-3
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=A | 20/41/-2 20/54/-1 20/59/-1 41/20/-2 91/91/-3 92/20/-1 92/73/-2 92/92/-3
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=A sha256=dbc0c902844a033e len=1416
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-32;wt=400;it=0;api=A sha256=dbc0c902844a033e len=1416
+R kerning_pairs kerncall face=Trebuchet%20MS;req_h=-32;wt=400;it=0 | 118 117 118
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=W | Trebuchet%20MS 111 111 0 -4 1 -248 110 20/41/-2 20/54/-1 20/59/-1 41/20/-2 2018/2018/-3 2019/20/-1 2019/73/-2 2019/2019/-3
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=W | 20/41/-2 20/54/-1 20/59/-1 41/20/-2 2018/2018/-3 2019/20/-1 2019/73/-2 2019/2019/-3
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=W sha256=4919805ead61ada7 len=1332
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=W sha256=dbd23f7cdf180989 len=1332
+R kerning_pairs kern face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=A | Trebuchet%20MS 111 111 1 -4 1 -248 110 20/41/-2 20/54/-1 20/59/-1 41/20/-2 91/91/-3 92/20/-1 92/73/-2 92/92/-3
+R kerning_pairs kernsorted face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=A | 20/41/-2 20/54/-1 20/59/-1 41/20/-2 91/91/-3 92/20/-1 92/73/-2 92/92/-3
+H kerning_pairs h_ret face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=A sha256=6bcead7b621f6df8 len=1332
+H kerning_pairs h_sorted face=Trebuchet%20MS;req_h=-32;wt=700;it=0;api=A sha256=6bcead7b621f6df8 len=1332
+R kerning_pairs kerncall face=Trebuchet%20MS;req_h=-32;wt=700;it=0 | 111 110 111
+R kerning_pairs kern face=Cambria;req_h=-12;wt=400;it=0;api=W | Cambria 29715 29715 0 -2 1 -5540 5685 41/43/0 41/47/0 41/4a/0 41/4f/0 163/1edd/0 163/1edf/0 163/1ee1/0 163/1ee3/0
+R kerning_pairs kernsorted face=Cambria;req_h=-12;wt=400;it=0;api=W | 22/41/-2 22/c0/-2 22/c1/-2 22/c2/-2 fb04/1ef3/0 fb04/1ef5/0 fb04/1ef7/0 fb04/1ef9/0
+H kerning_pairs h_ret face=Cambria;req_h=-12;wt=400;it=0;api=W sha256=035ce7fc8feac019 len=356580
+H kerning_pairs h_sorted face=Cambria;req_h=-12;wt=400;it=0;api=W sha256=becad2d482986ed0 len=356580
+R kerning_pairs kern face=Cambria;req_h=-12;wt=400;it=0;api=A | Cambria 10664 10664 0 -2 1 -1907 1928 41/43/0 41/47/0 41/4a/0 41/4f/0 74/99/0 74/aa/0 74/ba/0 74/6f/0
+R kerning_pairs kernsorted face=Cambria;req_h=-12;wt=400;it=0;api=A | 22/41/-2 22/41/-2 22/41/-2 22/41/-2 ff/f5/0 ff/f6/0 ff/f8/0 ff/fe/0
+H kerning_pairs h_ret face=Cambria;req_h=-12;wt=400;it=0;api=A sha256=f960edfb351d720c len=127968
+H kerning_pairs h_sorted face=Cambria;req_h=-12;wt=400;it=0;api=A sha256=0750ec93ccb6ca9e len=127968
+R kerning_pairs kerncall face=Cambria;req_h=-12;wt=400;it=0 | 29715 29714 29715
+R kerning_pairs kern face=Cambria;req_h=-12;wt=700;it=0;api=W | Cambria 31738 31738 0 -2 1 -6502 6551 41/43/0 41/47/0 41/4a/0 41/4f/0 163/1edd/0 163/1edf/0 163/1ee1/0 163/1ee3/0
+R kerning_pairs kernsorted face=Cambria;req_h=-12;wt=700;it=0;api=W | 22/41/-2 22/c0/-2 22/c1/-2 22/c2/-2 fb04/1ef3/0 fb04/1ef5/0 fb04/1ef7/0 fb04/1ef9/0
+H kerning_pairs h_ret face=Cambria;req_h=-12;wt=700;it=0;api=W sha256=d4ea1b329ee1f108 len=380856
+H kerning_pairs h_sorted face=Cambria;req_h=-12;wt=700;it=0;api=W sha256=f9b4031aa61f954b len=380856
+R kerning_pairs kern face=Cambria;req_h=-12;wt=700;it=0;api=A | Cambria 12023 12023 0 -2 1 -2177 2196 41/43/0 41/47/0 41/4a/0 41/4f/0 74/99/0 74/aa/0 74/ba/0 74/6f/0
+R kerning_pairs kernsorted face=Cambria;req_h=-12;wt=700;it=0;api=A | 22/41/-2 22/41/-2 22/41/-2 22/41/-2 ff/f5/0 ff/f6/0 ff/f8/0 ff/fe/0
+H kerning_pairs h_ret face=Cambria;req_h=-12;wt=700;it=0;api=A sha256=48163748224402b3 len=144276
+H kerning_pairs h_sorted face=Cambria;req_h=-12;wt=700;it=0;api=A sha256=9a185bd9cf547d25 len=144276
+R kerning_pairs kerncall face=Cambria;req_h=-12;wt=700;it=0 | 31738 31737 31738
+R kerning_pairs kern face=Cambria;req_h=-32;wt=400;it=0;api=W | Cambria 29715 29715 0 -5 3 -23670 18215 41/43/-1 41/47/-1 41/4a/0 41/4f/-1 163/1edd/0 163/1edf/0 163/1ee1/0 163/1ee3/0
+R kerning_pairs kernsorted face=Cambria;req_h=-32;wt=400;it=0;api=W | 22/41/-4 22/c0/-4 22/c1/-4 22/c2/-4 fb04/1ef3/-1 fb04/1ef5/-1 fb04/1ef7/-1 fb04/1ef9/-1
+H kerning_pairs h_ret face=Cambria;req_h=-32;wt=400;it=0;api=W sha256=9d759cb05f557c39 len=356580
+H kerning_pairs h_sorted face=Cambria;req_h=-32;wt=400;it=0;api=W sha256=0b329f45cec9730d len=356580
+R kerning_pairs kern face=Cambria;req_h=-32;wt=400;it=0;api=A | Cambria 10664 10664 0 -5 3 -8600 6254 41/43/-1 41/47/-1 41/4a/0 41/4f/-1 74/99/0 74/aa/1 74/ba/1 74/6f/0
+R kerning_pairs kernsorted face=Cambria;req_h=-32;wt=400;it=0;api=A | 22/41/-4 22/41/-4 22/41/-4 22/41/-4 ff/f5/-1 ff/f6/-1 ff/f8/-1 ff/fe/0
+H kerning_pairs h_ret face=Cambria;req_h=-32;wt=400;it=0;api=A sha256=39a87ee53d7948d1 len=127968
+H kerning_pairs h_sorted face=Cambria;req_h=-32;wt=400;it=0;api=A sha256=55e41b33cf30796f len=127968
+R kerning_pairs kerncall face=Cambria;req_h=-32;wt=400;it=0 | 29715 29714 29715
+R kerning_pairs kern face=Cambria;req_h=-32;wt=700;it=0;api=W | Cambria 31738 31738 0 -6 3 -27493 19567 41/43/-1 41/47/-1 41/4a/0 41/4f/-1 163/1edd/0 163/1edf/0 163/1ee1/0 163/1ee3/0
+R kerning_pairs kernsorted face=Cambria;req_h=-32;wt=700;it=0;api=W | 22/41/-4 22/c0/-4 22/c1/-4 22/c2/-4 fb04/1ef3/-1 fb04/1ef5/-1 fb04/1ef7/-1 fb04/1ef9/-1
+H kerning_pairs h_ret face=Cambria;req_h=-32;wt=700;it=0;api=W sha256=230ce445ceacf839 len=380856
+H kerning_pairs h_sorted face=Cambria;req_h=-32;wt=700;it=0;api=W sha256=220a0b9e91cbda7d len=380856
+R kerning_pairs kern face=Cambria;req_h=-32;wt=700;it=0;api=A | Cambria 12023 12023 0 -5 3 -9712 7005 41/43/-1 41/47/-1 41/4a/0 41/4f/-1 74/99/0 74/aa/1 74/ba/1 74/6f/0
+R kerning_pairs kernsorted face=Cambria;req_h=-32;wt=700;it=0;api=A | 22/41/-4 22/41/-4 22/41/-4 22/41/-4 ff/f5/-1 ff/f6/-1 ff/f8/-1 ff/fe/0
+H kerning_pairs h_ret face=Cambria;req_h=-32;wt=700;it=0;api=A sha256=1412221595679bfd len=144276
+H kerning_pairs h_sorted face=Cambria;req_h=-32;wt=700;it=0;api=A sha256=5534065d88a3c184 len=144276
+R kerning_pairs kerncall face=Cambria;req_h=-32;wt=700;it=0 | 31738 31737 31738
+R kerning_pairs kern face=System;req_h=-12;wt=400;it=0;api=W | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=System;req_h=-12;wt=400;it=0;api=A | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=System;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=System;req_h=-12;wt=700;it=0;api=W | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=System;req_h=-12;wt=700;it=0;api=A | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=System;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=System;req_h=-32;wt=400;it=0;api=W | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=System;req_h=-32;wt=400;it=0;api=A | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=System;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=System;req_h=-32;wt=700;it=0;api=W | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=System;req_h=-32;wt=700;it=0;api=A | System 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=System;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Terminal;req_h=-12;wt=400;it=0;api=W | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Terminal;req_h=-12;wt=400;it=0;api=A | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Terminal;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Terminal;req_h=-12;wt=700;it=0;api=W | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Terminal;req_h=-12;wt=700;it=0;api=A | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Terminal;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Terminal;req_h=-32;wt=400;it=0;api=W | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Terminal;req_h=-32;wt=400;it=0;api=A | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Terminal;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Terminal;req_h=-32;wt=700;it=0;api=W | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Terminal;req_h=-32;wt=700;it=0;api=A | Terminal 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Terminal;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Fixedsys;req_h=-12;wt=400;it=0;api=W | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Fixedsys;req_h=-12;wt=400;it=0;api=A | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Fixedsys;req_h=-12;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Fixedsys;req_h=-12;wt=700;it=0;api=W | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Fixedsys;req_h=-12;wt=700;it=0;api=A | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Fixedsys;req_h=-12;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=Fixedsys;req_h=-32;wt=400;it=0;api=W | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Fixedsys;req_h=-32;wt=400;it=0;api=A | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Fixedsys;req_h=-32;wt=400;it=0 | 0 0 0
+R kerning_pairs kern face=Fixedsys;req_h=-32;wt=700;it=0;api=W | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kern face=Fixedsys;req_h=-32;wt=700;it=0;api=A | Fixedsys 0 0 ! ! ! ! ! ! ! ! ! ! ! ! !
+R kerning_pairs kerncall face=Fixedsys;req_h=-32;wt=700;it=0 | 0 0 0
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=W | Arial 909 909 0 -2 1 -326 334 20/41/-1 20/54/0 20/59/0 20/386/-1 3c0/3bf/0 3c0/3c2/0 3c0/3c9/0 3c0/3ce/0
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=W | 20/41/-1 20/54/0 20/59/0 20/386/-1 201e/40b/-1 201e/422/-1 201e/427/0 201e/42a/0
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=W sha256=21f8e090ea29084b len=10908
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=W sha256=4f5b38fdf449d1f5 len=10908
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=A | Arial 120 120 0 -2 0 -69 65 20/41/-1 20/54/0 20/59/0 31/31/-1 53/70/-1 70/61/0 70/73/0 70/66/0
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=A | 20/41/-1 20/54/0 20/59/0 31/31/-1 91/91/0 92/20/0 92/73/0 92/92/0
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=A sha256=ca2eaec0dc32f214 len=1440
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-12;wt=400;it=0;api=A sha256=e5de2d3352687049 len=1440
+R kerning_pairs kerncall face=NoSuchFace%20I7;req_h=-12;wt=400;it=0 | 909 908 909
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=W | Arial 908 908 0 -2 2 -217 229 20/41/0 20/59/0 20/386/0 20/391/0 3c0/3bf/0 3c0/3c2/0 3c0/3c9/0 3c0/3ce/0
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=W | 20/41/0 20/59/0 20/386/0 20/391/0 201e/40b/-1 201e/422/-1 201e/427/-1 201e/42a/-1
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=W sha256=ac005246a9c2534d len=10896
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=W sha256=9489024c90f9e332 len=10896
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=A | Arial 117 117 0 -2 0 -69 67 20/41/0 20/59/0 31/31/-1 41/20/0 70/61/0 70/64/0 70/73/0 70/66/0
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=A | 20/41/0 20/59/0 31/31/-1 41/20/0 91/91/0 92/20/-1 92/73/0 92/92/0
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=A sha256=b8c93682a36657f4 len=1404
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-12;wt=700;it=0;api=A sha256=85902e9efa1bfcde len=1404
+R kerning_pairs kerncall face=NoSuchFace%20I7;req_h=-12;wt=700;it=0 | 908 907 908
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=W | Arial 909 909 0 -6 3 -1011 661 20/41/-2 20/54/-1 20/59/-1 20/386/-2 3c0/3bf/0 3c0/3c2/0 3c0/3c9/0 3c0/3ce/0
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=W | 20/41/-2 20/54/-1 20/59/-1 20/386/-2 201e/40b/-3 201e/422/-3 201e/427/-1 201e/42a/-1
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=W sha256=6bf328f98ffe3c08 len=10908
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=W sha256=5674ad651b6572e0 len=10908
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=A | Arial 120 120 0 -4 1 -208 107 20/41/-2 20/54/-1 20/59/-1 31/31/-2 53/70/-2 70/61/0 70/73/0 70/66/0
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=A | 20/41/-2 20/54/-1 20/59/-1 31/31/-2 91/91/-1 92/20/-1 92/73/-1 92/92/-1
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=A sha256=0fb1bdc12ef607d0 len=1440
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-32;wt=400;it=0;api=A sha256=6e185df631815a23 len=1440
+R kerning_pairs kerncall face=NoSuchFace%20I7;req_h=-32;wt=400;it=0 | 909 908 909
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=W | Arial 908 908 0 -5 4 -903 641 20/41/-1 20/59/-1 20/386/-1 20/391/-1 3c0/3bf/-1 3c0/3c2/-1 3c0/3c9/-1 3c0/3ce/-1
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=W | 20/41/-1 20/59/-1 20/386/-1 20/391/-1 201e/40b/-3 201e/422/-3 201e/427/-3 201e/42a/-3
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=W sha256=69b9385bd49f98de len=10896
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=W sha256=d9f1e5aaf52b613c len=10896
+R kerning_pairs kern face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=A | Arial 117 117 0 -4 1 -208 116 20/41/-1 20/59/-1 31/31/-2 41/20/-1 70/61/-1 70/64/-1 70/73/-1 70/66/-1
+R kerning_pairs kernsorted face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=A | 20/41/-1 20/59/-1 31/31/-2 41/20/-1 91/91/-1 92/20/-2 92/73/-1 92/92/-1
+H kerning_pairs h_ret face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=A sha256=5872dd377ebe01b0 len=1404
+H kerning_pairs h_sorted face=NoSuchFace%20I7;req_h=-32;wt=700;it=0;api=A sha256=6ace182e1801633f len=1404
+R kerning_pairs kerncall face=NoSuchFace%20I7;req_h=-32;wt=700;it=0 | 908 907 908
+END kerning_pairs rows=646 crc32=436679E7 status=ok

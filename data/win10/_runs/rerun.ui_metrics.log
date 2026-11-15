@@ -1,5 +1,5 @@
 # serial serial.log sha256=0b84dd92930dee3f36c477806a48646767d93541b367d3a2dea9c2a2039895f9 bytes=1451504
-# wrote /tmp/claude-1000/fR/ui_metrics/rerun.rec
+# wrote ui_metrics/rerun.rec
 I7VM: logon Tue 11/10/2026 21:01:59.19 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-rerun-20261110-220115-2446167 logon=0

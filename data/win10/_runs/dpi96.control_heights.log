@@ -1,5 +1,5 @@
 # serial serial.log sha256=79f559c5ce7ce750a22d2a08ea81b035ac8b2681846d9e358346e664a35c4e0f bytes=537913
-# wrote /tmp/claude-1000/fA/control_heights/dpi96.rec
+# wrote control_heights/dpi96.rec
 I7VM: logon Tue 11/10/2026 20:08:29.68 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-dpi96-20261110-210741-2401788 logon=0

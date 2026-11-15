@@ -1,0 +1,27 @@
+# serial serial.log sha256=f2665495ac6473826533e2aeebcd8d146b45de83b4c837005d389f1400307f9f bytes=507361
+# wrote data/win10/outline_metrics/dpi96.rec
+I7VM: logon Sun 11/15/2026  6:46:01.02 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-20261115-071927-171837 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-15T06:46:01.542
+I7P ECHO id=gdi-dpi96-20261115-071927-171837 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=outline_metrics seq=0 timeout=300 time=2026-11-15T06:46:01.573
+I7P END name=outline_metrics seq=0 rc=0 ms=12032 timeout=0
+I7P BEGIN name=kerning_pairs seq=1 timeout=300 time=2026-11-15T06:46:13.620
+I7P END name=kerning_pairs seq=1 rc=0 ms=2735 timeout=0
+I7P DONE n=2 failed=0
+I7VMRUN END id=gdi-dpi96-20261115-071927-171837
+I7VM: payload exit 0 

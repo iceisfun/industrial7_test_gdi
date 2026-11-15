@@ -1,0 +1,118 @@
+# serial serial.log sha256=44e7eb083594bb29b3d18e16a89642491d1cd330169cfc4ce3d6174c67f71c99 bytes=2649906
+# wrote dpi96.rec
+# wrote dpi96.api-spda.rec
+# wrote dpi96.api-shc0.rec
+# wrote dpi96.api-shc1.rec
+# wrote dpi96.api-shc2.rec
+# wrote dpi96.api-pctx1.rec
+# wrote dpi96.api-pctx2.rec
+# wrote dpi96.api-pctx3.rec
+# wrote dpi96.api-pctx4.rec
+# wrote dpi96.api-pctx5.rec
+# wrote dpi120.rec
+# wrote dpi120.api-spda.rec
+# wrote dpi120.api-shc0.rec
+# wrote dpi120.api-shc1.rec
+# wrote dpi120.api-shc2.rec
+# wrote dpi120.api-pctx1.rec
+# wrote dpi120.api-pctx2.rec
+# wrote dpi120.api-pctx3.rec
+# wrote dpi120.api-pctx4.rec
+# wrote dpi120.api-pctx5.rec
+# wrote dpi144.rec
+# wrote dpi144.api-spda.rec
+# wrote dpi144.api-shc0.rec
+# wrote dpi144.api-shc1.rec
+# wrote dpi144.api-shc2.rec
+# wrote dpi144.api-pctx1.rec
+# wrote dpi144.api-pctx2.rec
+# wrote dpi144.api-pctx3.rec
+# wrote dpi144.api-pctx4.rec
+# wrote dpi144.api-pctx5.rec
+# wrote dpi168.rec
+# wrote dpi168.api-spda.rec
+# wrote dpi168.api-shc0.rec
+# wrote dpi168.api-shc1.rec
+# wrote dpi168.api-shc2.rec
+# wrote dpi168.api-pctx1.rec
+# wrote dpi168.api-pctx2.rec
+# wrote dpi168.api-pctx3.rec
+# wrote dpi168.api-pctx4.rec
+# wrote dpi168.api-pctx5.rec
+# wrote dpi192.rec
+# wrote dpi192.api-spda.rec
+# wrote dpi192.api-shc0.rec
+# wrote dpi192.api-shc1.rec
+# wrote dpi192.api-shc2.rec
+# wrote dpi192.api-pctx1.rec
+# wrote dpi192.api-pctx2.rec
+# wrote dpi192.api-pctx3.rec
+# wrote dpi192.api-pctx4.rec
+# wrote dpi192.api-pctx5.rec
+I7VM: logon Sun 11/15/2026  5:44:39.25 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-061848-123741 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-15T05:44:39.784
+I7P ECHO id=gdi-dpi96-sweep-20261115-061848-123741 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=dpi_scaling seq=0 timeout=300 time=2026-11-15T05:44:39.816
+I7P END name=dpi_scaling seq=0 rc=0 ms=37250 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=120
+I7VMRUN LOGOFF next=1
+I7VM: logon Sun 11/15/2026  5:45:49.03 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-061848-123741 logon=1
+I7VMRUN STAGE dpi=120 plan=plan1.txt
+I7P RUNNER v=1 plan=D:\i7run\plan1.txt time=2026-11-15T05:45:49.328
+I7P ECHO id=gdi-dpi96-sweep-20261115-061848-123741 tag=dpi120 dpi=120 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=300 time=2026-11-15T05:45:49.328
+I7P END name=dpi_scaling seq=0 rc=0 ms=34250 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=144
+I7VMRUN LOGOFF next=2
+I7VM: logon Sun 11/15/2026  5:46:46.69 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-061848-123741 logon=2
+I7VMRUN STAGE dpi=144 plan=plan2.txt
+I7P RUNNER v=1 plan=D:\i7run\plan2.txt time=2026-11-15T05:46:46.946
+I7P ECHO id=gdi-dpi96-sweep-20261115-061848-123741 tag=dpi144 dpi=144 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=300 time=2026-11-15T05:46:46.946
+I7P END name=dpi_scaling seq=0 rc=0 ms=34766 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=168
+I7VMRUN LOGOFF next=3
+I7VM: logon Sun 11/15/2026  5:47:46.76 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-061848-123741 logon=3
+I7VMRUN STAGE dpi=168 plan=plan3.txt
+I7P RUNNER v=1 plan=D:\i7run\plan3.txt time=2026-11-15T05:47:47.041
+I7P ECHO id=gdi-dpi96-sweep-20261115-061848-123741 tag=dpi168 dpi=168 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=300 time=2026-11-15T05:47:47.041
+I7P END name=dpi_scaling seq=0 rc=0 ms=34657 timeout=0
+I7P DONE n=1 failed=0
+I7DPI set LogPixels=192
+I7VMRUN LOGOFF next=4
+I7VM: logon Sun 11/15/2026  5:48:50.24 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-061848-123741 logon=4
+I7VMRUN STAGE dpi=192 plan=plan4.txt
+I7P RUNNER v=1 plan=D:\i7run\plan4.txt time=2026-11-15T05:48:50.513
+I7P ECHO id=gdi-dpi96-sweep-20261115-061848-123741 tag=dpi192 dpi=192 res=default
+I7P BEGIN name=dpi_scaling seq=0 timeout=300 time=2026-11-15T05:48:50.529
+I7P END name=dpi_scaling seq=0 rc=0 ms=34156 timeout=0
+I7P DONE n=1 failed=0
+I7VMRUN END id=gdi-dpi96-sweep-20261115-061848-123741
+I7VM: payload exit 0 

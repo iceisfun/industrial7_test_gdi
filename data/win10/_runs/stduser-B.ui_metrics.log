@@ -1,0 +1,53 @@
+# serial serial.log sha256=6512b941837589bd587087e96995b484b3eae47e91a9b62ad3000f5d70242033 bytes=2907858
+# wrote dpi96.rec
+# wrote stduser.rec
+I7VM: logon Sun 11/15/2026  8:19:10.28 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-20261115-083142-224339 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-15T08:19:10.679
+I7P ECHO id=gdi-dpi96-20261115-083142-224339 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=ui_metrics seq=0 timeout=300 time=2026-11-15T08:19:10.695
+I7P END name=ui_metrics seq=0 rc=0 ms=89016 timeout=0
+I7P ECHO STDU-FINAL
+I7P BEGIN name=admin_groups seq=1 timeout=60 time=2026-11-15T08:20:39.710
+I7P END name=admin_groups seq=1 rc=0 ms=250 timeout=0
+I7P BEGIN name=admin_netsession seq=2 timeout=60 time=2026-11-15T08:20:39.976
+I7P END name=admin_netsession seq=2 rc=0 ms=156 timeout=0
+I7P BEGIN name=admin_netuser seq=3 timeout=60 time=2026-11-15T08:20:40.132
+I7P END name=admin_netuser seq=3 rc=0 ms=94 timeout=0
+I7P BEGIN name=std_groups seq=4 timeout=60 time=2026-11-15T08:20:40.226
+I7P STDTOKEN name=std_groups flags=LPMS ok=1 gle=0
+I7P TOKEN name=std_groups elevated=0 type=1 il=0x2000 admins_attr=0x10
+I7P END name=std_groups seq=4 rc=0 ms=156 timeout=0
+I7P BEGIN name=std_priv seq=5 timeout=60 time=2026-11-15T08:20:40.398
+I7P STDTOKEN name=std_priv flags=LPMS ok=1 gle=0
+I7P TOKEN name=std_priv elevated=0 type=1 il=0x2000 admins_attr=0x10
+I7P END name=std_priv seq=5 rc=0 ms=63 timeout=0
+I7P BEGIN name=std_netsession seq=6 timeout=60 time=2026-11-15T08:20:40.460
+I7P STDTOKEN name=std_netsession flags=LPMS ok=1 gle=0
+I7P TOKEN name=std_netsession elevated=0 type=1 il=0x2000 admins_attr=0x10
+I7P ERR name=std_netsession | System%20error%205%20has%20occurred.
+I7P ERR name=std_netsession | ~
+I7P ERR name=std_netsession | Access%20is%20denied.
+I7P ERR name=std_netsession | ~
+I7P END name=std_netsession seq=6 rc=2 ms=62 timeout=0
+I7P BEGIN name=ui_metrics seq=7 timeout=300 time=2026-11-15T08:20:40.554
+I7P STDTOKEN name=ui_metrics flags=LPMS ok=1 gle=0
+I7P TOKEN name=ui_metrics elevated=0 type=1 il=0x2000 admins_attr=0x10
+I7P END name=ui_metrics seq=7 rc=0 ms=85937 timeout=0
+I7P DONE n=8 failed=1
+I7VMRUN END id=gdi-dpi96-20261115-083142-224339
+I7VM: payload exit 0 

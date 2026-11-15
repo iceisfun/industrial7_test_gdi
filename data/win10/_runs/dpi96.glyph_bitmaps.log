@@ -1,5 +1,5 @@
 # serial serial.log sha256=6eea02b8e7356a17eef2d20200979d679a6ca01d6179d9187c9962252a8d85e7 bytes=6790416
-# wrote /tmp/claude-1000/fA/glyph_bitmaps/dpi96.rec.gz
+# wrote glyph_bitmaps/dpi96.rec.gz
 I7VM: logon Tue 11/10/2026 20:10:05.65 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-dpi96-20261110-210921-2402465 logon=0

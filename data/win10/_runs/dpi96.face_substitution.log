@@ -1,5 +1,5 @@
 # serial serial.log sha256=ca9376d1d985a111277fbf7da74b7618b363b35bcfb425d0aeaaeee40d0625c9 bytes=4426858
-# wrote /tmp/claude-1000/fA/face_substitution/dpi96.rec.gz
+# wrote face_substitution/dpi96.rec.gz
 I7VM: logon Tue 11/10/2026 20:01:36.27 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-dpi96-20261110-210050-2393906 logon=0

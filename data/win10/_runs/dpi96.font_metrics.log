@@ -1,5 +1,5 @@
 # serial serial.log sha256=022ad9fbb615d6f8201eb90ea894b7f6272fefce8adb33f9fe6f28939d34c6ef bytes=7670324
-# wrote /tmp/claude-1000/fA/font_metrics/dpi96.rec.gz
+# wrote font_metrics/dpi96.rec.gz
 I7VM: logon Tue 11/10/2026 19:53:10.03 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-dpi96-20261110-205219-2390908 logon=0

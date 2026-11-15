@@ -1,9 +1,9 @@
 # serial serial.log sha256=64bb5e42e5aa5060f8adaa9e19f16e693a70b9664434598986aa97d9a4794145 bytes=2689222
-# wrote /tmp/claude-1000/fS/control_heights/dpi96.rec
-# wrote /tmp/claude-1000/fS/control_heights/dpi120.rec
-# wrote /tmp/claude-1000/fS/control_heights/dpi144.rec
-# wrote /tmp/claude-1000/fS/control_heights/dpi168.rec
-# wrote /tmp/claude-1000/fS/control_heights/dpi192.rec
+# wrote control_heights/dpi96.rec
+# wrote control_heights/dpi120.rec
+# wrote control_heights/dpi144.rec
+# wrote control_heights/dpi168.rec
+# wrote control_heights/dpi192.rec
 I7VM: logon Tue 11/10/2026 20:54:02.58 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-dpi96-sweep-20261110-215315-2442170 logon=0

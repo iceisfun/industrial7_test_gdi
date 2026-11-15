@@ -1,0 +1,88 @@
+# serial serial.log sha256=7e672f3fb7679f7251bde73396a3d39987a8cb7203bc4c92c5a55212072a3b57 bytes=5384145
+# wrote (second boot, not stored) control_heights/dpi96.sys.rec
+# wrote (second boot, not stored) control_heights/dpi96.pm2.rec
+# wrote (second boot, not stored) control_heights/dpi120.sys.rec
+# wrote (second boot, not stored) control_heights/dpi120.pm2.rec
+# wrote (second boot, not stored) control_heights/dpi144.sys.rec
+# wrote (second boot, not stored) control_heights/dpi144.pm2.rec
+# wrote (second boot, not stored) control_heights/dpi168.sys.rec
+# wrote (second boot, not stored) control_heights/dpi168.pm2.rec
+# wrote (second boot, not stored) control_heights/dpi192.sys.rec
+# wrote (second boot, not stored) control_heights/dpi192.pm2.rec
+I7VM: logon Sun 11/15/2026  6:32:09.42 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-071447-167710 logon=0
+I7VMRUN STAGE dpi=96 plan=plan0.txt
+I7P RUNNER v=1 plan=D:\i7run\plan0.txt time=2026-11-15T06:32:09.988
+I7P ECHO id=gdi-dpi96-sweep-20261115-071447-167710 tag=dpi96 dpi=96 res=default
+I7P MODE 640x480x32@64
+I7P MODE 800x600x32@64
+I7P MODE 1024x768x32@64
+I7P MODE 1280x1024x32@64
+I7P MODE 1600x1200x32@64
+I7P MODE 1280x800x32@64
+I7P MODE 1280x960x32@64
+I7P MODE 1440x900x32@64
+I7P MODE 1680x1050x32@64
+I7P MODE 1920x1200x32@64
+I7P MODE 1920x1080x32@64
+I7P MODES n=11
+I7P BEGIN name=control_heights.sys seq=0 timeout=700 time=2026-11-15T06:32:10.004
+I7P END name=control_heights.sys seq=0 rc=0 ms=50359 timeout=0
+I7P BEGIN name=control_heights.pm2 seq=1 timeout=700 time=2026-11-15T06:33:00.363
+I7P END name=control_heights.pm2 seq=1 rc=0 ms=46750 timeout=0
+I7P DONE n=2 failed=0
+I7DPI set LogPixels=120
+I7VMRUN LOGOFF next=1
+I7VM: logon Sun 11/15/2026  6:34:17.52 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-071447-167710 logon=1
+I7VMRUN STAGE dpi=120 plan=plan1.txt
+I7P RUNNER v=1 plan=D:\i7run\plan1.txt time=2026-11-15T06:34:17.785
+I7P ECHO id=gdi-dpi96-sweep-20261115-071447-167710 tag=dpi120 dpi=120 res=default
+I7P BEGIN name=control_heights.sys seq=0 timeout=700 time=2026-11-15T06:34:17.801
+I7P END name=control_heights.sys seq=0 rc=0 ms=45687 timeout=0
+I7P BEGIN name=control_heights.pm2 seq=1 timeout=700 time=2026-11-15T06:35:03.488
+I7P END name=control_heights.pm2 seq=1 rc=0 ms=45047 timeout=0
+I7P DONE n=2 failed=0
+I7DPI set LogPixels=144
+I7VMRUN LOGOFF next=2
+I7VM: logon Sun 11/15/2026  6:36:16.03 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-071447-167710 logon=2
+I7VMRUN STAGE dpi=144 plan=plan2.txt
+I7P RUNNER v=1 plan=D:\i7run\plan2.txt time=2026-11-15T06:36:16.269
+I7P ECHO id=gdi-dpi96-sweep-20261115-071447-167710 tag=dpi144 dpi=144 res=default
+I7P BEGIN name=control_heights.sys seq=0 timeout=700 time=2026-11-15T06:36:16.285
+I7P END name=control_heights.sys seq=0 rc=0 ms=46234 timeout=0
+I7P BEGIN name=control_heights.pm2 seq=1 timeout=700 time=2026-11-15T06:37:02.519
+I7P END name=control_heights.pm2 seq=1 rc=0 ms=45235 timeout=0
+I7P DONE n=2 failed=0
+I7DPI set LogPixels=168
+I7VMRUN LOGOFF next=3
+I7VM: logon Sun 11/15/2026  6:38:15.05 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-071447-167710 logon=3
+I7VMRUN STAGE dpi=168 plan=plan3.txt
+I7P RUNNER v=1 plan=D:\i7run\plan3.txt time=2026-11-15T06:38:15.351
+I7P ECHO id=gdi-dpi96-sweep-20261115-071447-167710 tag=dpi168 dpi=168 res=default
+I7P BEGIN name=control_heights.sys seq=0 timeout=700 time=2026-11-15T06:38:15.351
+I7P END name=control_heights.sys seq=0 rc=0 ms=46234 timeout=0
+I7P BEGIN name=control_heights.pm2 seq=1 timeout=700 time=2026-11-15T06:39:01.585
+I7P END name=control_heights.pm2 seq=1 rc=0 ms=43953 timeout=0
+I7P DONE n=2 failed=0
+I7DPI set LogPixels=192
+I7VMRUN LOGOFF next=4
+I7VM: logon Sun 11/15/2026  6:40:09.17 
+I7VM: payload D:\i7run 
+I7VMRUN BEGIN id=gdi-dpi96-sweep-20261115-071447-167710 logon=4
+I7VMRUN STAGE dpi=192 plan=plan4.txt
+I7P RUNNER v=1 plan=D:\i7run\plan4.txt time=2026-11-15T06:40:09.443
+I7P ECHO id=gdi-dpi96-sweep-20261115-071447-167710 tag=dpi192 dpi=192 res=default
+I7P BEGIN name=control_heights.sys seq=0 timeout=700 time=2026-11-15T06:40:09.443
+I7P END name=control_heights.sys seq=0 rc=0 ms=46031 timeout=0
+I7P BEGIN name=control_heights.pm2 seq=1 timeout=700 time=2026-11-15T06:40:55.490
+I7P END name=control_heights.pm2 seq=1 rc=0 ms=43969 timeout=0
+I7P DONE n=2 failed=0
+I7VMRUN END id=gdi-dpi96-sweep-20261115-071447-167710
+I7VM: payload exit 0 

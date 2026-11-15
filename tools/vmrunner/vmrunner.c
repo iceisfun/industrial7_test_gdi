@@ -4,6 +4,12 @@
  * straight to the serial port; stderr of each child goes to %TEMP% and is relayed afterwards as I7P ERR lines.
  * Plan lines (relative exe paths resolve against the plan's directory; '#' comments):
  *   run <timeout_s> <name> <exe> [args...]   run a probe; killed (TerminateProcess) after timeout_s
+ *   runstd[:FLAGS] <timeout_s> <name> <exe> [args...]
+ *                                            as run, but the child gets a restricted copy of the runner's token
+ *                                            (CreateRestrictedToken). FLAGS letters: L=LUA_TOKEN, P=DISABLE_MAX_PRIVILEGE,
+ *                                            D=Administrators deny-only, M=Medium integrity, S=owner and default DACL = user SID
+ *                                            (default LPMS: not elevated, Administrators deny-only). I7P STDTOKEN / I7P TOKEN
+ *                                            describe the token. See docs/STD_USER_RUNS.md.
  *   cmd <timeout_s> <name> <cmd.exe /c command line>
  *   setres <W>x<H> [persist]                 ChangeDisplaySettings (persist = CDS_UPDATEREGISTRY)
  *   shot <name> [wait_ms]                    print "I7P SHOT name=<name>" and sleep (host takes a QMP screendump)
@@ -32,7 +38,45 @@ static void esc(char *d, size_t cap, const char *s){ static const char H[]="0123
 static void now(char *d, int cap){ SYSTEMTIME t; GetLocalTime(&t); snprintf(d,cap,"%04d-%02d-%02dT%02d:%02d:%02d.%03d",t.wYear,t.wMonth,t.wDay,t.wHour,t.wMinute,t.wSecond,t.wMilliseconds); }
 static char *tok(char **p){ while(**p==' '||**p=='\t') (*p)++; if(!**p) return NULL; char *s=*p; while(**p && **p!=' ' && **p!='\t') (*p)++; if(**p){ **p=0; (*p)++; } return s; }
 
-static int run_step(int seq, const char *name, int tmo, const char *cmdline){
+/* restricted (standard-user-like) primary token derived from the caller's own token; needs no extra privilege.
+ * flags: L = LUA_TOKEN, P = DISABLE_MAX_PRIVILEGE, D = Administrators SID deny-only (explicit), M = Medium integrity level,
+ * S = owner and default DACL set to the user SID (needed, see below) */
+static HANDLE std_token(const char *flags, DWORD *gle){
+  HANDLE t=NULL, r=NULL; *gle=0; DWORD f=0; BYTE adm[SECURITY_MAX_SID_SIZE]; DWORD asz=sizeof adm; SID_AND_ATTRIBUTES dis; memset(&dis,0,sizeof dis);
+  if(strchr(flags,'L')) f|=LUA_TOKEN;
+  if(strchr(flags,'P')) f|=DISABLE_MAX_PRIVILEGE;
+  if(!OpenProcessToken(GetCurrentProcess(),TOKEN_DUPLICATE|TOKEN_QUERY|TOKEN_ASSIGN_PRIMARY|TOKEN_ADJUST_DEFAULT,&t)){ *gle=GetLastError(); return NULL; }
+  int nd=0; if(strchr(flags,'D') && CreateWellKnownSid(WinBuiltinAdministratorsSid,NULL,adm,&asz)){ dis.Sid=adm; nd=1; }
+  if(!CreateRestrictedToken(t,f,nd,nd?&dis:NULL,0,NULL,0,NULL,&r)){ *gle=GetLastError(); CloseHandle(t); return NULL; }
+  CloseHandle(t);
+  { /* S: user SID as owner + default DACL (user, SYSTEM). Without it the deny-only Administrators group (the default owner
+       and default-DACL principal) leaves the new process unable to open its own token and the loader fails with
+       STATUS_DLL_INIT_FAILED (0xC0000142). */
+    BYTE ub[1024], sys[SECURITY_MAX_SID_SIZE]; DWORD n, ssz=sizeof sys; static BYTE acl[512];
+    if(strchr(flags,'S') && GetTokenInformation(r,TokenUser,ub,sizeof ub,&n) && CreateWellKnownSid(WinLocalSystemSid,NULL,sys,&ssz)){
+      PSID us=((TOKEN_USER*)ub)->User.Sid; PACL a=(PACL)acl;
+      if(InitializeAcl(a,sizeof acl,ACL_REVISION) && AddAccessAllowedAce(a,ACL_REVISION,GENERIC_ALL,us) && AddAccessAllowedAce(a,ACL_REVISION,GENERIC_ALL,sys)){
+        if(strchr(flags,'S')){ TOKEN_OWNER o; o.Owner=us; TOKEN_DEFAULT_DACL dd; dd.DefaultDacl=a;
+          if(!SetTokenInformation(r,TokenOwner,&o,sizeof o)) *gle=1000000+GetLastError();
+          if(!SetTokenInformation(r,TokenDefaultDacl,&dd,sizeof dd)) *gle=2000000+GetLastError(); } } } }
+  if(strchr(flags,'M')){ BYTE sid[SECURITY_MAX_SID_SIZE]; DWORD sz=sizeof sid; TOKEN_MANDATORY_LABEL ml; memset(&ml,0,sizeof ml);
+    if(CreateWellKnownSid(WinMediumLabelSid,NULL,sid,&sz)){ ml.Label.Sid=sid; ml.Label.Attributes=SE_GROUP_INTEGRITY;
+      if(!SetTokenInformation(r,TokenIntegrityLevel,&ml,(DWORD)sizeof ml+GetLengthSid(sid))) *gle=GetLastError(); } }
+  return r;
+}
+/* what the child's token looks like: elevated flag, elevation type, integrity RID, state of the Administrators group */
+static void std_describe(const char *name, HANDLE tok){
+  TOKEN_ELEVATION el; DWORD n, ty=0, rid=0; int e=-1, ad=-1; BYTE b[2048]; memset(&el,0,sizeof el);
+  if(GetTokenInformation(tok,TokenElevation,&el,sizeof el,&n)) e=(int)el.TokenIsElevated;
+  if(!GetTokenInformation(tok,TokenElevationType,&ty,sizeof ty,&n)) ty=0xFFFF;
+  if(GetTokenInformation(tok,TokenIntegrityLevel,b,sizeof b,&n)){ PSID s=((TOKEN_MANDATORY_LABEL*)b)->Label.Sid; rid=*GetSidSubAuthority(s,*GetSidSubAuthorityCount(s)-1); }
+  { BYTE adm[SECURITY_MAX_SID_SIZE]; DWORD asz=sizeof adm; static BYTE g[16384];
+    if(CreateWellKnownSid(WinBuiltinAdministratorsSid,NULL,adm,&asz) && GetTokenInformation(tok,TokenGroups,g,sizeof g,&n)){ TOKEN_GROUPS *tg=(TOKEN_GROUPS*)g; ad=0;
+      for(DWORD i=0;i<tg->GroupCount;i++) if(EqualSid(tg->Groups[i].Sid,adm)) ad=(int)tg->Groups[i].Attributes; } }
+  putf("I7P TOKEN name=%s elevated=%d type=%lu il=0x%lx admins_attr=0x%x\n",name,e,ty,rid,ad);
+}
+
+static int run_step(int seq, const char *name, int tmo, const char *cmdline, const char *restricted){
   char tmp[MAX_PATH], errp[MAX_PATH], ts[40]; GetTempPathA(sizeof tmp,tmp); snprintf(errp,sizeof errp,"%si7p_%lu_%d.err",tmp,GetCurrentProcessId(),seq);
   SECURITY_ATTRIBUTES sa={sizeof sa,NULL,TRUE};
   HANDLE herr=CreateFileA(errp,GENERIC_WRITE,FILE_SHARE_READ,&sa,CREATE_ALWAYS,FILE_ATTRIBUTE_TEMPORARY,NULL);
@@ -46,13 +90,21 @@ static int run_step(int seq, const char *name, int tmo, const char *cmdline){
   HANDLE job=CreateJobObjectA(NULL,NULL);
   if(job){ JOBOBJECT_EXTENDED_LIMIT_INFORMATION li; memset(&li,0,sizeof li); li.BasicLimitInformation.LimitFlags=JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE;
     SetInformationJobObject(job,JobObjectExtendedLimitInformation,&li,sizeof li); }
-  if(CreateProcessA(NULL,cl,NULL,NULL,TRUE,CREATE_NO_WINDOW|CREATE_SUSPENDED|CREATE_BREAKAWAY_FROM_JOB,NULL,NULL,&si,&pi)
-     || CreateProcessA(NULL,cl,NULL,NULL,TRUE,CREATE_NO_WINDOW|CREATE_SUSPENDED,NULL,NULL,&si,&pi)){
+  HANDLE rtok=NULL; DWORD tgle=0;
+  if(restricted){ rtok=std_token(restricted,&tgle); putf("I7P STDTOKEN name=%s flags=%s ok=%d gle=%lu\n",name,restricted,rtok?1:0,tgle); if(rtok) std_describe(name,rtok); }
+  int started;
+  if(restricted){
+    started= rtok && (CreateProcessAsUserA(rtok,NULL,cl,NULL,NULL,TRUE,CREATE_NO_WINDOW|CREATE_SUSPENDED|CREATE_BREAKAWAY_FROM_JOB,NULL,NULL,&si,&pi)
+     || CreateProcessAsUserA(rtok,NULL,cl,NULL,NULL,TRUE,CREATE_NO_WINDOW|CREATE_SUSPENDED,NULL,NULL,&si,&pi));
+  } else started= CreateProcessA(NULL,cl,NULL,NULL,TRUE,CREATE_NO_WINDOW|CREATE_SUSPENDED|CREATE_BREAKAWAY_FROM_JOB,NULL,NULL,&si,&pi)
+     || CreateProcessA(NULL,cl,NULL,NULL,TRUE,CREATE_NO_WINDOW|CREATE_SUSPENDED,NULL,NULL,&si,&pi);
+  if(started){
     if(job) AssignProcessToJobObject(job,pi.hProcess);
     ResumeThread(pi.hThread);
     if(WaitForSingleObject(pi.hProcess,(DWORD)tmo*1000)==WAIT_TIMEOUT){ timed=1; if(job) TerminateJobObject(job,0xDEAD); TerminateProcess(pi.hProcess,0xDEAD); WaitForSingleObject(pi.hProcess,5000); }
     GetExitCodeProcess(pi.hProcess,&rc); CloseHandle(pi.hProcess); CloseHandle(pi.hThread);
   } else { putf("I7P ERR name=%s | CreateProcess%%20failed%%20gle=%lu\n",name,GetLastError()); }
+  if(rtok) CloseHandle(rtok);
   if(job) CloseHandle(job);
   DWORD ms=GetTickCount()-t0; free(cl);
   CloseHandle(hout); CloseHandle(hin); CloseHandle(herr);
@@ -75,13 +127,14 @@ int main(int argc, char **argv){
   while(fgets(line,sizeof line,pf)){
     size_t l=strlen(line); while(l&&(line[l-1]=='\n'||line[l-1]=='\r')) line[--l]=0;
     char *p=line, *verb=tok(&p); if(!verb || verb[0]=='#') continue;
-    if(!strcmp(verb,"run")||!strcmp(verb,"cmd")){
+    int rs=!strncmp(verb,"runstd",6); const char *rflags=rs?(verb[6]==':'?verb+7:"LPMS"):NULL;
+    if(!strcmp(verb,"run")||rs||!strcmp(verb,"cmd")){
       char *t=tok(&p), *name=tok(&p); if(!t||!name) continue; int tmo=atoi(t); if(tmo<=0) tmo=300;
       char cl[8192];
-      if(!strcmp(verb,"run")){ char *exe=tok(&p); if(!exe) continue; while(*p==' ')p++;
+      if(!strcmp(verb,"run")||rs){ char *exe=tok(&p); if(!exe) continue; while(*p==' ')p++;
         if(exe[0]=='\\' || (exe[0]&&exe[1]==':')) snprintf(cl,sizeof cl,"\"%s\" %s",exe,p); else snprintf(cl,sizeof cl,"\"%s%s\" %s",dir,exe,p); }
       else { while(*p==' ')p++; snprintf(cl,sizeof cl,"cmd.exe /c %s",p); }
-      failed+=run_step(seq++,name,tmo,cl);
+      failed+=run_step(seq++,name,tmo,cl,rflags);
     } else if(!strcmp(verb,"setres")){
       char *r=tok(&p), *pers=tok(&p); int w=0,h=0; if(r) sscanf(r,"%dx%d",&w,&h);
       DEVMODEA dm; memset(&dm,0,sizeof dm); dm.dmSize=sizeof dm; EnumDisplaySettingsA(NULL,ENUM_CURRENT_SETTINGS,&dm);

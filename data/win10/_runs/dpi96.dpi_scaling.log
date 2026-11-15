@@ -1,14 +1,14 @@
 # serial serial.log sha256=94118db3171c68d057c0b7981707fde9a44d221ccc7d30abe67ea072047981ee bytes=524277
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-spda.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-shc0.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-shc1.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-shc2.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx1.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx2.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx3.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx4.rec
-# wrote /tmp/claude-1000/fA/dpi_scaling/dpi96.api-pctx5.rec
+# wrote dpi_scaling/dpi96.rec
+# wrote dpi_scaling/dpi96.api-spda.rec
+# wrote dpi_scaling/dpi96.api-shc0.rec
+# wrote dpi_scaling/dpi96.api-shc1.rec
+# wrote dpi_scaling/dpi96.api-shc2.rec
+# wrote dpi_scaling/dpi96.api-pctx1.rec
+# wrote dpi_scaling/dpi96.api-pctx2.rec
+# wrote dpi_scaling/dpi96.api-pctx3.rec
+# wrote dpi_scaling/dpi96.api-pctx4.rec
+# wrote dpi_scaling/dpi96.api-pctx5.rec
 I7VM: logon Tue 11/10/2026 20:13:32.21 
 I7VM: payload D:\i7run 
 I7VMRUN BEGIN id=gdi-dpi96-20261110-211246-2403724 logon=0

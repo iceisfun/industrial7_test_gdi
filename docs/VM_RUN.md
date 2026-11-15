@@ -19,6 +19,7 @@
    (job object) and its recording has no `END` trailer. Verbs: `run <s> <name> <exe> [args]`, `cmd <s> <name> <cmdline>`,
    `setres WxH [persist]`, `modes` (lists EnumDisplaySettings modes as `I7P MODE WxHxBPP@Hz`), `shot <name> [ms]`,
    `sleep <ms>`, `echo <text>`; `I7P DONE n= failed=` at the end.
+   `runstd[:FLAGS]` is `run` with a restricted (non-elevated) copy of the runner's token; see `docs/STD_USER_RUNS.md`.
 4. **Boot**: `~/w10lab/tools/win10_run.sh PAYLOAD OUTDIR` (never qemu directly; it holds `~/w10lab/oracle.lock`, one guest
    per host; it blocks while other workflows hold it - the lock is not FIFO, so waits of tens of minutes happen when
    many lanes are busy). OUTDIR = `~/w10lab/runs/gdi-<tag>-<stamp>-<pid>/stage2` (and `stage1`). `ORACLE_TIMEOUT`
