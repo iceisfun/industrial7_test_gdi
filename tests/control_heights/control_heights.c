@@ -2,7 +2,8 @@
 #include <commctrl.h>
 /* control_heights conformance: invariants of the text-metric and control-geometry calls that the
  * probes/control_heights recorder measures. Every hard CHECK below is backed by the Win10 22H2 decompile
- * (corpus API, build 19041.2965); the source function is named next to each group. Win10-specific numbers
+ * (corpus API, build 19041.2965); the source function is named next to each group. The one exception is the
+ * header item width, which is observed on Win10 and stable over separate boots (see EVIDENCE.md). Win10-specific numbers
  * (row heights, header heights per font and DPI) are NOT checked here: the golden generator adds those from
  * the recorded data (data/win10/control_heights/).
  *
@@ -158,8 +159,8 @@ TEST(header_layout_contract){
     RECT cr, ir; U(GetClientRect)(h, &cr);
     EQ(SND(h, HDM_GETITEMRECT, 0, &ir), 1);
     EQ(ir.top, cr.top); EQ(ir.bottom, cr.bottom);
+    EQ(ir.right - ir.left, 100);   /* O: the item rect is as wide as the width set (no NOTE over the boots) */
     EQ(SND(h, HDM_GETITEMRECT, 5, &ir), 0);
-    if (ir.right - ir.left != 100) t_note("item width %ld (set 100)", ir.right - ir.left);
     U(DestroyWindow)(h);
   }
   for (int fi = 1; fi < 3; fi++) U(DeleteObject)(fonts[fi]);

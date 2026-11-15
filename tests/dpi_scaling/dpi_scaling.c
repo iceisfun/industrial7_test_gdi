@@ -1,8 +1,7 @@
 #include "t.h"
 #include <stdlib.h>
 /* DPI-scaling conformance tests: only invariants that hold at ANY system DPI, in any DPI-awareness context.
- * Each hard CHECK cites the Win10 22H2 (19041.2965) decomp it was verified against (corpus explorer API,
- * /api/function/<module>/<name>/decomp). Recorded Win10 numbers (per DPI) live in probes/dpi_scaling and are turned
+ * Each hard CHECK cites the Win10 22H2 (19041.2965) decompilation it was verified against. Recorded Win10 numbers (per DPI) live in probes/dpi_scaling and are turned
  * into golden checks elsewhere; nothing here depends on the system DPI value.
  *
  * Sources:

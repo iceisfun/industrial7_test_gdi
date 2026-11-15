@@ -1,7 +1,7 @@
 #include "t.h"
 /* face_substitution: invariants of CreateFont(Indirect)(A/W/ExW), GetObject/GetTextFace/GetFontData/GetTextMetrics that hold on ANY
  * Windows (no font-specific numbers; those come from the recorded goldens, probes/face_substitution).
- * Every hard CHECK cites the Win10 22H2 code it was verified against (corpus API, build 19041.2965):
+ * Every hard CHECK cites the Win10 22H2 code it was verified against (decompilation, build 19041.2965):
  *   gdi32full!CreateFontIndirectW @0x6140, CreateFontIndirectA @0x1f00, CreateFontIndirectExW @0x61e0, CreateFontW @0x5490,
  *   gdi32full!GetObjectW @0x19f60, GetObjectA @0xbfb0, win32kfull!NtGdiExtGetObjectW @0x99e80, GreExtGetObjectW @0x99f88, hfontCreate @0x8fee0 (stores the ELFDV before lNormAngle),
  *   gdi32full!GetObjectType @0xa0000-type branch (font -> 6),

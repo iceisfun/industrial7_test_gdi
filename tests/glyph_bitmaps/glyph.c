@@ -239,10 +239,10 @@ TEST(glyph_tm_null_buffer_and_null_dc) {
     REQUIRE(U(GetTextMetricsW));
     /* gdi32full!GetTextMetricsW: the result stays 0 when lptm == NULL; an invalid DC fails the handle-table lookup */
     HDC dc = U(CreateCompatibleDC)(NULL);
-    /* Wine dereferences lptm under its GDI lock; the harness's crash handler then leaves the lock held and the next
-     * test deadlocks. The NULL-lptm call is therefore made on Windows only. */
+    /* A stack that dereferences lptm without a check would crash here and leave its GDI lock held, which would hang the next
+     * test, so the NULL-lptm call is made only when the harness reports a native Windows run. */
     if (!t_is_wine()) CHECK(U(GetTextMetricsW)(dc, NULL) == 0);
-    else t_note("wine: GetTextMetricsW(dc, NULL) not called");
+    else t_note("not a native Windows run: GetTextMetricsW(dc, NULL) not called");
     TEXTMETRICW tm;
     CHECK(U(GetTextMetricsW)(NULL, &tm) == 0);
     U(DeleteDC)(dc);

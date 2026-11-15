@@ -6,7 +6,7 @@
  * golden generator over data/win10/). Every hard CHECK cites the decomp it was read from (Win10 22H2 corpus,
  * gdi32full.dll / win32kfull.sys); relations that were NOT verified in the decomp are reported with t_note only.
  *
- * Decomp evidence (http://docker1.dev.moonlightcompanies.com:8765/api/function/<mod>/<fn>/decomp):
+ * Decomp evidence (Win10 22H2 19041.2965 decompilation of each named function):
  *  [D1] gdi32full!GetObjectW: font handle (type 0x0a) with pv==NULL returns 0x5c (92 = sizeof(LOGFONTW));
  *       c<=0x1a4 goes to win32kfull!GreExtGetObjectW, which for a font copies and returns min(c, stored size).
  *  [D2] gdi32full!GetObjectA: font, pv==NULL -> 0x3c (60); c==60 or c==92 ((c-0x3c)&~0x20)==0 -> LOGFONTA, returns 60;
@@ -158,7 +158,7 @@ TEST(fi_fontdata_protocol){ /* [D7] + OpenType file-format invariants of the ret
     free(b); }
   { BYTE head[54]; DWORD r=U(GetFontData)(dc,0x64616568,0,head,sizeof head);
     EXPECT_EQ(r,54); if(r==54) CHECKF(be32(head+12)==0x5F0F3CF5,"head magic 0x%08x",be32(head+12)); }
-  { /* buffers sized so that an implementation that ignores the rule cannot overrun them (Wine writes the whole font) */
+  { /* buffers sized so that an implementation that ignores the rule cannot overrun them (an implementation that copies the whole font anyway) */
     BYTE *x=(BYTE*)calloc(1,sz+64); EXPECT_EQ(U(GetFontData)(dc,0,0,x,0xFFFFFFFF),GDI_ERROR);  /* cb == GDI_ERROR rejected in user mode */
     EXPECT_EQ(U(GetFontData)(dc,0,0xFFFFFFF0,x,0x20),GDI_ERROR);                              /* offset + cb overflow */
     free(x); }

@@ -25,8 +25,10 @@
  *   user32!DrawTextExWorker @0x1e810 + DT_InitDrawTextInfo @0x1ed80: NULL string -> 0; line height =
  *                                       tmHeight (+ tmExternalLeading with DT_EXTERNALLEADING); DT_CALCRECT|DT_SINGLELINE
  *                                       sets bottom = top + line height and returns that height.
- * Everything else (extent == sum of widths, ExPoint partial extents, GetCharWidthW == GetCharWidth32W, I == W,
- * tabbed extents, raster-font ABC failure) is reported with t_note only. Win10 numbers are NOT checked here
+ * Observed on Win10 22H2 and stable over separate boots (see EVIDENCE.md), asserted without decomp backing: extent ==
+ * sum of widths, ExPoint size and nFit/partial extents, GetCharWidthW == GetCharWidth32W, I == W, tabbed extent,
+ * DT_CALCRECT width. Only the raster-font ABC behaviour (documented as failing, observed succeeding) and the
+ * non-gated non-ASCII extents are reported with t_note. Win10 numbers are NOT checked here
  * (data/win10/char_widths + the golden generator own them). */
 
 static HFONT mkfont(const WCHAR *face, int h, int wt){
@@ -153,10 +155,10 @@ TEST(kerning_pairs_protocol){
   t_note("Arial -12 GetKerningPairsW count = %lu", n);
   if(n>0 && n<100000){
     KERNINGPAIR *all=(KERNINGPAIR*)calloc(n,sizeof *all); DWORD g=U(GetKerningPairsW)(d.dc,n,all);
-    CHECKF(g<=n, "returned %lu > requested %lu", g, n);
+    CHECKF(g==n, "returned %lu, requested exactly the %lu pairs the size query reported", g, n);
     DWORD g1=U(GetKerningPairsW)(d.dc,1,kp);
-    if(g1!=1) t_note("GetKerningPairsW(nPairs=1) returned %lu", g1);
-    else if(g>=1) CHECK(kp[0].wFirst==all[0].wFirst && kp[0].wSecond==all[0].wSecond && kp[0].iKernAmount==all[0].iKernAmount);
+    CHECKF(g1==1, "GetKerningPairsW(nPairs=1) returned %lu", g1);
+    if(g1==1 && g>=1) CHECK(kp[0].wFirst==all[0].wFirst && kp[0].wSecond==all[0].wSecond && kp[0].iKernAmount==all[0].iKernAmount);
     free(all);
   }
   fdc_close(&d);
@@ -172,12 +174,15 @@ static const WCHAR *k_faces[]={L"Arial",L"Tahoma",L"Segoe UI",L"Courier New",L"T
 static const int k_h[]={-8,-11,-12,-13,-16,-24,13,16};
 
 TEST(tm_height_is_ascent_plus_descent){
+  int done=0;
   for(unsigned fi=0;fi<sizeof k_faces/sizeof*k_faces;fi++) for(unsigned hi=0;hi<sizeof k_h/sizeof*k_h;hi++) for(int wt=400;wt<=700;wt+=300){
     fdc d; if(!fdc_open(&d,k_faces[fi],k_h[hi],wt,0)){ fdc_close(&d); continue; }
+    done++;
     CHECKF(d.tm.tmHeight==d.tm.tmAscent+d.tm.tmDescent, "face %ls h %d wt %d: %ld != %ld + %ld", k_faces[fi],k_h[hi],wt,d.tm.tmHeight,d.tm.tmAscent,d.tm.tmDescent);
     if(d.tm.tmPitchAndFamily & TMPF_TRUETYPE) CHECKF(d.tm.tmOverhang==0, "TrueType %ls h %d wt %d overhang %ld", k_faces[fi],k_h[hi],wt,d.tm.tmOverhang);
     fdc_close(&d);
   }
+  if(!done) t_skip("no face could be selected");
 }
 
 TEST(abc_sum_equals_width_truetype){
@@ -199,21 +204,26 @@ TEST(abc_sum_equals_width_truetype){
 }
 
 TEST(width_a_w_parity_ascii){
+  int done=0;
   for(unsigned fi=0;fi<sizeof k_faces/sizeof*k_faces;fi++){
     fdc d; if(!fdc_open(&d,k_faces[fi],-12,400,0)){ fdc_close(&d); continue; }
-    INT wa[95], ww[95];
+    INT wa[95], ww[95]; done++;
     CHECK(U(GetCharWidth32A)(d.dc,0x20,0x7E,wa)); CHECK(U(GetCharWidth32W)(d.dc,0x20,0x7E,ww));
     int bad=0; for(int i=0;i<95;i++) if(wa[i]!=ww[i]) bad++;
     CHECKF(bad==0, "%ls -12: %d ASCII widths differ between GetCharWidth32A and W", k_faces[fi], bad);
-    INT w16[95]; if(U(GetCharWidthW)(d.dc,0x20,0x7E,w16)){ int b2=0; for(int i=0;i<95;i++) if(w16[i]!=ww[i]) b2++; if(b2) t_note("%ls -12: GetCharWidthW differs from GetCharWidth32W in %d chars", k_faces[fi], b2); }
+    /* O: GetCharWidthW equals GetCharWidth32W for ASCII (MM_TEXT, no overhang) on every face above, both boots */
+    INT w16[95]; CHECK(U(GetCharWidthW)(d.dc,0x20,0x7E,w16)); { int b2=0; for(int i=0;i<95;i++) if(w16[i]!=ww[i]) b2++; CHECKF(b2==0, "%ls -12: GetCharWidthW differs from GetCharWidth32W in %d chars", k_faces[fi], b2); }
     fdc_close(&d);
   }
+  if(!done) t_skip("no face could be selected");
 }
 
 TEST(extent_cy_is_tmheight){
+  int done=0;
   static const WCHAR *ss[]={L"The quick brown fox jumps over the lazy dog", L"Hg", L" ", L"\x00C0\x00C9\x00D6", L"\x0391\x0416\x2026\x20AC"};
   for(unsigned fi=0;fi<sizeof k_faces/sizeof*k_faces;fi++) for(unsigned hi=0;hi<sizeof k_h/sizeof*k_h;hi++){
     fdc d; if(!fdc_open(&d,k_faces[fi],k_h[hi],400,0)){ fdc_close(&d); continue; }
+    done++;
     for(unsigned si=0;si<sizeof ss/sizeof*ss;si++){
       SIZE sz; int n=lstrlenW(ss[si]);
       CHECK(U(GetTextExtentPoint32W)(d.dc,ss[si],n,&sz));
@@ -226,25 +236,48 @@ TEST(extent_cy_is_tmheight){
         for(int i=0;allglyphs && i<n;i++) if(g[i]==0xFFFF) allglyphs=0; }
       if(ascii || allglyphs) CHECKF(sz.cy==d.tm.tmHeight, "%ls h %d str %u: cy %ld tmHeight %ld", k_faces[fi],k_h[hi],si,sz.cy,d.tm.tmHeight);
       else if(sz.cy!=d.tm.tmHeight) t_note("%ls h %d str %u (non-ASCII, linked/missing glyphs): cy %ld tmHeight %ld", k_faces[fi],k_h[hi],si,sz.cy,d.tm.tmHeight);
-      /* observations only: sum of widths, ExPoint partial extents */
+      /* O (Win10 22H2, no NOTE on any face/height/string over the boots): the extent is the sum of the per-character
+       * GetCharWidth32W advances, and GetTextExtentExPointW returns the same size. Asserted under the same gate as cy
+       * (no font linking involved); otherwise reported only. */
       long sum=0; for(int i=0;i<n;i++){ INT w=0; U(GetCharWidth32W)(d.dc,ss[si][i],ss[si][i],&w); sum+=w; }
-      if(sum!=sz.cx) t_note("%ls h %d str %u: extent %ld != sum of GetCharWidth32W %ld", k_faces[fi],k_h[hi],si,sz.cx,sum);
-      INT dx[64]={0}; int fit=-1; SIZE es;
-      if(U(GetTextExtentExPointW)(d.dc,ss[si],n,100,&fit,dx,&es)){
-        if(es.cx!=sz.cx || es.cy!=sz.cy) t_note("%ls h %d str %u: ExPoint size %ldx%ld vs %ldx%ld", k_faces[fi],k_h[hi],si,es.cx,es.cy,sz.cx,sz.cy);
-        if(n>0 && fit==n && dx[n-1]!=sz.cx) t_note("%ls h %d str %u: last partial extent %d != cx %ld", k_faces[fi],k_h[hi],si,dx[n-1],sz.cx);
-        int f2=0; while(f2<n && dx[f2]<=100) f2++;
-        if(f2!=fit) t_note("%ls h %d str %u: nFit %d, partial extents say %d", k_faces[fi],k_h[hi],si,fit,f2);
+      INT dx[64]={0}; int fit=-1; SIZE es={-1,-1};
+      BOOL ex=U(GetTextExtentExPointW)(d.dc,ss[si],n,100,&fit,dx,&es);
+      if(ascii || allglyphs){
+        CHECKF(sum==sz.cx, "%ls h %d str %u: extent %ld != sum of GetCharWidth32W %ld", k_faces[fi],k_h[hi],si,sz.cx,sum);
+        CHECK(ex);
+        CHECKF(es.cx==sz.cx && es.cy==sz.cy, "%ls h %d str %u: ExPoint size %ldx%ld vs %ldx%ld", k_faces[fi],k_h[hi],si,es.cx,es.cy,sz.cx,sz.cy);
+      } else {
+        if(sum!=sz.cx) t_note("%ls h %d str %u: extent %ld != sum of GetCharWidth32W %ld", k_faces[fi],k_h[hi],si,sz.cx,sum);
+        if(ex && (es.cx!=sz.cx || es.cy!=sz.cy)) t_note("%ls h %d str %u: ExPoint size %ldx%ld vs %ldx%ld", k_faces[fi],k_h[hi],si,es.cx,es.cy,sz.cx,sz.cy);
+      }
+      if(ex && (ascii || allglyphs)){
+        /* D getextentexpointw: nFit = the largest number of characters whose extent is <= nMaxExtent (100). The earlier
+         * form of this check counted dx[] entries up to n and so reported a mismatch for every string that does not fit:
+         * on Win10 dx[] is filled for the fitting characters only (the rest keeps the caller's value), so the prefix
+         * extent is measured with GetTextExtentPoint32W instead. */
+        CHECKF(fit>=0 && fit<=n, "%ls h %d str %u: nFit %d of %d", k_faces[fi],k_h[hi],si,fit,n);
+        if(fit>=0 && fit<=n){
+          SIZE p; long pw=0;
+          if(fit>0){ CHECK(U(GetTextExtentPoint32W)(d.dc,ss[si],fit,&p)); pw=p.cx; }
+          CHECKF(pw<=100, "%ls h %d str %u: the %d fitting characters measure %ld > 100", k_faces[fi],k_h[hi],si,fit,pw);
+          if(fit<n){ CHECK(U(GetTextExtentPoint32W)(d.dc,ss[si],fit+1,&p)); CHECKF(p.cx>100, "%ls h %d str %u: %d characters still fit (%ld) but nFit is %d", k_faces[fi],k_h[hi],si,fit+1,p.cx,fit); }
+          /* O: dx[i] is the extent of the first i+1 characters, for the fitting ones */
+          if(fit>0) CHECKF(dx[fit-1]==pw, "%ls h %d str %u: dx[nFit-1] %d vs prefix extent %ld", k_faces[fi],k_h[hi],si,dx[fit-1],pw);
+          for(int i=1;i<fit;i++) if(dx[i]<dx[i-1]){ CHECKF(0,"%ls h %d str %u: dx[] decreases at %d",k_faces[fi],k_h[hi],si,i); break; }
+        }
       }
     }
     fdc_close(&d);
   }
+  if(!done) t_skip("no face could be selected");
 }
 
 TEST(drawtext_calcrect_single_line_height){
+  int done=0;
   static const WCHAR *ss[]={L"The quick brown fox", L"&File", L"Name\tSize"};
   for(unsigned fi=0;fi<sizeof k_faces/sizeof*k_faces;fi++) for(unsigned hi=0;hi<sizeof k_h/sizeof*k_h;hi++){
     fdc d; if(!fdc_open(&d,k_faces[fi],k_h[hi],400,0)){ fdc_close(&d); continue; }
+    done++;
     for(unsigned si=0;si<sizeof ss/sizeof*ss;si++){
       RECT r={5,7,500,1000};
       int ret=U(DrawTextW)(d.dc,ss[si],-1,&r,DT_CALCRECT|DT_SINGLELINE);
@@ -256,10 +289,12 @@ TEST(drawtext_calcrect_single_line_height){
              k_faces[fi],k_h[hi],si,ret2,r2.bottom,d.tm.tmHeight,d.tm.tmExternalLeading);
       /* observation: the single-line width vs the extent (prefix '&' removed, tabs not expanded) */
       SIZE sz; U(GetTextExtentPoint32W)(d.dc,ss[si],lstrlenW(ss[si]),&sz);
-      if(si==0 && r.right-r.left!=sz.cx) t_note("%ls h %d: DT_CALCRECT width %ld vs extent %ld", k_faces[fi],k_h[hi],r.right-r.left,sz.cx);
+      /* O: for the plain string the DT_CALCRECT width is the extent (no NOTE on any face/height over the boots) */
+      if(si==0) CHECKF(r.right-r.left==sz.cx, "%ls h %d: DT_CALCRECT width %ld vs extent %ld", k_faces[fi],k_h[hi],r.right-r.left,sz.cx);
     }
     fdc_close(&d);
   }
+  if(!done) t_skip("no face could be selected");
 }
 
 TEST(width_i_matches_w_observed){
@@ -270,11 +305,13 @@ TEST(width_i_matches_w_observed){
   CHECK(U(GetCharWidthI)(d.dc,0,95,gi,wi)); CHECK(U(GetCharWidth32W)(d.dc,0x20,0x7E,ww));
   CHECK(U(GetCharABCWidthsI)(d.dc,0,95,gi,ai)); CHECK(U(GetCharABCWidthsW)(d.dc,0x20,0x7E,aw));
   int b1=0,b2=0; for(int i=0;i<95;i++){ if(wi[i]!=ww[i]) b1++; if(memcmp(&ai[i],&aw[i],sizeof(ABC))) b2++; }
-  if(b1||b2) t_note("Arial -12: GetCharWidthI differs in %d, GetCharABCWidthsI in %d of 95", b1, b2);
+  /* O: for glyph indices obtained with GetGlyphIndicesW the I calls return exactly what the W calls return (no NOTE over the boots) */
+  CHECKF(b1==0, "Arial -12: GetCharWidthI differs from GetCharWidth32W in %d of 95", b1);
+  CHECKF(b2==0, "Arial -12: GetCharABCWidthsI differs from GetCharABCWidthsW in %d of 95", b2);
   /* GetTabbedTextExtentW on a string without tabs vs GetTextExtentPoint32W */
   SIZE sz; U(GetTextExtentPoint32W)(d.dc,L"Hello world",11,&sz);
   DWORD t=U(GetTabbedTextExtentW)(d.dc,L"Hello world",11,0,NULL);
-  if(LOWORD(t)!=sz.cx || HIWORD(t)!=sz.cy) t_note("tabbed extent %ux%u vs %ldx%ld", LOWORD(t),HIWORD(t),sz.cx,sz.cy);
+  CHECKF(LOWORD(t)==sz.cx && HIWORD(t)==sz.cy, "tabbed extent %ux%u vs %ldx%ld", LOWORD(t),HIWORD(t),sz.cx,sz.cy);
   fdc_close(&d);
 }
 
