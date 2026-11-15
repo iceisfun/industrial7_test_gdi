@@ -229,10 +229,10 @@ TEST(extent_cy_is_tmheight){
       /* observations only: sum of widths, ExPoint partial extents */
       long sum=0; for(int i=0;i<n;i++){ INT w=0; U(GetCharWidth32W)(d.dc,ss[si][i],ss[si][i],&w); sum+=w; }
       if(sum!=sz.cx) t_note("%ls h %d str %u: extent %ld != sum of GetCharWidth32W %ld", k_faces[fi],k_h[hi],si,sz.cx,sum);
-      INT dx[64]; int fit=-1; SIZE es;
+      INT dx[64]={0}; int fit=-1; SIZE es;
       if(U(GetTextExtentExPointW)(d.dc,ss[si],n,100,&fit,dx,&es)){
         if(es.cx!=sz.cx || es.cy!=sz.cy) t_note("%ls h %d str %u: ExPoint size %ldx%ld vs %ldx%ld", k_faces[fi],k_h[hi],si,es.cx,es.cy,sz.cx,sz.cy);
-        if(n>0 && dx[n-1]!=sz.cx) t_note("%ls h %d str %u: last partial extent %d != cx %ld", k_faces[fi],k_h[hi],si,dx[n-1],sz.cx);
+        if(n>0 && fit==n && dx[n-1]!=sz.cx) t_note("%ls h %d str %u: last partial extent %d != cx %ld", k_faces[fi],k_h[hi],si,dx[n-1],sz.cx);
         int f2=0; while(f2<n && dx[f2]<=100) f2++;
         if(f2!=fit) t_note("%ls h %d str %u: nFit %d, partial extents say %d", k_faces[fi],k_h[hi],si,fit,f2);
       }

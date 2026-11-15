@@ -261,7 +261,9 @@ TEST(spifordpi_protocol){
   SET_ERR(0); CHECK(U(SystemParametersInfoForDpi)(SPI_GETNONCLIENTMETRICS, sizeof n, &n, 0, 96));
   EXPECT_EQ(n.cbSize, sizeof n);
   CHECK(n.lfMessageFont.lfFaceName[0] != 0);
-  SET_ERR(0); EXPECT_FAIL(!U(SystemParametersInfoForDpi)(SPI_GETNONCLIENTMETRICS, sizeof n, &n, 0, 0), ERROR_INVALID_PARAMETER);
+  /* dpi 0: the decompiled argument check suggests failure, but Win10 22H2 19045.2965 returns TRUE (observed, every boot);
+     the returned values for dpi 0 are not asserted. */
+  { SET_ERR(0); BOOL r0 = U(SystemParametersInfoForDpi)(SPI_GETNONCLIENTMETRICS, sizeof n, &n, 0, 0); CHECK(r0); t_note("SystemParametersInfoForDpi(NONCLIENTMETRICS, dpi 0) returns %d, iBorderWidth %d iCaptionHeight %d", r0, n.iBorderWidth, n.iCaptionHeight); n.cbSize = sizeof n; }
   SET_ERR(0); EXPECT_FAIL(!U(SystemParametersInfoForDpi)(SPI_GETNONCLIENTMETRICS, sizeof n, NULL, 0, 96), ERROR_INVALID_PARAMETER);
   SET_ERR(0); EXPECT_FAIL(!U(SystemParametersInfoForDpi)(SPI_GETNONCLIENTMETRICS, 500, &n, 0, 96), ERROR_INVALID_PARAMETER);
   n.cbSize = 500;

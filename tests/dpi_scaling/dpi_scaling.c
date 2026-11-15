@@ -192,7 +192,9 @@ TEST(spifordpi_param_protocol) {
     NONCLIENTMETRICSW n; ICONMETRICSW im; LOGFONTW lf; RECT rc;
     CHECK(sizeof n == 0x1f8 && sizeof im == 0x6c && sizeof lf == 0x5c);
     memset(&n, 0, sizeof n); n.cbSize = sizeof n;
-    SET_ERR(0); CHECK(!spi(SPI_GETNONCLIENTMETRICS, sizeof n, &n, 0, 0)); EXPECT_ERR(ERROR_INVALID_PARAMETER);       /* dpi 0 */
+    /* dpi 0: the decompiled argument check suggests failure, but Win10 22H2 19045.2965 returns TRUE (observed, every boot); the
+       returned values for dpi 0 are not asserted (they differ from the dpi 96 result, e.g. iBorderWidth). */
+    { SET_ERR(0); BOOL r0 = spi(SPI_GETNONCLIENTMETRICS, sizeof n, &n, 0, 0); CHECK(r0); t_note("SystemParametersInfoForDpi(NONCLIENTMETRICS, dpi 0) returns %d, iBorderWidth %d iCaptionHeight %d", r0, n.iBorderWidth, n.iCaptionHeight); n.cbSize = sizeof n; }
     SET_ERR(0); CHECK(!spi(SPI_GETNONCLIENTMETRICS, sizeof n, NULL, 0, 96)); EXPECT_ERR(ERROR_INVALID_PARAMETER);    /* pv NULL */
     SET_ERR(0); CHECK(!spi(SPI_GETNONCLIENTMETRICS, sizeof n - 4, &n, 0, 96)); EXPECT_ERR(ERROR_INVALID_PARAMETER);  /* uiParam != 0x1f8 */
     n.cbSize = sizeof n - 4;                                                                                        /* pre-Vista size */
