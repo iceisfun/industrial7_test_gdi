@@ -93,3 +93,12 @@ and `MANIFEST.txt` (sha256, size, name of every file). The script exit status is
 (doing so recursed and filled the disk during development of this role). Wine output is never a reference.
 Note: a probe that writes to COM1 itself (`tm_hello --com1`) is not suited to this harness; probes should write to stdout. For the Win10 VM, wrap the call
 in `run.cmd` and `type` the produced files to COM1 (see `~/w10lab/README.md`); `run_all.ps1` was validated that way (PSRC 0, 30 lines, hash of the probe exe in `_status.rec`).
+
+## Decision tables and golden tests (from the recordings)
+
+`docs/D12_DECISION_DATA.md` holds the decision tables (face substitution, TEXTMETRIC per face and size, character-width classes, UI metrics and control
+heights per DPI) derived mechanically from the committed `data/win10` recordings by `tools/gen_d12.py` (`--check` verifies the committed file); every row names
+its recording file and row key. `tools/gen_golden.py` samples those rows (rule in its docstring) into the conformance areas `tests/golden_*/`, with an
+`EVIDENCE.md` per area listing the recording row behind each assertion. Both generators are pure functions of the recordings: rerun them after adding or
+replacing a recording, then run the golden areas on the oracle (`tools/vm_test.sh golden_face_substitution golden_font_metrics golden_char_widths
+golden_ui_metrics golden_control_heights`). A second oracle recording can be compared with `tools/compare_metrics.py` or `tools/rec.py diff` as above.
